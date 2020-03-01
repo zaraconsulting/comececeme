@@ -20,7 +20,6 @@ def about():
 @main.route('/contact', methods=['GET'])
 def contact():
     """
-    [GET] /hair-tips
+    [GET] /contact
     """
-    # data = request.get_json()
-    return 'GET HAIR TIPS', 201
+    return 'CONTACT', 201

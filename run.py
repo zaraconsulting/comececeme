@@ -1,6 +1,6 @@
 from app import create_app, cli, db
 from app.cli import blueprint
-from app.blueprints.main.models import HairTip
+from app.blueprints.faqs.models import HairTip
 
 app = create_app()
 app.cli.add_command(blueprint)
