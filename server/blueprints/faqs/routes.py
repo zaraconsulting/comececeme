@@ -3,6 +3,7 @@ from flask import request, jsonify, url_for
 from .models import HairTip
 from server import db
 
+
 @faqs.route('/hair-tips', methods=['GET'])
 def get_hairtips():
     """
@@ -10,12 +11,14 @@ def get_hairtips():
     """
     return jsonify([i.to_dict() for i in HairTip.query.all()]), 200
 
+
 @faqs.route('/hair-tip/<int:id>', methods=['GET'])
 def get_hairtip(id):
     """
     [GET] /faqs/hair-tip/<id>
     """
     return jsonify(HairTip.query.get_or_404(id).to_dict())
+
 
 @faqs.route('/hair-tip/add', methods=['POST'])
 def create_hairtip():
@@ -31,6 +34,7 @@ def create_hairtip():
     response.headers['Location'] = url_for('faqs.get_hairtip', id=tip.id)
     return response
 
+
 @faqs.route('/hair-tip/<int:id>', methods=['PUT'])
 def update_hairtip(id):
     """
@@ -42,6 +46,7 @@ def update_hairtip(id):
     db.session.commit()
     return jsonify(tip.to_dict())
 
+
 @faqs.route('/hair-tip/<int:id>', methods=['DELETE'])
 def delete_hairtip(id):
     """
@@ -49,4 +54,4 @@ def delete_hairtip(id):
     """
     tip = HairTip.query.get_or_404(id)
     tip.delete_tip()
-    return jsonify({'message': f'HAIR TIP DELETED {tip.title}'}), 201
+    return jsonify({'message': f'HAIR TIP DELETED: {tip.title}'}), 201
