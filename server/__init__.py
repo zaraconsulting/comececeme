@@ -14,16 +14,16 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
 
     with app.app_context():
-        from app.blueprints.main import bp as main
+        from server.blueprints.main import bp as main
         app.register_blueprint(main, url_prefix='/')
 
-        from app.blueprints.shop import bp as shop
+        from server.blueprints.shop import bp as shop
         app.register_blueprint(shop, url_prefix='/shop')
 
-        from app.blueprints.account import bp as account
+        from server.blueprints.account import bp as account
         app.register_blueprint(account, url_prefix='/account')
 
-        from app.blueprints.faqs import bp as faqs
+        from server.blueprints.faqs import bp as faqs
         app.register_blueprint(faqs, url_prefix='/faqs')
 
     return app

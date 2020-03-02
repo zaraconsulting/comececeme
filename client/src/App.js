@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import HairTip from './components/HairTip';
 
 function App() {
 	return (
@@ -10,6 +11,7 @@ function App() {
 
 			{/* <!--header area start--> */}
 			<Navbar />
+			<HairTip />
 			{/* <!--header area end--> */}
 
 			{/* <!--slider area start--> */}

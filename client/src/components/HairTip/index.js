@@ -12,7 +12,7 @@ export default class HairTip extends Component {
     componentDidMount() {
         fetch('/faqs/hair-tips')
             .then(res => res.json()
-            .then(data => this.setState({ hairtips: data.tips }))
+            .then(data => this.setState({ hairtips: data }))
         )
     }
 
