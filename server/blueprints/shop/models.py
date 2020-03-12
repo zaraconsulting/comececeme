@@ -79,8 +79,8 @@ class Product(db.Model):
     discount = db.Column(db.Boolean, default=False)
     discount_price = db.Column(db.Float)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
 
     def to_dict(self):
         data = {
@@ -183,11 +183,11 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
 
-    def create_coupon(self):
+    def create_category(self):
         db.session.add(self)
         db.session.commit()
 
-    def delete_coupon(self):
+    def delete_category(self):
         db.session.delete(self)
         db.session.commit()
 

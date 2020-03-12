@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 migrate = Migrate(compare_type=True)
 
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
@@ -25,5 +26,7 @@ def create_app(config_class=Config):
 
         from server.blueprints.faqs import bp as faqs
         app.register_blueprint(faqs, url_prefix='/faqs')
+
+        from .braintree import gateway
 
     return app
