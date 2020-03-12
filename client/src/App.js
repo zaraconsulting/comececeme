@@ -5,6 +5,14 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HairTip from './components/HairTip';
 import Home from './views/Home';
+import About from './views/About';
+import Shop from './views/Shop';
+import Cart from './views/Shop/cart';
+import Checkout from './views/Shop/checkout';
+import Dashboard from './views/Account';
+import Authentication from './views/Account/Authentication';
+import FAQs from './views/FAQs/FAQs';
+import Contact from './views/Contact/Contact';
 
 function App() {
 	return (
@@ -18,6 +26,14 @@ function App() {
 
 			<Switch>
 				<Route exact path="/" render={() => <Home />} />
+				<Route path="/about" render={() => <About />} />
+				<Route path="/shop" render={() => <Shop />} />
+				<Route path="/cart" render={() => <Cart />} />
+				<Route path="/checkout" render={() => <Checkout />} />
+				<Route path="/dashboard" render={() => <Dashboard />} />
+				<Route path="/authentication" render={() => <Authentication />} />
+				<Route path="/faqs" render={() => <FAQs />} />
+				<Route path="/contact" render={() => <Contact />} />
 			</Switch>
 
 			{/* <!--footer area start--> */}

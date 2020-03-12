@@ -9,19 +9,6 @@ export default class HairTip extends Component {
         }
     }
 
-    doStuff = () => {
-        braintree.dropin.create({
-            authorization: 'CLIENT_TOKEN_FROM_SERVER',
-            // container: '#dropin-container'
-        }, function (createErr, instance) {
-            button.addEventListener('click', function () {
-                instance.requestPaymentMethod(function (err, payload) {
-                    // Submit payload.nonce to your server
-                });
-            });
-        });
-    }
-
     componentDidMount() {
         const script = document.createElement("script");
         script.async = true;

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Navbar extends Component {
     render() {
@@ -11,16 +12,13 @@ export default class Navbar extends Component {
                             <div className="col-lg-7 col-md-12">
                                 <div className="left_info">
                                     <ul>
-                                        <li><a href="index.html"><i className="fa fa-phone"></i> +1 (555) 555-5555</a></li>
-                                        <li><a href="index.html"><i className="fa fa-envelope-open-o"></i> comececeme@gmail.com</a></li>
+                                        <li><Link to="/"><i className="fa fa-phone"></i> +1 (555) 555-5555</Link></li>
+                                        <li><Link to="/"><i className="fa fa-envelope-open-o"></i> comececeme@gmail.com</Link></li>
                                         <li>
                                             <div className="header_social">
                                                 <ul>
-                                                    <li><a href="index.html"><i className="fa fa-facebook"></i></a></li>
-                                                    <li><a href="index.html"><i className="fa fa-twitter"></i></a></li>
-                                                    {/* <!-- <li><a href="index.html"><i className="fa fa-rss"></i></a></li>
-                                                    <li><a href="index.html"><i className="fa fa-google-plus"></i></a></li>
-                                                    <li><a href="index.html"><i className="fa fa-linkedin"></i></a></li> --> */}
+                                                    <li><Link to="/"><i className="fa fa-facebook"></i></Link></li>
+                                                    <li><Link to="/"><i className="fa fa-twitter"></i></Link></li>
                                                 </ul>
                                             </div>
                                         </li>
@@ -30,26 +28,26 @@ export default class Navbar extends Component {
                             <div className="col-lg-5 col-md-12">
                                 <div className="right_info text-right">
                                     <ul>
-                                        <li className="currency"><a href="index.html">USD <i className="fa fa-angle-down"></i></a>
+                                        <li className="currency"><Link to="/">USD <i className="fa fa-angle-down"></i></Link>
                                             <ul className="dropdown_currency">
-                                                <li><a href="index.html"> PESO</a></li>
+                                                <li><Link to="/"> PESO</Link></li>
                                                 
                                                 
                                             </ul>     
                                         </li> 
-                                        <li className="language"><a href="index.html"> English  <i className="fa fa-angle-down"></i></a>
+                                        <li className="language"><Link to="/"> English  <i className="fa fa-angle-down"></i></Link>
                                             <ul className="dropdown_language">
                                                 
                                                 
-                                                <li><a href="index.html">Spanish</a></li>
+                                                <li><Link to="/">Spanish</Link></li>
                                             </ul> 
                                         </li> 
-                                        <li className="top_links"><a href="index.html">My Account <i className="fa fa-angle-down"></i></a>
+                                        <li className="top_links"><a href>My Account <i className="fa fa-angle-down"></i></a>
                                             <ul className="dropdown_links">
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="cart.html">Cart </a></li>
-                                                <li><a href="index.html">Wishlist</a></li>
-                                                <li><a href="login-register.html">Log In</a></li>
+                                                <li><Link to="/checkout">Checkout</Link></li>
+                                                <li><Link to="/cart">Cart </Link></li>
+                                                <li><Link to="/">Wishlist</Link></li>
+                                                <li><Link to="/authentication">Log In</Link></li>
                                             </ul>
                                         </li> 
                                     </ul>
@@ -64,64 +62,64 @@ export default class Navbar extends Component {
                         <div className="row align-items-center">
                             <div className="col-lg-2">
                                 <div className="logo">
-                                    <a href="index.html"><img src="https://via.placeholder.com/94/stuff.png?text=Logo" alt="" /></a>
+                                    <Link to="/"><img src="https://via.placeholder.com/94/stuff.png?text=Logo" alt="" /></Link>
                                 </div>
                             </div>
                             <div className="col-lg-6">
                                 <div className="main_menu_inner">
                                     <div className="main_menu d-none d-lg-block"> 
                                         <ul>
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="index.html">Shop<i className="fa fa-angle-down"></i></a>
+                                            <li><Link to="/">Home</Link></li>
+                                            <li><Link to="/about">About Us</Link></li>
+                                            <li><Link to="/">Shop<i className="fa fa-angle-down"></i></Link>
                                                 <ul className="sub_menu pages">
-                                                    <li><a href="shop.html">Store</a></li>
-                                                    <li><a href="cart.html">Cart</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
+                                                    <li><Link to="/shop">Store</Link></li>
+                                                    <li><Link to="/cart">Cart</Link></li>
+                                                    <li><Link to="/checkout">Checkout</Link></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="index.html">My Account <i className="fa fa-angle-down"></i></a>
+                                            <li><Link to="/">My Account <i className="fa fa-angle-down"></i></Link>
                                                 <ul className="sub_menu pages">
-                                                    <li><a href="account.html">Dashboard</a></li>
+                                                    <li><Link to="/dashboard">Dashboard</Link></li>
                                                     
-                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                    <li><a href="cart.html">Cart</a></li>
-                                                    <li><a href="login-register.html">Login/Register</a></li>
+                                                    <li><Link to="/checkout">Checkout</Link></li>
+                                                    <li><Link to="/cart">Cart</Link></li>
+                                                    <li><Link to="/authentication">Login/Register</Link></li>
                                                     
                                                 </ul>
                                             </li>
-                                            <li><a href="https://styleseat.com/" target="_blank" rel="noopener noreferrer">Booking</a></li>
-                                            <li><a href="faqs.html">FAQS</a></li>
-                                            <li><a href="contact.html">Contact Us</a></li>
+                                            <li><Link to="https://styleseat.com/" target="_blank" rel="noopener noreferrer">Booking</Link></li>
+                                            <li><Link to="/faqs">FAQS</Link></li>
+                                            <li><Link to="/contact">Contact Us</Link></li>
                                         </ul>
 
                                     </div>
                                     <div className="mobile-menu d-lg-none">
                                         <nav>  
                                             <ul>
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about.html">About Us</a></li>
+                                                <li><Link to="/">Home</Link></li>
+                                                <li><Link to="/about">About Us</Link></li>
                                                 {/* eslint-disable-next-line */}
-                                                <li><a href="">Shop<i className="fa fa-angle-down"></i></a>
+                                                <li><Link to="">Shop<i className="fa fa-angle-down"></i></Link>
                                                     <ul className="sub_menu pages">
-                                                        <li><a href="shop.html">Store</a></li>
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
+                                                        <li><Link to="/shop">Store</Link></li>
+                                                        <li><Link to="/cart">Cart</Link></li>
+                                                        <li><Link to="/checkout">Checkout</Link></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="index.html">My Account <i className="fa fa-angle-down"></i></a>
+                                                <li><Link to="/">My Account <i className="fa fa-angle-down"></i></Link>
                                                     <ul className="sub_menu pages">
-                                                        <li><a href="account.html">Dashboard</a></li>
+                                                        <li><Link to="/dashboard">Dashboard</Link></li>
                                                         
-                                                        <li><a href="checkout.html">Checkout</a></li>
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                        <li><a href="login-register.html">Login/Register</a></li>
+                                                        <li><Link to="/checkout">Checkout</Link></li>
+                                                        <li><Link to="/cart">Cart</Link></li>
+                                                        <li><Link to="/authentication">Login/Register</Link></li>
                                                         
                                                     </ul>
                                                 </li>
-                                                <li><a href="https://styleseat.com/" target="_blank" rel="noopener noreferrer">Booking</a></li>
-                                                <li><a href="faqs.html">FAQS</a></li>
-                                                <li><a href="contact.html">Contact Us</a></li>
+                                                <li><Link to="https://styleseat.com/" target="_blank" rel="noopener noreferrer">Booking</Link></li>
+                                                <li><Link to="/faqs">FAQS</Link></li>
+                                                <li><Link to="/contact">Contact Us</Link></li>
                                             </ul>
                                         </nav>      
                                     </div>
@@ -130,37 +128,37 @@ export default class Navbar extends Component {
                             <div className="col-lg-4">
                                 <div className="search_area search_four search_five">
                                     <div className="search_dropdown">
-                                       <a className="search_button" href="index.html"><i className="fa fa-search"></i></a>
+                                       <a className="search_button" href><i className="fa fa-search"></i></a>
                                     </div>         
                                     <div className="shopping_cart cart_four">
-                                        <a href="index.html"><i className="fa fa-shopping-cart"></i></a>
+                                        <Link to="/cart"><i className="fa fa-shopping-cart"></i></Link>
 
                                          {/* <!--mini cart--> */}
                                          <div className="mini_cart">
                                             <div className="cart_item">
                                                <div className="cart_img">
-                                                   <a href="cart.html"><img src="assets/img/cart/cart1.jpg" alt="" /></a>
+                                                   <Link to="/cart"><img src="assets/img/cart/cart1.jpg" alt="" /></Link>
                                                </div>
                                                 <div className="cart_info">
-                                                    <a href="index.html">Cart Product #1</a>
+                                                    <Link to="/">Cart Product #1</Link>
                                                     <span className="quantity">Qty: 1</span>
                                                     <span className="cart_price">$115.00</span>
                                                     <div className="cart_remove">
-                                                        <a title="Remove this item" href="index.html"><i className="fa fa-times-circle"></i></a>
+                                                        <a title="Remove this item" href><i className="fa fa-times-circle"></i></a>
                                                     </div>
                                                 </div>
                                                 
                                             </div>
                                             <div className="cart_item">
                                                <div className="cart_img">
-                                                   <a href="cart.html"><img src="assets/img/cart/cart2.jpg" alt="" /></a>
+                                                   <Link to="/cart"><img src="assets/img/cart/cart2.jpg" alt="" /></Link>
                                                </div>
                                                 <div className="cart_info">
-                                                    <a href="index.html">Cart Product #2</a>
+                                                    <Link to="/">Cart Product #2</Link>
                                                     <span className="quantity">Qty: 1</span>
                                                     <span className="cart_price">$115.00</span>
                                                     <div className="cart_remove">
-                                                        <a title="Remove this item" href="index.html"><i className="fa fa-times-circle"></i></a>
+                                                        <a title="Remove this item" href="/"><i className="fa fa-times-circle"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,8 +167,8 @@ export default class Navbar extends Component {
                                                 <span className="prices">  $160.00  </span>
                                             </div>
                                             <div className="cart_button">
-                                                <a href="checkout.html"> Check out</a>
-                                                <a href="cart.html"> View Cart</a>
+                                                <Link to="/checkout"> Check out</Link>
+                                                <Link to="/cart"> View Cart</Link>
                                             </div>
                                         </div>
                                         {/* <!--mini cart end--> */}
@@ -185,7 +183,7 @@ export default class Navbar extends Component {
                             <input placeholder="Search product or keyword..." type="text" />
                             <button type="submit"><i className="fa fa-search"></i></button>
                         </form>
-                        <div className="close_btn"><a href="index.html"><i className="zmdi zmdi-close"></i></a></div>
+                        <div className="close_btn"><Link to="/"><i className="zmdi zmdi-close"></i></Link></div>
 
                     </div>  
                     {/* <!--header bottom end-->    */}
