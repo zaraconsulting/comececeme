@@ -114,7 +114,7 @@ export default class Cart extends Component {
                                                     <p className="cart_amount">$215.00</p>
                                                 </div>
                                                 <div className="checkout_btn">
-                                                    <Link to="#">Proceed to Checkout</Link>
+                                                    <Link to="/checkout">Proceed to Checkout</Link>
                                                 </div>
                                             </div>
                                         </div>

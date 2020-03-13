@@ -1,7 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import "./checkout.css";
 
 export default class Checkout extends Component {
+    constructor() {
+        super();
+        this.state = {
+            clientToken: ''
+        }
+    }
+
+    fetchToken = () => {
+        fetch('/shop/client_token')
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ clientToken: data });
+            });
+    }
+
+    handleClick = e => {
+        this.fetchToken();
+    }
+
+    componentDidUpdate() {
+        console.log(this.state.clientToken);
+    }
+
     render() {
         return (
             <div>
@@ -47,7 +71,7 @@ export default class Checkout extends Component {
                                                 </div>
                                                 <div className="form_group group_3 ">
                                                     <button type="submit">Login</button>
-                                                    <label for="remember_box">
+                                                    <label htmlFor="remember_box">
                                                         <input id="remember_box" type="checkbox" />
                                                         <span> Remember me </span>
                                                     </label>
@@ -95,9 +119,9 @@ export default class Checkout extends Component {
                                                 <input type="text" />
                                             </div>
                                             <div className="col-12 mb-20">
-                                                <label for="country">country <span>*</span></label>
-                                                <select name="cuntry" id="country">
-                                                    <option selected readonly value="1">United States</option>
+                                                <label htmlFor="country">country <span>*</span></label>
+                                                <select name="cuntry" id="country" defaultValue="1">
+                                                    <option value="1" readOnly>United States</option>
                                                 </select>
                                             </div>
 
@@ -128,7 +152,7 @@ export default class Checkout extends Component {
                                             </div>
                                             <div className="col-12 mb-20">
                                                 <input id="account" type="checkbox" data-target="createp_account" />
-                                                <label for="account" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne">Create an account?</label>
+                                                <label htmlFor="account" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne">Create an account?</label>
 
                                                 <div id="collapseOne" className="collapse one" data-parent="#accordion">
                                                     <div className="card-body1">
@@ -139,7 +163,7 @@ export default class Checkout extends Component {
                                             </div>
                                             <div className="col-12 mb-20">
                                                 <input id="address" type="checkbox" data-target="createp_account" />
-                                                <label className="righ_0" for="address" data-toggle="collapse" data-target="#collapsetwo" aria-controls="collapseOne">Ship to a different address?</label>
+                                                <label className="righ_0" htmlFor="address" data-toggle="collapse" data-target="#collapsetwo" aria-controls="collapseOne">Ship to a different address?</label>
 
                                                 <div id="collapsetwo" className="collapse one" data-parent="#accordion">
                                                     <div className="row">
@@ -157,9 +181,9 @@ export default class Checkout extends Component {
                                                         </div>
                                                         <div className="col-12 mb-20">
                                                             <div className="select_form_select">
-                                                                <label for="countru_name">country <span>*</span></label>
+                                                                <label htmlFor="countru_name">country <span>*</span></label>
                                                                 <select name="cuntry" id="countru_name">
-                                                                    <option readonly selected value="1">United States</option>
+                                                                    <option readOnly value="1">United States</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -194,7 +218,7 @@ export default class Checkout extends Component {
                                             </div>
                                             <div className="col-12">
                                                 <div className="order-notes">
-                                                    <label for="order_note">Order Notes</label>
+                                                    <label htmlFor="order_note">Order Notes</label>
                                                     <textarea id="order_note" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
                                                 </div>
                                             </div>
@@ -249,7 +273,7 @@ export default class Checkout extends Component {
                                         <div className="payment_method">
                                             <div className="panel-default">
                                                 <input id="payment" name="check_method" type="radio" data-target="createp_account" />
-                                                <label for="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Create an account?</label>
+                                                <label htmlFor="payment" data-toggle="collapse" data-target="#method" aria-controls="method">Create an account?</label>
 
                                                 <div id="method" className="collapse one" data-parent="#accordion">
                                                     <div className="card-body1">
@@ -259,7 +283,7 @@ export default class Checkout extends Component {
                                             </div>
                                             <div className="panel-default">
                                                 <input id="payment_defult" name="check_method" type="radio" data-target="createp_account" />
-                                                <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets/img/visha/papyel.png" alt="" /></label>
+                                                <label htmlFor="payment_defult" data-toggle="collapse" data-target="#collapsedefult" aria-controls="collapsedefult">PayPal <img src="assets/img/visha/papyel.png" alt="" /></label>
 
                                                 <div id="collapsedefult" className="collapse one" data-parent="#accordion">
                                                     <div className="card-body1">
@@ -268,7 +292,7 @@ export default class Checkout extends Component {
                                                 </div>
                                             </div>
                                             <div className="order_button">
-                                                <button type="submit">Proceed to PayPal</button>
+                                                <button type="button" onClick={this.handleClick} data-toggle="modal" data-target="#paymentModal">Proceed to Checkout</button>
                                             </div>
                                         </div>
                                     </form>
@@ -278,6 +302,44 @@ export default class Checkout extends Component {
                     </div>
                 </div>
                 {/* <!--Checkout page section end--> */}
+                {/* Payment Modal */}
+                <div className="modal fade" id="paymentModal" tabIndex="-1" role="dialog" aria-labelledby="paymentModalCenterTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-sm modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="paymentModalCenterTitle">Card Information</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <form>
+                                    <div className="form-group">
+                                        <label htmlFor="cc-number">Card Number</label>
+                                        <input type="text" name="cc-number" id="cc-number" className="form-control" placeholder="4111 1111 1111 1111" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="cc-date">Expiration Date</label>
+                                        <input type="text" name="cc-date" id="cc-date" className="form-control" placeholder="MM/YYYY" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="cc-cvv">CVV</label>
+                                        <input type="text" name="cc-cvv" id="cc-cvv" className="form-control" placeholder="123" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="cc-postal">Postal Code</label>
+                                        <input type="text" name="cc-postal" id="cc-postal" className="form-control" placeholder="12345" />
+                                    </div>
+                                    <input type="submit" defaultValue="Purchase" className="btn btn-success" />
+                                </form>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/* Payment Modal End */}
             </div>
         )
     }

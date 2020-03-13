@@ -42,7 +42,7 @@ export default class Navbar extends Component {
                                                 <li><Link to="/">Spanish</Link></li>
                                             </ul> 
                                         </li> 
-                                        <li className="top_links"><a href>My Account <i className="fa fa-angle-down"></i></a>
+                                        <li className="top_links"><Link to="">My Account <i className="fa fa-angle-down"></i></Link>
                                             <ul className="dropdown_links">
                                                 <li><Link to="/checkout">Checkout</Link></li>
                                                 <li><Link to="/cart">Cart </Link></li>
@@ -75,7 +75,7 @@ export default class Navbar extends Component {
                                                 <ul className="sub_menu pages">
                                                     <li><Link to="/shop">Store</Link></li>
                                                     <li><Link to="/cart">Cart</Link></li>
-                                                    <li><Link to="/checkout">Checkout</Link></li>
+                                                    {/* <li><Link to="/checkout">Checkout</Link></li> */}
                                                 </ul>
                                             </li>
                                             <li><Link to="/">My Account <i className="fa fa-angle-down"></i></Link>
@@ -104,7 +104,7 @@ export default class Navbar extends Component {
                                                     <ul className="sub_menu pages">
                                                         <li><Link to="/shop">Store</Link></li>
                                                         <li><Link to="/cart">Cart</Link></li>
-                                                        <li><Link to="/checkout">Checkout</Link></li>
+                                                        {/* <li><Link to="/checkout">Checkout</Link></li> */}
                                                     </ul>
                                                 </li>
                                                 <li><Link to="/">My Account <i className="fa fa-angle-down"></i></Link>
@@ -128,7 +128,7 @@ export default class Navbar extends Component {
                             <div className="col-lg-4">
                                 <div className="search_area search_four search_five">
                                     <div className="search_dropdown">
-                                       <a className="search_button" href><i className="fa fa-search"></i></a>
+                                       <a className="search_button" href="/"><i className="fa fa-search"></i></a>
                                     </div>         
                                     <div className="shopping_cart cart_four">
                                         <Link to="/cart"><i className="fa fa-shopping-cart"></i></Link>
@@ -144,7 +144,7 @@ export default class Navbar extends Component {
                                                     <span className="quantity">Qty: 1</span>
                                                     <span className="cart_price">$115.00</span>
                                                     <div className="cart_remove">
-                                                        <a title="Remove this item" href><i className="fa fa-times-circle"></i></a>
+                                                        <a title="Remove this item" href="/"><i className="fa fa-times-circle"></i></a>
                                                     </div>
                                                 </div>
                                                 

@@ -2,6 +2,7 @@ from . import bp as shop
 from flask import request, jsonify, url_for, current_app
 from server import db
 from server.braintree import gateway
+import pprint
 
 from .models import Product, Coupon, Category, Order, Customer
 
@@ -21,14 +22,6 @@ def cart():
     """
     return "SHOP CART"
 
-
-# @shop.route('/checkout', methods=['GET'])
-# def checkout():
-#     """
-#     [GET] /shop/checkout
-#     """
-#     return "SHOP CHECKOUT"
-
 @shop.route('/client_token', methods=['GET'])
 def client_token():
     """
@@ -42,17 +35,16 @@ def client_token():
     # print("Merchant Account:", gateway(current_app).merchant_account)
     # print("Payment Method Nonce:", gateway(current_app).payment_method_nonce)
     # print("Testing:", gateway(current_app).testing)
-    return bt_gateway.client_token.generate()
+    return jsonify(bt_gateway.client_token.generate())
 
 @shop.route("/checkout", methods=["POST"])
 def create_purchase():
     """
-    [GET] /shop/checkout
+    [POST] /shop/checkout
     """
-    data = request.get_json()
-    # print(data)
-    return jsonify(data)
-    # nonce_from_the_client = request.form["payment_method_nonce"]
+    nonce_from_client = request.form.to_dict()['nonce'] or {}
+    print(nonce_from_client)
+    return "It works"
 
 @shop.route('/product/<int:id>', methods=['GET'])
 def get_product(id):
