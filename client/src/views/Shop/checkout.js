@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import "./checkout.css";
+import CreateScript from '../../components/CreateScript/CreateScript';
 
 export default class Checkout extends Component {
     constructor() {
         super();
+        this.scr1 = new CreateScript("https://js.braintreegateway.com/web/3.44.2/js/client.min.js");
+        this.scr2 = new CreateScript("https://js.braintreegateway.com/web/3.44.2/js/hosted-fields.min.js");
+        this.bt_api = new CreateScript("/braintree.js");
         this.state = {
             clientToken: ''
-        }
+        };
     }
 
     fetchToken = () => {
@@ -19,7 +23,12 @@ export default class Checkout extends Component {
     }
 
     handleClick = e => {
-        this.fetchToken();
+        this.bt_api.createScript();
+    }
+
+    componentDidMount() {
+        this.scr1.createScript();
+        this.scr2.createScript();
     }
 
     componentDidUpdate() {
@@ -27,6 +36,7 @@ export default class Checkout extends Component {
     }
 
     render() {
+
         return (
             <div>
                 {/* <!--breadcrumbs area start--> */}
@@ -292,7 +302,7 @@ export default class Checkout extends Component {
                                                 </div>
                                             </div>
                                             <div className="order_button">
-                                                <button type="button" onClick={this.handleClick} data-toggle="modal" data-target="#paymentModal">Proceed to Checkout</button>
+                                                <button type="button" onClick={this.handleClick} data-toggle="modal" id="#checkoutButton" data-target="#paymentModal">Proceed to Checkout</button>
                                             </div>
                                         </div>
                                     </form>
@@ -316,21 +326,22 @@ export default class Checkout extends Component {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="cc-number">Card Number</label>
-                                        <input type="text" name="cc-number" id="cc-number" className="form-control" placeholder="4111 1111 1111 1111" />
+                                        <div type="text" name="cc-number" id="cc-number" className="form-control"></div>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="cc-date">Expiration Date</label>
-                                        <input type="text" name="cc-date" id="cc-date" className="form-control" placeholder="MM/YYYY" />
+                                        <div type="text" name="cc-date" id="cc-date" className="form-control"></div>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="cc-cvv">CVV</label>
-                                        <input type="text" name="cc-cvv" id="cc-cvv" className="form-control" placeholder="123" />
+                                        <div type="text" name="cc-cvv" id="cc-cvv" className="form-control"></div>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="cc-postal">Postal Code</label>
-                                        <input type="text" name="cc-postal" id="cc-postal" className="form-control" placeholder="12345" />
+                                        <div type="text" name="cc-postal" id="cc-postal" className="form-control"></div>
                                     </div>
-                                    <input type="submit" defaultValue="Purchase" className="btn btn-success" />
+                                    <input type="hidden" name="nonce" id="nonce" />
+                                    <input type="submit" id="submit" defaultValue="Purchase" className="btn btn-success" />
                                 </form>
                             </div>
                             <div className="modal-footer">

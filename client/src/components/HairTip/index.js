@@ -25,7 +25,7 @@ export default class HairTip extends Component {
 
 
     render() {
-        console.log(this.state.hairtips);
+        // console.log(this.state.hairtips);
 
         return (
             <div></div>
