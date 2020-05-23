@@ -1,0 +1,76 @@
+<header id="header" class="m-animated">
+    <div class="header-bg">
+        <div class="header-inner">
+            <!-- HEADER BRANDING : begin -->
+            <div class="header-branding">
+                <a href="{{ url_for('main.index') }}"><img src="https://placehold.it/291x36&text=Logo" alt="ComeCeCeMe" width="291"></a>
+            </div>
+            <!-- HEADER BRANDING : end -->
+            <!-- HEADER NAVIGATION : begin -->
+            {% include './partials/navigation.html' %}
+            <!-- HEADER NAVIGATION : end -->
+            <!-- HEADER PANEL : begin -->
+            <div class="header-panel">
+                <button class="header-panel-toggle" type="button"><i class="fa"></i></button>
+                <!-- HEADER RESERVATION : begin -->
+                <div class="header-reservation">
+                    <a href="ajax/reservation-form.html" class="c-button m-open-ajax-modal">Make a Reservation</a>
+                </div>
+                <!-- HEADER RESERVATION : end -->
+                <!-- HEADER CONTACT : begin -->
+                <div class="header-contact">
+                    <ul>
+                        <!-- PHONE : begin -->
+                        <li>
+                            <div class="item-inner">
+                                <i class="ico fa fa-phone"></i>
+                                <strong>(773) 555-5555</strong>
+                            </div>
+                        </li>
+                        <!-- PHONE : end -->
+                        <!-- EMAIL : begin -->
+                        <li>
+                            <div class="item-inner">
+                                <i class="ico fa fa-envelope-o"></i>
+                                <a href="#">email@comececeme.com</a>
+                            </div>
+                        </li>
+                        <!-- EMAIL : end -->
+                        <!-- ADDRESS : begin -->
+                        <li>
+                            <div class="item-inner">
+                                <i class="ico fa fa-map-marker"></i>
+                                <strong>ComeCeCeMe</strong><br> 123 Chicago Ln<br> Chicag, IL 60654 </div>
+                        </li>
+                        <!-- ADDRESS : end -->
+                        <!-- HOURS : begin -->
+                        <li>
+                            <div class="item-inner">
+                                <i class="ico fa fa-clock-o"></i>
+                                <dl>
+                                    <dt>Mo. - Fr.:</dt>
+                                    <dd>10:00a - 5:00p</dd>
+                                    <dt>Sa.:</dt>
+                                    <dd>9:00a - 6:00p</dd>
+                                    <dt>Su.:</dt>
+                                    <dd>Closed</dd>
+                                </dl>
+                            </div>
+                        </li>
+                        <!-- HOURS : end -->
+                    </ul>
+                </div>
+                <!-- HEADER CONTACT : end -->
+                <!-- HEADER SOCIAL : begin -->
+                <div class="header-social">
+                    <ul>
+                        <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                    </ul>
+                </div>
+                <!-- HEADER SOCIAL : end -->
+            </div>
+            <!-- HEADER PANEL : end -->
+        </div>
+    </div>
+</header>
