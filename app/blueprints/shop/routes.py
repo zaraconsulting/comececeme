@@ -23,7 +23,8 @@ def cart():
     """
     [GET] /shop/cart
     """
-    return "SHOP CART"
+    context = {}
+    return render_template('shop-cart.html', **context)
 
 @shop.route('/client_token', methods=['GET'])
 def client_token():
@@ -49,12 +50,14 @@ def create_purchase():
     print(nonce_from_client)
     return "It works"
 
-@shop.route('/product/<int:id>', methods=['GET'])
-def get_product(id):
+@shop.route('/product', methods=['GET'])
+def get_product():
     """
     [GET] /shop/product/<id>
     """
-    return jsonify(Product.query.get_or_404(id).to_dict())
+    # return jsonify(Product.query.get_or_404(id).to_dict())
+    context = {}
+    return render_template('shop-detail.html', **context)
 
 
 @shop.route('/product/create', methods=['POST'])

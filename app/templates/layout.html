@@ -1,8 +1,9 @@
 {% set navigation_bar = [
     ('/', 'main.index', 'Home'),    
     ('/about', 'main.about', 'About'),    
-    ('/shop', 'shop.index', 'Shop'),    
-] -%} 
+    ('/shop', 'shop.index', 'Shop'),
+    ('/contact', 'main.contact', 'Contact'),
+] -%}
 {% set active_page = active_page|default('main.index') -%}
 
 <!DOCTYPE html>

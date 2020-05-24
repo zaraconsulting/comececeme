@@ -1,5 +1,5 @@
 ﻿{% extends 'layout.html' %}
-{% active_page = 'shop.index' -%}
+{% set active_page = 'shop.index' %}
 
 {% block content %}
 <!-- CORE : begin -->
@@ -47,11 +47,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Almond Supple Skin Oil</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_01_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Almond Supple Skin Oil</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_01_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$35.50</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -59,11 +59,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Almond Tonic Body Oil</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_02_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Almond Tonic Body Oil</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_02_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$36.50</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -71,11 +71,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Aroma Volumizing Mask</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_03_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Aroma Volumizing Mask</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_03_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$27.20</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -83,11 +83,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Aromachology Repairing Mask</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_04_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Aromachology Repairing Mask</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_04_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price"><span class="old-price">$26.49</span>$22.49</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -95,11 +95,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Brightening Moisture Mask</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_05_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Brightening Moisture Mask</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_05_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$59.99</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -107,11 +107,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Immortelle Divine Extract</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_06_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Immortelle Divine Extract</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_06_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$87.99</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -119,11 +119,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Precious Cream</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_07_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Precious Cream</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_07_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$52.49</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -131,11 +131,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Precious Night Cream</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_08_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Precious Night Cream</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_08_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$62.20</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -143,11 +143,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Shea Ultra Gentle Moisturizer</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_09_thumb.jpg') }}" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Shea Ultra Gentle Moisturizer</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_09_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$29.99</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -155,11 +155,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Shea Ultra Rich Face Cream</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="images/product_10_thumb.jpg" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Shea Ultra Rich Face Cream</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_10_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$35.50</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -167,11 +167,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Almond Delightful Shape</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="images/product_11_thumb.jpg" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Almond Delightful Shape</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_11_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$35.20</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -179,11 +179,11 @@
 						<!-- PRODUCT : begin -->
 						<li class="product">
 							<div class="product-inner">
-								<h3 class="product-title"><a href="shop-detail.html">Almond Shaping Delight</a></h3>
-								<p class="product-image"><a href="shop-detail.html"><img src="images/product_12_thumb.jpg" alt=""></a></p>
+								<h3 class="product-title"><a href="{{ url_for('shop.get_product') }}">Almond Shaping Delight</a></h3>
+								<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_12_thumb.jpg') }}" alt=""></a></p>
 								<div class="product-info">
 									<div class="product-price">$45.00</div>
-									<a href="shop-detail.html" class="product-btn c-button m-type-2 m-small">Buy</a>
+									<a href="{{ url_for('shop.get_product') }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 								</div>
 							</div>
 						</li>
@@ -213,22 +213,22 @@
 							<ul class="cart-product-list">
 								<li>
 									<div class="cart-product">
-										<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_01_mini.jpg') }}" alt=""></a></p>
-										<h4 class="product-title"><a href="shop-detail.html">Almond Supple Skin Oil</a></h4>
+										<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_01_mini.jpg') }}" alt=""></a></p>
+										<h4 class="product-title"><a href="{{ url_for('shop.get_product') }}">Almond Supple Skin Oil</a></h4>
 										<p class="product-price">1 x $35.50</p>
 									</div>
 								</li>
 								<li>
 									<div class="cart-product">
-										<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_02_mini.jpg') }}" alt=""></a></p>
-										<h4 class="product-title"><a href="shop-detail.html">Almond Tonic Body Oil</a></h4>
+										<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_02_mini.jpg') }}" alt=""></a></p>
+										<h4 class="product-title"><a href="{{ url_for('shop.get_product') }}">Almond Tonic Body Oil</a></h4>
 										<p class="product-price">1 x $36.50</p>
 									</div>
 								</li>
 								<li>
 									<div class="cart-product">
-										<p class="product-image"><a href="shop-detail.html"><img src="{{ url_for('static', filename='images/product_03_mini.jpg') }}" alt=""></a></p>
-										<h4 class="product-title"><a href="shop-detail.html">Aroma Volumizing Mask</a></h4>
+										<p class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_03_mini.jpg') }}" alt=""></a></p>
+										<h4 class="product-title"><a href="{{ url_for('shop.get_product') }}">Aroma Volumizing Mask</a></h4>
 										<p class="product-price">1 x $27.20</p>
 									</div>
 								</li>
@@ -239,7 +239,7 @@
 								<div class="cart-total">
 									<h5>Total</h5><strong>$99.20</strong>
 								</div>
-								<p class="cart-btn"><a href="shop-cart.html" class="c-button m-type-2">Open Cart</a></p>
+								<p class="cart-btn"><a href="{{ url_for('shop.cart') }}" class="c-button m-type-2">Open Cart</a></p>
 							</footer>
 							<!-- CART FOOTER : end -->
 						</div>
@@ -276,15 +276,15 @@
 						<div class="widget-content">
 							<ul>
 								<li>
-									<h4 class="product-title"><a href="shop-detail.html">Aromachology Repairing Mask</a></h4>
+									<h4 class="product-title"><a href="{{ url_for('shop.get_product') }}">Aromachology Repairing Mask</a></h4>
 									<p class="product-price"><span class="old-price">$26.49</span> $22.49</p>
 								</li>
 								<li>
-									<h4 class="product-title"><a href="shop-detail.html">Almond Supple Skin Oil</a></h4>
+									<h4 class="product-title"><a href="{{ url_for('shop.get_product') }}">Almond Supple Skin Oil</a></h4>
 									<p class="product-price">$35.50</p>
 								</li>
 								<li>
-									<h4 class="product-title"><a href="shop-detail.html">Shea Ultra Gentle Moisturizer</a></h4>
+									<h4 class="product-title"><a href="{{ url_for('shop.get_product') }}">Shea Ultra Gentle Moisturizer</a></h4>
 									<p class="product-price">$29.99</p>
 								</li>
 							</ul>

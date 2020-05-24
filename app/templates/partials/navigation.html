@@ -8,16 +8,13 @@
                 <span><a href="{{ url_for(id) }}">{{ caption|e }}</a></span>
             </li>
             {% endfor %}
-            <li>
-                <span><a href="contact.html">Contact</a></span>
-            </li>
         </ul>
     </nav>
     <!-- HEADER MENU : end -->
     <!-- HEADER CART : begin -->
     <div class="header-cart">
         <div class="header-cart-inner">
-            <a href="shop-cart.html"><i class="cart-ico fa fa-shopping-cart"></i><span class="cart-label">Cart</span><span class="cart-count">(3 items)</span></a>
+            <a href="{{ url_for('shop.cart') }}"><i class="cart-ico fa fa-shopping-cart"></i><span class="cart-label">Cart</span><span class="cart-count">(3 items)</span></a>
         </div>
     </div>
     <!-- HEADER CART : end -->

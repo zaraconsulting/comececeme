@@ -22,4 +22,5 @@ def contact():
     """
     [GET] /contact
     """
-    return 'CONTACT', 201
+    context = {}
+    return render_template('contact.html', **context), 201
