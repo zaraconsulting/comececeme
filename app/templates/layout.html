@@ -1,6 +1,7 @@
 {% set navigation_bar = [
     ('/', 'main.index', 'Home'),    
     ('/about', 'main.about', 'About'),    
+    ('/services', 'services.index', 'Services'),    
     ('/shop', 'shop.index', 'Shop'),
     ('/contact', 'main.contact', 'Contact'),
 ] -%}
@@ -13,7 +14,7 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home | ComeCeCeMe</title>
-        <link rel="shortcut icon" href="images/favicon.ico">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
         <!-- GOOGLE FONTS : begin -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700%7cMontserrat:400,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
         <!-- GOOGLE FONTS : end -->

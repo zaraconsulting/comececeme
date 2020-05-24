@@ -1,11 +1,11 @@
 from flask import Flask
+import click
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 db = SQLAlchemy()
 migrate = Migrate(compare_type=True)
-
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -29,6 +29,12 @@ def create_app(config_class=Config):
 
         from app.blueprints.booking import bp as booking
         app.register_blueprint(booking, url_prefix='/booking')
+
+        from app.blueprints.services import bp as services
+        app.register_blueprint(services, url_prefix='/services')
+
+        from app.blueprints.gallery import bp as gallery
+        app.register_blueprint(gallery, url_prefix='/gallery')
 
         from .braintree import gateway
 

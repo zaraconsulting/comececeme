@@ -57,9 +57,9 @@
 									</ul>
 								</li>
 								<li class="m-active">
-									<span><a href="shop-list.html">Shop</a></span>
+									<span><a href="{{ url_for('shop.index') }}">Shop</a></span>
 									<ul class="sub-menu">
-										<li><a href="shop-list.html">Product List</a></li>
+										<li><a href="{{ url_for('shop.index') }}">Product List</a></li>
 										<li><a href="shop-detail.html">Product Detail</a></li>
 										<li><a href="shop-cart.html">Cart Detail</a></li>
 										<li class="m-active"><a href="shop-checkout.html">Checkout</a></li>
@@ -192,7 +192,7 @@
 						<h1>Checkout</h1>
 						<ul class="breadcrumbs">
 							<li><a href="index.html">Home</a></li>
-							<li><a href="shop-list.html">Shop</a></li>
+							<li><a href="{{ url_for('shop.index') }}">Shop</a></li>
 							<li>Checkout</li>
 						</ul>
 					</div>

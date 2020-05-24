@@ -24,7 +24,7 @@
 			<div class="slide-bg">
 				<div class="container">
 					<div class="slide-inner">
-						<div class="slide-content various-content textalign-right valign-middle"> Home<h2>15% Off<br>All Hair Services</h2>
+						<div class="slide-content various-content textalign-right valign-middle"><h2>15% Off<br>All Hair Services</h2>
 							<h3>This Friday Only!<br><a href="ajax/reservation-form.html" class="m-open-ajax-modal">Make a Reservation</a></h3>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 					<div class="slide-inner">
 						<div class="slide-content various-content textalign-left valign-middle">
 							<h2>Store<br>Launched</h2>
-							<h3><a href="shop-list.html">Take a Look</a> at Our Products</h3>
+							<h3><a href="{{ url_for('shop.index') }}">Take a Look</a> at Our Products</h3>
 						</div>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 					<div class="container">
 						<h2>Our Services</h2>
 						<p class="subtitle">We offer a wide range of beauty services</p>
-						<p class="more"><a href="services.html" class="c-button m-type-2">See all Services</a></p>
+						<p class="more"><a href="{{ url_for('services.index') }}" class="c-button m-type-2">See all Services</a></p>
 					</div>
 				</header>
 				<!-- SECTION HEADER : end -->
@@ -147,7 +147,7 @@
 					<div class="container">
 						<h2>Gallery</h2>
 						<p class="subtitle">See how it looks inside our studio</p>
-						<p class="more"><a href="gallery.html" class="c-button m-type-2">Enter Gallery</a></p>
+						<p class="more"><a href="{{ url_for('gallery.index') }}" class="c-button m-type-2">Enter Gallery</a></p>
 					</div>
 				</header>
 				<!-- SECTION HEADER : end -->
@@ -174,7 +174,7 @@
 					<div class="container">
 						<h2>Our Clients</h2>
 						<p class="subtitle">Read why they love us so much</p>
-						<p class="more"><a href="contact.html" class="c-button m-type-2">Become Our Client</a></p>
+						<p class="more"><a href="{{ url_for('main.contact') }}" class="c-button m-type-2">Become Our Client</a></p>
 					</div>
 				</header>
 				<!-- SECTION HEADER : end -->
