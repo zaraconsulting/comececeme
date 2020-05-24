@@ -3,18 +3,11 @@
     <nav class="header-menu">
         <button class="header-menu-toggle" type="button"><i class="fa fa-bars"></i>MENU</button>
         <ul>
-            <li class="m-active">
-                <span><a href="{{ url_for('main.index') }}">Home</a></span>
+            {% for href, id, caption in navigation_bar %}
+            <li {% if id == active_page %} class="m-active" {% endif %}>
+                <span><a href="{{ url_for(id) }}">{{ caption|e }}</a></span>
             </li>
-            <li>
-                <span><a href="about-us.html">About</a></span>
-            </li>
-            <li>
-                <span><a href="services.html">Services</a></span>
-            </li>
-            <li>
-                <span><a href="shop-list.html">Shop</a></span>
-            </li>
+            {% endfor %}
             <li>
                 <span><a href="contact.html">Contact</a></span>
             </li>

@@ -15,7 +15,7 @@ def about():
     [GET] /about
     """
     context = dict()
-    return "ABOUT", 200
+    return render_template('about-us.html'), 200
 
 @main.route('/contact', methods=['GET'])
 def contact():

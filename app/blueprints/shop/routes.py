@@ -1,5 +1,5 @@
 from . import bp as shop
-from flask import request, jsonify, url_for, current_app
+from flask import request, jsonify, url_for, current_app, render_template
 from app import db
 from app.braintree import gateway
 import pprint
@@ -12,7 +12,10 @@ def index():
     """
     [GET] /shop
     """
-    return jsonify([i.to_dict() for i in Product.query.all()])
+    context = {
+        'products': [i.to_dict() for i in Product.query.all()]
+    }
+    return render_template('shop-list.html', **context)
 
 
 @shop.route('/cart', methods=['GET'])

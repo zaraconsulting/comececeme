@@ -1,4 +1,5 @@
 ﻿{% extends './layout.html' %}
+{% set active_page = "main.index" %}
 
 {% block content %}
 <!-- MAIN SLIDER : begin -->
@@ -275,45 +276,5 @@
 	<!-- PAGE CONTENT : end -->
 </div>
 <!-- CORE : end -->
-<!-- BOTTOM PANEL : begin -->
-<div id="bottom-panel">
-	<div class="bottom-panel-inner">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<!-- BOTTOM TEXT : begin -->
-					<div class="bottom-text various-content">
-						<h3>About ComeCeCeMe</h3>
-						<p><strong>ComeCeCeMe</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <strong>Ut enim ad minim veniam</strong>, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <strong>Excepteur sint occaecat cupidatat non proident</strong>, sunt in culpa qui officia deserunt mollit anim id est laborum..</p>
-					</div>
-					<!-- BOTTOM TEXT : end -->
-				</div>
-				<div class="col-md-6">
-					<!-- BOTTOM SUBSCRIBE : begin -->
-					<div class="bottom-subscribe various-content">
-						<h3>Newsletter</h3>
-						<p>ComeCeCeMe supports MailChimp integration.</p>
-						<form id="subscribe-form" action="http://lsvr.us14.list-manage.com/subscribe/post-json?u=8291218baaf54ddfd7dbc6016&amp;id=f3e5d696dc&amp;c=?" method="get">
-							<!-- VALIDATION ERROR MESSAGE : begin -->
-							<p style="display: none;" class="c-alert-message m-warning m-validation-error"><i class="ico fa fa-exclamation-circle"></i>Email address is required.</p>
-							<!-- VALIDATION ERROR MESSAGE : end -->
-							<!-- SENDING REQUEST ERROR MESSAGE : begin -->
-							<p style="display: none;" class="c-alert-message m-warning m-request-error"><i class="ico fa fa-exclamation-circle"></i>There was a connection problem. Try again later.</p>
-							<!-- SENDING REQUEST ERROR MESSAGE : end -->
-							<!-- SUCCESS MESSAGE : begin -->
-							<p style="display: none;" class="c-alert-message m-success"><i class="ico fa fa-check-circle"></i><strong>Sent successfully.</strong></p>
-							<!-- SUCCESS MESSAGE : end -->
-							<div class="form-fields">
-								<input class="m-required m-email" name="EMAIL" type="text" data-placeholder="Your email address" title="Your email address">
-								<button class="c-button submit-btn" type="submit" data-label="Subscribe" data-loading-label="Sending...">Subscribe</button>
-							</div>
-						</form>
-					</div>
-					<!-- BOTTOM SUBSCRIBE : end -->
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- BOTTOM PANEL : end -->
+
 {% endblock %}
