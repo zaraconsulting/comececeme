@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 9ed0d24a868f
+Revision ID: 52aa0ab1f7f5
 Revises: 
-Create Date: 2020-05-23 21:20:05.027024
+Create Date: 2020-05-24 22:40:14.878082
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9ed0d24a868f'
+revision = '52aa0ab1f7f5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,11 +54,26 @@ def upgrade():
     sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('review',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('rating', sa.Integer(), nullable=True),
+    sa.Column('author', sa.String(), nullable=True),
+    sa.Column('body', sa.Text(), nullable=True),
+    sa.Column('created_on', sa.DateTime(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('role',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
+    )
+    op.create_table('service',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('author', sa.String(), nullable=True),
+    sa.Column('body', sa.String(), nullable=True),
+    sa.Column('created_on', sa.DateTime(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('account',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -105,7 +120,9 @@ def downgrade():
     op.drop_table('product')
     op.drop_table('order')
     op.drop_table('account')
+    op.drop_table('service')
     op.drop_table('role')
+    op.drop_table('review')
     op.drop_table('hair_tip')
     op.drop_table('customer')
     op.drop_table('coupon')
