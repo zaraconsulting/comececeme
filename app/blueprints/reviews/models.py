@@ -34,6 +34,8 @@ class Review(db.Model):
 
     def to_dict(self):
         data = {
+            'id': self.id,
+            'rating': self.rating,
             'author': self.author,
             'body': self.body,
             'created_on': self.created_on
@@ -41,7 +43,7 @@ class Review(db.Model):
         return data
 
     def from_dict(self, data):
-        for field in ['author', 'body']:
+        for field in ['author', 'body', 'rating']:
             if field in data:
                 setattr(self, field, data[field])
 

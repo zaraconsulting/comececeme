@@ -1,13 +1,15 @@
 from . import bp as main
 from flask import request, jsonify, render_template
 
+from app.blueprints.reviews.models import Review
+
 @main.route('/', methods=['GET'])
 def index():
     """
     [GET] /
     """
-    context = dict()
-    return render_template('index.html'), 200
+    context = dict(reviews=Review.query.all())
+    return render_template('index.html', **context), 200
 
 @main.route('/about', methods=['GET'])
 def about():

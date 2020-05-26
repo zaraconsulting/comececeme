@@ -37,7 +37,7 @@ def create_app(config_class=Config):
         app.register_blueprint(gallery, url_prefix='/gallery')
 
         from app.blueprints.reviews import bp as reviews
-        app.register_blueprint(reviews, url_prefix='/services')
+        app.register_blueprint(reviews, url_prefix='/reviews')
 
         from .braintree import gateway
 

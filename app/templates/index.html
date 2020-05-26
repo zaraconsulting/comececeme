@@ -1,6 +1,11 @@
 ﻿{% extends './layout.html' %}
 {% set active_page = "main.index" %}
 
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
 {% block content %}
 <!-- MAIN SLIDER : begin -->
 <div id="main-slider" data-interval="8000">
@@ -182,45 +187,21 @@
 				<div class="c-testimonial-list m-paginated">
 					<div class="container">
 						<div class="testimonial-list-inner">
-							<div class="testimonial-list-item">
-								<!-- TESTIMONIAL : begin -->
-								<div class="c-testimonial m-has-portrait">
-									<div class="testimonial-inner">
-										<p class="testimonial-portrait"><span><img src="{{ url_for('static', filename='images/client_01.jpg') }}" alt=""></span></p>
-										<blockquote>
-											<p>Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero.</p>
-											<footer><strong>Floor Simons</strong>, Startup CEO</footer>
-										</blockquote>
+							{% for review in reviews %}
+								<div class="testimonial-list-item">
+									<!-- TESTIMONIAL : begin -->
+									<div class="c-testimonial m-has-portrait">
+										<div class="testimonial-inner">
+											<p class="testimonial-portrait"><span><img src="{{ url_for('static', filename='images/client_01.jpg') }}" alt=""></span></p>
+											<blockquote>
+												<p>{{ review.body }}</p>
+												<footer><strong>{{ review.author }}</strong>, {% for _ in range(review.rating) %}<i class="fa fa-star"></i>{% endfor %}</footer>
+											</blockquote>
+										</div>
 									</div>
+									<!-- TESTIMONIAL : end -->
 								</div>
-								<!-- TESTIMONIAL : end -->
-							</div>
-							<div class="testimonial-list-item">
-								<!-- TESTIMONIAL : begin -->
-								<div class="c-testimonial m-has-portrait">
-									<div class="testimonial-inner">
-										<p class="testimonial-portrait"><span><img src="{{ url_for('static', filename='images/client_02.jpg') }}" alt=""></span></p>
-										<blockquote>
-											<p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean imperdiet.</p>
-											<footer><strong>Nikki Neil</strong>, Blogger</footer>
-										</blockquote>
-									</div>
-								</div>
-								<!-- TESTIMONIAL : end -->
-							</div>
-							<div class="testimonial-list-item">
-								<!-- TESTIMONIAL : begin -->
-								<div class="c-testimonial m-has-portrait">
-									<div class="testimonial-inner">
-										<p class="testimonial-portrait"><span><img src="{{ url_for('static', filename='images/client_03.jpg') }}" alt=""></span></p>
-										<blockquote>
-											<p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Aenean imperdiet. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Nam quam nunc.</p>
-											<footer><strong>Tarja Lee</strong>, Writer</footer>
-										</blockquote>
-									</div>
-								</div>
-								<!-- TESTIMONIAL : end -->
-							</div>
+							{% endfor %}
 						</div>
 					</div>
 				</div>

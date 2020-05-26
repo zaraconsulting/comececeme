@@ -1,4 +1,4 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request, url_for
 from .import bp as reviews
 
 from .models import Review
@@ -10,33 +10,39 @@ def index():
     """
     return jsonify([i.to_dict() for i in Review.query.all()])
 
+@reviews.route('/review/<int:id>', methods=['GET'])
+def get_review(id):
+    """
+    [GET]
+    """
+    return jsonify(Review.query.get(id).to_dict())
 
 @reviews.route('/create', methods=['POST'])
-def create_account():
+def create_review():
     """
-    [GET] /reviews/create
+    [POST] /reviews/create
     """
     data = request.get_json()
-    user = Account()
-    user.from_dict(data)
-    user.create_user()
-    response = jsonify(user.to_dict())
+    review = Review()
+    review.from_dict(data)
+    review.create_review()
+    response = jsonify(review.to_dict())
     response.status_code = 201
-    response.headers['Location'] = url_for('reviews.get_user', id=user.id)
+    response.headers['Location'] = url_for('reviews.get_review', id=review.id)
     return response
 
 
 @reviews.route('/edit', methods=['PUT'])
-def edit():
+def edit_review():
     """
-    [GET] /reviews/edit
+    [PUT] /reviews/edit
     """
     return "ACCOUNT EDIT", 201
 
 
 @reviews.route('/delete', methods=['POST'])
-def delete():
+def delete_review():
     """
-    [GET] /reviews/delete
+    [DELETE] /reviews/delete
     """
     return "ACCOUNT DELETE", 200

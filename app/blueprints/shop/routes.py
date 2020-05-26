@@ -7,10 +7,10 @@ import pprint
 from .models import Product, Coupon, Category, Order, Customer
 
 
-@shop.route('/', methods=['GET'])
+@shop.route('/products', methods=['GET'])
 def index():
     """
-    [GET] /shop
+    [GET] /shop/products
     """
     context = {
         'products': [i.to_dict() for i in Product.query.all()]

@@ -4,9 +4,20 @@
         <button class="header-menu-toggle" type="button"><i class="fa fa-bars"></i>MENU</button>
         <ul>
             {% for href, id, caption in navigation_bar %}
-            <li {% if id == active_page %} class="m-active" {% endif %}>
-                <span><a href="{{ url_for(id) }}">{{ caption|e }}</a></span>
-            </li>
+                {% if id == 'shop.index' %}
+                    <li {% if active_page == 'shop.index' or active_page == 'shop.cart' %} class="m-active" {% endif %}>
+                        <span><a href="{{ url_for('shop.index') }}">Shop</a></span>
+                        <ul class="sub-menu">
+                            <li><a href="{{ url_for('shop.index') }}">Products</a></li>
+                            <li><a href="{{ url_for('shop.cart') }}">Cart</a></li>
+                            <li><a href="shop-checkout.html">Checkout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li {% if id == active_page %} class="m-active" {% endif %}>
+                        <span><a href="{{ url_for(id) }}">{{ caption|e }}</a></span>
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
     </nav>
