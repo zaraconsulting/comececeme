@@ -23,7 +23,7 @@
 				<!-- CATEGORY SECTION : begin -->
 				{% for category in service_categories %}
 					<section>
-						<h2>{{ category.name }}</h2>
+						<h2>{{ category.title }}</h2>
 						<div class="row">
 							<div class="col-sm-2">
 								<!-- CATEGORY IMAGE : begin -->
@@ -33,49 +33,30 @@
 							<div class="col-sm-10">
 								<!-- SERVICES : begin -->
 								<ul class="c-accordion">
-									<li class="m-has-price">
-										<h3 class="accordion-title">Facials</h3>
-										<p class="accordion-price">from $4.99</p>
-										<div class="accordion-content">
-											<p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.</p>
-											<table>
-												<tbody>
-													<tr>
-														<td><strong>Sed consequat</strong><br>Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</td>
-														<td class="textalign-right">$7.99</td>
-													</tr>
-													<tr>
-														<td><strong>Duis arcu tortor</strong><br>Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.</td>
-														<td class="textalign-right">$14.99</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</li>
-									<li>
-										<h3 class="accordion-title">Eyebrow & Eyelashes</h3>
-										<p class="accordion-price">
-											<span class="strikethrough">$10.50</span>
-											<span class="sale-price">$6.99</span>
-										</p>
-										<div class="accordion-content">
-											<p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum.</p>
-										</div>
-									</li>
-									<li>
-										<h3 class="accordion-title">Microdermabrasion</h3>
-										<p class="accordion-price">$19.99</p>
-										<div class="accordion-content">
-											<p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-										</div>
-									</li>
-									<li>
-										<h3 class="accordion-title">Acne Treatments</h3>
-										<p class="accordion-price">$14.99</p>
-										<div class="accordion-content">
-											<p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.</p>
-										</div>
-									</li>
+									<!-- <li class="m-has-price"> -->
+									{% for service in category.services %}
+										<li>
+											<h3 class="accordion-title">{{ service.title }} ({{ service.time }} minutes)</h3>
+											<p class="accordion-price">from ${{ "{:.2f}".format(service.price) }}+</p>
+											{% if service.description %}
+												<div class="accordion-content">
+												<p>{{ service.description }}</p>
+												<!-- <table>
+													<tbody>
+														<tr>
+															<td><strong>Sed consequat</strong><br>Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</td>
+															<td class="textalign-right">$7.99</td>
+														</tr>
+														<tr>
+															<td><strong>Duis arcu tortor</strong><br>Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh.</td>
+															<td class="textalign-right">$14.99</td>
+														</tr>
+													</tbody>
+												</table> -->
+											</div>
+											{% endif %}
+										</li>
+									{% endfor %}
 								</ul>
 								<!-- SERVICES : end -->
 							</div>

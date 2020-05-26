@@ -15,6 +15,7 @@ def index():
     context = {
         'products': [i.to_dict() for i in Product.query.all()]
     }
+    print(context['products'])
     return render_template('shop-list.html', **context)
 
 

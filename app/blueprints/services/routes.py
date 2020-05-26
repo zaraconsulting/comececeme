@@ -9,8 +9,16 @@ def index():
     """
     [GET] /services
     """
-    context = dict(service_categories=ServiceCategory.query.all())
+    context = dict(service_categories=[dict(title=i.name, services=i.services.all()) for i in ServiceCategory.query.all()])
+    # print([dict(title=i.name, services=i.services.all())for i in ServiceCategory.query.all()])
     return render_template('services.html', **context)
+
+@services.route('/all')
+def all():
+    """
+    [GET] /services/all
+    """
+    return jsonify([i.to_dict() for i in Service.query.all()])
 
 @services.route('/service/<int:id>', methods=['GET'])
 def get_service(id):
@@ -35,6 +43,13 @@ def create_service():
 
 
 # SERVICE CATEGORY ROUTES
+@services.route('/category/all', methods=['GET'])
+def get_categories():
+    """
+    [GET] /services/category/all
+    """
+    return jsonify([i.to_dict() for i in ServiceCategory.query.all()]), 201
+
 @services.route('/category/<int:id>', methods=['GET'])
 def get_service_category(id):
     """

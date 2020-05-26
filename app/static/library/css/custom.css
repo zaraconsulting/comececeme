@@ -1,12 +1,15 @@
 ﻿/* -----------------------------------------------------------------------------
 
-    This file should be used to add your own CSS definitions or override
-	the existing ones.
+This file should be used to add your own CSS definitions or override
+the existing ones.
 
 ----------------------------------------------------------------------------- */
 
-	/* your CSS here */
+/* your CSS here */
 
+	.testimonial-inner .fa.fa-star {
+		color: #ff007c;
+	}
 
 /* -----------------------------------------------------------------------------
 
