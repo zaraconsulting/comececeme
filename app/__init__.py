@@ -3,9 +3,11 @@ import click
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_mail import Mail
 
 db = SQLAlchemy()
 migrate = Migrate(compare_type=True)
+mail = Mail()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -13,6 +15,7 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     migrate.init_app(app, db)
+    mail.init_app(app)
 
     with app.app_context():
         from app.blueprints.main import bp as main
@@ -40,5 +43,6 @@ def create_app(config_class=Config):
         app.register_blueprint(reviews, url_prefix='/reviews')
 
         from .braintree import gateway
+        from .import routes
 
     return app

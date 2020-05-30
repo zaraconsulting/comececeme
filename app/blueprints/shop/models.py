@@ -2,6 +2,7 @@ from werkzeug.security import check_password_hash
 
 from app import db
 from datetime import datetime
+from flask import jsonify, session
 
 from app.blueprints.account.models import Account
 
@@ -69,18 +70,20 @@ class Customer(db.Model):
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    image = db.Column(db.String, default='http://via.placeholder.com/300x388', nullable=False)
+    name = db.Column(db.String(50), nullable=False, unique=True)
+    image = db.Column(db.String, default='http://via.placeholder.com/500x500', nullable=False)
     description = db.Column(db.Text, nullable=False,
-                            default="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.")
+                            default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
     price = db.Column(db.Float, nullable=False)
-    rating = db.Column(db.Float, nullable=True)
+    rating = db.Column(db.Integer, nullable=True)
     quantity = db.Column(db.Integer)
+    in_stock = db.Column(db.Boolean, default=True)
     discount = db.Column(db.Boolean, default=False)
     discount_price = db.Column(db.Float)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+    reviews = db.relationship('ProductReview', backref='product_reviews', lazy='dynamic')
 
     def to_dict(self):
         data = {
@@ -89,13 +92,16 @@ class Product(db.Model):
             'image': self.image,
             'description': self.description,
             'price': self.price,
+            'quantity': self.quantity,
             'rating': self.rating,
-            'created_on': self.created_on
+            'in_stock': self.in_stock,
+            'created_on': self.created_on,
+            'reviews': [i.to_dict() for i in self.reviews.all()]
         }
         return data
 
     def from_dict(self, data):
-        for field in ['name', 'price']:
+        for field in ['name', 'price', 'rating', 'quantity', 'in_stock']:
             if field in data:
                 setattr(self, field, data[field])
 
@@ -142,6 +148,40 @@ class Order(db.Model):
     def __str__(self):
         return f"OrderID: {self.id} | CustomerID: {self.customer_id}"
 
+
+class ProductReview(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String)
+    rating = db.Column(db.Integer)
+    body = db.Column(db.Text)
+    created_on = db.Column(db.DateTime, default=datetime.utcnow)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+
+    def create_product_review(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_product_review(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def to_dict(self):
+        data = {
+            'author': self.author,
+            'rating': self.rating,
+            'body': self.body,
+            'created_on': self.created_on,
+            'product_id': self.product_id
+        }
+        return data
+
+    def from_dict(self, data):
+        for field in ['author', 'rating', 'body', 'product_id']:
+            if field in data:
+                setattr(self, field, data[field])
+
+    def __str__(self):
+        return f"Author: {self.author} | Rating: {self.rating}"
 
 class Coupon(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -208,3 +248,39 @@ class Category(db.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+class CartItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    image = db.Column(db.String)
+    price = db.Column(db.Float)
+    rating = db.Column(db.Integer)
+
+    def create_cart_item(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    def delete_cart_item(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'name': self.name,
+            'image': self.image,
+            'price': self.price,
+            'rating': self.rating,
+        }
+        return data
+
+    def from_dict(self, data):
+        for field in ['name', 'image', 'price', 'rating']:
+            if field in data:
+                setattr(self, field, data[field])
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def __repr__(self):
+        return f"<CartItem: {self.name}>"

@@ -7,7 +7,7 @@
 ----------------------------------------------------------------------------- */
 
 // email where the contact form messages will be sent
-$email_to = 'example@example.com';
+$email_to = 'derekhawkins.tech@gmail.com';
 
 // sucess message
 $success_msg = 'Message sent successfully!';
@@ -77,16 +77,17 @@ if( isset( $_REQUEST['reservation-form'] ) ) {
 	$error_message = '';
 
 	// SERVICES
-	if ( isset( $_REQUEST['reservation-services'] ) ) {
-		$services = $_REQUEST['reservation-services'];
-		$services_text = '';
-		for ( $i=0; $i < count( $services ); $i++ ) {
-			$services_text.= $services[$i];
-			if ( $i < count( $services ) ) {
-				$services_text.= ', ';
-			}
-		}
-		$field_services = secure_string( $services_text );
+	if ( isset( $_REQUEST['reservation-category'] ) && isset( $_REQUEST['reservation-service']) ) {
+		$category = secure_string($_REQUEST['reservation-category']);
+		$service = secure_string($_REQUEST['reservation-services']);
+		// $services_text = '';
+		// for ( $i=0; $i < count( $services ); $i++ ) {
+		// 	$services_text.= $services[$i];
+		// 	if ( $i < count( $services ) ) {
+		// 		$services_text.= ', ';
+		// 	}
+		// }
+		// $field_services = secure_string( $services_text );
 	}
 
 	// NAME

@@ -1,10 +1,10 @@
 from . import bp as shop
-from flask import request, jsonify, url_for, current_app, render_template
+from flask import request, jsonify, url_for, current_app, render_template, redirect, session
 from app import db
 from app.braintree import gateway
 import pprint
 
-from .models import Product, Coupon, Category, Order, Customer
+from .models import Product, Coupon, Category, Order, Customer, ProductReview, CartItem
 
 
 @shop.route('/products', methods=['GET'])
@@ -13,10 +13,16 @@ def index():
     [GET] /shop/products
     """
     context = {
-        'products': [i.to_dict() for i in Product.query.all()]
+        'products': [i.to_dict() for i in Product.query.all() if i.in_stock == True or i.quantity > 0]
     }
-    print(context['products'])
     return render_template('shop-list.html', **context)
+
+@shop.route('/products/all', methods=['GET'])
+def get_products():
+    """
+    [GET] /shop/products/all
+    """
+    return jsonify([i.to_dict() for i in Product.query.all()])
 
 
 @shop.route('/cart', methods=['GET'])
@@ -51,13 +57,57 @@ def create_purchase():
     print(nonce_from_client)
     return "It works"
 
+
+@shop.route('/product/cart/add/<int:id>', methods=['POST'])
+def add_cart_product(id):
+    """
+    [POST] /product/cart/add
+    """
+    product = Product.query.get(id)
+    data = {
+        'id': product.id,
+        'name': product.name,
+        'image': product.image,
+        'price': product.price,
+        'rating': product.rating,
+        'quantity': len(CartItem.query.filter_by(name=Product.query.get(product.id).name).all())
+    }
+    for i in range(int(request.form['quantity'])):
+        cart_item = CartItem()
+        cart_item.from_dict(data)
+        cart_item.create_cart_item()
+    return redirect(url_for('shop.get_product', id=id))
+
+
+@shop.route('/product/cart/remove/<int:id>')
+def remove_cart_product(id):
+    cart_item = CartItem.query.get(id)
+    cart_item.delete_cart_item()
+    return redirect(url_for('shop.cart'))
+
+
+@shop.route('/product/cart/update<int:id>')
+def update_quantity(id):
+    unique_cart_items = CartItem.query.filter_by(name=CartItem.query.get(id).name).all()
+    print(unique_cart_items)
+    # new_quantity = int(request.form['cart-quantity'])
+    # if new_quantity < len(unique_cart_items):
+    #     for i in range(abs(len(unique_cart_items) - len(unique_cart_items) - new_quantity)):
+    #         [db.session.delete(i) for i in unique_cart_items]
+    #         db.session.commit()
+    return redirect(url_for('shop.cart'))
+
+
 @shop.route('/product', methods=['GET'])
 def get_product():
     """
     [GET] /shop/product/<id>
     """
-    # return jsonify(Product.query.get_or_404(id).to_dict())
-    context = {}
+    # print(session['shopping_cart'])
+    id_ = request.args.get('id')
+    context = {
+        'product': Product.query.get(id_)
+    }
     return render_template('shop-detail.html', **context)
 
 
@@ -74,7 +124,6 @@ def create_product():
     response.status_code = 201
     response.headers['Location'] = url_for('shop.get_product', id=product.id)
     return response
-
 
 @shop.route('/product/<int:id>', methods=['PUT'])
 def update_product(id):
@@ -96,6 +145,28 @@ def delete_product(id):
     product = Product.query.get_or_404(id)
     product.delete_product()
     return jsonify({'message': f'PRODUCT DELETED: {product.name} | {product.price} | {product.rating}'})
+
+
+@shop.route('/product/review', methods=['GET'])
+def get_product_review():
+    """
+    [GET] /product/review
+    """
+    return jsonify(ProductReview.query.get(request.args.get('id')).to_dict())
+
+@shop.route('/product/review/create', methods=['POST'])
+def create_product_review():
+    """
+    [POST] /product/review/create
+    """
+    data = request.get_json()
+    product_review = ProductReview()
+    product_review.from_dict(data)
+    product_review.create_product_review()
+    response = jsonify(product_review.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('shop.get_product_review', id=product_review.id)
+    return response
 
 
 @shop.route('/category', methods=['GET'])

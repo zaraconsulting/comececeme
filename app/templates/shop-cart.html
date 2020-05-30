@@ -7,11 +7,11 @@
 	<!-- PAGE HEADER : begin -->
 	<div id="page-header">
 		<div class="container">
-			<h1>Cart Detail</h1>
+			<h1>Cart</h1>
 			<ul class="breadcrumbs">
 				<li><a href="{{ url_for('main.index') }}">Home</a></li>
 				<li><a href="{{ url_for('shop.index') }}">Shop</a></li>
-				<li>Cart Detail</li>
+				<li>Cart</li>
 			</ul>
 		</div>
 	</div>
@@ -35,42 +35,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_01_mini.jpg') }}" alt=""></a></td>
-								<td><a href="{{ url_for('shop.get_product') }}">Almond Supple Skin Oil</a></td>
-								<td>$35.50</td>
-								<td>
-									<div class="quantity-input">
-										<input type="number" class="m-type-2" value="1" min="1" max="100" step="1">
-									</div>
-								</td>
-								<td>$35.50</td>
-								<td class="textalign-right"><a href="#" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
-							</tr>
-							<tr>
-								<td class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_02_mini.jpg') }}" alt=""></a></td>
-								<td><a href="{{ url_for('shop.get_product') }}">Almond Tonic Body Oil</a></td>
-								<td>$36.50</td>
-								<td>
-									<div class="quantity-input">
-										<input type="number" class="m-type-2" value="1" min="1" max="100" step="1">
-									</div>
-								</td>
-								<td>$36.50</td>
-								<td class="textalign-right"><a href="#" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
-							</tr>
-							<tr>
-								<td class="product-image"><a href="{{ url_for('shop.get_product') }}"><img src="{{ url_for('static', filename='images/product_03_mini.jpg') }}" alt=""></a></td>
-								<td><a href="{{ url_for('shop.get_product') }}">Aroma Volumizing Mask</a></td>
-								<td>$27.20</td>
-								<td>
-									<div class="quantity-input">
-										<input type="number" class="m-type-2" value="1" min="1" max="100" step="1">
-									</div>
-								</td>
-								<td>$27.20</td>
-								<td class="textalign-right"><a href="#" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
-							</tr>
+							{% for product in shopping_cart['items'] %}
+								<tr>
+									<td class="product-image"><a href="{{ url_for('shop.get_product', id=product['id']) }}"><img src="{{ product['image'] }}" alt="{{ product['name'] }}"></a></td>
+									<td><a href="{{ url_for('shop.get_product', id=product['id']) }}">{{ product['name'] }}</a></td>
+									<td>${{ '{:.2f}'.format(product['price']) }}</td>
+									<td>
+										{{ product['quantity'] }}
+										<!-- <div class="quantity-input">
+											<input name='cart-quantity' id='cart-quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
+										</div> -->
+									</td>
+									<td>${{ '{:.2f}'.format(product['price'] * product['quantity']) }}</td>
+									<td class="textalign-right"><a href="{{ url_for('shop.remove_cart_product', id=product.id) }}" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
+								</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 					<!-- CART TABLE : end -->
@@ -84,7 +63,7 @@
 						<!-- CART COUPON : end -->
 						<!-- CART BUTTONS : begin -->
 						<div class="cart-buttons">
-							<button class="c-button m-type-2" type="submit">Update Cart</button>
+							{# <a href="{{ url_for('shop.update_cart', id=prou) }}" id="update-cart-btn" class="c-button m-type-2" type="submit">Update Cart</a> #}
 							<button class="c-button" type="submit">Checkout</button>
 						</div>
 						<!-- CART BUTTONS : end -->
@@ -119,11 +98,11 @@
 						<h2 class="heading-2 m-small">Cart Totals</h2>
 						<dl>
 							<dt>Cart Subtotal</dt>
-							<dd>$30.24</dd>
+							<dd>{{ '${:.2f}'.format(shopping_cart['total']) }}</dd>
 							<dt>Shipping</dt>
 							<dd>$1.99</dd>
 							<dt>Total</dt>
-							<dd><strong>$32.99</strong></dd>
+							<dd><strong>{{ '${:.2f}'.format(shopping_cart['total'] + (shopping_cart['total'] * 1.99)) }}</strong></dd>
 						</dl>
 					</div>
 					<!-- CART TOTALS : end -->
@@ -136,4 +115,14 @@
 	</div>
 </div>
 <!-- CORE : end -->
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+	<script>
+		$('#update-cart-btn').click('on', function (e) {
+			e.preventDefault();
+			alert($('#cart-quantity').val());
+		})
+	</script>
 {% endblock %}

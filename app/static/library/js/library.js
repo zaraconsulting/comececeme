@@ -53,7 +53,6 @@
 
 		form.submit(function(e){
 			e.preventDefault();
-
 			if ( ! submitBtn.hasClass( 'm-loading' ) ) {
 
 				// CLEAN OLD MESSAGES
@@ -63,21 +62,41 @@
 
 				// FORM NOT VALID
 				if ( ! form.lvIsFormValid() ) {
+					console.log('is not valid')
 					form.find( 'p.c-alert-message.m-warning.m-validation-error' ).slideDown(300);
 					return false;
 				}
 				// FORM VALID
 				else {
+					console.log('is valid')
 
 					submitBtn.addClass( 'm-loading' ).attr( 'data-label', submitBtn.text() ).text( submitBtn.data( 'loading-label' ) );
+
+					// console.log($('#reservation-category').val());
 
 					// AJAX REQUEST
 					$.ajax({
 						type: 'POST',
-						url: form.attr( 'action' ),
-						data: form.serialize(),
-						success: function( data ){
-
+						url: form.attr('action'),
+						data: {
+							category: $('#reservation-category').val(),
+							service: $('#reservation-service').val(),
+							name: $('#reservation-name').val(),
+							email: $('#reservation-email').val(),
+							phone: $('#reservation-phone').val(),
+							date: $('#reservation-date').val(),
+							time: $('#reservation-time').val(),
+							note: $('#reservation-note').val()
+					}})
+					.done(function( data ) {
+						// console.log("It didn't work!")
+						// if (data.error) {
+						// 	form.find('.c-alert-message.m-validation-error').slideUp(300);
+						// 	form.find('.c-alert-message.m-request-error').slideDown(300);
+						// 	submitBtn.removeClass('m-loading').text(submitBtn.attr('data-label'));
+						// }
+						// else {
+							// console("It worked!")
 							form.find( '.c-alert-message.m-validation-error' ).hide();
 							form.prepend( data );
 							form.find( '.c-alert-message.m-success, .c-alert-message.m-phpvalidation-error' ).slideDown(300);
@@ -89,15 +108,8 @@
 									$(this).val( '' );
 								});
 							}
-
-						},
-						error: function(){
-							form.find( '.c-alert-message.m-validation-error' ).slideUp(300);
-							form.find( '.c-alert-message.m-request-error' ).slideDown(300);
-							submitBtn.removeClass( 'm-loading' ).text( submitBtn.attr( 'data-label' ) );
-						}
+						// }
 					});
-
 				}
 
 			}
