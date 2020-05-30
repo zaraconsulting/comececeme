@@ -17,6 +17,20 @@ def index():
     }
     return render_template('shop-list.html', **context)
 
+@shop.route('/products/sort', methods=['POST'])
+def products_sort():
+    order = request.form['order']
+    if order == 'lowest':
+        products = [i.to_dict() for i in Product.query.order_by(Product.price.desc()).all() if i.in_stock == True or i.quantity > 0]
+    elif order == 'highest':
+        products = [i.to_dict() for i in Product.query.order_by(Product.price.asc()).all() if i.in_stock == True or i.quantity > 0]
+    else:
+        products = [i.to_dict() for i in Product.query.all() if i.in_stock == True or i.quantity > 0]
+    context = {
+        'products': products
+    }
+    return render_template('shop-list.html', **context)
+
 @shop.route('/products/all', methods=['GET'])
 def get_products():
     """
@@ -48,14 +62,24 @@ def client_token():
     # print("Testing:", gateway(current_app).testing)
     return jsonify(bt_gateway.client_token.generate())
 
-@shop.route("/checkout", methods=["POST"])
-def create_purchase():
-    """
-    [POST] /shop/checkout
-    """
-    nonce_from_client = request.form.to_dict()['nonce'] or {}
-    print(nonce_from_client)
-    return "It works"
+@shop.route('/cart/checkout', methods=['GET', 'POST'])
+def cart_checkout():
+    return render_template('shop-checkout.html')
+
+@shop.route('/cart/clear', methods=['POST'])
+def cart_clear():
+    [db.session.delete(i) for i in CartItem.query.all()]
+    db.session.commit()
+    return redirect(url_for('shop.index'))
+
+# @shop.route("/checkout", methods=["POST"])
+# def create_purchase():
+#     """
+#     [POST] /shop/checkout
+#     """
+#     nonce_from_client = request.form.to_dict()['nonce'] or {}
+#     print(nonce_from_client)
+#     return "It works"
 
 
 @shop.route('/product/cart/add/<int:id>', methods=['POST'])

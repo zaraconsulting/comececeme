@@ -189,11 +189,11 @@
 				});
 
 				// CLICK OUTSIDE
-				/*
+				// /*
 				modalBox.unbind( 'clickoutside' ).bind( 'clickoutside', function(){
 					lvCloseAjaxModal();
 				});
-				*/
+				// */
 
 				// ERROR LOADING CONTENT
 				if ( status == 'error' ) {
@@ -675,8 +675,13 @@
 		input.hide();
 		$this.append( '<button type="button" class="toggle"><span>' + defaultValue + '</span></button>' );
 		fakeSelectHtml = '<ul class="fake-selectbox" style="display: none;">';
-		input.find( 'option' ).each(function(){
-			fakeSelectHtml += '<li data-value="' + $(this).attr( 'value' ) + '">' + $(this).text() + '</li>';
+		input.find( 'option' ).each(function(index, element){
+			if (index === 0) {
+				fakeSelectHtml += '<li disabled>' + $(this).text() + '</li>';
+			}
+			else {
+				fakeSelectHtml += '<li data-value="' + $(this).attr( 'value' ) + '">' + $(this).text() + '</li>';
+			}
 		});
 		fakeSelectHtml += '</ul>';
 		$this.append( fakeSelectHtml );

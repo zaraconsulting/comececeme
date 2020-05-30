@@ -21,7 +21,7 @@
 		<div id="page-content">
 			<!-- SHOP CART : begin -->
 			<div class="shop-cart">
-				<form class="default-form" action="shop-checkout.html">
+				<!-- <form class="default-form" action="{{ url_for('shop.cart_checkout') }}" method="GET"> -->
 					<!-- CART TABLE : begin -->
 					<table class="cart-table">
 						<thead>
@@ -37,8 +37,8 @@
 						<tbody>
 							{% for product in shopping_cart['items'] %}
 								<tr>
-									<td class="product-image"><a href="{{ url_for('shop.get_product', id=product['id']) }}"><img src="{{ product['image'] }}" alt="{{ product['name'] }}"></a></td>
-									<td><a href="{{ url_for('shop.get_product', id=product['id']) }}">{{ product['name'] }}</a></td>
+									<td class="product-image"><a href="{{ url_for('shop.get_product', id=product['prod_id']) }}"><img src="{{ product['image'] }}" alt="{{ product['name'] }}"></a></td>
+									<td><a href="{{ url_for('shop.get_product', id=product['prod_id']) }}">{{ product['name'] }}</a></td>
 									<td>${{ '{:.2f}'.format(product['price']) }}</td>
 									<td>
 										{{ product['quantity'] }}
@@ -64,34 +64,27 @@
 						<!-- CART BUTTONS : begin -->
 						<div class="cart-buttons">
 							{# <a href="{{ url_for('shop.update_cart', id=prou) }}" id="update-cart-btn" class="c-button m-type-2" type="submit">Update Cart</a> #}
-							<button class="c-button" type="submit">Checkout</button>
+							<a href="{{ url_for('shop.cart_checkout') }}" class="c-button" type="submit">Checkout</a>
 						</div>
 						<!-- CART BUTTONS : end -->
 					</div>
 					<!-- CART TOOLS : end -->
-				</form>
+				<!-- </form> -->
 				<!-- CART FOOTER : begin -->
 				<div class="cart-footer">
 					<!-- CART SHIPPING : begin -->
-					<div class="cart-shipping">
+					<!-- <div class="cart-shipping">
 						<form class="default-form" action="shop-cart.html">
 							<h2 class="heading-2 m-small">Cart Shipping</h2>
 							<div class="form-field">
 								<select class="selectbox-input">
 									<option>Select Country...</option>
-									<option value="country1">Country 1</option>
-									<option value="country2">Country 2</option>
-									<option value="country3">Country 3</option>
-									<option value="country4">Country 4</option>
-									<option value="country5">Country 5</option>
-									<option value="country6">Country 6</option>
-									<option value="country7">Country 7</option>
-									<option value="country8">Country 8</option>
+									<option selected value="us">United States</option>
 								</select>
 							</div>
 							<button class="c-button m-type-2" type="submit">Update Totals</button>
 						</form>
-					</div>
+					</div> -->
 					<!-- CART SHIPPING : end -->
 					<!-- CART TOTALS : begin -->
 					<div class="cart-totals">
@@ -99,10 +92,10 @@
 						<dl>
 							<dt>Cart Subtotal</dt>
 							<dd>{{ '${:.2f}'.format(shopping_cart['total']) }}</dd>
-							<dt>Shipping</dt>
-							<dd>$1.99</dd>
+							<dt>Shipping/Sales</dt>
+							<dd>{{ '${:.2f}'.format(shopping_cart['tax']*100) }}</dd>
 							<dt>Total</dt>
-							<dd><strong>{{ '${:.2f}'.format(shopping_cart['total'] + (shopping_cart['total'] * 1.99)) }}</strong></dd>
+							<dd><strong>{{ '${:.2f}'.format(shopping_cart['total'] + (shopping_cart['total'] * shopping_cart['tax'])) }}</strong></dd>
 						</dl>
 					</div>
 					<!-- CART TOTALS : end -->

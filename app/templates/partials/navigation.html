@@ -5,12 +5,12 @@
         <ul>
             {% for href, id, caption in navigation_bar %}
                 {% if id == 'shop.index' %}
-                    <li {% if active_page == 'shop.index' or active_page == 'shop.cart' %} class="m-active" {% endif %}>
+                    <li {% if active_page == 'shop.index' or active_page == 'shop.cart' or active_page == 'shop.checkout' %} class="m-active" {% endif %}>
                         <span><a href="{{ url_for('shop.index') }}">Shop</a></span>
                         <ul class="sub-menu">
                             <li><a href="{{ url_for('shop.index') }}">Products</a></li>
                             <li><a href="{{ url_for('shop.cart') }}">Cart</a></li>
-                            <li><a href="shop-checkout.html">Checkout</a></li>
+                            <li><a href="{{ url_for('shop.cart_checkout') }}">Checkout</a></li>
                         </ul>
                     </li>
                 {% else %}
@@ -25,12 +25,12 @@
     <!-- HEADER CART : begin -->
     <div class="header-cart">
         <div class="header-cart-inner">
-            <a href="{{ url_for('shop.cart') }}"><i class="cart-ico fa fa-shopping-cart"></i><span class="cart-label">Cart</span><span class="cart-count">(3 items)</span></a>
+            <a href="{{ url_for('shop.cart') }}"><i class="cart-ico fa fa-shopping-cart"></i><span class="cart-label">Cart</span><span class="cart-count">({{ shopping_cart['full']|length }} items)</span></a>
         </div>
     </div>
     <!-- HEADER CART : end -->
     <!-- HEADER SEARCH : begin -->
-    <div class="header-search">
+    <!-- <div class="header-search">
         <div class="header-search-inner">
             <form class="search-form" action="search-results.html">
                 <i class="search-ico fa fa-search"></i>
@@ -40,6 +40,6 @@
             </form>
         </div>
         <button class="search-toggle-mobile" type="button"><i class="fa"></i></button>
-    </div>
+    </div> -->
     <!-- HEADER SEARCH : end -->
 </div>
