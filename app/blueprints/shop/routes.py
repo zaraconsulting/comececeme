@@ -3,6 +3,7 @@ from flask import request, jsonify, url_for, current_app, render_template, redir
 from app import db
 from app.braintree import gateway
 import pprint
+from math import ceil
 
 from .models import Product, Coupon, Category, Order, Customer, ProductReview, CartItem
 
@@ -17,13 +18,13 @@ def index():
     }
     return render_template('shop-list.html', **context)
 
-@shop.route('/products/sort', methods=['POST'])
+@shop.route('/products/sort', methods=['GET'])
 def products_sort():
-    order = request.form['order']
+    order = request.args.get('order')
     if order == 'lowest':
-        products = [i.to_dict() for i in Product.query.order_by(Product.price.desc()).all() if i.in_stock == True or i.quantity > 0]
-    elif order == 'highest':
         products = [i.to_dict() for i in Product.query.order_by(Product.price.asc()).all() if i.in_stock == True or i.quantity > 0]
+    elif order == 'highest':
+        products = [i.to_dict() for i in Product.query.order_by(Product.price.desc()).all() if i.in_stock == True or i.quantity > 0]
     else:
         products = [i.to_dict() for i in Product.query.all() if i.in_stock == True or i.quantity > 0]
     context = {
@@ -64,6 +65,8 @@ def client_token():
 
 @shop.route('/cart/checkout', methods=['GET', 'POST'])
 def cart_checkout():
+    if request.method == 'POST':
+        print(request.form)
     return render_template('shop-checkout.html')
 
 @shop.route('/cart/clear', methods=['POST'])
@@ -103,6 +106,21 @@ def add_cart_product(id):
     return redirect(url_for('shop.get_product', id=id))
 
 
+@shop.route('/product/comment/add', methods=['POST'])
+def add_product_review():
+    print(request.form)
+    data = {
+        'author': request.form['review_name'],
+        'email': request.form['review_email'],
+        'body': request.form['review_message'],
+        'rating': int(request.form['review_rating']),
+        'product_id': int(request.form['product_id']),
+    }
+    product_review = ProductReview()
+    product_review.from_dict(data)
+    product_review.create_product_review()
+    return redirect(url_for('shop.get_product', id=request.form['product_id']))
+
 @shop.route('/product/cart/remove/<int:id>')
 def remove_cart_product(id):
     cart_item = CartItem.query.get(id)
@@ -129,8 +147,14 @@ def get_product():
     """
     # print(session['shopping_cart'])
     id_ = request.args.get('id')
+    reviews_list = [i for i in [i.rating for i in Product.query.get(id_).reviews.all()]]
+    def getAverage(a_list):
+        if len(a_list) == 0:
+            return 0
+        return ceil(sum(reviews_list) / len(reviews_list))
     context = {
-        'product': Product.query.get(id_)
+        'product': Product.query.get(id_),
+        'average': getAverage(reviews_list)
     }
     return render_template('shop-detail.html', **context)
 

@@ -8,8 +8,8 @@
                 {% for p in shopping_cart['items'] %}
                     <li>
                         <div class="cart-product">
-                            <p class="product-image"><a href="{{ url_for('shop.get_product', id=p.id) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></p>
-                            <h4 class="product-title"><a href="{{ url_for('shop.get_product', id=p.id) }}">{{ p.name }}</a></h4>
+                            <p class="product-image"><a href="{{ url_for('shop.get_product', id=p.prod_id) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></p>
+                            <h4 class="product-title"><a href="{{ url_for('shop.get_product', id=p.prod_id) }}">{{ p.name }}</a></h4>
                             <p class="product-price">{{ p.quantity }} x ${{ p.price }}</p>
                         </div>
                     </li>

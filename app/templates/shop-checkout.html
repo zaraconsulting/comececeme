@@ -21,7 +21,7 @@
 		<div id="page-content">
 			<!-- SHOP CHECKOUT : begin -->
 			<div class="shop-checkout">
-				<form class="default-form m-validate" action="{{ url_for('shop.cart_clear') }}" method="POST">
+				<form id="checkout-form" class="default-form m-validate" action="{{ url_for('shop.cart_checkout') }}" method="POST">
 					<!-- FORM VALIDATION ERROR MESSAGE : begin -->
 					<p class="c-alert-message m-warning m-validation-error" style="display: none;"><i class="ico fa fa-exclamation-circle"></i>Please fill in all required (*) fields.</p>
 					<!-- FORM VALIDATION ERROR MESSAGE : end -->
@@ -31,7 +31,7 @@
 							<div class="billing-address">
 								<h2 class="heading-2">Billing Address</h2>
 								<!-- COUNTRY FIELD : begin -->
-								<div class="form-field">
+								<!-- <div class="form-field">
 									<label for="checkout-country">Country <span>*</span></label>
 									<select class="selectbox-input m-required" id="checkout-country">
 										<option value="country1">Country 1</option>
@@ -43,7 +43,7 @@
 										<option value="country7">Country 7</option>
 										<option value="country8">Country 8</option>
 									</select>
-								</div>
+								</div> -->
 								<!-- COUNTRY FIELD : end -->
 								<div class="row">
 									<div class="col-sm-6">
@@ -93,8 +93,8 @@
 									<div class="col-sm-6">
 										<!-- POSTCODE FIELD : begin -->
 										<div class="form-field">
-											<label for="checkout-postcode">Postcode</label>
-											<input type="text" id="checkout-postcode">
+											<label for="checkout-postalcode">Postal code</label>
+											<input type="text" id="checkout-postalcode">
 										</div>
 										<!-- POSTCODE FIELD : end -->
 									</div>
@@ -131,7 +131,7 @@
 								<!-- SHIPPING ADDRESS FIELDS : begin -->
 								<div class="shipping-address-fields" style="display: none;">
 									<!-- COUNTRY FIELD : begin -->
-									<div class="form-field">
+									<!-- <div class="form-field">
 										<label for="checkout-country-shipping">Country <span>*</span></label>
 										<select class="selectbox-input m-required-not" id="checkout-country-shipping">
 											<option value="country1">Country 1</option>
@@ -143,7 +143,7 @@
 											<option value="country7">Country 7</option>
 											<option value="country8">Country 8</option>
 										</select>
-									</div>
+									</div> -->
 									<!-- COUNTRY FIELD : end -->
 									<div class="row">
 										<div class="col-sm-6">
@@ -193,8 +193,8 @@
 										<div class="col-sm-6">
 											<!-- POSTCODE FIELD : begin -->
 											<div class="form-field">
-												<label for="checkout-postcode-shipping">Postcode</label>
-												<input type="text" id="checkout-postcode-shipping">
+												<label for="checkout-postcode-shipping">Postal Code</label>
+												<input type="text" id="checkout-postalcode-shipping">
 											</div>
 											<!-- POSTCODE FIELD : end -->
 										</div>
@@ -219,23 +219,60 @@
 								<ul class="c-accordion m-radio-group">
 									<li class="m-active">
 										<input type="radio" id="payment-method-1" name="payment-method" value="direct" checked="checked">
-										<label for="payment-method-1" class="accordion-title">Direct Bank Transfer</label>
+										<label for="payment-method-1" class="accordion-title">Credit</label>
 										<div class="accordion-content">
-											<p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.</p>
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="form-field">
+														<label for="paymentName">Name (as it appears) <span>*</span></label>
+														<input type="text" class="m-required" id="paymentName" style="display: block;">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="form-field">
+														<label for="paymentCard">Card Number <span>*</span></label>
+														<input type="text" class="m-required" id="paymentCard" style="display: block;">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="form-field">
+														<label for="paymentCard">Postal Code <span>*</span></label>
+														<input type="text" class="m-required" id="paymentPostalCode" style="display: block;">
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="form-field">
+														<label for="paymentExpiration">Expiration <span>*</span></label>
+														<input type="text" class="m-required" id="paymentExpiration" style="display: block;">
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-field">
+														<label for="paymentCVV">CVV <span>*</span></label>
+														<input type="text" class="m-required" id="paymentCVV" style="display: block;">
+													</div>
+												</div>
+											</div>
 										</div>
 									</li>
-									<li>
+									<!-- <li>
 										<input type="radio" id="payment-method-2" name="payment-method" value="cheque">
 										<label for="payment-method-2" class="accordion-title">Cheque Payment</label>
 										<div class="accordion-content">
 											<p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
 										</div>
-									</li>
+									</li> -->
 									<li>
 										<input type="radio" id="payment-method-3" name="payment-method" value="paypal">
 										<label for="payment-method-3" class="accordion-title">PayPal</label>
 										<div class="accordion-content">
-											<p>Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel.</p>
+											<p>Support for PayPal coming soon</p>
 										</div>
 									</li>
 								</ul>

@@ -3,6 +3,8 @@ from werkzeug.security import check_password_hash
 from app import db
 from datetime import datetime
 from flask import jsonify, session
+from statistics import mean
+from math import ceil
 
 from app.blueprints.account.models import Account
 
@@ -72,8 +74,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
     image = db.Column(db.String, default='http://via.placeholder.com/500x500', nullable=False)
-    description = db.Column(db.Text, nullable=False,
-                            default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
+    description = db.Column(db.Text, nullable=False, default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
     price = db.Column(db.Float, nullable=False)
     rating = db.Column(db.Integer, nullable=True)
     quantity = db.Column(db.Integer)
@@ -93,15 +94,15 @@ class Product(db.Model):
             'description': self.description,
             'price': self.price,
             'quantity': self.quantity,
-            'rating': self.rating,
             'in_stock': self.in_stock,
             'created_on': self.created_on,
             'reviews': [i.to_dict() for i in self.reviews.all()]
         }
         return data
 
+
     def from_dict(self, data):
-        for field in ['name', 'price', 'rating', 'quantity', 'in_stock']:
+        for field in ['name', 'price', 'quantity', 'in_stock']:
             if field in data:
                 setattr(self, field, data[field])
 
@@ -152,8 +153,9 @@ class Order(db.Model):
 class ProductReview(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String)
-    rating = db.Column(db.Integer)
+    email = db.Column(db.String)
     body = db.Column(db.Text)
+    rating = db.Column(db.Integer)
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
 
@@ -168,6 +170,7 @@ class ProductReview(db.Model):
     def to_dict(self):
         data = {
             'author': self.author,
+            'email': self.email,
             'rating': self.rating,
             'body': self.body,
             'created_on': self.created_on,
@@ -176,7 +179,7 @@ class ProductReview(db.Model):
         return data
 
     def from_dict(self, data):
-        for field in ['author', 'rating', 'body', 'product_id']:
+        for field in ['author', 'email', 'rating', 'body', 'product_id']:
             if field in data:
                 setattr(self, field, data[field])
 

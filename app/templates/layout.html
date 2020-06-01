@@ -47,6 +47,19 @@
         <!-- SCRIPTS : begin -->
         {% block scripts %}
             {% include './partials/scripts.html' %}
+            <script>
+                function formatDropdownList(a_list) {
+                    var a_list = a_list
+                    let array = a_list.replace('[', '').replace(']', '').split(",").map(String);
+                    for (let i = 0; i < array.length; i++) {
+                        array[i] = array[i].trim().replace('&#39;', '').replace('&#39;', '').replace('&#34;', '').replace('&#34;', '').replace('&amp;', '&');
+                    }
+                    return array
+                }
+
+                // console.log(formatDropdownList('{{ service_categories }}'))
+                // console.log(formatDropdownList('{{ services }}'))
+            </script>
         {% endblock %}
         <!-- SCRIPTS : end -->
     </body>

@@ -57,7 +57,7 @@
 					<div class="cart-tools">
 						<!-- CART COUPON : begin -->
 						<div class="cart-coupon">
-							<input type="text" class="m-type-2">
+							<input type="text" class="m-type-2" />
 							<button class="c-button m-type-2" type="submit">Apply Coupon</button>
 						</div>
 						<!-- CART COUPON : end -->
@@ -108,14 +108,4 @@
 	</div>
 </div>
 <!-- CORE : end -->
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
-	<script>
-		$('#update-cart-btn').click('on', function (e) {
-			e.preventDefault();
-			alert($('#cart-quantity').val());
-		})
-	</script>
 {% endblock %}

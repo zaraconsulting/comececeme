@@ -79,4 +79,4 @@ class Service(db.Model):
         return self.title
 
     def __repr__(self):
-        return f'<Review | {self.title}>'
+        return f'<Service | {self.title}>'

@@ -40,7 +40,7 @@
 								<!-- PRODUCT RATING : begin -->
 								<div class="product-rating">
 									<a href="#product-tabs">
-										<span class="rating-stars">{% for _ in range(product.rating) %} <i class="fa fa-star"></i> {% endfor %}</span>
+										<span class="rating-stars">{% for _ in range(average) %} <i class="fa fa-star"></i> {% endfor %}</span>
 										<span class="rating-label">{{ product.reviews.all()|length }} reviews</span>
 									</a>
 								</div>
@@ -77,7 +77,7 @@
 									<!-- PRODUCT STATUS : end -->
 									<!-- PRODUCT PRICE : begin -->
 									<div class="product-price">
-										<span class="old-price">$29.99</span>
+										<!-- <span class="old-price">$29.99</span> -->
 										<strong class="price">${{ product.price }}</strong>
 									</div>
 									<!-- PRODUCT PRICE : end -->
@@ -132,7 +132,8 @@
 										</ul>
 										<!-- REVIEW LIST: end -->
 										<!-- REVIEW FORM : begin -->
-										<form id="review-form" class="review-form default-form m-validate" action="{{ url_for('shop.get_product') }}" method="post">
+										<form id="review-form" class="review-form default-form m-validate" action="{{ url_for('shop.add_product_review', id=product.id) }}" method="post">
+											<input type="hidden" name="product_id" id="product_id" value='{{ product.id }}' />
 											<h3 class="review-form-title">Add a comment</h3>
 											<!-- FORM VALIDATION ERROR MESSAGE : begin -->
 											<p class="c-alert-message m-warning m-validation-error" style="display: none;"><i class="ico fa fa-exclamation-circle"></i>Please fill in all required (*) fields.</p>
@@ -166,7 +167,7 @@
 															<span class="rating-stars">
 																<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
 															</span>
-															<input type="hidden">
+															<input name="review-rating" id="review-rating" type="hidden">
 														</div>
 													</div>
 													<!-- RATING FIELD : end -->
