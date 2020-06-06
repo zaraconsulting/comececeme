@@ -38,7 +38,7 @@
     <!-- HEADER CART : begin -->
     <div class="header-cart">
         <div class="header-cart-inner">
-            <a href="{{ url_for('shop.cart') }}"><i class="cart-ico fa fa-shopping-cart"></i><span class="cart-label">Cart</span><span class="cart-count">({{ shopping_cart['full']|length }} items)</span></a>
+            <a href="{{ url_for('shop.cart') }}"><i class="cart-ico fa fa-shopping-cart"></i><span class="cart-label">Cart</span><span class="cart-count">({{ fullCart|length }} items)</span></a>
         </div>
     </div>
     <!-- HEADER CART : end -->

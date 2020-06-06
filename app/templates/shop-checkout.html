@@ -9,8 +9,7 @@
 		<div class="container">
 			<h1>Checkout</h1>
 			<ul class="breadcrumbs">
-				<li><a href="{{ 
-url_for('main.index') }}">Home</a></li>
+				<li><a href="{{ url_for('main.index') }}">Home</a></li>
 				<li><a href="{{ url_for('shop.index') }}">Shop</a></li>
 				<li>Checkout</li>
 			</ul>
@@ -293,10 +292,10 @@ url_for('main.index') }}">Home</a></li>
 										</tr>
 									</thead>
 									<tbody>
-										{% for product in shopping_cart['items'] %}
+										{% for product in shopping_cart %}
 											<tr>
-												<td>{{ product['name'] }} × {{ product['quantity'] }}</td>
-												<td>{{ '${:.2f}'.format(product['price']) }}</td>
+												<td>{{ product.name }} × {{ product.quantity }}</td>
+												<td>{{ '${:.2f}'.format(product.price) }}</td>
 											</tr>
 										{% endfor %}
 									</tbody>
