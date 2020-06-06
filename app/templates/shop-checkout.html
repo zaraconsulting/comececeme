@@ -331,7 +331,6 @@
 					number: { selector: '#paymentCard', placeholder: '4111 1111 1111 1111' },
 					expirationDate: { selector: '#paymentExpiration', placeholder: '12/2025' },
 					cvv: { selector: '#paymentCVV', placeholder: '123' },
-					// postalcode: { selector: '#paymentPostalCode', placeholder: '60612' }
 				}
 			};
 
@@ -341,7 +340,6 @@
 					return;
 				}
 				
-				// console.log(instance.requestPaymentMethod());
 				var form = document.querySelector('#checkout-form');
 				form.addEventListener('submit', function (e) {
 					// e.preventDefault();
@@ -390,6 +388,7 @@
 								} else {
 									console.info("Hosted Fields form has been torn down!");
 								}
+								$('#checkout-form').submit()
 							})
 							if (result.success) {
 							} else {

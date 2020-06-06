@@ -63,15 +63,15 @@ def cart_checkout():
 
         # Receives nonce from  form submission
         nonce_from_client = data.get('payment_method_nonce')
-        result = bt_gateway.transaction.sale({
-            "amount": data.get('amount'),
-            "payment_method_nonce": data.get('payment_method_nonce'),
-            # "device_data": ,
-            "options": {
-                "submit_for_settlement": True
-            }
-        })
         try:
+            result = bt_gateway.transaction.sale({
+                "amount": data.get('amount'),
+                "payment_method_nonce": data.get('payment_method_nonce'),
+                # "device_data": ,
+                "options": {
+                    "submit_for_settlement": True
+                }
+            })
             customer = Customer.query.get(current_user.id)
             customer.address_1 = data.get('address')
             customer._zip = data.get('postalCode')
@@ -83,7 +83,7 @@ def cart_checkout():
             return redirect(url_for('shop.index'))
         except:
             print("There was a problem. Try again")
-            return redirect(url_for('shop.cart_checkout'))
+            # return redirect(url_for('shop.cart_checkout'))
     return render_template('shop-checkout.html')
 
 @shop.route('/cart/clear', methods=['POST'])
