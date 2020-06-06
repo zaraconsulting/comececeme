@@ -35,19 +35,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for product in shopping_cart['items'] %}
+							{% for product in shopping_cart %}
 								<tr>
-									<td class="product-image"><a href="{{ url_for('shop.get_product', id=product['prod_id']) }}"><img src="{{ product['image'] }}" alt="{{ product['name'] }}"></a></td>
-									<td><a href="{{ url_for('shop.get_product', id=product['prod_id']) }}">{{ product['name'] }}</a></td>
-									<td>${{ '{:.2f}'.format(product['price']) }}</td>
+									<td class="product-image"><a href="{{ url_for('shop.get_product', id=product.prod_id) }}"><img src="{{ product.image }}" alt="{{ product.name }}"></a></td>
+									<td><a href="{{ url_for('shop.get_product', id=product.prod_id) }}">{{ product.name }}</a></td>
+									<td>${{ '{:.2f}'.format(product.price) }}</td>
 									<td>
-										{{ product['quantity'] }}
+										{{ product.quantity }}
 										<!-- <div class="quantity-input">
 											<input name='cart-quantity' id='cart-quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
 										</div> -->
 									</td>
-									<td>${{ '{:.2f}'.format(product['price'] * product['quantity']) }}</td>
-									<td class="textalign-right"><a href="{{ url_for('shop.remove_cart_product', id=product.id) }}" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
+									<td>${{ '{:.2f}'.format(product.price * product.quantity) }}</td>
+									<td class="textalign-right"><a href="{{ url_for('shop.remove_cart_product', id=product.prod_id) }}" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
 								</tr>
 							{% endfor %}
 						</tbody>
@@ -91,11 +91,11 @@
 						<h2 class="heading-2 m-small">Cart Totals</h2>
 						<dl>
 							<dt>Cart Subtotal</dt>
-							<dd>{{ '${:.2f}'.format(shopping_cart['total']) }}</dd>
+							<dd>{{ '${:.2f}'.format(total) }}</dd>
 							<dt>Shipping/Sales</dt>
-							<dd>{{ '${:.2f}'.format(shopping_cart['tax']*100) }}</dd>
+							<dd>{{ '${:.2f}'.format(total * tax) }}</dd>
 							<dt>Total</dt>
-							<dd><strong>{{ '${:.2f}'.format(shopping_cart['total'] + (shopping_cart['total'] * shopping_cart['tax'])) }}</strong></dd>
+							<dd><strong>{{ '${:.2f}'.format(total + (total * tax)) }}</strong></dd>
 						</dl>
 					</div>
 					<!-- CART TOTALS : end -->

@@ -1,21 +1,20 @@
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import db
+from app import db, login
 from datetime import datetime
 from flask import jsonify, session
-from statistics import mean
-from math import ceil
+from flask_login import UserMixin
 
 from app.blueprints.account.models import Account
 
 
-class Customer(db.Model):
+class Customer(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     suffix = db.Column(db.String)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     phone = db.Column(db.BigInteger)
-    email = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String(124), nullable=False)
     dob = db.Column(db.String)
     address_1 = db.Column(db.String)
@@ -23,17 +22,19 @@ class Customer(db.Model):
     city = db.Column(db.String)
     state = db.Column(db.String)
     zip = db.Column(db.Integer)
-    orders = db.relationship('Order', backref="order")
+    # orders = db.relationship('Order', backref="order", cascade="save-update, merge, delete")
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    cart = db.relationship('Cart', backref='cart', lazy='dynamic')
+    # cart = db.relationship(
+    #     'Customer', secondary=cart,
+    #     primaryjoin=(cart.c.customer_id == id),
+    #     secondaryjoin=(cart.c.product_id == id),
+    #     backref=db.backref('cart', lazy='dynamic'), lazy='dynamic')
 
     def create_customer(self):
-        account = Account.query.filter_by(email=self.email).first()
-        if account is not None:
-            if account.check_password_hash(self.password) and self.email == account.email:
-                self.password = account.password
-                self.email = account.email
-                db.session.add(self)
-                db.session.commit()
+        self.password = generate_password_hash(self.password)
+        db.session.add(self)
+        db.session.commit()
 
     def delete_customer(self):
         db.session.delete(self)
@@ -47,9 +48,9 @@ class Customer(db.Model):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
-            # 'password': '<hidden_password>',
+            'password': '<hidden_password>',
             'dob': self.dob,
-            'orders': self.orders,
+            # 'orders': self.orders,
             'address_1': self.address_1,
             'address_2': self.address_2,
             'city': self.city,
@@ -59,7 +60,7 @@ class Customer(db.Model):
         return data
 
     def from_dict(self, data):
-        for field in ['email', 'password']:
+        for field in ['first_name', 'last_name', 'email', 'password']:
             if field in data:
                 setattr(self, field, data[field])
 
@@ -68,6 +69,20 @@ class Customer(db.Model):
 
     def __repr__(self):
         return f"{self.email} | {self.first_name} {self.last_name}"
+
+
+@login.user_loader
+def load_user(id):
+    return Customer.query.get(int(id))
+
+
+class Cart(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    customerId = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+    productId = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+
+    def __repr__(self):
+        return f"<Cart: {self.customerId}, {self.productId}>"
 
 
 class Product(db.Model):
@@ -83,7 +98,7 @@ class Product(db.Model):
     discount_price = db.Column(db.Float)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+    # order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     reviews = db.relationship('ProductReview', backref='product_reviews', lazy='dynamic')
 
     def to_dict(self):
@@ -118,36 +133,36 @@ class Product(db.Model):
         return f'Name: {self.name}\nPrice: {self.price}\nRating: {self.rating}'
 
 
-class Order(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    order_date = db.Column(db.DateTime, default=datetime.utcnow)
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-    coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
-    products = db.relationship('Product', backref='product', lazy='dynamic')
+# class Order(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     order_date = db.Column(db.DateTime, default=datetime.utcnow)
+#     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+#     coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
+#     products = db.relationship('Product', backref='product', lazy='dynamic')
 
-    def create_order(self):
-        db.session.add(self)
-        db.session.commit()
+#     def create_order(self):
+#         db.session.add(self)
+#         db.session.commit()
 
-    def delete_order(self):
-        db.session.delete(self)
-        db.session.commit()
+#     def delete_order(self):
+#         db.session.delete(self)
+#         db.session.commit()
 
-    def to_dict(self):
-        data = {
-            'order_id': self.id,
-            'customer_id': self.customer_id,
-            'order_date': self.order_date
-        }
-        return data
+#     def to_dict(self):
+#         data = {
+#             'order_id': self.id,
+#             'customer_id': self.customer_id,
+#             'order_date': self.order_date
+#         }
+#         return data
 
-    def from_dict(self, data):
-        for field in ['order_id', 'customer_id']:
-            if field in data:
-                setattr(self, field, data[field])
+#     def from_dict(self, data):
+#         for field in ['order_id', 'customer_id']:
+#             if field in data:
+#                 setattr(self, field, data[field])
 
-    def __str__(self):
-        return f"OrderID: {self.id} | CustomerID: {self.customer_id}"
+#     def __str__(self):
+#         return f"OrderID: {self.id} | CustomerID: {self.customer_id}"
 
 
 class ProductReview(db.Model):
@@ -186,41 +201,41 @@ class ProductReview(db.Model):
     def __str__(self):
         return f"Author: {self.author} | Rating: {self.rating}"
 
-class Coupon(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String, nullable=False)
-    percentage = db.Column(db.Float)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+# class Coupon(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     text = db.Column(db.String, nullable=False)
+#     percentage = db.Column(db.Float)
+#     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def create_coupon(self):
-        db.session.add(self)
-        db.session.commit()
+#     def create_coupon(self):
+#         db.session.add(self)
+#         db.session.commit()
 
-    def delete_coupon(self):
-        db.session.delete(self)
-        db.session.commit()
+#     def delete_coupon(self):
+#         db.session.delete(self)
+#         db.session.commit()
 
-    def to_dict(self):
-        data = {
-            'text': self.text,
-            'percentage': self.percentage,
-            'date_created': self.date_created,
-        }
-        return data
+#     def to_dict(self):
+#         data = {
+#             'text': self.text,
+#             'percentage': self.percentage,
+#             'date_created': self.date_created,
+#         }
+#         return data
 
-    def from_dict(self, data):
-        for field in ['text', 'percentage']:
-            if field in data:
-                setattr(self, field, data[field])
+#     def from_dict(self, data):
+#         for field in ['text', 'percentage']:
+#             if field in data:
+#                 setattr(self, field, data[field])
 
-    def get_text(self):
-        return self.text
+#     def get_text(self):
+#         return self.text
 
-    def get_percentage(self):
-        return self.percentage
+#     def get_percentage(self):
+#         return self.percentage
 
-    def __str__(self):
-        return f"{self.text} | {self.percentage}"
+#     def __str__(self):
+#         return f"{self.text} | {self.percentage}"
 
 
 class Category(db.Model):
@@ -252,38 +267,39 @@ class Category(db.Model):
     def __str__(self):
         return f"{self.name}"
 
-class CartItem(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    image = db.Column(db.String)
-    price = db.Column(db.Float)
-    rating = db.Column(db.Integer)
 
-    def create_cart_item(self):
-        db.session.add(self)
-        db.session.commit()
+# class CartItem(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String)
+#     image = db.Column(db.String)
+#     price = db.Column(db.Float)
+#     rating = db.Column(db.Integer)
+
+#     def create_cart_item(self):
+#         db.session.add(self)
+#         db.session.commit()
         
-    def delete_cart_item(self):
-        db.session.delete(self)
-        db.session.commit()
+#     def delete_cart_item(self):
+#         db.session.delete(self)
+#         db.session.commit()
 
-    def to_dict(self):
-        data = {
-            'id': self.id,
-            'name': self.name,
-            'image': self.image,
-            'price': self.price,
-            'rating': self.rating,
-        }
-        return data
+#     def to_dict(self):
+#         data = {
+#             'id': self.id,
+#             'name': self.name,
+#             'image': self.image,
+#             'price': self.price,
+#             'rating': self.rating,
+#         }
+#         return data
 
-    def from_dict(self, data):
-        for field in ['name', 'image', 'price', 'rating']:
-            if field in data:
-                setattr(self, field, data[field])
+#     def from_dict(self, data):
+#         for field in ['name', 'image', 'price', 'rating']:
+#             if field in data:
+#                 setattr(self, field, data[field])
 
-    def __str__(self):
-        return f"{self.name}"
+#     def __str__(self):
+#         return f"{self.name}"
 
-    def __repr__(self):
-        return f"<CartItem: {self.name}>"
+#     def __repr__(self):
+#         return f"<CartItem: {self.name}>"

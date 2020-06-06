@@ -9,7 +9,8 @@
 		<div class="container">
 			<h1>Checkout</h1>
 			<ul class="breadcrumbs">
-				<li><a href="index.html">Home</a></li>
+				<li><a href="{{ 
+url_for('main.index') }}">Home</a></li>
 				<li><a href="{{ url_for('shop.index') }}">Shop</a></li>
 				<li>Checkout</li>
 			</ul>
@@ -22,6 +23,7 @@
 			<!-- SHOP CHECKOUT : begin -->
 			<div class="shop-checkout">
 				<form id="checkout-form" class="default-form m-validate" action="{{ url_for('shop.cart_checkout') }}" method="POST">
+					<input type="hidden" name="payment_method_nonce" id="payment_method_nonce">
 					<!-- FORM VALIDATION ERROR MESSAGE : begin -->
 					<p class="c-alert-message m-warning m-validation-error" style="display: none;"><i class="ico fa fa-exclamation-circle"></i>Please fill in all required (*) fields.</p>
 					<!-- FORM VALIDATION ERROR MESSAGE : end -->
@@ -306,7 +308,8 @@
 					<!-- CHECKOUT FOOTER : begin -->
 					<div class="checkout-footer">
 						<a href="{{ url_for('shop.cart') }}" class="c-button m-type-2 back-btn">Back To Cart</a>
-						<button id="place-order" class="c-button submit-btn" type="submit">Place Order</button>
+						<button id="place-order-btn" class="c-button submit-btn" type="submit">Place Order</button>
+						<!-- <button id="client-token" class="c-button submit-btn" type="submit">Client Token</button> -->
 					</div>
 					<!-- CHECKOUT FOOTER : end -->
 				</form>

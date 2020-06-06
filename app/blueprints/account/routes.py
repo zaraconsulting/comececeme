@@ -43,12 +43,12 @@ def delete():
     return "ACCOUNT DELETE", 200
 
 
-@account.route('/orders', methods=['GET'])
-def orders():
-    """
-    [GET] /account/orders
-    """
-    return "ACCOUNT ORDERS", 200
+# @account.route('/orders', methods=['GET'])
+# def orders():
+#     """
+#     [GET] /account/orders
+#     """
+#     return "ACCOUNT ORDERS", 200
 
 
 @account.route('/login', methods=['GET', 'POST'])

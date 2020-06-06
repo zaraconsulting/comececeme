@@ -1,0 +1,133 @@
+{% extends 'layout.html' %} {% set active_page = 'authentication.login' %} {% block content %}
+<!-- CORE : begin -->
+<div id="core">
+    <!-- PAGE HEADER : begin -->
+    <div id="page-header">
+        <div class="container">
+            <h1>Login</h1>
+            <ul class="breadcrumbs">
+                <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                <li>Login</li>
+            </ul>
+        </div>
+    </div>
+    <!-- PAGE HEADER : begin -->
+    <div class="container">
+        <!-- PAGE CONTENT : begin -->
+        <div id="page-content">
+            <!-- SHOP CHECKOUT : begin -->
+            <div class="shop-checkout">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form id="authentication-login-form" class="default-form m-validate" action="{{ url_for('authentication.login') }}" method="POST">
+                            <!-- FORM VALIDATION ERROR MESSAGE : begin -->
+                            <p class="c-alert-message m-warning m-validation-error" style="display: none;"><i class="ico fa fa-exclamation-circle"></i>Please fill in all required (*) fields.</p>
+                            <!-- FORM VALIDATION ERROR MESSAGE : end -->
+                            <!-- BILLING ADDRESS : begin -->
+                            <div class="billing-address">
+                                <h2 class="heading-2">Login</h2>
+                                <!-- COUNTRY FIELD : begin -->
+                                <!-- <div class="form-field">
+									<label for="authentication-country">Country <span>*</span></label>
+									<select class="selectbox-input m-required" id="authentication-country">
+										<option value="country1">Country 1</option>
+										<option value="country2" selected="selected">Country 2</option>
+										<option value="country3">Country 3</option>
+										<option value="country4">Country 4</option>
+										<option value="country5">Country 5</option>
+										<option value="country6">Country 6</option>
+										<option value="country7">Country 7</option>
+										<option value="country8">Country 8</option>
+									</select>
+								</div> -->
+                                <!-- COUNTRY FIELD : end -->
+                                <!-- COMPANY FIELD : begin -->
+                                <div class="form-field">
+                                    <label for="login-company">Email <span>*</span></label>
+                                    <input type="text" class="required" id="login-email" name="login-email">
+                                </div>
+                                <!-- COMPANY FIELD : end -->
+                                <!-- ADDRESS FIELD : begin -->
+                                <div class="form-field">
+                                    <label for="login-password">Password <span>*</span></label>
+                                    <input type="password" class="required" id="login-password" name="login-password">
+                                </div>
+                                <div class="form-field">
+                                    <button id="login-btn" class="c-button submit-btn" type="submit">Login</button>
+                                </div>
+                                <!-- ADDRESS FIELD : end -->
+                            </div>
+                            <!-- BILLING ADDRESS : end -->
+                        </form>
+                    </div>
+                    <div class="col-sm-6">
+                        <form id="authentication-register-form" class="default-form m-validate" action="{{ url_for('authentication.register') }}" method="POST">
+                            <!-- SHIPPING ADDRESS : begin -->
+                            <div class="shipping-address">
+                                <h2 class="heading-2">Register</h2>
+                                <!-- SHIPPING ADDRESS FIELDS : begin -->
+                                <div class="shipping-address-fields">
+                                    <!-- COUNTRY FIELD : begin -->
+                                    <!-- <div class="form-field">
+										<label for="authentication-country-shipping">Country <span>*</span></label>
+										<select class="selectbox-input m-required-not" id="authentication-country-shipping">
+											<option value="country1">Country 1</option>
+											<option value="country2" selected="selected">Country 2</option>
+											<option value="country3">Country 3</option>
+											<option value="country4">Country 4</option>
+											<option value="country5">Country 5</option>
+											<option value="country6">Country 6</option>
+											<option value="country7">Country 7</option>
+											<option value="country8">Country 8</option>
+										</select>
+									</div> -->
+                                    <!-- COUNTRY FIELD : end -->
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <!-- FIRST NAME FIELD : begin -->
+                                            <div class="form-field">
+                                                <label for="authentication-first-name-shipping">First Name <span>*</span></label>
+                                                <input type="text" class="m-required-not" id="authentication-first-name-shipping" name="first_name">
+                                            </div>
+                                            <!-- FIRST NAME FIELD : end -->
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!-- LAST NAME FIELD : begin -->
+                                            <div class="form-field">
+                                                <label for="authentication-last-name-shipping">Last Name <span>*</span></label>
+                                                <input type="text" id="authentication-last-name-shipping" name="last_name">
+                                            </div>
+                                            <!-- LAST NAME FIELD : end -->
+                                        </div>
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="authentication-company">Email <span>*</span></label>
+                                        <input type="text" class="required" id="authentication-company"  name="email">
+                                    </div>
+                                    <!-- COMPANY FIELD : end -->
+                                    <!-- ADDRESS FIELD : begin -->
+                                    <div class="form-field">
+                                        <label for="authentication-password">Password <span>*</span></label>
+                                        <input type="password" class="required" id="authentication-password"  name="password">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="authentication-confirm-password">Confirm Password <span>*</span></label>
+                                        <input type="password" class="required" id="authentication-confirm-password"  name="confirm-password">
+                                    </div>
+                                    <div class="form-field">
+                                        <button id="register-btn" class="c-button submit-btn" type="submit">Register</button>
+                                    </div>
+                                </div>
+                                <!-- SHIPPING ADDRESS FIELDS : end -->
+                            </div>
+                            <!-- SHIPPING ADDRESS : end -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- SHOP CHECKOUT : end -->
+        </div>
+        <!-- PAGE CONTENT : end -->
+    </div>
+</div>
+<!-- CORE : end --> {% endblock %}

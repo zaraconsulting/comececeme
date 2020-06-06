@@ -143,13 +143,13 @@
 													<!-- NAME FIELD : begin -->
 													<div class="form-field">
 														<label for="review-name">Your Name<span>*</span></label>
-														<input id="review-name" class="m-required">
+														<input id="review-name" name="review_name" class="m-required">
 													</div>
 													<!-- NAME FIELD : end -->
 													<!-- EMAIL FIELD : begin -->
 													<div class="form-field">
 														<label for="review-email">Your Email Address <span>*</span></label>
-														<input id="review-email" class="m-required m-email">
+														<input id="review-email" name="review_email" class="m-required m-email">
 													</div>
 													<!-- EMAIL FIELD : end -->
 												</div>
@@ -157,7 +157,7 @@
 													<!-- REVIEW FIELD : begin -->
 													<div class="form-field">
 														<label for="review-message">Review <span>*</span></label>
-														<textarea id="review-message" class="m-required"></textarea>
+														<textarea id="review-message" name="review_message" class="m-required"></textarea>
 													</div>
 													<!-- REVIEW FIELD : end -->
 													<!-- RATING FIELD : begin -->
@@ -167,7 +167,7 @@
 															<span class="rating-stars">
 																<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
 															</span>
-															<input name="review-rating" id="review-rating" type="hidden">
+															<input name="review_rating" id="review-rating" type="hidden">
 														</div>
 													</div>
 													<!-- RATING FIELD : end -->

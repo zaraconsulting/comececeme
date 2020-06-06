@@ -11,6 +11,10 @@ the existing ones.
 		color: #ff007c;
 	}
 
+	#authentication-form form {
+		display: inline-block;
+	}
+
 /* -----------------------------------------------------------------------------
 
     RESPONSIVE DEFINITIONS

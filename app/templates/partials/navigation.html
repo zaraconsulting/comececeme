@@ -14,9 +14,22 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li {% if id == active_page %} class="m-active" {% endif %}>
-                        <span><a href="{{ url_for(id) }}">{{ caption|e }}</a></span>
-                    </li>
+                    {% if id != 'authentication.login' %}
+                        <li {% if id == active_page %} class="m-active" {% endif %}>
+                            <span><a href="{{ url_for(id) }}">{{ caption|e }}</a></span>
+                        </li>
+                    {% else %}
+                        {% if not current_user.is_authenticated %}
+                            <li {% if id == active_page %} class="m-active" {% endif %}>
+                                <span><a href="{{ url_for(id) }}">{{ caption|e }}</a></span>
+                            </li>
+                        <!-- Add logout button -->
+                        {% else %}
+                            <li>
+                                <span><a href="{{ url_for('authentication.logout') }}">Logout</a></span>
+                            </li>
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </ul>

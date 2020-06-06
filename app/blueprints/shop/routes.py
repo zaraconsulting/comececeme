@@ -1,11 +1,12 @@
 from . import bp as shop
 from flask import request, jsonify, url_for, current_app, render_template, redirect, session
-from app import db
+from app import db, login
+from flask_login import current_user, login_required
 from app.braintree import gateway
 import pprint
 from math import ceil
 
-from .models import Product, Coupon, Category, Order, Customer, ProductReview, CartItem
+from .models import Product, Category, Customer, ProductReview, Cart
 
 
 @shop.route('/products', methods=['GET'])
@@ -50,28 +51,29 @@ def cart():
 
 @shop.route('/client_token', methods=['GET'])
 def client_token():
-    """
+    """ 
     [GET] /shop/client_token
     """
     bt_gateway = gateway(current_app)
-    # print("Client Token:", gateway(current_app).client_token)
+    print("Client Token:", gateway(current_app).client_token)
     # print("Config:", dir(gateway(current_app).config))
-    # print("Customer:", gateway(current_app).customer)
-    # print("Merchant:", gateway(current_app).merchant)
-    # print("Merchant Account:", gateway(current_app).merchant_account)
-    # print("Payment Method Nonce:", gateway(current_app).payment_method_nonce)
-    # print("Testing:", gateway(current_app).testing)
-    return jsonify(bt_gateway.client_token.generate())
+    print("Customer:", gateway(current_app).customer)
+    print("Merchant:", gateway(current_app).merchant)
+    print("Merchant Account:", gateway(current_app).merchant_account)
+    print("Payment Method Nonce:", gateway(current_app).payment_method_nonce)
+    print("Testing:", gateway(current_app).testing)
+    return bt_gateway.client_token.generate()
 
 @shop.route('/cart/checkout', methods=['GET', 'POST'])
 def cart_checkout():
     if request.method == 'POST':
-        print(request.form)
+        nonce_from_client = request.form['payment_method_nonce']
+        print(nonce_from_client)
     return render_template('shop-checkout.html')
 
 @shop.route('/cart/clear', methods=['POST'])
 def cart_clear():
-    [db.session.delete(i) for i in CartItem.query.all()]
+    # [db.session.delete(i) for i in CartItem.query.all()]
     db.session.commit()
     return redirect(url_for('shop.index'))
 
@@ -84,37 +86,46 @@ def cart_clear():
 #     print(nonce_from_client)
 #     return "It works"
 
-
-@shop.route('/product/cart/add/<int:id>', methods=['POST'])
-def add_cart_product(id):
+@login_required
+@shop.route('/product/cart/add', methods=['POST'])
+def add_cart_product():
     """
     [POST] /product/cart/add
     """
-    product = Product.query.get(id)
-    data = {
-        'id': product.id,
-        'name': product.name,
-        'image': product.image,
-        'price': product.price,
-        'rating': product.rating,
-        'quantity': len(CartItem.query.filter_by(name=Product.query.get(product.id).name).all())
-    }
-    for i in range(int(request.form['quantity'])):
-        cart_item = CartItem()
-        cart_item.from_dict(data)
-        cart_item.create_cart_item()
-    return redirect(url_for('shop.get_product', id=id))
+    # print(request.form.get('quantity'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('authentication.login'))
+    product = Product.query.get(request.args.get('id'))
+    # print(int(request.form.get('quantity')))
+    for i in range(int(request.form.get('quantity'))):
+        # print(cart.customerId)
+        db.session.add(Cart(customerId=int(current_user.id), productId=product.id))
+    db.session.commit()
+    # user = current_user.id
+    # data = {
+    #     'id': product.id,
+    #     'name': product.name,
+    #     'image': product.image,
+    #     'price': product.price,
+    #     'rating': product.rating,
+        # 'quantity': len(CartItem.query.filter_by(name=Product.query.get(product.id).name).all())
+    # }
+    # for i in range(int(request.form['quantity'])):
+        # cart_item = CartItem()
+        # cart_item.from_dict(data)
+        # cart_item.create_cart_item()
+    return redirect(url_for('shop.get_product', id=product.id))
 
 
 @shop.route('/product/comment/add', methods=['POST'])
 def add_product_review():
-    print(request.form)
+    # print(request.form)
     data = {
         'author': request.form['review_name'],
         'email': request.form['review_email'],
         'body': request.form['review_message'],
-        'rating': int(request.form['review_rating']),
-        'product_id': int(request.form['product_id']),
+        'rating': int(request.form.get('review_rating')),
+        'product_id': int(request.form.get('product_id')),
     }
     product_review = ProductReview()
     product_review.from_dict(data)
@@ -123,15 +134,16 @@ def add_product_review():
 
 @shop.route('/product/cart/remove/<int:id>')
 def remove_cart_product(id):
-    cart_item = CartItem.query.get(id)
-    cart_item.delete_cart_item()
+    item = Cart.query.filter_by(productId=id).first()
+    db.session.delete(item)
+    db.session.commit()
     return redirect(url_for('shop.cart'))
 
 
 @shop.route('/product/cart/update<int:id>')
 def update_quantity(id):
-    unique_cart_items = CartItem.query.filter_by(name=CartItem.query.get(id).name).all()
-    print(unique_cart_items)
+    # unique_cart_items = CartItem.query.filter_by(name=CartItem.query.get(id).name).all()
+    # print(unique_cart_items)
     # new_quantity = int(request.form['cart-quantity'])
     # if new_quantity < len(unique_cart_items):
     #     for i in range(abs(len(unique_cart_items) - len(unique_cart_items) - new_quantity)):
@@ -270,110 +282,110 @@ def delete_category():
     return jsonify({'message': f'PRODUCT DELETED: {category.name} | {category.price} | {category.rating}'})
 
 
-@shop.route('/coupon', methods=['GET'])
-def get_coupons():
-    """
-    [GET] /shop/coupon
-    """
-    return jsonify([i.to_dict() for i in Coupon.query.all()])
+# @shop.route('/coupon', methods=['GET'])
+# def get_coupons():
+#     """
+#     [GET] /shop/coupon
+#     """
+#     return jsonify([i.to_dict() for i in Coupon.query.all()])
 
 
-@shop.route('/coupon/<int:id>', methods=['GET'])
-def get_coupon(id):
-    """
-    [GET] /shop/coupon/<id>
-    """
-    return jsonify(Coupon.query.get_or_404(id).to_dict())
+# @shop.route('/coupon/<int:id>', methods=['GET'])
+# def get_coupon(id):
+#     """
+#     [GET] /shop/coupon/<id>
+#     """
+#     return jsonify(Coupon.query.get_or_404(id).to_dict())
 
 
-@shop.route('/coupon/create', methods=['POST'])
-def create_coupon():
-    """
-    [POST] /shop/coupon/create
-    """
-    data = request.get_json()
-    coupon = Coupon()
-    coupon.from_dict(data)
-    coupon.create_coupon()
-    response = jsonify(coupon.to_dict())
-    response.status_code = 201
-    response.headers['Location'] = url_for('shop.get_coupon', id=coupon.id)
-    return response
+# @shop.route('/coupon/create', methods=['POST'])
+# def create_coupon():
+#     """
+#     [POST] /shop/coupon/create
+#     """
+#     data = request.get_json()
+#     coupon = Coupon()
+#     coupon.from_dict(data)
+#     coupon.create_coupon()
+#     response = jsonify(coupon.to_dict())
+#     response.status_code = 201
+#     response.headers['Location'] = url_for('shop.get_coupon', id=coupon.id)
+#     return response
 
 
-@shop.route('/coupon/edit/<int:id>', methods=['PUT'])
-def update_coupon():
-    """
-    [POST] /shop/coupon/update
-    """
-    coupon = Coupon.query.get_or_404(id)
-    data = request.get_json() or {}
-    coupon.from_dict(data)
-    db.session.commit()
-    return jsonify(coupon.to_dict())
+# @shop.route('/coupon/edit/<int:id>', methods=['PUT'])
+# def update_coupon():
+#     """
+#     [POST] /shop/coupon/update
+#     """
+#     coupon = Coupon.query.get_or_404(id)
+#     data = request.get_json() or {}
+#     coupon.from_dict(data)
+#     db.session.commit()
+#     return jsonify(coupon.to_dict())
 
 
-@shop.route('/coupon/delete/<int:id>', methods=['DELETE'])
-def delete_coupon():
-    """
-    [POST] /shop/coupon/delete
-    """
-    coupon = Coupon.query.get_or_404(id)
-    coupon.delete_coupon()
-    return jsonify({'message': f'PRODUCT DELETED: {coupon.name} | {coupon.price} | {coupon.rating}'})
+# @shop.route('/coupon/delete/<int:id>', methods=['DELETE'])
+# def delete_coupon():
+#     """
+#     [POST] /shop/coupon/delete
+#     """
+#     coupon = Coupon.query.get_or_404(id)
+#     coupon.delete_coupon()
+#     return jsonify({'message': f'PRODUCT DELETED: {coupon.name} | {coupon.price} | {coupon.rating}'})
 
 
-@shop.route('/order', methods=['GET'])
-def get_orders():
-    """
-    [GET] /shop/order
-    """
-    return jsonify([i.to_dict() for i in Order.query.all()])
+# @shop.route('/order', methods=['GET'])
+# def get_orders():
+#     """
+#     [GET] /shop/order
+#     """
+#     return jsonify([i.to_dict() for i in Order.query.all()])
 
 
-@shop.route('/order/<int:id>', methods=['GET'])
-def get_order(id):
-    """
-    [GET] /shop/order/<id>
-    """
-    return jsonify(Order.query.get_or_404(id).to_dict())
+# @shop.route('/order/<int:id>', methods=['GET'])
+# def get_order(id):
+#     """
+#     [GET] /shop/order/<id>
+#     """
+#     return jsonify(Order.query.get_or_404(id).to_dict())
 
 
-@shop.route('/order/create', methods=['POST'])
-def create_order():
-    """
-    [POST] /shop/order/create
-    """
-    data = request.get_json()
-    order = Order()
-    order.from_dict(data)
-    order.create_order()
-    response = jsonify(order.to_dict())
-    response.status_code = 201
-    response.headers['Location'] = url_for('shop.get_order', id=order.id)
-    return response
+# @shop.route('/order/create', methods=['POST'])
+# def create_order():
+#     """
+#     [POST] /shop/order/create
+#     """
+#     data = request.get_json()
+#     order = Order()
+#     order.from_dict(data)
+#     order.create_order()
+#     response = jsonify(order.to_dict())
+#     response.status_code = 201
+#     response.headers['Location'] = url_for('shop.get_order', id=order.id)
+#     return response
 
 
-@shop.route('/order/edit/<int:id>', methods=['PUT'])
-def update_order():
-    """
-    [POST] /shop/order/update
-    """
-    order = Order.query.get_or_404(id)
-    data = request.get_json() or {}
-    order.from_dict(data)
-    db.session.commit()
-    return jsonify(order.to_dict())
+# @shop.route('/order/edit/<int:id>', methods=['PUT'])
+# def update_order():
+#     """
+#     [POST] /shop/order/update
+#     """
+#     order = Order.query.get_or_404(id)
+#     data = request.get_json() or {}
+#     order.from_dict(data)
+#     db.session.commit()
+#     return jsonify(order.to_dict())
 
 
-@shop.route('/order/delete/<int:id>', methods=['DELETE'])
-def delete_order():
-    """
-    [POST] /shop/order/delete
-    """
-    order = Order.query.get_or_404(id)
-    order.delete_order()
-    return jsonify({'message': f'PRODUCT DELETED: {order.name} | {order.price} | {order.rating}'})
+# @shop.route('/order/delete/<int:id>', methods=['DELETE'])
+# def delete_order():
+#     """
+#     [POST] /shop/order/delete
+#     """
+#     order = Order.query.get_or_404(id)
+#     order.delete_order()
+#     return jsonify({'message': f'PRODUCT DELETED: {order.name} | {order.price} | {order.rating}'})
 
 
 @shop.route('/customer', methods=['GET'])
