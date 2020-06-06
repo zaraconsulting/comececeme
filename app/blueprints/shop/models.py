@@ -21,15 +21,10 @@ class Customer(UserMixin, db.Model):
     address_2 = db.Column(db.String)
     city = db.Column(db.String)
     state = db.Column(db.String)
-    zip = db.Column(db.Integer)
+    _zip = db.Column(db.Integer)
     # orders = db.relationship('Order', backref="order", cascade="save-update, merge, delete")
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     cart = db.relationship('Cart', backref='cart', lazy='dynamic')
-    # cart = db.relationship(
-    #     'Customer', secondary=cart,
-    #     primaryjoin=(cart.c.customer_id == id),
-    #     secondaryjoin=(cart.c.product_id == id),
-    #     backref=db.backref('cart', lazy='dynamic'), lazy='dynamic')
 
     def create_customer(self):
         self.password = generate_password_hash(self.password)

@@ -49,42 +49,47 @@ def cart():
     context = {}
     return render_template('shop-cart.html', **context)
 
-@shop.route('/client_token', methods=['GET'])
-def client_token():
-    """ 
-    [GET] /shop/client_token
-    """
-    bt_gateway = gateway(current_app)
-    print("Client Token:", gateway(current_app).client_token)
-    # print("Config:", dir(gateway(current_app).config))
-    print("Customer:", gateway(current_app).customer)
-    print("Merchant:", gateway(current_app).merchant)
-    print("Merchant Account:", gateway(current_app).merchant_account)
-    print("Payment Method Nonce:", gateway(current_app).payment_method_nonce)
-    print("Testing:", gateway(current_app).testing)
-    return bt_gateway.client_token.generate()
-
 @shop.route('/cart/checkout', methods=['GET', 'POST'])
 def cart_checkout():
+    # connect to braintree
+    bt_gateway = gateway(current_app)
+
+    # get client token
+    token = bt_gateway.client_token.generate()
+    session['client_token'] = token
+
+    data = request.form
     if request.method == 'POST':
-        nonce_from_client = request.form['payment_method_nonce']
-        print(nonce_from_client)
+
+        # Receives nonce from  form submission
+        nonce_from_client = data.get('payment_method_nonce')
+        result = bt_gateway.transaction.sale({
+            "amount": data.get('amount'),
+            "payment_method_nonce": data.get('payment_method_nonce'),
+            # "device_data": ,
+            "options": {
+                "submit_for_settlement": True
+            }
+        })
+        try:
+            customer = Customer.query.get(current_user.id)
+            customer.address_1 = data.get('address')
+            customer._zip = data.get('postalCode')
+            customer.phone = data.get('phone')
+            customer.city = data.get('city')
+            customer.state = data.get('state')
+            [db.session.delete(i) for i in customer.cart.all()]
+            db.session.commit()
+            return redirect(url_for('shop.index'))
+        except:
+            print("There was a problem. Try again")
+            return redirect(url_for('shop.cart_checkout'))
     return render_template('shop-checkout.html')
 
 @shop.route('/cart/clear', methods=['POST'])
 def cart_clear():
-    # [db.session.delete(i) for i in CartItem.query.all()]
     db.session.commit()
     return redirect(url_for('shop.index'))
-
-# @shop.route("/checkout", methods=["POST"])
-# def create_purchase():
-#     """
-#     [POST] /shop/checkout
-#     """
-#     nonce_from_client = request.form.to_dict()['nonce'] or {}
-#     print(nonce_from_client)
-#     return "It works"
 
 @login_required
 @shop.route('/product/cart/add', methods=['POST'])
@@ -96,30 +101,14 @@ def add_cart_product():
     if not current_user.is_authenticated:
         return redirect(url_for('authentication.login'))
     product = Product.query.get(request.args.get('id'))
-    # print(int(request.form.get('quantity')))
     for i in range(int(request.form.get('quantity'))):
-        # print(cart.customerId)
         db.session.add(Cart(customerId=int(current_user.id), productId=product.id))
     db.session.commit()
-    # user = current_user.id
-    # data = {
-    #     'id': product.id,
-    #     'name': product.name,
-    #     'image': product.image,
-    #     'price': product.price,
-    #     'rating': product.rating,
-        # 'quantity': len(CartItem.query.filter_by(name=Product.query.get(product.id).name).all())
-    # }
-    # for i in range(int(request.form['quantity'])):
-        # cart_item = CartItem()
-        # cart_item.from_dict(data)
-        # cart_item.create_cart_item()
     return redirect(url_for('shop.get_product', id=product.id))
 
 
 @shop.route('/product/comment/add', methods=['POST'])
 def add_product_review():
-    # print(request.form)
     data = {
         'author': request.form['review_name'],
         'email': request.form['review_email'],
@@ -157,7 +146,6 @@ def get_product():
     """
     [GET] /shop/product/<id>
     """
-    # print(session['shopping_cart'])
     id_ = request.args.get('id')
     reviews_list = [i for i in [i.rating for i in Product.query.get(id_).reviews.all()]]
     def getAverage(a_list):

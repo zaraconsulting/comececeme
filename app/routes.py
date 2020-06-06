@@ -7,14 +7,12 @@ from app import db
 @app.context_processor
 def inject_cart():
     try:
-        # if Cart.query.filter_by(customerId=current_user.id).first() is not None:
         items = []
         for i in current_user.cart.all():
             data = dict(prod_id=Product.query.get(i.productId).id, name=Product.query.get(i.productId).name, image=Product.query.get(
                 i.productId).image, price=Product.query.get(i.productId).price, quantity=len(Cart.query.filter_by(productId=i.productId).all()))
             if data not in items:
                 items.append(data)
-        print(items)
         tax = .098
         total = sum([Product.query.filter_by(id=i.productId).first().price for i in current_user.cart.all()])
         return dict(shopping_cart=items, total=total, tax=tax, grandTotal=total + (total * tax), fullCart=current_user.cart.all())
@@ -30,3 +28,9 @@ def getServiceCategories():
 @app.context_processor
 def getServices():
     return dict(services=[i.__str__() for i in Service.query.all()])
+
+@app.context_processor
+def getClientToken():
+    if 'client_token' not in session:
+        session['client_token'] = ''
+    return dict(client_token=session['client_token'])

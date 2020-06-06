@@ -224,39 +224,29 @@
 										<div class="accordion-content">
 											<div class="row">
 												<div class="col-sm-12">
-													<div class="form-field">
-														<label for="paymentName">Name (as it appears) <span>*</span></label>
-														<input type="text" class="m-required" id="paymentName" style="display: block;">
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-sm-12">
-													<div class="form-field">
+													<div class="form-group">
 														<label for="paymentCard">Card Number <span>*</span></label>
-														<input type="text" class="m-required" id="paymentCard" style="display: block;">
+														<div id="paymentCard" class="form-control custom-hosted-field"></div>
 													</div>
 												</div>
-											</div>
-											<div class="row">
-												<div class="col-sm-6">
-													<div class="form-field">
-														<label for="paymentCard">Postal Code <span>*</span></label>
-														<input type="text" class="m-required" id="paymentPostalCode" style="display: block;">
+												<!-- <div class="col-sm-6">
+													<div class="form-group">
+														<label for="paymentPostalCode">Postal Code <span>*</span></label>
+														<div id="paymentPostalCode" class="form-control custom-hosted-field"></div>
 													</div>
-												</div>
+												</div> -->
 											</div>
 											<div class="row">
-												<div class="col-sm-6">
-													<div class="form-field">
+												<div class="col-md-6">
+													<div class="form-group">
 														<label for="paymentExpiration">Expiration <span>*</span></label>
-														<input type="text" class="m-required" id="paymentExpiration" style="display: block;">
+														<div id="paymentExpiration" class="form-control custom-hosted-field"></div>
 													</div>
 												</div>
-												<div class="col-sm-6">
-													<div class="form-field">
+												<div class="col-md-6">
+													<div class="form-group">
 														<label for="paymentCVV">CVV <span>*</span></label>
-														<input type="text" class="m-required" id="paymentCVV" style="display: block;">
+														<div id="paymentCVV" class="form-control custom-hosted-field"></div>
 													</div>
 												</div>
 											</div>
@@ -297,7 +287,11 @@
 												<td>{{ product.name }} × {{ product.quantity }}</td>
 												<td>{{ '${:.2f}'.format(product.price) }}</td>
 											</tr>
-										{% endfor %}
+											{% endfor %}
+											<tr>
+												<td></td>
+												<td><strong>{{ '${:.2f}'.format(grandTotal) }}</strong></td>
+											</tr>
 									</tbody>
 								</table>
 							</div>
@@ -319,4 +313,92 @@
 	</div>
 </div>
 <!-- CORE : end -->
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+
+	<script>
+		braintree.client.create({ authorization: '{{ client_token }}' }, function(clientErr, clientInstance) {
+			if (clientErr) {
+				console.error(clientErr);
+				return;
+			}
+
+			var options = {
+				client: clientInstance,
+				fields: {
+					number: { selector: '#paymentCard', placeholder: '4111 1111 1111 1111' },
+					expirationDate: { selector: '#paymentExpiration', placeholder: '12/2025' },
+					cvv: { selector: '#paymentCVV', placeholder: '123' },
+					// postalcode: { selector: '#paymentPostalCode', placeholder: '60612' }
+				}
+			};
+
+			braintree.hostedFields.create(options, function(hostedFieldsErr, instance) {
+				if (hostedFieldsErr) {
+					console.error(hostedFieldsErr);
+					return;
+				}
+				
+				// console.log(instance.requestPaymentMethod());
+				var form = document.querySelector('#checkout-form');
+				form.addEventListener('submit', function (e) {
+					// e.preventDefault();
+					instance.tokenize(function (tokenizeErr, payload) {
+						if (tokenizeErr) {
+							console.error(tokenizeErr);
+							return;
+						}
+
+						var formData = {
+							firstName: $('#checkout-first-name').val(),
+							lastName: $('#checkout-last-name').val(),
+							company: $('#checkout-company').val(),
+							address: $('#checkout-address').val(),
+							city: $('#checkout-city').val(),
+							state: $('#checkout-state').val(),
+							postalCode: $('#checkout-postalcode').val(),
+							phone: $('#checkout-phone').val(),
+							email: $('#checkout-email').val(),
+							address_shipping: $('#enable-shipping-address').val(),
+							firstNameShipping: $('#checkout-first-name-shipping').val(),
+							lastNameShipping: $('#checkout-last-name-shipping').val(),
+							companyShipping: $('#checkout-company-shipping').val(),
+							cityShipping: $('#checkout-city-shipping').val(),
+							stateShipping: $('#checkout-state-shipping').val(),
+							postalCodeShipping: $('#checkout-postalcode-shipping').val(),
+							note: $('#checkout-note').val(),
+							payment_method_nonce: payload.nonce,
+							amount: "{{ '${:.2f}'.format(grandTotal) }}"
+						}
+
+						console.log(formData);
+
+						$.ajax({
+							type: 'POST',
+							url: '/shop/cart/checkout',
+							data: formData
+						})
+						.done(function (result) {
+							// Receive payment nonce
+							// console.log(payload.nonce);
+
+							instance.teardown(function (tearDownErr) {
+								if (tearDownErr) {
+									console.error("Could not tear down Hosted Fields form!");
+								} else {
+									console.info("Hosted Fields form has been torn down!");
+								}
+							})
+							if (result.success) {
+							} else {
+								// 
+							}
+						});
+					});
+				}, false);
+			})
+		})
+	</script>
 {% endblock %}
