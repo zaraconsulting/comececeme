@@ -30,7 +30,7 @@
 							</div>
 							<div class="col-sm-6">
 								<!-- PRODUCT LIST SORTING : begin -->
-								<form id="sort-dropdown" action="/shop/products/sort" class="default-form product-list-sorting" method="get">
+								<form id="sort-dropdown" action="/shop/products" class="default-form product-list-sorting" method="get">
 									<select name="order" id="sort-select" class="selectbox-input m-small m-type-2">
 										<option value="default">Default Sorting</option>
 										<option value="lowest">Lowest Price</option>
@@ -67,7 +67,7 @@
 							{% endif %}
 							{% for page in page_products %}
 								{% if page %}
-									<li class="m-active"><a href="{{ url_for('shop.index', page=page) }}">{{ page }}</a></li>
+									<li class="m-active"><a href="{{ url_for('shop.index', page=page, order=sort_order) }}">{{ page }}</a></li>
 								{% else %}
 									<li><a href="#">{{ page }}</a></li>
 								{% endif %}
@@ -89,4 +89,12 @@
 	</div>
 </div>
 <!-- CORE : end -->
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+	<script>
+		console.log('{{ sort_order }}')
+		$('#sort-dropdown option[value={{ sort_order }}]').attr('selected', 'selected');
+	</script>
 {% endblock %}
