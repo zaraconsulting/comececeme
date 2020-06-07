@@ -14,8 +14,15 @@ def index():
     """
     [GET] /shop/products
     """
+    page = request.args.get('page', 1, type=int)
+    products = Product.query.paginate(page, current_app.config.get('PRODUCTS_PER_PAGE')+1, False)
+    next_url = url_for('shop.index', page=products.next_num) if products.has_next else None
+    prev_url = url_for('shop.index', page=products.prev_num) if products.has_prev else None
     context = {
-        'products': [i.to_dict() for i in Product.query.all() if i.in_stock == True or i.quantity > 0]
+        'products': [i.to_dict() for i in products.items if i.in_stock == True or i.quantity > 0],
+        'page_products': products.iter_pages(),
+        'next_url': next_url,
+        'prev_url': prev_url
     }
     return render_template('shop-list.html', **context)
 

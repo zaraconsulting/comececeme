@@ -342,7 +342,7 @@
 				
 				var form = document.querySelector('#checkout-form');
 				form.addEventListener('submit', function (e) {
-					// e.preventDefault();
+					e.preventDefault();
 					instance.tokenize(function (tokenizeErr, payload) {
 						if (tokenizeErr) {
 							console.error(tokenizeErr);
@@ -386,13 +386,30 @@
 								if (tearDownErr) {
 									console.error("Could not tear down Hosted Fields form!");
 								} else {
+									$('#checkout-first-name').val("");
+									$('#checkout-last-name').val("");
+									$('#checkout-company').val("");
+									$('#checkout-address').val("");
+									$('#checkout-city').val("");
+									$('#checkout-state').val("");
+									$('#checkout-postalcode').val("");
+									$('#checkout-phone').val("");
+									$('#checkout-email').val("");
+									$('#enable-shipping-address').val("");
+									$('#checkout-first-name-shipping').val("");
+									$('#checkout-last-name-shipping').val("");
+									$('#checkout-company-shipping').val("");
+									$('#checkout-city-shipping').val("");
+									$('#checkout-state-shipping').val("");
+									$('#checkout-postalcode-shipping').val("");
+									$('#checkout-note').val("");
+
 									console.info("Hosted Fields form has been torn down!");
 								}
-								$('#checkout-form').submit()
 							})
 							if (result.success) {
 							} else {
-								// 
+								
 							}
 						});
 					});

@@ -62,12 +62,20 @@
 					<!-- PRODUCT LIST : end -->
 					<!-- PAGINATION : begin -->
 					<ul class="c-pagination">
-						<li class="prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-						<li><a href="#">1</a></li>
-						<li class="m-active"><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li class="next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-					</ul>
+							{% if prev_url %}
+								<li class="prev"><a href="{{ prev_url }}"><i class="fa fa-angle-left"></i></a></li>
+							{% endif %}
+							{% for page in page_products %}
+								{% if page %}
+									<li class="m-active"><a href="{{ url_for('shop.index', page=page) }}">{{ page }}</a></li>
+								{% else %}
+									<li><a href="#">{{ page }}</a></li>
+								{% endif %}
+							{% endfor %}
+							{% if next_url %}
+								<li class="next"><a href="{{ next_url }}"><i class="fa fa-angle-right"></i></a></li>
+							{% endif %}
+						</ul>
 					<!-- PAGINATION : end -->
 				</div>
 				<!-- PAGE CONTENT : end -->
