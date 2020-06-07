@@ -6,7 +6,7 @@ from app.braintree import gateway
 import pprint
 from math import ceil
 
-from .models import Product, Category, Customer, ProductReview, Cart
+from .models import Product, Category, Customer, ProductReview, Cart, Order
 
 
 @shop.route('/products', methods=['GET', 'POST'])
@@ -26,11 +26,15 @@ def index():
         
     next_url = url_for('shop.index', page=products.next_num) if products.has_next else None
     prev_url = url_for('shop.index', page=products.prev_num) if products.has_prev else None
+    if not prev_url:
+        current_page = page
+    elif not next_url:
+        current_page = page
     context = {
         'products': [i.to_dict() for i in products.items if i.in_stock == True or i.quantity > 0],
         'page_products': products.iter_pages(),
         'sort_order': order,
-        'current_page': page,
+        'current_page': current_page,
         'next_url': next_url,
         'prev_url': prev_url
     }
@@ -97,13 +101,23 @@ def cart_checkout():
                     "submit_for_settlement": True
                 }
             })
+            # Update Customer data
             customer = Customer.query.get(current_user.id)
             customer.address_1 = data.get('address')
             customer._zip = data.get('postalCode')
             customer.phone = data.get('phone')
             customer.city = data.get('city')
             customer.state = data.get('state')
+
+            # Create Order
+            # db.session.add_all([Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId) for _ in Cart.query.filter_by(customerId=customer.id).all()])
+            for i in Cart.query.filter_by(customerId=customer.id).all():
+                db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId))
+                db.session.commit()
+
+            # Delete cart 
             [db.session.delete(i) for i in customer.cart.all()]
+            
             db.session.commit()
             return redirect(url_for('shop.index'))
         except:

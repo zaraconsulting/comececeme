@@ -66,7 +66,7 @@
 								<li class="prev"><a href="{{ url_for('shop.index', page=current_page-1, order=sort_order) }}"><i class="fa fa-angle-left"></i></a></li>
 							{% endif %}
 							{% for page in page_products %}
-								{% if page %}
+								{% if page == current_page %}
 									<li class="m-active"><a href="{{ url_for('shop.index', page=page, order=sort_order) }}">{{ page }}</a></li>
 								{% else %}
 									<li><a href="#">{{ page }}</a></li>

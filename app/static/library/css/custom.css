@@ -27,6 +27,15 @@ the existing ones.
 		padding-left: 10px;
 	}
 
+	.accordian-title-without {
+		color: #3f3f3f;
+		position: relative;
+		margin: 0;
+		padding: 18px 15px 18px 40px;
+		font-size: 1em;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
 
 /* -----------------------------------------------------------------------------
 

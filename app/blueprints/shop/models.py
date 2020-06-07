@@ -22,8 +22,8 @@ class Customer(UserMixin, db.Model):
     city = db.Column(db.String)
     state = db.Column(db.String)
     _zip = db.Column(db.Integer)
-    # orders = db.relationship('Order', backref="order", cascade="save-update, merge, delete")
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    orders = db.relationship('Order', backref="orders", lazy='dynamic')
     cart = db.relationship('Cart', backref='cart', lazy='dynamic')
 
     def create_customer(self):
@@ -75,6 +75,7 @@ class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customerId = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     productId = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
 
     def __repr__(self):
         return f"<Cart: {self.customerId}, {self.productId}>"
@@ -93,7 +94,6 @@ class Product(db.Model):
     discount_price = db.Column(db.Float)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
-    # order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     reviews = db.relationship('ProductReview', backref='product_reviews', lazy='dynamic')
 
     def to_dict(self):
@@ -128,36 +128,37 @@ class Product(db.Model):
         return f'Name: {self.name}\nPrice: {self.price}\nRating: {self.rating}'
 
 
-# class Order(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     order_date = db.Column(db.DateTime, default=datetime.utcnow)
-#     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-#     coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
-#     products = db.relationship('Product', backref='product', lazy='dynamic')
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    order_date = db.Column(db.DateTime, default=datetime.utcnow)
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
+    # coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
 
-#     def create_order(self):
-#         db.session.add(self)
-#         db.session.commit()
+    def create_order(self):
+        db.session.add(self)
+        db.session.commit()
 
-#     def delete_order(self):
-#         db.session.delete(self)
-#         db.session.commit()
+    def delete_order(self):
+        db.session.delete(self)
+        db.session.commit()
 
-#     def to_dict(self):
-#         data = {
-#             'order_id': self.id,
-#             'customer_id': self.customer_id,
-#             'order_date': self.order_date
-#         }
-#         return data
+    def to_dict(self):
+        data = {
+            'order_id': self.id,
+            'customer_id': self.customer_id,
+            'product_id': self.product_id,
+            'order_date': self.order_date,
+        }
+        return data
 
-#     def from_dict(self, data):
-#         for field in ['order_id', 'customer_id']:
-#             if field in data:
-#                 setattr(self, field, data[field])
+    def from_dict(self, data):
+        for field in ['customer_id', 'cart_id', 'product_id']:
+            if field in data:
+                setattr(self, field, data[field])
 
-#     def __str__(self):
-#         return f"OrderID: {self.id} | CustomerID: {self.customer_id}"
+    def __str__(self):
+        return f"OrderID: {self.id} | CustomerID: {self.customer_id}"
 
 
 class ProductReview(db.Model):
