@@ -1,7 +1,8 @@
 from flask import current_app as app, session, jsonify, request
 from flask_login import current_user
-from app.blueprints.shop.models import Product, Customer, Cart
+from app.blueprints.shop.models import Product, Customer, Cart, Order
 from app.blueprints.services.models import Service, ServiceCategory
+from sqlalchemy import func, desc
 from app import db
 
 @app.context_processor
@@ -34,3 +35,16 @@ def getClientToken():
     if 'client_token' not in session:
         session['client_token'] = ''
     return dict(client_token=session['client_token'])
+
+@app.context_processor
+@app.shell_context_processor
+def getPopularProducts():
+    popular_products = db.session.query(Order.product_id,
+        func.count(Order.id).label('qty')
+        ).group_by(Order.product_id
+        ).order_by(desc('qty')).limit(3)
+    return dict(popular_products=[(Product.query.get(i[0]), i[1]) for i in popular_products.all()])
+
+@app.context_processor
+def sayHello():
+    return dict(statement="Hello")

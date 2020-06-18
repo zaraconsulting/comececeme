@@ -652,67 +652,67 @@
 		SELECTBOX INPUT
 	------------------------------------------------------------------------- */
 
-	$.fn.lvSelectboxInput = function(){
+	// $.fn.lvSelectboxInput = function(){
 
-		var $this = $(this);
-		$this.wrap( '<div class="selectbox-input"></div>' );
-		$this = $this.parent();
-		var input = $this.find( 'select' ),
-		fakeSelectHtml = '';
-		input.removeClass( 'selectbox-input' );
-		var value = input.val();
-		var defaultValue = input.find( 'option[value="' + value + '"]' ).text() ? input.find( 'option[value="' + value + '"]' ).text() : input.find( 'option' ).first().text();
+	// 	var $this = $(this);
+	// 	$this.wrap( '<div class="selectbox-input"></div>' );
+	// 	$this = $this.parent();
+	// 	var input = $this.find( 'select' ),
+	// 	fakeSelectHtml = '';
+	// 	input.removeClass( 'selectbox-input' );
+	// 	var value = input.val();
+	// 	var defaultValue = input.find( 'option[value="' + value + '"]' ).text() ? input.find( 'option[value="' + value + '"]' ).text() : input.find( 'option' ).first().text();
 
-		// COPY CLASSES
-		if ( input.hasClass( 'm-small' ) ) {
-			$this.addClass( 'm-small' );
-		}
-		if ( input.hasClass( 'm-type-2' ) ) {
-			$this.addClass( 'm-type-2' );
-		}
+	// 	// COPY CLASSES
+	// 	if ( input.hasClass( 'm-small' ) ) {
+	// 		$this.addClass( 'm-small' );
+	// 	}
+	// 	if ( input.hasClass( 'm-type-2' ) ) {
+	// 		$this.addClass( 'm-type-2' );
+	// 	}
 
-		// CREATE ELEMENTS
-		input.hide();
-		$this.append( '<button type="button" class="toggle"><span>' + defaultValue + '</span></button>' );
-		fakeSelectHtml = '<ul class="fake-selectbox" style="display: none;">';
-		input.find( 'option' ).each(function(index, element){
-			if (index === 0) {
-				fakeSelectHtml += '<li disabled>' + $(this).text() + '</li>';
-			}
-			else {
-				fakeSelectHtml += '<li data-value="' + $(this).attr( 'value' ) + '">' + $(this).text() + '</li>';
-			}
-		});
-		fakeSelectHtml += '</ul>';
-		$this.append( fakeSelectHtml );
-		var toggle = $this.find( '.toggle' ),
-		fakeSelect = $this.find( '.fake-selectbox' );
+	// 	// CREATE ELEMENTS
+	// 	input.hide();
+	// 	$this.append( '<button type="button" class="toggle"><span>' + defaultValue + '</span></button>' );
+	// 	fakeSelectHtml = '<ul class="fake-selectbox" style="display: none;">';
+	// 	input.find( 'option' ).each(function(index, element){
+	// 		if (index === 0) {
+	// 			fakeSelectHtml += '<li disabled>' + $(this).text() + '</li>';
+	// 		}
+	// 		else {
+	// 			fakeSelectHtml += '<li data-value="' + $(this).attr( 'value' ) + '">' + $(this).text() + '</li>';
+	// 		}
+	// 	});
+	// 	fakeSelectHtml += '</ul>';
+	// 	$this.append( fakeSelectHtml );
+	// 	var toggle = $this.find( '.toggle' ),
+	// 	fakeSelect = $this.find( '.fake-selectbox' );
 
-		// TOGGLE
-		toggle.click(function(){
-			fakeSelect.slideToggle(150);
-			toggle.toggleClass( 'm-active' );
-			$this.unbind( 'clickoutside' );
-			if ( toggle.hasClass( 'm-active' ) ) {
-				$this.bind( 'clickoutside', function(event){
-					fakeSelect.slideUp(150);
-					toggle.removeClass( 'm-active' );
-					$this.unbind( 'clickoutside' );
-				});
-			}
-		});
+	// 	// TOGGLE
+	// 	toggle.click(function(){
+	// 		fakeSelect.slideToggle(150);
+	// 		toggle.toggleClass( 'm-active' );
+	// 		$this.unbind( 'clickoutside' );
+	// 		if ( toggle.hasClass( 'm-active' ) ) {
+	// 			$this.bind( 'clickoutside', function(event){
+	// 				fakeSelect.slideUp(150);
+	// 				toggle.removeClass( 'm-active' );
+	// 				$this.unbind( 'clickoutside' );
+	// 			});
+	// 		}
+	// 	});
 
-		// FAKE SELECTBOX CLICK
-		fakeSelect.find( 'li' ).each(function(){
-			$(this).click(function(){
-				toggle.removeClass( 'm-active' ).find( 'span' ).text( $(this).text() );
-				fakeSelect.slideUp(150);
-				input.val( $(this).attr( 'data-value' ) );
-				input.trigger( 'change' );
-			});
-		});
+	// 	// FAKE SELECTBOX CLICK
+	// 	fakeSelect.find( 'li' ).each(function(){
+	// 		$(this).click(function(){
+	// 			toggle.removeClass( 'm-active' ).find( 'span' ).text( $(this).text() );
+	// 			fakeSelect.slideUp(150);
+	// 			input.val( $(this).attr( 'data-value' ) );
+	// 			input.trigger( 'change' );
+	// 		});
+	// 	});
 
-	};
+	// };
 
 	/* -------------------------------------------------------------------------
 		TABS

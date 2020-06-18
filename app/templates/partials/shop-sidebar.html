@@ -57,18 +57,12 @@
         <h3 class="widget-title">Popular Products</h3>
         <div class="widget-content">
             <ul>
-                <li>
-                    <h4 class="product-title"><a href="{{ url_for('shop.index') }}">Aromachology Repairing Mask</a></h4>
-                    <p class="product-price"><span class="old-price">$26.49</span> $22.49</p>
-                </li>
-                <li>
-                    <h4 class="product-title"><a href="{{ url_for('shop.index') }}">Almond Supple Skin Oil</a></h4>
-                    <p class="product-price">$35.50</p>
-                </li>
-                <li>
-                    <h4 class="product-title"><a href="{{ url_for('shop.index') }}">Shea Ultra Gentle Moisturizer</a></h4>
-                    <p class="product-price">$29.99</p>
-                </li>
+                {% for i in popular_products %}
+                    <li>
+                        <h4 class="product-title"><a href="{{ url_for('shop.get_product', id=i[0].id) }}">{{ i[0].name }}</a></h4>
+                        <p class="product-price"><!--<span class="old-price">$26.49</span>--> {{ i[0].price }}</p>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
     </div>

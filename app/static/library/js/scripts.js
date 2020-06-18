@@ -26,21 +26,21 @@ $(document).ready(function(){
 		AJAX FORMS
 	------------------------------------------------------------------------- */
 
-	if ( $.fn.lvAjaxForm ) {
-		$( 'form.m-ajax-form' ).each(function(){
-			$(this).lvAjaxForm();
-		});
-	}
+	// if ( $.fn.lvAjaxForm ) {
+	// 	$( 'form.m-ajax-form' ).each(function(){
+	// 		$(this).lvAjaxForm();
+	// 	});
+	// }
 
 	/* -------------------------------------------------------------------------
 		AJAX MODALS
 	------------------------------------------------------------------------- */
 
-	if ( $.fn.lvOpenAjaxModal ) {
-		$( 'a.m-open-ajax-modal' ).each(function(){
-			$(this).lvOpenAjaxModal();
-		});
-	}
+	// if ( $.fn.lvOpenAjaxModal ) {
+	// 	$( 'a.m-open-ajax-modal' ).each(function(){
+	// 		$(this).lvOpenAjaxModal();
+	// 	});
+	// }
 
 	/* -------------------------------------------------------------------------
 		FLUID VIDEOS
