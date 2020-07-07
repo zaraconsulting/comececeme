@@ -13,6 +13,13 @@ login = LoginManager()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
+
+    ENV = app.config.get('FLASK_ENV')
+    if ENV == 'development':
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DEVELOPMENT_SQLALCHEMY_DATABASE_URI')
+    elif ENV == 'production':
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('PRODUCTION_SQLALCHEMY_DATABASE_URI')
+
     app.config.from_object(config_class)
 
     db.init_app(app)

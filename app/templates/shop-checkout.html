@@ -51,7 +51,7 @@
 										<!-- FIRST NAME FIELD : begin -->
 										<div class="form-field">
 											<label for="checkout-first-name">First Name <span>*</span></label>
-											<input type="text" class="m-required" id="checkout-first-name">
+											<input type="text" class="m-required" id="checkout-first-name" name="checkout-first-name">
 										</div>
 										<!-- FIRST NAME FIELD : end -->
 									</div>
@@ -59,7 +59,7 @@
 										<!-- LAST NAME FIELD : begin -->
 										<div class="form-field">
 											<label for="checkout-last-name">Last Name <span>*</span></label>
-											<input type="text" id="checkout-last-name">
+											<input type="text" id="checkout-last-name" name="checkout-last-name">
 										</div>
 										<!-- LAST NAME FIELD : end -->
 									</div>
@@ -67,19 +67,19 @@
 								<!-- COMPANY FIELD : begin -->
 								<div class="form-field">
 									<label for="checkout-company">Company</label>
-									<input type="text" id="checkout-company">
+									<input type="text" id="checkout-company" name="checkout-company">
 								</div>
 								<!-- COMPANY FIELD : end -->
 								<!-- ADDRESS FIELD : begin -->
 								<div class="form-field">
 									<label for="checkout-address">Address <span>*</span></label>
-									<input type="text" class="required" id="checkout-address">
+									<input type="text" class="required" id="checkout-address" name="checkout-address">
 								</div>
 								<!-- ADDRESS FIELD : end -->
 								<!-- CITY FIELD : begin -->
 								<div class="form-field">
 									<label for="checkout-city">City <span>*</span></label>
-									<input type="text" class="m-required" id="checkout-city">
+									<input type="text" class="m-required" id="checkout-city" name="checkout-city">
 								</div>
 								<!-- CITY FIELD : end -->
 								<div class="row">
@@ -87,7 +87,7 @@
 										<!-- STATE FIELD : begin -->
 										<div class="form-field">
 											<label for="checkout-state">State</label>
-											<input type="text" id="checkout-state">
+											<input type="text" id="checkout-state" name="checkout-state">
 										</div>
 										<!-- STATE FIELD : end -->
 									</div>
@@ -95,7 +95,7 @@
 										<!-- POSTCODE FIELD : begin -->
 										<div class="form-field">
 											<label for="checkout-postalcode">Postal code</label>
-											<input type="text" id="checkout-postalcode">
+											<input type="text" id="checkout-postalcode" name="checkout-postalcode">
 										</div>
 										<!-- POSTCODE FIELD : end -->
 									</div>
@@ -105,7 +105,7 @@
 										<!-- EMAIL FIELD : begin -->
 										<div class="form-field">
 											<label for="checkout-email">Email</label>
-											<input type="text" class="m-required m-email" id="checkout-email">
+											<input type="text" class="m-required m-email" id="checkout-email" name="checkout-email">
 										</div>
 										<!-- EMAIL FIELD : end -->
 									</div>
@@ -113,7 +113,7 @@
 										<!-- PHONE FIELD : begin -->
 										<div class="form-field">
 											<label for="checkout-phone">Phone</label>
-											<input type="text" id="checkout-phone">
+											<input type="text" id="checkout-phone" name="checkout-phone">
 										</div>
 										<!-- PHONE FIELD : end -->
 									</div>
@@ -359,7 +359,7 @@
 							postalCode: $('#checkout-postalcode').val(),
 							phone: $('#checkout-phone').val(),
 							email: $('#checkout-email').val(),
-							address_shipping: $('#enable-shipping-address').val(),
+							addressshipping: $('#enable-shipping-address').val(),
 							firstNameShipping: $('#checkout-first-name-shipping').val(),
 							lastNameShipping: $('#checkout-last-name-shipping').val(),
 							companyShipping: $('#checkout-company-shipping').val(),

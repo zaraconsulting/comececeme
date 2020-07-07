@@ -5,6 +5,7 @@ from flask_login import current_user, login_required
 from app.braintree import gateway
 import pprint
 from math import ceil
+from braintree.exceptions.not_found_error import NotFoundError
 
 from .models import Product, Category, Customer, ProductReview, Cart, Order
 
@@ -20,7 +21,7 @@ def index():
     if order == 'lowest':
         products = Product.query.order_by(Product.price.asc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
     elif order == 'highest':
-        products =Product.query.order_by(Product.price.desc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
+        products = Product.query.order_by(Product.price.desc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
     else:
         products = Product.query.paginate(page, current_app.config.get('PRODUCTS_PER_PAGE')+1, False)
         
@@ -85,42 +86,131 @@ def cart_checkout():
 
     # get client token
     token = bt_gateway.client_token.generate()
+    # print("Token", token)
+
     session['client_token'] = token
 
-    data = request.form
+    # print(data)
     if request.method == 'POST':
+        first_name = request.form.get('firstName')
+        last_name = request.form.get('lastName')
+        company = request.form.get('company')
+        phone = request.form.get('phone')
+        email = request.form.get('email')
+        street_address = request.form.get('address')
+        locality = request.form.get('city')
+        region = request.form.get('state')
+        postal_code = request.form.get('postalCode')
+        amount = request.form.get('amount')
+
+        shipping_first_name = request.form.get('firstNameShipping')
+        shipping_last_name = request.form.get('lastNameShipping')
+        shipping_company = request.form.get('companyShipping')
+        shipping_address = request.form.get('addressshipping')
+        shipping_locality = request.form.get('cityShipping')
+        shipping_region = request.form.get('stateShipping')
+        shipping_postal_code = request.form.get('postalCodeShipping')
+        note = request.form.get('note')
 
         # Receives nonce from  form submission
-        nonce_from_client = data.get('payment_method_nonce')
+        nonce_from_client = request.form.get('payment_method_nonce')
+
+        try:
+            result = bt_gateway.customer.find(current_user.id)
+
+            # Update customer if already exists
+            bt_gateway.customer.update(str(result.customer.id), {
+                "first_name": first_name,
+                "last_name": last_name,
+                "company": company,
+                "email": email,
+                "phone": phone,
+            })
+
+        except:
+            # Create customer in Braintree if not exists
+            print("Creating customer")
+            customer = bt_gateway.customer.create({
+                "first_name": first_name,
+                "last_name": last_name,
+                "company": company,
+                "email": email,
+                "phone": phone,
+                "fax": "",
+                "website": "",
+                "payment_method_nonce": nonce_from_client
+            })
+            
         try:
             result = bt_gateway.transaction.sale({
-                "amount": data.get('amount'),
-                "payment_method_nonce": data.get('payment_method_nonce'),
+                "amount": amount[1:],
+                "customer_id": customer.customer.id,
                 # "device_data": ,
+                "merchant_account_id": current_app.config.get('BT_MERCHANT_ACCOUNT_ID'),
+                "customer": {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "company": company,
+                    "phone": phone,
+                    "email": email
+                },
+                "billing": {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "company": company,
+                    "street_address": street_address,
+                    "extended_address": "",
+                    "locality": locality,
+                    "region": region,
+                    "postal_code": postal_code,
+                    "country_code_alpha2": "US"
+                },
+                "shipping": {
+                    "first_name": shipping_first_name,
+                    "last_name": shipping_last_name,
+                    "company": shipping_company,
+                    "street_address": shipping_address,
+                    "extended_address": "",
+                    "locality": shipping_locality,
+                    "region": shipping_region,
+                    "postal_code": shipping_postal_code,
+                    "country_code_alpha2": "US"
+                },
                 "options": {
-                    "submit_for_settlement": True
+                    "submit_for_settlement": True,
+                    "store_in_vault_on_success": True
                 }
             })
-            # Update Customer data
-            customer = Customer.query.get(current_user.id)
-            customer.address_1 = data.get('address')
-            customer._zip = data.get('postalCode')
-            customer.phone = data.get('phone')
-            customer.city = data.get('city')
-            customer.state = data.get('state')
 
-            # Create Order
-            # db.session.add_all([Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId) for _ in Cart.query.filter_by(customerId=customer.id).all()])
-            for i in Cart.query.filter_by(customerId=customer.id).all():
-                db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId))
+            print("Result", result)
+
+            print("Success: ", result.is_success)
+
+            # TODO: Figure out why result.is_success = False
+            if result.is_success:
+                # Update Customer data
+                c = Customer.query.get(current_user.id)
+                c.address_1 = street_address
+                c._zip = postal_code
+                c.phone = phone
+                c.city = locality
+                c.state = region
+
+                # Create Order
+                # db.session.add_all([Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId) for _ in Cart.query.filter_by(customerId=customer.id).all()])
+                for _ in Cart.query.filter_by(customerId=c.id).all():
+                    db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().productId))
+                    db.session.commit()
+
+                # Delete cart 
+                [db.session.delete(i) for i in c.cart.all()]
+                
                 db.session.commit()
-
-            # Delete cart 
-            [db.session.delete(i) for i in customer.cart.all()]
-            
-            db.session.commit()
-            return redirect(url_for('shop.index'))
-        except:
+                return redirect(url_for('shop.index'))
+            else:
+                print(result.errors)
+                return redirect(url_for('shop.cart_checkout'))
+        except NotFoundError:
             print("There was a problem. Try again")
             # return redirect(url_for('shop.cart_checkout'))
     return render_template('shop-checkout.html')
@@ -148,11 +238,12 @@ def add_cart_product():
 
 @shop.route('/product/comment/add', methods=['POST'])
 def add_product_review():
+    rating = request.form.get('review_rating')
     data = {
         'author': request.form['review_name'],
         'email': request.form['review_email'],
         'body': request.form['review_message'],
-        'rating': int(request.form.get('review_rating')),
+        'rating': int(rating) if rating else 5,
         'product_id': int(request.form.get('product_id')),
     }
     product_review = ProductReview()
@@ -162,8 +253,7 @@ def add_product_review():
 
 @shop.route('/product/cart/remove/<int:id>')
 def remove_cart_product(id):
-    item = Cart.query.filter_by(productId=id).first()
-    db.session.delete(item)
+    [db.session.delete(item) for item in Cart.query.filter_by(productId=id).all()]
     db.session.commit()
     return redirect(url_for('shop.cart'))
 
@@ -188,7 +278,7 @@ def get_product():
     id_ = request.args.get('id')
     reviews_list = [i for i in [i.rating for i in Product.query.get(id_).reviews.all()]]
     def getAverage(a_list):
-        if len(a_list) == 0:
+        if len(a_list) == 0 or not a_list:
             return 0
         return ceil(sum(reviews_list) / len(reviews_list))
     context = {

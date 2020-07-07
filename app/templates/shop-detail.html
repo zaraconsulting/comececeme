@@ -40,8 +40,8 @@
 								<!-- PRODUCT RATING : begin -->
 								<div class="product-rating">
 									<a href="#product-tabs">
-										<span class="rating-stars">{% for _ in range(average) %} <i class="fa fa-star"></i> {% endfor %}</span>
-										<span class="rating-label">{{ product.reviews.all()|length }} reviews</span>
+										<!-- <span class="rating-stars">{% for _ in range(average) %} <i class="fa fa-star"></i> {% endfor %}</span> -->
+										<span class="rating-label">{{ product.reviews.all()|length }} review{% if product.reviews.all()|length > 1 or product.reviews.all()|length == 0 %}s{% endif %}</span>
 									</a>
 								</div>
 								<!-- PRODUCT RATING : end -->
@@ -112,23 +112,25 @@
 									<div class="product-reviews">
 										<!-- REVIEW LIST: begin -->
 										<ul class="review-list" id="product-reviews">
-											{% for review in product.reviews.all() %}
-												<li>
-													<!-- REVIEW : begin -->
-													<div class="review">
-														<p class="review-portrait"><img src="{{ url_for('static', filename='images/comment_author_02.jpg') }}" alt=""></p>
-														<h4 class="review-author">{{ review.author }}</h4>
-														<p class="review-rating">{% for star in range(review.rating) %}<i class="fa fa-star"></i>{% endfor %}{% for o_start in range(5 - review.rating) %}<i class="fa fa-star-o"></i>{% endfor %}</p>
-														<div class="review-content various-content">
-															<p>{{ review.body }}</p>
+											{% if product.reviews.all() %}
+												{% for review in product.reviews.all() %}
+													<li>
+														<!-- REVIEW : begin -->
+														<div class="review">
+															<p class="review-portrait"><img src="{{ url_for('static', filename='images/comment_author_02.jpg') }}" alt=""></p>
+															<h4 class="review-author">{{ review.author }}</h4>
+															<!-- <p class="review-rating">{% for star in range(review.rating) %}<i class="fa fa-star"></i>{% endfor %}{% for o_start in range(5 - review.rating) %}<i class="fa fa-star-o"></i>{% endfor %}</p> -->
+															<div class="review-content various-content">
+																<p>{{ review.body }}</p>
+															</div>
+															<div class="review-info">
+																<div class="review-date">{{ '{:%B %d, %Y}'.format(review.created_on) }}</div>
+															</div>
 														</div>
-														<div class="review-info">
-															<div class="review-date">{{ '{:%B %d, %Y}'.format(review.created_on) }}</div>
-														</div>
-													</div>
-													<!-- REVIEW : end -->
-												</li>
-											{% endfor %}
+														<!-- REVIEW : end -->
+													</li>
+												{% endfor %}
+											{% endif %}
 										</ul>
 										<!-- REVIEW LIST: end -->
 										<!-- REVIEW FORM : begin -->

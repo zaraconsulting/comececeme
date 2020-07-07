@@ -40,6 +40,7 @@ class Customer(UserMixin, db.Model):
 
     def to_dict(self):
         data = {
+            'id': self.id,
             'first_name': self.first_name,
             'last_name': self.last_name,
             'email': self.email,
@@ -55,7 +56,7 @@ class Customer(UserMixin, db.Model):
         return data
 
     def from_dict(self, data):
-        for field in ['first_name', 'last_name', 'email', 'password']:
+        for field in ['id', 'first_name', 'last_name', 'email', 'password']:
             if field in data:
                 setattr(self, field, data[field])
 

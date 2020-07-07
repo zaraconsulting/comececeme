@@ -10,6 +10,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
     BT_MERCHANT_ID = os.environ.get('BT_MERCHANT_ID')
+    BT_MERCHANT_ACCOUNT_ID = os.environ.get('BT_MERCHANT_ACCOUNT_ID')
     BT_PUBLIC_KEY = os.environ.get('BT_PUBLIC_KEY')
     BT_PRIVATE_KEY = os.environ.get('BT_PRIVATE_KEY')
     MAIL_SERVER = os.environ.get('MAIL_SERVER')

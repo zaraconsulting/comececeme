@@ -39,10 +39,13 @@ def getClientToken():
 @app.context_processor
 @app.shell_context_processor
 def getPopularProducts():
-    popular_products = db.session.query(Order.product_id,
+    if Order.query.all():
+        popular_products = db.session.query(Order.product_id,
         func.count(Order.id).label('qty')
         ).group_by(Order.product_id
         ).order_by(desc('qty')).limit(3)
+    else:
+        return dict()
     return dict(popular_products=[(Product.query.get(i[0]), i[1]) for i in popular_products.all()])
 
 @app.context_processor
