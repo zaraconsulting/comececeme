@@ -61,6 +61,9 @@ def create_app(config_class=Config):
         from app.blueprints.errors import errors
         app.register_blueprint(errors, url_prefix='/error')
 
+        # changed
+        # asd
+
         from .braintree import gateway
         from .import routes
 
