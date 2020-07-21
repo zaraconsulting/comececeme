@@ -1,0 +1,20 @@
+<section>
+    <!-- SECTION HEADER : begin -->
+    <header>
+        <div class="container">
+            <h2>Gallery</h2>
+            <p class="subtitle">See how it looks inside our studio</p>
+            <p class="more"><a href="{{ url_for('gallery.index') }}" class="c-button m-type-2">Enter Gallery</a></p>
+        </div>
+    </header>
+    <!-- SECTION HEADER : end -->
+    <!-- GALLERY : begin -->
+    <div class="c-gallery m-paginated" data-items="4" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-mobile="1">
+        <div class="thumb-list">
+            {% for p in gallery %}
+                <div class="thumb"><a href="#" class="lightbox img-fluid" data-lightbox-group="gallery"><img src="{{ p.image_url }}" alt="{{ p.image_url }}"></a></div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- GALLERY : end -->
+</section>

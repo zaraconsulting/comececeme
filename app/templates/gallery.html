@@ -22,14 +22,9 @@
 			<!-- GALLERY : begin -->
 			<div class="c-gallery">
 				<div class="thumb-list">
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_01.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_01.jpg') }}" alt=""></a></div>
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_02.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_02.jpg') }}" alt=""></a></div>
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_03.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_03.jpg') }}" alt=""></a></div>
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_04.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_04.jpg') }}" alt=""></a></div>
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_06.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_06.jpg') }}" alt=""></a></div>
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_07.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_07.jpg') }}" alt=""></a></div>
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_08.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_08.jpg') }}" alt=""></a></div>
-					<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_05.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ url_for('static', filename='images/gallery_05.jpg') }}" alt=""></a></div>
+					{% for p in gallery %}
+						<div class="thumb"><a href="{{ url_for('static', filename='images/gallery_01.jpg') }}" class="lightbox" data-lightbox-group="gallery"><img src="{{ p.image_url }}" alt="{{ p.image_url }}"></a></div>
+					{% endfor %}
 				</div>
 			</div>
 			<!-- GALLERY : end -->

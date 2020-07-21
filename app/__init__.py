@@ -58,6 +58,9 @@ def create_app(config_class=Config):
         from app.blueprints.authentication import bp as authentication
         app.register_blueprint(authentication, url_prefix='/authentication')
 
+        from app.blueprints.errors import errors
+        app.register_blueprint(errors, url_prefix='/error')
+
         from .braintree import gateway
         from .import routes
 
