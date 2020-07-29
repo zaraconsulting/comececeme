@@ -23,3 +23,8 @@ class Config:
     CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
     CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
     CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
+    MAILCHIMP_API_HEADER = os.environ.get('MAILCHIMP_API_HEADER')
+    MAILCHIMP_URL = os.environ.get('MAILCHIMP_URL')
+    MAILCHIMP_MAIL_ID = os.environ.get('MAILCHIMP_MAIL_ID')
+    MAILCHIMP_USERNAME = os.environ.get('MAILCHIMP_USERNAME')
+    MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')

@@ -16,7 +16,7 @@
                     <div class="bottom-subscribe various-content">
                         <h3>Newsletter</h3>
                         <p>ComeCeCeMe supports MailChimp integration.</p>
-                        <form id="subscribe-form" action="http://lsvr.us14.list-manage.com/subscribe/post-json?u=8291218baaf54ddfd7dbc6016&amp;id=f3e5d696dc&amp;c=?" method="get">
+                        <form id="subscribe-form" action="{{ url_for('main.mailchimp_subscribe') }}" method="POST">
                             <!-- VALIDATION ERROR MESSAGE : begin -->
                             <p style="display: none;" class="c-alert-message m-warning m-validation-error"><i class="ico fa fa-exclamation-circle"></i>Email address is required.</p>
                             <!-- VALIDATION ERROR MESSAGE : end -->
@@ -69,3 +69,4 @@
         <!-- FOOTER BOTTOM : end -->
     </div>
 </footer>
+
