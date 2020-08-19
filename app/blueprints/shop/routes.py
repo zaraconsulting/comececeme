@@ -10,36 +10,54 @@ from braintree.exceptions.not_found_error import NotFoundError
 from .models import Product, Category, Customer, ProductReview, Cart, Order
 
 
-@shop.route('/products', methods=['GET', 'POST'])
-def index():
-    """
-    [GET] /shop/products
-    """
-    page = request.args.get('page', 1, type=int)
-    order = request.args.get('order')
-
-    if order == 'lowest':
-        products = Product.query.order_by(Product.price.asc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
-    elif order == 'highest':
-        products = Product.query.order_by(Product.price.desc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
-    else:
-        products = Product.query.paginate(page, current_app.config.get('PRODUCTS_PER_PAGE')+1, False)
-        
-    next_url = url_for('shop.index', page=products.next_num) if products.has_next else None
-    prev_url = url_for('shop.index', page=products.prev_num) if products.has_prev else None
-    if not prev_url:
-        current_page = page
-    elif not next_url:
-        current_page = page
+@shop.route('/products/categories', methods=['GET'])
+def categories():
     context = {
-        'products': [i.to_dict() for i in products.items if i.in_stock == True or i.quantity > 0],
-        'page_products': products.iter_pages(),
-        'sort_order': order,
-        'current_page': current_page,
-        'next_url': next_url,
-        'prev_url': prev_url
+        'product_categories': Category.query.all()
+    }
+    return render_template('shop-categories.html', **context)
+
+@shop.route('/products/category', methods=['GET'])
+def get_product_category():
+    _id = request.args.get('id')
+    category = Category.query.get(_id)
+    products = Product.query.filter_by(category_id=category.id).all()
+    context = {
+        'products': products
     }
     return render_template('shop-list.html', **context)
+
+
+# @shop.route('/products', methods=['GET', 'POST'])
+# def index():
+#     """
+#     [GET] /shop/products
+#     """
+#     page = request.args.get('page', 1, type=int)
+#     order = request.args.get('order')
+
+#     if order == 'lowest':
+#         products = Product.query.order_by(Product.price.asc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
+#     elif order == 'highest':
+#         products = Product.query.order_by(Product.price.desc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
+#     else:
+#         products = Product.query.paginate(page, current_app.config.get('PRODUCTS_PER_PAGE')+1, False)
+        
+#     next_url = url_for('shop.index', page=products.next_num) if products.has_next else None
+#     prev_url = url_for('shop.index', page=products.prev_num) if products.has_prev else None
+#     if not prev_url:
+#         current_page = page
+#     elif not next_url:
+#         current_page = page
+#     context = {
+#         'products': [i.to_dict() for i in products.items if i.in_stock == True or i.quantity > 0],
+#         'page_products': products.iter_pages(),
+#         'sort_order': order,
+#         'current_page': current_page,
+#         'next_url': next_url,
+#         'prev_url': prev_url
+#     }
+#     return render_template('shop-list.html', **context)
 
 # @shop.route('/products/sort', methods=['GET'])
 # def products_sort():
@@ -345,60 +363,6 @@ def create_product_review():
     response.headers['Location'] = url_for('shop.get_product_review', id=product_review.id)
     return response
 
-
-@shop.route('/category', methods=['GET'])
-def get_categories():
-    """
-    [GET] /shop/category
-    """
-    return jsonify([i.to_dict() for i in Category.query.all()])
-
-
-@shop.route('/category/<int:id>', methods=['GET'])
-def get_category(id):
-    """
-    [GET] /shop/category/<id>
-    """
-    return jsonify(Category.query.get_or_404(id).to_dict())
-
-
-@shop.route('/category/create', methods=['POST'])
-def create_category():
-    """
-    [POST] /shop/category/create
-    """
-    data = request.get_json()
-    category = Category()
-    category.from_dict(data)
-    category.create_category()
-    response = jsonify(category.to_dict())
-    response.status_code = 201
-    response.headers['Location'] = url_for('shop.get_category', id=category.id)
-    return response
-
-
-@shop.route('/category/edit/<int:id>', methods=['PUT'])
-def update_category():
-    """
-    [POST] /shop/category/update
-    """
-    category = Category.query.get_or_404(id)
-    data = request.get_json() or {}
-    category.from_dict(data)
-    db.session.commit()
-    return jsonify(category.to_dict())
-
-
-@shop.route('/category/delete/<int:id>', methods=['DELETE'])
-def delete_category():
-    """
-    [POST] /shop/category/delete
-    """
-    category = Category.query.get_or_404(id)
-    category.delete_category()
-    return jsonify({'message': f'PRODUCT DELETED: {category.name} | {category.price} | {category.rating}'})
-
-
 # @shop.route('/coupon', methods=['GET'])
 # def get_coupons():
 #     """
@@ -503,58 +467,5 @@ def delete_category():
 #     order = Order.query.get_or_404(id)
 #     order.delete_order()
 #     return jsonify({'message': f'PRODUCT DELETED: {order.name} | {order.price} | {order.rating}'})
-
-
-@shop.route('/customer', methods=['GET'])
-def get_customers():
-    """
-    [GET] /shop/customer
-    """
-    return jsonify([i.to_dict() for i in Customer.query.all()])
-
-
-@shop.route('/customer/<int:id>', methods=['GET'])
-def get_customer(id):
-    """
-    [GET] /shop/customer/<id>
-    """
-    return jsonify(Customer.query.get_or_404(id).to_dict())
-
-
-@shop.route('/customer/create', methods=['POST'])
-def create_customer():
-    """
-    [POST] /shop/customer/create
-    """
-    data = request.get_json()
-    customer = Customer()
-    customer.from_dict(data)
-    customer.create_customer()
-    response = jsonify(customer.to_dict())
-    response.status_code = 201
-    response.headers['Location'] = url_for('shop.get_customer', id=customer.id)
-    return response
-
-
-@shop.route('/customer/edit/<int:id>', methods=['PUT'])
-def update_customer():
-    """
-    [POST] /shop/customer/update
-    """
-    customer = Customer.query.get_or_404(id)
-    data = request.get_json() or {}
-    customer.from_dict(data)
-    db.session.commit()
-    return jsonify(customer.to_dict())
-
-
-@shop.route('/customer/delete/<int:id>', methods=['DELETE'])
-def delete_customer():
-    """
-    [POST] /shop/customer/delete
-    """
-    customer = Customer.query.get_or_404(id)
-    customer.delete_customer()
-    return jsonify({'message': f'PRODUCT DELETED: {customer.name} | {customer.price} | {customer.rating}'})
 
 

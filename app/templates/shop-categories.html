@@ -10,8 +10,7 @@
 			<h1>Shop</h1>
 			<ul class="breadcrumbs">
 				<li><a href="{{ url_for('main.index') }}">Home</a></li>
-				<li><a href="{{ url_for('shop.categories') }}">Hair</a></li>
-				<li>Categories</li>
+				<li>Hair</li>
 			</ul>
 		</div>
 	</div>
@@ -21,40 +20,14 @@
 			<div class="col-md-8">
 				<!-- PAGE CONTENT : begin -->
 				<div id="page-content">
-					<!-- PRODUCT LIST TOOLS : begin -->
-					<div class="product-list-tools">
-						<div class="row">
-							<div class="col-sm-6">
-								<!-- PRODUCT LIST TITLE : begin -->
-								<h2 class="product-list-title">Showing {{ products|length }} Items</h2>
-								<!-- PRODUCT LIST TITLE : end -->
-							</div>
-							<div class="col-sm-6">
-								<!-- PRODUCT LIST SORTING : begin -->
-								<form id="sort-dropdown" action="/shop/products" class="default-form product-list-sorting" method="get">
-									<select name="order" id="sort-select" class="selectbox-input m-small m-type-2">
-										<option value="default">Default Sorting</option>
-										<option value="lowest">Lowest Price</option>
-										<option value="highest">Highest Price</option>
-									</select>
-								</form>
-								<!-- PRODUCT LIST SORTING : end -->
-							</div>
-						</div>
-					</div>
-					<!-- PRODUCT LIST TOOLS : end -->
 					<!-- PRODUCT LIST : begin -->
 					<ul class="product-list">
 						<!-- PRODUCT : begin -->
-						{% for product in products %}
-							<li class="product">
+						{% for category in product_categories %}
+							<li class="product product-category">
 								<div class="product-inner">
-									<h3 class="product-title"><a href="{{ url_for('shop.get_product', id=product.id) }}">{{ product.name }}</a></h3>
-									<p class="product-image"><a href="{{ url_for('shop.get_product', id=product.id) }}"><img src="{{ product.image }}" alt="{{ product.name }}"></a></p>
-									<div class="product-info">
-										<div class="product-price">${{ product.price }}</div>
-										<a href="{{ url_for('shop.get_product', id=product.id) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
-									</div>
+									<h3 class="product-title"><a href="{{ url_for('shop.get_product_category', id=category.id) }}">{{ category.name }}</a></h3>
+									<p class="product-image"><a href="{{ url_for('shop.get_product_category', id=category.id) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p>
 								</div>
 							</li>
 						{% endfor %}

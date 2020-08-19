@@ -6,9 +6,9 @@
             {% for href, id, caption in navigation_bar %}
                 {% if id == 'shop.index' %}
                     <li {% if active_page == 'shop.index' or active_page == 'shop.cart' or active_page == 'shop.checkout' %} class="m-active" {% endif %}>
-                        <span><a href="{{ url_for('shop.index') }}">Shop</a></span>
+                        <span><a href="{{ url_for('shop.categories') }}">Shop</a></span>
                         <ul class="sub-menu">
-                            <li><a href="{{ url_for('shop.index') }}">Products</a></li>
+                            <li><a href="{{ url_for('shop.categories') }}">Products</a></li>
                             <li><a href="{{ url_for('shop.cart') }}">Cart</a></li>
                             <li><a href="{{ url_for('shop.cart_checkout') }}">Checkout</a></li>
                         </ul>

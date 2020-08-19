@@ -39,7 +39,7 @@
 					<div class="slide-inner">
 						<div class="slide-content various-content textalign-left valign-middle">
 							<h2>Store<br>Launched</h2>
-							<h3><a href="{{ url_for('shop.index') }}">Take a Look</a> at Our Products</h3>
+							<h3><a href="{{ url_for('shop.categories') }}">Take a Look</a> at Our Products</h3>
 						</div>
 					</div>
 				</div>
@@ -141,7 +141,7 @@
 			</section>
 			<!-- SERVICES SECTION : end -->
 			<!-- GALLERY SECTION : begin -->
-			{% include 'partials/gallery.html' %}
+			{# {% include 'partials/gallery.html' %} #}
 			<!-- GALLERY SECTION : end -->
 			<!-- TESTIMONIALS SECTION : begin -->
 			<section>
@@ -163,10 +163,13 @@
 									<!-- TESTIMONIAL : begin -->
 									<div class="c-testimonial m-has-portrait">
 										<div class="testimonial-inner">
-											<p class="testimonial-portrait"><span><img src="{{ url_for('static', filename='images/client_01.jpg') }}" alt=""></span></p>
+											<!-- <p class="testimonial-portrait"><span><img src="{{ url_for('static', filename='images/client_01.jpg') }}" alt=""></span></p> -->
 											<blockquote>
 												<p>{{ review.body }}</p>
-												<footer><strong>{{ review.author }}</strong>, {% for _ in range(review.rating) %}<i class="fa fa-star"></i>{% endfor %}</footer>
+												<footer>
+													<strong>{{ review.author }}</strong>
+													<!-- <span>, {% for _ in range(review.rating) %}<i class="fa fa-star"></i>{% endfor %}</span> -->
+												</footer>
 											</blockquote>
 										</div>
 									</div>

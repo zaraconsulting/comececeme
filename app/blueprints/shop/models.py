@@ -9,6 +9,7 @@ from app.blueprints.account.models import Account
 
 
 class Customer(UserMixin, db.Model):
+    # extend_existing=True
     id = db.Column(db.Integer, primary_key=True)
     suffix = db.Column(db.String)
     first_name = db.Column(db.String)
@@ -88,6 +89,7 @@ class Product(db.Model):
     image = db.Column(db.String, default='http://via.placeholder.com/500x500', nullable=False)
     description = db.Column(db.Text, nullable=False, default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
     price = db.Column(db.Float, nullable=False)
+    length = db.Column(db.Integer)
     rating = db.Column(db.Integer, nullable=True)
     quantity = db.Column(db.Integer)
     in_stock = db.Column(db.Boolean, default=True)
@@ -100,6 +102,7 @@ class Product(db.Model):
     def to_dict(self):
         data = {
             'id': self.id,
+            'category': Category.query.get(self.category_id).name,
             'name': self.name,
             'image': self.image,
             'description': self.description,
@@ -113,9 +116,14 @@ class Product(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['name', 'price', 'quantity', 'in_stock']:
+        for field in ['name', 'price', 'description', 'category_id', 'quantity', 'in_stock']:
             if field in data:
-                setattr(self, field, data[field])
+                if field == 'category_id':
+                    category = Category.query.filter_by(name=data[field]).first()
+                    if category is not None:
+                        setattr(self, field, category.id)
+                else:
+                    setattr(self, field, data[field])
 
     def create_product(self):
         db.session.add(self)
@@ -238,6 +246,7 @@ class ProductReview(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
+    image = db.Column(db.String)
 
     def create_category(self):
         db.session.add(self)
@@ -249,12 +258,13 @@ class Category(db.Model):
 
     def to_dict(self):
         data = {
+            'id': self.id,
             'name': self.name,
         }
         return data
 
     def from_dict(self, data):
-        for field in ['name']:
+        for field in ['name', 'image']:
             if field in data:
                 setattr(self, field, data[field])
 

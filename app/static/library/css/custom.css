@@ -121,3 +121,16 @@ the existing ones.
 	padding: 5px 15px;
 	transition: all 150ms ease-in-out;
 }
+
+.product-list .product-category {
+	width: 50%;
+}
+
+.product-list .product:nth-child(3n+1) {
+	clear: none;
+}
+
+.c-testimonial.m-has-portrait .testimonial-inner {
+	padding: 0px 90px;
+	margin: 0 auto;
+}
