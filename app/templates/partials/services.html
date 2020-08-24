@@ -1,0 +1,34 @@
+<section>
+    <!-- SECTION HEADER : begin -->
+    <header>
+        <div class="container">
+            <h2>Our Services</h2>
+            <p class="subtitle">We offer a range of beauty services</p>
+            <p class="more"><a href="{{ url_for('services.index') }}" class="c-button m-type-2">See all Services</a></p>
+        </div>
+    </header>
+    <!-- SECTION HEADER : end -->
+    <!-- SERVICE LIST : begin -->
+    <div class="c-service-list m-paginated" data-items="4" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-mobile="1">
+        <div class="container">
+            <div class="service-list-inner">
+                {% for s in service_categories %}
+                    <div class="service-list-item">
+                        <!-- SERVICE : begin -->
+                        <div class="c-service">
+                            <!-- <div class="service-image">
+                                <a href="services.html#cosmetics"><img src="{{ url_for('static', filename='images/service_01.jpg') }}" alt=""></a>
+                            </div> -->
+                            <h3 class="service-title"><a href="{{ url_for('services.index') }}#{{ s.tag }}">{{ s.name }}</a></h3>
+                            <div class="service-description">
+                                <p>{{ s.description }}</p>
+                            </div>
+                        </div>
+                        <!-- SERVICE : end -->
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- SERVICE LIST : end -->
+</section>

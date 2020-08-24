@@ -134,3 +134,17 @@ the existing ones.
 	padding: 0px 90px;
 	margin: 0 auto;
 }
+
+.header-bg {
+	background-color: rgba(255,0,124,0.6);
+}
+
+#core.core-bg-1 {
+	background: none;
+}
+
+@media (max-height: 800px) {
+	.header-navigation {
+		margin-top: 28px;
+	}
+}

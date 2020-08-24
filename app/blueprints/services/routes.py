@@ -9,7 +9,7 @@ def index():
     """
     [GET] /services
     """
-    context = dict(service_categories=[dict(title=i.name, services=i.services.all()) for i in ServiceCategory.query.all()])
+    context = dict(service_categories=[dict(title=i.name, tag=i.tag, services=i.services.all()) for i in ServiceCategory.query.all() if i.tag])
     # print([dict(title=i.name, services=i.services.all())for i in ServiceCategory.query.all()])
     return render_template('services.html', **context)
 

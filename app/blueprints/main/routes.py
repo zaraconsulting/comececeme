@@ -4,6 +4,7 @@ import json, requests
 
 from app.blueprints.reviews.models import Review
 from app.blueprints.gallery.models import Gallery
+from app.blueprints.services.models import ServiceCategory
 from app.email import send_booking_email
 
 
@@ -12,6 +13,7 @@ def index():
     """
     [GET] /
     """
+    # [i for i in ServiceCategory.query.all() if i.description if i.tag in ['hair_care', 'hairstyles', 'hair_extensions', 'hair_color', 'eyelash_extensions']]
     context = dict(reviews=Review.query.all(), gallery=Gallery.query.all())
     return render_template('index.html', **context), 200
 

@@ -24,7 +24,7 @@ def inject_cart():
 
 @app.context_processor
 def getServiceCategories():
-    return dict(service_categories=[i.name for i in ServiceCategory.query.all()])
+    return dict(service_categories=[i for i in ServiceCategory.query.all() if i.tag])
 
 @app.context_processor
 def getServices():

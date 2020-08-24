@@ -6,7 +6,7 @@
 <div id="main-slider" data-interval="8000">
 	<div class="slide-list">
 		<!-- SLIDE 1 : begin -->
-		<div class="slide slide-1" data-label="Welcome to ComeCeCeMe" style="background-image: url( '{{ url_for("static", filename="images/slide_01.jpg") }}' );">
+		<div class="slide slide-1" data-label="Welcome to ComeCeCeMe" >
 			<div class="slide-bg">
 				<div class="container">
 					<div class="slide-inner">
@@ -20,12 +20,12 @@
 		</div>
 		<!-- SLIDE 1 : end -->
 		<!-- SLIDE 2 : begin -->
-		<div class="slide slide-2" data-label="15% off All Hair Services" style="background-image: url( '{{ url_for("static", filename="images/slide_02.jpg") }}' );">
+		<div class="slide slide-2" data-label="Now Accepting Appointments" >
 			<div class="slide-bg">
 				<div class="container">
 					<div class="slide-inner">
-						<div class="slide-content various-content textalign-right valign-middle"><h2>15% Off<br>All Hair Services</h2>
-							<h3>This Friday Only!<br><a href="ajax/reservation-form.html" class="m-open-ajax-modal">Make a Reservation</a></h3>
+						<div class="slide-content various-content textalign-right valign-middle"><h2>Now<br>Accepting Appointments</h2>
+							<h3><a href="https://www.styleseat.com/m/v/comececeme" class="m-open-ajax-modal">Make a Reservation</a></h3>
 						</div>
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 		</div>
 		<!-- SLIDE 2 : end -->
 		<!-- SLIDE 3 : begin -->
-		<div class="slide slide-3" data-label="Store Launched" style="background-image: url( '{{ url_for("static", filename="images/slide_03.jpg") }}' );">
+		<div class="slide slide-3" data-label="Recent News" >
 			<div class="slide-bg">
 				<div class="container">
 					<div class="slide-inner">
@@ -55,90 +55,7 @@
 	<div id="page-content">
 		<div class="various-content">
 			<!-- SERVICES SECTION : begin -->
-			<section>
-				<!-- SECTION HEADER : begin -->
-				<header>
-					<div class="container">
-						<h2>Our Services</h2>
-						<p class="subtitle">We offer a wide range of beauty services</p>
-						<p class="more"><a href="{{ url_for('services.index') }}" class="c-button m-type-2">See all Services</a></p>
-					</div>
-				</header>
-				<!-- SECTION HEADER : end -->
-				<!-- SERVICE LIST : begin -->
-				<div class="c-service-list m-paginated" data-items="4" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-mobile="1">
-					<div class="container">
-						<div class="service-list-inner">
-							<div class="service-list-item">
-								<!-- SERVICE : begin -->
-								<div class="c-service">
-									<div class="service-image">
-										<a href="services.html#cosmetics"><img src="{{ url_for('static', filename='images/service_01.jpg') }}" alt=""></a>
-									</div>
-									<h3 class="service-title"><a href="services.html#cosmetics">Choose a Service</a></h3>
-									<div class="service-description">
-										<p>Facials, Eyebrow & Eyelashes, Microdermabrasion, Acne Treatments, Anti-Aging</p>
-									</div>
-								</div>
-								<!-- SERVICE : end -->
-							</div>
-							<div class="service-list-item">
-								<!-- SERVICE : begin -->
-								<div class="c-service">
-									<div class="service-image">
-										<a href="services.html#hairdressing"><img src="{{ url_for('static', filename='images/service_02.jpg') }}" alt=""></a>
-									</div>
-									<h3 class="service-title"><a href="services.html#hairdressing">Choose the type of service</a></h3>
-									<div class="service-description">
-										<p>Wash, Cut & Finish, Blow Dries, Hair Colouring & Highlights, Evening Hairdressing</p>
-									</div>
-								</div>
-								<!-- SERVICE : end -->
-							</div>
-							<div class="service-list-item">
-								<!-- SERVICE : begin -->
-								<div class="c-service">
-									<div class="service-image">
-										<a href="services.html#body-treatments"><img src="{{ url_for('static', filename='images/service_03.jpg') }}" alt=""></a>
-									</div>
-									<h3 class="service-title"><a href="services.html#body-treatments">Body Treatments</a></h3>
-									<div class="service-description">
-										<p>Body Wraps, Body Exfoliation Treatments, Cellulite Treatments, Lipo Laser, Depilation</p>
-									</div>
-								</div>
-								<!-- SERVICE : end -->
-							</div>
-							<div class="service-list-item">
-								<!-- SERVICE : begin -->
-								<div class="c-service">
-									<div class="service-image">
-										<a href="services.html#massages"><img src="{{ url_for('static', filename='images/service_04.jpg') }}" alt=""></a>
-									</div>
-									<h3 class="service-title"><a href="services.html#massages">Massages</a></h3>
-									<div class="service-description">
-										<p>Exotic Massages, Swedish Massage, Hot Stone Massage, Aromatherapy Massage</p>
-									</div>
-								</div>
-								<!-- SERVICE : end -->
-							</div>
-							<div class="service-list-item">
-								<!-- SERVICE : begin -->
-								<div class="c-service">
-									<div class="service-image">
-										<a href="services.html"><img src="{{ url_for('static', filename='images/service_05.jpg') }}" alt=""></a>
-									</div>
-									<h3 class="service-title"><a href="services.html">Nails</a></h3>
-									<div class="service-description">
-										<p>Nail Art, Paraffin Wax Treatment, Shellac Manicure, Gel Nails, French Manicure</p>
-									</div>
-								</div>
-								<!-- SERVICE : end -->
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- SERVICE LIST : end -->
-			</section>
+			{% include './partials/services.html' %}
 			<!-- SERVICES SECTION : end -->
 			<!-- GALLERY SECTION : begin -->
 			{# {% include 'partials/gallery.html' %} #}

@@ -1308,7 +1308,7 @@ $vertical-space: 24px;
 				-moz-box-shadow: 0 0 0 2px rgba(0,0,0,0.3); -webkit-box-shadow: 0 0 0 2px rgba(0,0,0,0.3); box-shadow: 0 0 0 2px rgba(0,0,0,0.3);
 			}
 			> li > button > span { display: none; }
-			> li > button.skin-default { background-color: #099db3; @include vertical-gradient( rgba( #ff007c, .7 ), transparent ); }
+			> li > button.skin-default { background-color: #ffffff; @include vertical-gradient( rgba( #ff007c, .7 ), transparent ); }
 			> li > button.skin-mavericks { background-color: #0f7dc6; @include vertical-gradient( rgba( #08aa7c, .7 ), transparent ); }
 			> li > button.skin-red-sunset { background-color: #f24130; @include vertical-gradient( rgba( #5b3fbf, .7 ), transparent ); }
 			> li > button.skin-lime-breeze { background-color: #00aab5; @include vertical-gradient( rgba( #b6bf17, .7 ), transparent ); }

@@ -5,6 +5,8 @@ from datetime import datetime
 class ServiceCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    tag = db.Column(db.String)
+    description = db.Column(db.String)
     services = db.relationship('Service', backref='services', lazy='dynamic')
 
     def create_service_category(self):
@@ -15,11 +17,13 @@ class ServiceCategory(db.Model):
         data = {
             'id': self.id,
             'name': self.name,
+            'description': self.description,
+            'tag': self.tag
         }
         return data
 
     def from_dict(self, data):
-        for field in ['name']:
+        for field in ['name', 'tag', 'description']:
             if field in data:
                 setattr(self, field, data[field])
 
