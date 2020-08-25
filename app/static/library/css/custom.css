@@ -148,3 +148,45 @@ the existing ones.
 		margin-top: 28px;
 	}
 }
+
+.hero-top {
+	background: url('https://res.cloudinary.com/comececeme/image/upload/v1598328299/self/home-top-a_ot7axp.png') no-repeat;
+	background-size: cover;
+	height: 600px;
+	width: 100%;
+}
+
+.hero-container {
+	position: relative;
+}
+
+.hero-text {
+	position: absolute;
+    top: 30%;
+    left: 40%;
+}
+
+.hero-text h2 {
+	padding: 0;
+    line-height: 1.1em;
+    font-family: "Montserrat",Arial,sans-serif;
+    font-size: 1.8em;
+    font-weight: bold;
+	text-transform: uppercase;
+	color: #ff007c;
+	text-align: center;
+}
+
+.hero-text h3 {
+    margin-top: 12px;
+    line-height: 1.2em;
+    font-family: "Open Sans",Arial,sans-serif;
+    font-size: 1.5em;
+    font-weight: 300;
+	text-transform: none;
+	text-align: center
+}
+
+.header-branding {
+	padding-top: 12px;
+}
