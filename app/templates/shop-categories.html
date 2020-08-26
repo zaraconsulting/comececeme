@@ -26,31 +26,16 @@
 						{% for category in product_categories %}
 							<li class="product product-category">
 								<div class="product-inner">
-									<h3 class="product-title"><a href="{{ url_for('shop.get_product_category', id=category.id) }}">{{ category.name }}</a></h3>
-									<p class="product-image"><a href="{{ url_for('shop.get_product_category', id=category.id) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p>
+									<h3 class="product-title">
+										<a class="product-link" href="{{ url_for('shop.get_product_category', id=category.id) }}">{{ category.name }}</a>
+									</h3>
+									<!-- <p class="product-image"><a href="{{ url_for('shop.get_product_category', id=category.id) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p> -->
 								</div>
 							</li>
 						{% endfor %}
 						<!-- PRODUCT : end -->
 					</ul>
 					<!-- PRODUCT LIST : end -->
-					<!-- PAGINATION : begin -->
-					<ul class="c-pagination">
-							{% if prev_url %}
-								<li class="prev"><a href="{{ url_for('shop.index', page=current_page-1, order=sort_order) }}"><i class="fa fa-angle-left"></i></a></li>
-							{% endif %}
-							{% for page in page_products %}
-								{% if page == current_page %}
-									<li class="m-active"><a href="{{ url_for('shop.index', page=page, order=sort_order) }}">{{ page }}</a></li>
-								{% else %}
-									<li><a href="{{ url_for('shop.index', page=page, order=sort_order) }}">{{ page }}</a></li>
-								{% endif %}
-							{% endfor %}
-							{% if next_url %}
-								<li class="next"><a href="{{ url_for('shop.index', page=current_page+1, order=sort_order) }}"><i class="fa fa-angle-right"></i></a></li>
-							{% endif %}
-						</ul>
-					<!-- PAGINATION : end -->
 				</div>
 				<!-- PAGE CONTENT : end -->
 			</div>

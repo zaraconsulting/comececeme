@@ -13,7 +13,7 @@ from .models import Product, Category, Customer, ProductReview, Cart, Order
 @shop.route('/products/categories', methods=['GET'])
 def categories():
     context = {
-        'product_categories': Category.query.all()
+        'product_categories': [i for i in Category.query.all() if i.name != 'Products']
     }
     return render_template('shop-categories.html', **context)
 
@@ -23,7 +23,8 @@ def get_product_category():
     category = Category.query.get(_id)
     products = Product.query.filter_by(category_id=category.id).all()
     context = {
-        'products': products
+        'products': products,
+        'category': category
     }
     return render_template('shop-list.html', **context)
 

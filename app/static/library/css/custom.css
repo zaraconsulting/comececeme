@@ -145,7 +145,7 @@ the existing ones.
 
 @media (max-height: 800px) {
 	.header-navigation {
-		margin-top: 28px;
+		margin-top: 8px;
 	}
 }
 
@@ -198,4 +198,14 @@ the existing ones.
     font-size: 1.5em;
     font-weight: 300;
     text-transform: none;
+}
+
+.product-list .product-title {
+	min-height: auto;
+	font-size: 1em;
+	padding: 10px 0;
+}
+
+.product-list .product-title .product-link {
+	padding: 150px 20px;
 }

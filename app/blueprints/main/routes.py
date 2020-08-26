@@ -25,6 +25,13 @@ def about():
     context = dict()
     return render_template('about-us.html'), 200
 
+@main.route('/booking', methods=['GET'])
+def booking():
+    """
+    [GET] /booking
+    """
+    return redirect("https://www.styleseat.com/m/v/comececeme")
+
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():
     """
