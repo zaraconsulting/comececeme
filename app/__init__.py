@@ -61,6 +61,9 @@ def create_app(config_class=Config):
         from app.blueprints.api import bp as api
         app.register_blueprint(api)
 
+        from app.blueprints.hair import bp as hair
+        app.register_blueprint(hair)
+
         from app.blueprints.errors import errors
         app.register_blueprint(errors, url_prefix='/error')
 

@@ -21,6 +21,8 @@ def register(app):
                 routes_file.close()
                 forms_py = open(f'{basepath}/forms.py', 'w')
                 forms_py.close()
+                models_py = open(f'{basepath}/models.py', 'w')
+                models_py.close()
                 # os.makedirs(basepath + '/static')
                 # os.makedirs(basepath + '/static/css')
                 # css_file = open(f'/{basepath}/static/css/{name}.css', 'w')
