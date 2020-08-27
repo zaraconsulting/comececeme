@@ -209,3 +209,56 @@ the existing ones.
 .product-list .product-title .product-link {
 	padding: 150px 20px;
 }
+
+.hero-header {
+    color: #ff007c;
+	-webkit-text-stroke: 0.01em rgba(255,0,124,0.5);
+	padding: 0;
+    line-height: 1.1em;
+    font-family: "Montserrat",Arial,sans-serif;
+    font-size: 3.75em;
+    font-weight: bold;
+	text-transform: uppercase;
+	text-align: left;
+	top: 40px;
+	left: 90px;
+	position: absolute;
+}
+
+@media (max-width: 1500px) {
+	.hero-header {
+		font-size: 3em;
+	}
+}
+
+@media (max-width: 878px) {
+	.hero-header {
+		font-size: 2.75em;
+	}
+}
+
+@media (max-width: 818px) {
+	.hero-header {
+		font-size: 2.5em;
+	}
+}
+
+@media (max-width: 768px) {
+	.hero-header {
+		font-size: 2.1em;
+	}
+}
+
+@media (max-width: 667px) {
+	.hero-header {
+		font-size: 1.8em;
+	}
+}
+
+@media (max-width: 594px) {
+	.hero-header {
+		font-size: 1.4em;
+	}
+}
+
+
