@@ -1,7 +1,7 @@
 from .import bp as app
 from flask import jsonify, request, url_for
 from app.blueprints.shop.models import Customer, Product, Category
-from app.blueprints.hair.models import Hair, HairCategory
+from app.blueprints.hair.models import Hair, HairCategory, Pattern
 from app import db
 
 # PRODUCTS API
@@ -218,10 +218,12 @@ def create_hair_category():
     data = request.get_json()
     hair_category = HairCategory()
     hair_category.from_dict(data)
+    print(hair_category)
     hair_category.create_hair_category()
     response = jsonify(hair_category.to_dict())
+    print(jsonify(hair_category.to_dict()))
     response.status_code = 201
-    response.headers['Location'] = url_for('api.get_hair_category', id=hair_category.id)
+    # response.headers['Location'] = url_for('api.get_hair_category', name=hair_category.name)
     return response
 
 
@@ -245,3 +247,44 @@ def delete_hair_category(name):
     hair_category = HairCategory.query.filter_by(name=name.title()).first()
     hair_category.delete_hair_category()
     return jsonify({'message': f'PRODUCT DELETED: {hair_category.name}'})
+
+# HAIR PATTERN
+@app.route('/hair/patterns', methods=['GET'])
+def get_hair_patterns():
+    """
+    [GET] /api/hair/patterns
+    """
+    return jsonify([i.to_dict() for i in Pattern.query.all()])
+
+@app.route('/hair/pattern', methods=['POST'])
+def create_hair_pattern():
+    """
+    [POST] /api/hair/PATTERN
+    """
+    data = request.get_json()
+    pattern = Pattern()
+    pattern.from_dict(data)
+    pattern.create_hair_pattern()
+    response = jsonify(pattern.to_dict())
+    response.status_code = 201
+    # response.headers['Location'] = url_for('api.get_hair_pattern', id=pattern.id)
+    return response
+
+
+@app.route('/hair/pattern/<id>', methods=['DELETE'])
+def delete_hair_pattern(id):
+    """
+    [DELETE] /api/hair/product/<id>
+    """
+    hair_pattern = Pattern.query.get(id)
+    hair_pattern.delete_hair_pattern()
+    return jsonify({'message': f'HAIR PRODUCT DELETED: {hair_pattern.name} ({hair_pattern.id})'})
+
+
+@app.route('/hair/pattern/<pattern>', methods=['GET'])
+def get_hair_pattern(pattern):
+    """
+    [GET] /api/hair/pattern/<pattern>
+    """
+    return jsonify([i.to_dict() for i in Pattern.query.filter_by(name=pattern).first()])
+

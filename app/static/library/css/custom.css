@@ -276,3 +276,7 @@ the existing ones.
 #bottom-panel {
 	margin-top: 0px;
 }
+
+.product-list .product:nth-child(3n+1) {
+	clear: both;
+}

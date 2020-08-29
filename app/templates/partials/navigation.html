@@ -9,7 +9,7 @@
                         <span><a href="{{ url_for('hair.get_categories') }}">Shop</a></span>
                         <ul class="sub-menu">
                             {% for hc in hair_categories %}
-                                <li><a href="{{ url_for('hair.get_category', name=hc.name.lower()) }}">{{ hc.name }}</a></li>
+                                <li><a href="{{ url_for('hair.get_category', category=hc.name.lower()) }}">{{ hc.name }}</a></li>
                             {% endfor %}
                             <li><a href="{{ url_for('shop.cart') }}">Cart</a></li>
                             <li><a href="{{ url_for('shop.cart_checkout') }}">Checkout</a></li>

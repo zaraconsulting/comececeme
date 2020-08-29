@@ -10,9 +10,9 @@
 			<h1>{{ product.name }}</h1>
 			<ul class="breadcrumbs">
 				<li><a href="{{ url_for('main.index') }}">Home</a></li>
-				<li><a href="{{ url_for('shop.index') }}">Shop</a></li>
-				<li><a href="{{ url_for('shop.categories') }}">Categories</a></li>
-				<!-- <li>{{ product.name }}</li> -->
+				<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
+				<li><a href="{{ url_for('hair.get_category', category=category.lower()) }}">{{ category }}</a></li>
+				<li>{{ pattern }}</li>
 			</ul>
 		</div>
 	</div>
@@ -28,7 +28,7 @@
 							<div class="col-sm-6">
 								<!-- PRODUCT IMAGES : begin -->
 								<div class="product-images">
-									<p class="main-image"><a href="{{ url_for('static', filename='images/product_01_big.jpg') }}" class="lightbox" data-lightbox-group="product"><img src="{{ product.image }}" alt=""></a></p>
+									<p class="main-image"><a href="{{ image }}" class="lightbox" data-lightbox-group="product"><img src="{{ image }}" alt="{{ pattern }}"></a></p>
 									<!-- <ul>
 										<li><a href="{{ url_for('static', filename='images/product_01_big_02.jpg') }}" class="lightbox" data-lightbox-group="product"><img src="{{ url_for('static', filename='images/product_01_thumb_02.jpg') }}" alt=""></a></li>
 										<li><a href="{{ url_for('static', filename='images/product_01_big_03.jpg') }}" class="lightbox" data-lightbox-group="product"><img src="{{ url_for('static', filename='images/product_01_thumb_03.jpg') }}" alt=""></a></li>
@@ -41,14 +41,14 @@
 								<!-- PRODUCT RATING : begin -->
 								<div class="product-rating">
 									<a href="#product-tabs">
-										<!-- <span class="rating-stars">{% for _ in range(average) %} <i class="fa fa-star"></i> {% endfor %}</span> -->
-										<span class="rating-label">
+										{#<!-- <span class="rating-stars">{% for _ in range(average) %} <i class="fa fa-star"></i> {% endfor %}</span> -->#}
+										{#<span class="rating-label">
 											{% if not product.reviews.all() %}
 												No reviews for now
 											{% else %}
 												{{ product.reviews.all()|length }} review{% if product.reviews.all()|length > 1 %}s{% endif %}
 											{% endif %}
-										</span>
+										</span>#}
 									</a>
 								</div>
 								<!-- PRODUCT RATING : end -->
@@ -85,7 +85,7 @@
 									<!-- PRODUCT PRICE : begin -->
 									<div class="product-price">
 										<!-- <span class="old-price">$29.99</span> -->
-										<strong class="price">${{ product.price }}</strong>
+										<strong class="price">${{ '{:,.2f}'.format(product.price) }}</strong>
 									</div>
 									<!-- PRODUCT PRICE : end -->
 								</div>
@@ -104,13 +104,13 @@
 						<div class="c-tabs product-tabs" id="product-tabs">
 							<ul class="tab-list">
 								<li class="m-active">Description</li>
-								<li class="product-reviews-tab">Review{% if product.reviews.all()|length > 1 %}s{% endif %} ({{ product.reviews.all()|length }})</li>
+								{#<li class="product-reviews-tab">Review{% if product.reviews.all()|length > 1 %}s{% endif %} ({{ product.reviews.all()|length }})</li>#}
 							</ul>
 							<ul class="content-list">
 								<li>
 									<!-- PRODUCT DESCRIPTION : begin -->
 									<div class="product-description various-content">
-										<p>{{ product.description }}</p>
+										<p>{{ description }}</p>
 									</div>
 									<!-- PRODUCT DESCRIPTION : end -->
 								</li>
@@ -119,7 +119,7 @@
 									<div class="product-reviews">
 										<!-- REVIEW LIST: begin -->
 										<ul class="review-list" id="product-reviews">
-											{% if product.reviews.all() %}
+											{#{% if product.reviews.all() %}
 												{% for review in product.reviews.all() %}
 													<li>
 														<!-- REVIEW : begin -->
@@ -137,7 +137,7 @@
 														<!-- REVIEW : end -->
 													</li>
 												{% endfor %}
-											{% endif %}
+											{% endif %}#}
 										</ul>
 										<!-- REVIEW LIST: end -->
 										<!-- REVIEW FORM : begin -->

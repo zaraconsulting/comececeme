@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, jsonify, request
+from flask import render_template, redirect, url_for, jsonify, request, session
 from .import bp as app
 from app.blueprints.hair.models import HairCategory, Hair, Pattern
 
@@ -20,13 +20,13 @@ def get_categories():
     }
     return render_template('shop-categories.html', **context)
 
-@app.route('/category', methods=['GET'])
+@app.route('', methods=['GET'])
 def get_category():
     """
-    [GET] /hair/category
+    [GET] /hair?category=
     """
-    name = request.args.get('name')
-    category_id = HairCategory.query.filter_by(name=name.title()).first().id
+    category = request.args.get('category').title()
+    category_id = HairCategory.query.filter_by(name=category).first().id
     pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category_id).all()]))
     products = []
     for pattern in pattern_list:
@@ -41,8 +41,28 @@ def get_category():
             'image': Pattern.query.filter_by(name=pattern).first().image,
         }
         products.append(a_dict)
+    session['category'] = category
     context = {
         'products': products,
-        'category': HairCategory.query.filter_by(name=name.title()).first()
+        'category': HairCategory.query.filter_by(name=category.title()).first()
     }
     return render_template('shop-list.html', **context)
+
+@app.route('<category>', methods=['GET'])
+def get_pattern(category):
+    """
+    [GET] /hair/<category>?pattern=<pattern>
+    """
+    category = session.get('category')
+    pattern = request.args.get('pattern').title()
+    products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
+    filtered_product = [i for i in products_by_category if i.pattern == pattern][0]
+    print(Pattern.query.filter_by(name=pattern).first().image)
+    context = {
+        'product': filtered_product,
+        'image': Pattern.query.filter_by(name=pattern).first().image,
+        'description': HairCategory.query.filter_by(name=category).first().description,
+        'category': category,
+        'pattern': pattern
+    }
+    return render_template('shop-detail.html', **context)
