@@ -2,6 +2,7 @@ from flask import current_app as app, session, jsonify, request
 from flask_login import current_user
 from app.blueprints.shop.models import Product, Customer, Cart, Order, Category
 from app.blueprints.services.models import Service, ServiceCategory
+from app.blueprints.hair.models import Hair, HairCategory
 from sqlalchemy import func, desc
 from app import db
 
@@ -33,6 +34,10 @@ def getServices():
 @app.context_processor
 def get_product_categories():
     return dict(product_categories=[i for i in Category.query.all() if i.name != 'Products'])
+
+@app.context_processor
+def get_hair_categories():
+    return dict(hair_categories=[i for i in HairCategory.query.all()])
 
 @app.context_processor
 def getClientToken():

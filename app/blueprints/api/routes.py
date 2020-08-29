@@ -1,6 +1,7 @@
 from .import bp as app
 from flask import jsonify, request, url_for
 from app.blueprints.shop.models import Customer, Product, Category
+from app.blueprints.hair.models import Hair, HairCategory
 from app import db
 
 # PRODUCTS API
@@ -139,3 +140,108 @@ def delete_customer():
     return jsonify({'message': f'PRODUCT DELETED: {customer.name} | {customer.price} | {customer.rating}'})
 
 
+# HAIR
+@app.route('/hair/products', methods=['GET'])
+def get_hair_products():
+    """
+    [GET] /api/hair/products
+    """
+    return jsonify([i.to_dict() for i in Hair.query.all()])
+
+    
+@app.route('/hair/product', methods=['GET'])
+def get_hair_product():
+    """
+    [GET] /api/hair/product?id=1
+    """
+    _id = request.args.get('id')
+    return jsonify(Hair.query.get_or_404(_id).to_dict())
+
+@app.route('/hair/product', methods=['POST'])
+def create_hair_product():
+    """
+    [POST] /api/hair/product
+    """
+    data = request.get_json()
+    hair = Hair()
+    hair.from_dict(data)
+    hair.create_hair_product()
+    response = jsonify(hair.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('api.get_hair_product', id=hair.id)
+    return response
+
+@app.route('/hair/product', methods=['PUT'])
+def edit_hair_product():
+    """
+    [PUT] /api/hair/product?id=1/edit
+    """
+    _id = request.args.get('id')
+    hair_product = Hair.query.get_or_404(_id)
+    data = request.get_json() or {}
+    hair_product.from_dict(data)
+    db.session.commit()
+    return jsonify(hair_product.to_dict())
+
+@app.route('/hair/product/<id>', methods=['DELETE'])
+def delete_hair_product(id):
+    """
+    [DELETE] /api/hair/product/<id>
+    """
+    hair_product = Hair.query.get(id)
+    hair_product.delete_hair_product()
+    return jsonify({'message': f'HAIR PRODUCT DELETED: {hair_product.pattern} ({hair_product.id})'})
+
+# HAIR CATEGORIES
+@app.route('/hair/categories', methods=['GET'])
+def get_hair_categories():
+    """
+    [GET] /api/hair/categories
+    """
+    return jsonify([i.to_dict() for i in HairCategory.query.all()])
+
+
+@app.route('/hair/category/<name>', methods=['GET'])
+def get_hair_category(name):
+    """
+    [GET] /api/hair/category/<name>
+    """
+    category = HairCategory.query.filter_by(name=name.title()).first()
+    return jsonify(HairCategory.query.get_or_404(category.id).to_dict())
+
+
+@app.route('/hair/category', methods=['POST'])
+def create_hair_category():
+    """
+    [POST] /api/hair/category
+    """
+    data = request.get_json()
+    hair_category = HairCategory()
+    hair_category.from_dict(data)
+    hair_category.create_hair_category()
+    response = jsonify(hair_category.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('api.get_hair_category', id=hair_category.id)
+    return response
+
+
+@app.route('/hair/category/edit/<name>', methods=['PUT'])
+def update_hair_category(name):
+    """
+    [PUT] /api/hair/category/edit/<name>
+    """
+    hair_category = HairCategory.query.filter_by(name=name.title()).first()
+    data = request.get_json() or {}
+    hair_category.from_dict(data)
+    db.session.commit()
+    return jsonify(hair_category.to_dict())
+
+
+@app.route('/hair/category/delete/<name>', methods=['DELETE'])
+def delete_hair_category(name):
+    """
+    [DELETE] /api/hair/category/delete/name
+    """
+    hair_category = HairCategory.query.filter_by(name=name.title()).first()
+    hair_category.delete_hair_category()
+    return jsonify({'message': f'PRODUCT DELETED: {hair_category.name}'})

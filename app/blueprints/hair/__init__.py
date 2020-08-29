@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-bp = Blueprint(__name__, 'hair', url_prefix='/hair')
+bp = Blueprint('hair', __name__, url_prefix='/hair')
 
 from .import routes

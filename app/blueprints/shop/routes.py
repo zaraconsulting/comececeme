@@ -24,7 +24,7 @@ def get_product_category():
     products = Product.query.filter_by(category_id=category.id).all()
     context = {
         'products': products,
-        'category': category
+        'category': category,
     }
     return render_template('shop-list.html', **context)
 
@@ -249,7 +249,7 @@ def add_cart_product():
     if not current_user.is_authenticated:
         return redirect(url_for('authentication.login'))
     product = Product.query.get(request.args.get('id'))
-    for i in range(int(request.form.get('quantity'))):
+    for _ in range(int(request.form.get('quantity'))):
         db.session.add(Cart(customerId=int(current_user.id), productId=product.id))
     db.session.commit()
     return redirect(url_for('shop.get_product', id=product.id))

@@ -23,14 +23,16 @@
 					<!-- PRODUCT LIST : begin -->
 					<ul class="product-list">
 						<!-- PRODUCT : begin -->
-						{% for category in product_categories %}
+						{% for category in categories %}
 							<li class="product product-category">
-								<div class="product-inner">
-									<h3 class="product-title">
-										<a class="product-link" href="{{ url_for('shop.get_product_category', id=category.id) }}">{{ category.name }}</a>
-									</h3>
-									<!-- <p class="product-image"><a href="{{ url_for('shop.get_product_category', id=category.id) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p> -->
-								</div>
+								<a class="product-link" href="{{ url_for('hair.get_category', name=category.name.lower()) }}">
+									<div class="product-inner">
+										<h3 class="product-title">
+											{{ category.name }}
+										</h3>
+										<!-- <p class="product-image"><a href="{{ url_for('shop.get_product_category', id=category.id) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p> -->
+									</div>
+								</a>
 							</li>
 						{% endfor %}
 						<!-- PRODUCT : end -->

@@ -10,7 +10,7 @@
 			<h1>Shop</h1>
 			<ul class="breadcrumbs">
 				<li><a href="{{ url_for('main.index') }}">Home</a></li>
-				<li><a href="{{ url_for('shop.categories') }}">Hair</a></li>
+				<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
 				<li>{{ category.name }}</li>
 			</ul>
 		</div>
@@ -49,11 +49,11 @@
 						{% for product in products %}
 							<li class="product">
 								<div class="product-inner">
-									<h3 class="product-title"><a href="{{ url_for('shop.get_product', id=product.id) }}">{{ product.name }}</a></h3>
-									<p class="product-image"><a href="{{ url_for('shop.get_product', id=product.id) }}"><img src="{{ product.image }}" alt="{{ product.name }}"></a></p>
+									<h3 class="product-title"><a href="{{ url_for('hair.get_product', id=product.id) }}">{{ product.pattern[0].name }}</a></h3>
+									<p class="product-image"><a href="{{ url_for('hair.get_product', id=product.id) }}"><img src="{{ product.image }}" alt="{{ product.pattern }}"></a></p>
 									<div class="product-info">
-										<div class="product-price">${{ product.price }}</div>
-										<a href="{{ url_for('shop.get_product', id=product.id) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+										<div class="product-price">${{ '{:,.2f}'.format(product.pattern[0].price) }}+ </div>
+										<a href="{{ url_for('hair.get_product', id=product.id) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 									</div>
 								</div>
 							</li>

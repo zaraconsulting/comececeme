@@ -7,7 +7,7 @@ from datetime import datetime
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
-    accounts = db.relationship('Account', backref='user', lazy='dynamic')
+    accounts = db.relationship('Account', backref='users', lazy='dynamic')
 
     def __repr__(self):
         return f'<Role | {self.name}>'

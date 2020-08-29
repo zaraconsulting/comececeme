@@ -6,10 +6,10 @@
             {% for href, id, caption in navigation_bar %}
                 {% if id == 'shop.index' %}
                     <li {% if active_page == 'shop.index' or active_page == 'shop.cart' or active_page == 'shop.checkout' %} class="m-active" {% endif %}>
-                        <span><a href="{{ url_for('shop.categories') }}">Shop</a></span>
+                        <span><a href="{{ url_for('hair.get_categories') }}">Shop</a></span>
                         <ul class="sub-menu">
-                            {% for pc in product_categories %}
-                                <li><a href="{{ url_for('shop.categories', id=pc.id) }}">{{ pc.name }}</a></li>
+                            {% for hc in hair_categories %}
+                                <li><a href="{{ url_for('hair.get_category', name=hc.name.lower()) }}">{{ hc.name }}</a></li>
                             {% endfor %}
                             <li><a href="{{ url_for('shop.cart') }}">Cart</a></li>
                             <li><a href="{{ url_for('shop.cart_checkout') }}">Checkout</a></li>
