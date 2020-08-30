@@ -24,17 +24,31 @@
 					<ul class="product-list">
 						<!-- PRODUCT : begin -->
 						{% for category in categories %}
-							<li class="product product-category">
-								<a class="product-link" href="{{ url_for('hair.get_category', category=category.name.lower()) }}">
-									<div class="product-inner">
-										<h3 class="product-title">
-											{{ category.name }}
-										</h3>
-										<!-- <p class="product-image"><a href="{{ url_for('shop.get_product_category', id=category.id) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p> -->
-									</div>
-								</a>
-							</li>
+							{% if category.name != 'Frontals' and category.name != 'Closures' %}
+								<li class="product product-category">
+									<a class="product-link" href="{{ url_for('hair.get_category', category=category.name.lower()) }}">
+										<div class="product-inner">
+											<h3 class="product-title">
+												{{ category.name }}
+											</h3>
+											<p class="product-image"><a href="{{ url_for('shop.get_product_category', category=category.name.lower()) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p>
+										</div>
+									</a>
+								</li>
+							{% endif %}
 						{% endfor %}
+						<li class="product product-category">
+							<div class="product-link">
+								<div class="product-inner">
+									<h3 class="product-title">
+										<a class="product-ref" href="{{ url_for('hair.get_category', category='frontals') }}">{{ frontals.name }}</a> &plus; <a class="product-ref" href="{{ url_for('hair.get_category', category='closures') }}">{{ closures.name }}</a>
+									</h3>
+									<p class="product-image">
+										<img src="{{ frontals.image }}" alt="{{ frontals.name }} and {{ closures.name }}" />
+									</p>
+								</div>
+							</div>
+						</li>
 						<!-- PRODUCT : end -->
 					</ul>
 					<!-- PRODUCT LIST : end -->

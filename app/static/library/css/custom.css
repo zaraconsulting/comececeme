@@ -274,9 +274,21 @@ the existing ones.
 
 
 #bottom-panel {
-	margin-top: 0px;
+	margin-top: 48px;
 }
 
 .product-list .product:nth-child(3n+1) {
 	clear: both;
+}
+
+.product-list .product-title a.product-ref, .product-title {
+	color: rgb(239, 0, 139);
+}
+
+.product-list .product-title a:hover {
+	border-bottom: unset;
+}
+
+.product-image {
+	min-height: 307px;
 }

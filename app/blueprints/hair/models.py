@@ -81,6 +81,7 @@ class Hair(db.Model):
 class HairCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    image = db.Column(db.String)
     description = db.Column(db.String)
     products = db.relationship('Hair', backref='category', lazy='dynamic')
 
@@ -89,13 +90,14 @@ class HairCategory(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]
         }
         return data
 
 
     def from_dict(self, data):
-        for field in ['name', 'description']:
+        for field in ['name', 'description', 'image']:
             if field in data:
                 setattr(self, field, data[field])
 

@@ -16,7 +16,9 @@ def get_categories():
     [GET] /hair/categories
     """
     context = {
-        'categories': [i for i in HairCategory.query.all()]
+        'categories': [i for i in HairCategory.query.all()],
+        'frontals': HairCategory.query.filter_by(name='Frontals').first(),
+        'closures': HairCategory.query.filter_by(name='Closures').first()
     }
     return render_template('shop-categories.html', **context)
 
