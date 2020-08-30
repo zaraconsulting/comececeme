@@ -289,6 +289,25 @@ the existing ones.
 	border-bottom: unset;
 }
 
-.product-image {
-	min-height: 307px;
+.product-inner {
+	min-height: 275px;
+}
+
+@media (max-width: 880px) {
+	.product-list .product-category {
+		width: 100%;
+	}
+	.product-inner {
+		min-height: 307px;
+	}
+}
+
+.product-list .product:nth-child(3n+1) {
+	clear: none;
+}
+
+@media (max-width: 986px) {
+	.product {
+		width: 100% !important;
+	}
 }

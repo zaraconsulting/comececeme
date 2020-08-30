@@ -31,7 +31,7 @@
 											<h3 class="product-title">
 												{{ category.name }}
 											</h3>
-											<p class="product-image"><a href="{{ url_for('shop.get_product_category', category=category.name.lower()) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p>
+											<p class="product-image"><a href="{{ url_for('hair.get_category', category=category.name.lower()) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p>
 										</div>
 									</a>
 								</li>
