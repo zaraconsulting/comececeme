@@ -281,7 +281,7 @@ the existing ones.
 	clear: both;
 }
 
-.product-list .product-title a.product-ref, .product-title {
+.product-list .product-title a.product-ref {
 	color: rgb(239, 0, 139);
 }
 
@@ -310,4 +310,41 @@ the existing ones.
 	.product {
 		width: 100% !important;
 	}
+}
+
+@media (max-width: 767px) {
+	.product-container{
+		margin-bottom: 30px;
+	}
+}
+
+@media (max-width: 986px) {
+	.product-container{
+		/* width: 50%; */
+		margin-bottom: 30px;
+		margin-right: 0px;
+	}
+	
+}
+
+@media(min-width: 992px) {
+	.product-container{
+		/* width: 50%; */
+		margin-bottom: 30px;
+		margin-right: 0px;
+	}
+	
+	.product-container img {
+		height: 230px;
+	}
+}
+
+.product-list-item {
+	/* width: 145px; */
+	min-width: 145px;
+	text-align: center;
+}
+
+.product-list-tools {
+	margin-bottom: unset;
 }

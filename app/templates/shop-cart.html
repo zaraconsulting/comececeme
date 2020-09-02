@@ -10,7 +10,7 @@
 			<h1>Cart</h1>
 			<ul class="breadcrumbs">
 				<li><a href="{{ url_for('main.index') }}">Home</a></li>
-				<li><a href="{{ url_for('shop.categories') }}">Shop</a></li>
+				<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
 				<li>Cart</li>
 			</ul>
 		</div>
@@ -37,8 +37,8 @@
 						<tbody>
 							{% for product in shopping_cart %}
 								<tr>
-									<td class="product-image"><a href="{{ url_for('shop.get_product', id=product.prod_id) }}"><img src="{{ product.image }}" alt="{{ product.name }}"></a></td>
-									<td><a href="{{ url_for('shop.get_product', id=product.prod_id) }}">{{ product.name }}</a></td>
+									<td class="product-image"><a href="{{ url_for('hair.get_pattern', category=product.category.lower(), pattern=product.pattern.lower()) }}"><img src="{{ product.image }}" alt="{{ product.name }}"></a></td>
+									<td><a href="{{ url_for('hair.get_pattern', category=product.category.lower(), pattern=product.pattern.lower()) }}">{{ product.name }} {% if product.category == 'Bundles' %}Bundles{% endif %}</a></td>
 									<td>${{ '{:.2f}'.format(product.price) }}</td>
 									<td>
 										{{ product.quantity }}

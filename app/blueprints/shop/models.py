@@ -6,10 +6,11 @@ from flask import jsonify, session
 from flask_login import UserMixin
 
 from app.blueprints.account.models import Account
+from app.blueprints.hair.models import Hair
 
 
 class Customer(UserMixin, db.Model):
-    # extend_existing=True
+    __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     suffix = db.Column(db.String)
     first_name = db.Column(db.String)
@@ -73,14 +74,14 @@ def load_user(id):
     return Customer.query.get(int(id))
 
 
-class Cart(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    customerId = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
-    productId = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+# class Cart(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     customerId = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
+#     product_id = db.Column(db.Integer, db.ForeignKey('hair.id'), nullable=False)
+#     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
 
-    def __repr__(self):
-        return f"<Cart: {self.customerId}, {self.productId}>"
+#     def __repr__(self):
+#         return f"<Cart: {self.customerId}, {self.hair_id}>"
 
 
 class Product(db.Model):

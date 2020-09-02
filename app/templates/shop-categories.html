@@ -25,19 +25,19 @@
 						<!-- PRODUCT : begin -->
 						{% for category in categories %}
 							{% if category.name != 'Frontals' and category.name != 'Closures' %}
-								<li class="product product-category">
+								<li class="product-container col-xs-12 col-md-6">
 									<a class="product-link" href="{{ url_for('hair.get_category', category=category.name.lower()) }}">
 										<div class="product-inner">
 											<h3 class="product-title">
 												{{ category.name }}
 											</h3>
-											<p class="product-image"><a href="{{ url_for('hair.get_category', category=category.name.lower()) }}"><img src="{{ category.image }}" alt="{{ category.name }}"></a></p>
+											<p class="product-image"><a href="{{ url_for('hair.get_category', category=category.name.lower()) }}"><img class="img-fluid" src="{{ category.image }}" alt="{{ category.name }}"></a></p>
 										</div>
 									</a>
 								</li>
 							{% endif %}
 						{% endfor %}
-						<li class="product product-category">
+						<li class="product-container col-xs-12 col-md-6">
 							<div class="product-link">
 								<div class="product-inner">
 									<h3 class="product-title">

@@ -21,33 +21,18 @@ def get_product():
     _id = request.args.get('id')
     return jsonify(Product.query.get_or_404(_id).to_dict())
 
-@app.route('/product', methods=['PUT'])
-def edit_product():
+@app.route('/product/<int:id>', methods=['PUT'])
+def edit_product(id):
     """
-    [PUT] /api/product?id=1/edit
+    [PUT] /api/product/edit/id=1
     """
+    # _id = request.args.get('id')
     _id = request.args.get('id')
     product = Product.query.get_or_404(_id)
     data = request.get_json() or {}
     product.from_dict(data)
     db.session.commit()
     return jsonify(product.to_dict())
-
-# CATEGORIES
-@app.route('/product/categories', methods=['GET'])
-def get_categories():
-    """
-    [GET] /api/product/categories
-    """
-    return jsonify([i.to_dict() for i in Category.query.all()])
-
-
-@app.route('/product/category/<int:id>', methods=['GET'])
-def get_category(id):
-    """
-    [GET] /api/product/category/<id>
-    """
-    return jsonify(Category.query.get_or_404(id).to_dict())
 
 
 @app.route('/product/category', methods=['POST'])

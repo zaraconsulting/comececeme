@@ -4,10 +4,10 @@ from app.braintree import gateway
 
 from app.blueprints.reviews.models import Review
 from app.blueprints.services.models import ServiceCategory, Service
-from app.blueprints.shop.models import Product, ProductReview, Category, Cart, Order, Customer
+from app.blueprints.shop.models import Product, ProductReview, Category, Order, Customer
 from app.blueprints.booking.models import Booking
 from app.blueprints.gallery.models import Gallery
-from app.blueprints.hair.models import HairCategory, Hair, Pattern
+from app.blueprints.hair.models import HairCategory, Hair, Pattern, Cart
 
 app = create_app()
 cli.register(app)

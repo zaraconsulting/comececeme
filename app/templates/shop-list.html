@@ -24,11 +24,11 @@
 					<!-- PRODUCT LIST TOOLS : begin -->
 					<div class="product-list-tools">
 						<div class="row">
-							<div class="col-sm-6">
+							<!-- <div class="col-sm-6"> -->
 								<!-- PRODUCT LIST TITLE : begin -->
-								<h2 class="product-list-title">Showing {{ products|length }} Items</h2>
+								<!-- <h2 class="product-list-title">Showing {{ products|length }} Items</h2> -->
 								<!-- PRODUCT LIST TITLE : end -->
-							</div>
+							<!-- </div> -->
 							<div class="col-sm-6">
 								<!-- PRODUCT LIST SORTING : begin -->
 								<!-- <form id="sort-dropdown" action="/shop/products" class="default-form product-list-sorting" method="get">
@@ -46,18 +46,20 @@
 					<!-- PRODUCT LIST : begin -->
 					<ul class="product-list">
 						<!-- PRODUCT : begin -->
-						{% for product in products %}
-							<li class="product">
-								<div class="product-inner">
-									<h3 class="product-title"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].name }}</a></h3>
-									<p class="product-image"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}"><img class="img-fluid" src="{{ product.image }}" alt="{{ product.pattern }}"></a></p>
-									<div class="product-info">
-										<div class="product-price">${{ '{:,.2f}'.format(product.pattern[0].price) }}+ </div>
-										<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+						<div class="row">
+							{% for product in products %}
+								<li class="product-container col-sm-12 col-md-6">
+									<div class="product-inner">
+										<h3 class="product-title"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].name }}</a></h3>
+										<p class="product-image"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}"><img class="img-fluid" src="{{ product.image }}" alt="{{ product.pattern }}"></a></p>
+										<div class="product-info">
+											<div class="product-price">from ${{ '{:,.2f}'.format(product.pattern[0].price) }}</div>
+											<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+										</div>
 									</div>
-								</div>
-							</li>
-						{% endfor %}
+								</li>
+							{% endfor %}
+						</div>
 						<!-- PRODUCT : end -->
 					</ul>
 					<!-- PRODUCT LIST : end -->

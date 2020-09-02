@@ -85,16 +85,28 @@
 									<!-- PRODUCT PRICE : begin -->
 									<div class="product-price">
 										<!-- <span class="old-price">$29.99</span> -->
-										<strong class="price">${{ '{:,.2f}'.format(product.price) }}</strong>
+										<strong class="price">from ${{ '{:,.2f}'.format(product.price) }}</strong>
 									</div>
 									<!-- PRODUCT PRICE : end -->
 								</div>
 								<!-- PRODUCT INFO : end -->
 								<!-- PRODUCT TOOLS : begin -->
-								<form action="{{ url_for('shop.add_cart_product', id=product.id) }}" class="product-tools default-form" method="POST">
-									<div class="quantity-input">
-										<input name='quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
+								<form id="product-form" action="{{ url_for('hair.add_cart_product') }}" class="product-tools default-form" method="POST">
+									<div class="c-tabs">
+										<h1 style="font-weight: bold; margin-bottom: 12px;">Choose a length</h1>
+										<div class="tab-list">
+											{% for p in filtered_products %}
+												{% if p.category_id == 7 %}
+													<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}">{{ '{} - ${:,.2f}'.format(p.bundle_length, p.price) }}</li>
+												{% else %}
+													<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}">{{ '{}" - ${:,.2f}'.format(p.length, p.price) }}</li>
+												{% endif %}
+											{% endfor %}
+										</div>
 									</div>
+									<!-- <div class="quantity-input">
+										<input id='quantity' name='quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
+									</div> -->
 									<button id="add-to-cart-btn" class="c-button product-cart-btn" type="submit">Add To Cart</button>
 								</form>
 								<!-- PRODUCT TOOLS : end -->
@@ -214,4 +226,39 @@
 	</div>
 </div>
 <!-- CORE : end -->
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+	<script>
+		var price;
+		var id;
+		var category = '{{ category }}';
+		var pattern = '{{ pattern }}';
+		var product_id = '{{ product.id }}';
+		$('.product-list-item').each(function () {
+			var $this = $(this);
+			$this.on("click", function () {
+				price = $(this).data('price');
+				id = $(this).data('product-id');
+				console.log(price)
+				console.log(id)
+			});
+		});
+
+		$('#product-form').on('submit', (e) => {
+			e.preventDefault();
+			$.ajax({
+					url: "{{ url_for('hair.add_cart_product') }}",
+					data: JSON.stringify({ id: id, category: category, pattern: pattern }),
+					type: 'POST',
+					contentType: 'application/json',
+					dataType: 'json',
+					success: (data) => {
+						console.log("Success");
+					}
+				})
+			window.location.reload()
+		});
+	</script>
 {% endblock %}

@@ -7,7 +7,8 @@ import pprint
 from math import ceil
 from braintree.exceptions.not_found_error import NotFoundError
 
-from .models import Product, Category, Customer, ProductReview, Cart, Order
+from .models import Product, Category, Customer, ProductReview, Order
+from app.blueprints.hair.models import Hair, Cart
 
 
 @shop.route('/products/categories', methods=['GET'])
@@ -27,60 +28,6 @@ def get_product_category():
         'category': category,
     }
     return render_template('shop-list.html', **context)
-
-
-# @shop.route('/products', methods=['GET', 'POST'])
-# def index():
-#     """
-#     [GET] /shop/products
-#     """
-#     page = request.args.get('page', 1, type=int)
-#     order = request.args.get('order')
-
-#     if order == 'lowest':
-#         products = Product.query.order_by(Product.price.asc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
-#     elif order == 'highest':
-#         products = Product.query.order_by(Product.price.desc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
-#     else:
-#         products = Product.query.paginate(page, current_app.config.get('PRODUCTS_PER_PAGE')+1, False)
-        
-#     next_url = url_for('shop.index', page=products.next_num) if products.has_next else None
-#     prev_url = url_for('shop.index', page=products.prev_num) if products.has_prev else None
-#     if not prev_url:
-#         current_page = page
-#     elif not next_url:
-#         current_page = page
-#     context = {
-#         'products': [i.to_dict() for i in products.items if i.in_stock == True or i.quantity > 0],
-#         'page_products': products.iter_pages(),
-#         'sort_order': order,
-#         'current_page': current_page,
-#         'next_url': next_url,
-#         'prev_url': prev_url
-#     }
-#     return render_template('shop-list.html', **context)
-
-# @shop.route('/products/sort', methods=['GET'])
-# def products_sort():
-#     page = request.args.get('page', 1, type=int)
-
-#     order = request.args.get('order')
-#     print(order)
-#     if order == 'lowest':
-#         products = Product.query.order_by(Product.price.asc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
-#     elif order == 'highest':
-#         products =Product.query.order_by(Product.price.desc()).paginate(page, current_app.config.get('PRODUCTS_PER_PAGE'), False)
-#     else:
-#         products = [i.to_dict() for i in Product.query.all() if i.in_stock == True or i.quantity > 0]
-    
-#     next_url = url_for('shop.index', page=products.next_num) if products.has_next else None
-#     prev_url = url_for('shop.index', page=products.prev_num) if products.has_prev else None
-    
-#     context = {
-#         'products': [i.to_dict() for i in products.items if i.in_stock == True or i.quantity > 0],
-#         'page_products': products.iter_pages()
-#     }
-#     return render_template('shop-list.html', **context)
 
 @shop.route('/products/all', methods=['GET'])
 def get_products():
@@ -240,19 +187,32 @@ def cart_clear():
     return redirect(url_for('shop.index'))
 
 @login_required
-@shop.route('/product/cart/add', methods=['POST'])
-def add_cart_product():
-    """
-    [POST] /product/cart/add
-    """
-    # print(request.form.get('quantity'))
-    if not current_user.is_authenticated:
-        return redirect(url_for('authentication.login'))
-    product = Product.query.get(request.args.get('id'))
-    for _ in range(int(request.form.get('quantity'))):
-        db.session.add(Cart(customerId=int(current_user.id), productId=product.id))
-    db.session.commit()
-    return redirect(url_for('shop.get_product', id=product.id))
+# @shop.route('/product/cart/add', methods=['POST'])
+# def add_cart_product():
+#     """
+#     [POST] /product/cart/add
+#     """
+#     # if request.args.get('item_price') is not None and request.args.get('category') is not None and request.args.get('pattern') is not None: 
+#     item_price = request.args.get('item_price')
+#     session['item_price'] = item_price
+#     category = request.args.get('category')
+#     session['category'] = category
+#     pattern = request.args.get('pattern')
+#     session['pattern'] = pattern
+#     product_id = request.args.get('id')
+#     session['product_id'] = product_id
+#     print(session.get('item_price'))
+#     print(session.get('category'))
+#     print(session.get('pattern'))
+#     print(session.get('product_id'))
+#     if not current_user.is_authenticated:
+#         return redirect(url_for('authentication.login'))
+#     product = Hair.query.get(request.args.get(product_id))
+#     print(product)
+#     # for _ in range(quantity):
+#     db.session.add(Cart(customerId=int(current_user.id), id=product.id))
+#     db.session.commit() 
+#     return redirect(url_for('hair.get_product', category=category.lower(), pattern=pattern.lower()))
 
 
 @shop.route('/product/comment/add', methods=['POST'])
@@ -272,7 +232,7 @@ def add_product_review():
 
 @shop.route('/product/cart/remove/<int:id>')
 def remove_cart_product(id):
-    [db.session.delete(item) for item in Cart.query.filter_by(productId=id).all()]
+    [db.session.delete(item) for item in Cart.query.filter_by(product_id=id).all()]
     db.session.commit()
     return redirect(url_for('shop.cart'))
 
@@ -295,13 +255,14 @@ def get_product():
     [GET] /shop/product/<id>
     """
     id_ = request.args.get('id')
-    reviews_list = [i for i in [i.rating for i in Product.query.get(id_).reviews.all()]]
+    reviews_list = []
+    # reviews_list = [i for i in [i.rating for i in Hair.query.get(id_).reviews.all()]]
     def getAverage(a_list):
         if len(a_list) == 0 or not a_list:
             return 0
         return ceil(sum(reviews_list) / len(reviews_list))
     context = {
-        'product': Product.query.get(id_),
+        'product': Hair.query.get(id_),
         'average': getAverage(reviews_list)
     }
     return render_template('shop-detail.html', **context)
