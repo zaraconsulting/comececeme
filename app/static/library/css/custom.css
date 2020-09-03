@@ -348,3 +348,19 @@ the existing ones.
 .product-list-tools {
 	margin-bottom: unset;
 }
+
+@media(max-width: 991px) {
+	.hair-product {
+		margin-bottom: 50px;
+	}
+}
+
+@media(min-width: 992px) {
+	.hair-product img {
+		height: 340px;
+	}
+
+	.hair-product {
+		text-align: center;
+	}
+}

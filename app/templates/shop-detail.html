@@ -104,9 +104,9 @@
 											{% endfor %}
 										</div>
 									</div>
-									<!-- <div class="quantity-input">
+									<div class="quantity-input">
 										<input id='quantity' name='quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
-									</div> -->
+									</div>
 									<button id="add-to-cart-btn" class="c-button product-cart-btn" type="submit">Add To Cart</button>
 								</form>
 								<!-- PRODUCT TOOLS : end -->
@@ -241,8 +241,8 @@
 			$this.on("click", function () {
 				price = $(this).data('price');
 				id = $(this).data('product-id');
-				console.log(price)
-				console.log(id)
+				// console.log(price)
+				// console.log(id)
 			});
 		});
 
@@ -250,15 +250,15 @@
 			e.preventDefault();
 			$.ajax({
 					url: "{{ url_for('hair.add_cart_product') }}",
-					data: JSON.stringify({ id: id, category: category, pattern: pattern }),
+					data: JSON.stringify({ id: id, category: category, pattern: pattern, quantity: $('#quantity').val() }),
 					type: 'POST',
 					contentType: 'application/json',
 					dataType: 'json',
 					success: (data) => {
 						console.log("Success");
 					}
-				})
-			window.location.reload()
+				});
+			window.location.reload();
 		});
 	</script>
 {% endblock %}

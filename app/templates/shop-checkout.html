@@ -10,7 +10,7 @@
 			<h1>Checkout</h1>
 			<ul class="breadcrumbs">
 				<li><a href="{{ url_for('main.index') }}">Home</a></li>
-				<li><a href="{{ url_for('shop.index') }}">Shop</a></li>
+				<li><a href="{{ url_for('hair.get_categories') }}">Shop</a></li>
 				<li>Checkout</li>
 			</ul>
 		</div>
@@ -284,12 +284,16 @@
 									<tbody>
 										{% for product in shopping_cart %}
 											<tr>
-												<td>{{ product.name }} × {{ product.quantity }}</td>
-												<td>{{ '${:.2f}'.format(product.price) }}</td>
+												<td>{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.name }} {% if product.category == 'Bundles' %}Bundles{% endif %} × {{ product.quantity }}</td>
+												<td>{{ '${:.2f}'.format(product.price * product.quantity) }}</td>
 											</tr>
 											{% endfor %}
 											<tr>
-												<td></td>
+												<td><strong>Tax</strong></td>
+												<td><strong>{{ '${:.2f}'.format(total * tax) }}</strong></td>
+											</tr>
+											<tr>
+												<td><strong>Grand Total</strong></td>
 												<td><strong>{{ '${:.2f}'.format(grandTotal) }}</strong></td>
 											</tr>
 									</tbody>

@@ -1,0 +1,33 @@
+<section>
+    <!-- SECTION HEADER : begin -->
+    <header>
+        <div class="container">
+            <h2>Shop Hair</h2>
+        </div>
+    </header>
+    <!-- SECTION HEADER : end -->
+    <!-- SERVICE LIST : begin -->
+    <div class="c-service-list m-paginated" data-items="4" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-mobile="1">
+        <div class="container">
+            <div class="row">
+                {% for c in categories %}
+                    {% if c.name != 'Frontals' and c.name != 'Closures' %}
+                        <div class="hair-product col-md-4">
+                            <h3 class="product-title" style="text-align: center;">
+                                <a class="img-fluid" href="{{ url_for('hair.get_category', category=c.name.lower()) }}">{{ c.name }}</a>
+                            </h3>
+                            <img class="img-fluid" src="{{ c.image }}" alt="{{ c.name }}">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="hair-product col-md-4">
+                    <h3 class="product-title" style="text-align: center;">
+                        <a href="{{ url_for('hair.get_category', category=frontals.name.lower()) }}" >{{ frontals.name }}</a> + <a href="{{ url_for('hair.get_categories', category=closures.name.lower()) }}">{{ closures.name }}</a>
+                    </h3>
+                    <img class="img-fluid" src="{{ frontals.image }}" alt="{{ frontals.name }} and {{ closures.name }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SERVICE LIST : end -->
+</section>
