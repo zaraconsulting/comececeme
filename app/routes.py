@@ -61,5 +61,11 @@ def getPopularProducts():
     return dict(popular_products=[(Product.query.get(i[0]), i[1]) for i in popular_products.all()])
 
 @app.context_processor
-def sayHello():
-    return dict(statement="Hello")
+def get_current_user():
+    # Matches with shop-detail.html for form validation
+    if not current_user.is_authenticated and current_user.is_anonymous:
+        active_user = False
+    else:
+        active_user = True
+    session['active_user'] = active_user
+    return dict(active_user=active_user)

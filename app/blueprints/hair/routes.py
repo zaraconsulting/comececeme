@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, jsonify, request, session
+from flask import render_template, redirect, url_for, jsonify, request, session, flash
 from .import bp as app
 from app.blueprints.hair.models import HairCategory, Hair, Pattern, Cart
 from flask_login import current_user
@@ -81,28 +81,32 @@ def add_cart_product():
     #     """
     #     [POST] /product/cart/add
     #     """
-
+    
+        # return redirect(url_for('authentication.login'))
+    
     if request.method == 'POST':
         r = request.get_json()
         session['id'] = r.get('id')
         session['category'] = r.get('category')
         session['pattern'] = r.get('pattern')
         session['quantity'] = r.get('quantity')
+        
+        if not session['active_user']:
+            flash("You must login to continue", "m-warning")
+            return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
 
         _id = session.get('id')
         category = session.get('category')
         pattern = session.get('pattern')
         quantity = int(session.get('quantity'))
 
-        print(_id)
-        print(category)
-        print(pattern)
-        print(quantity)
+        print("Product ID:", _id)
+        print("Category:", category)
+        print("Hair Pattern:", pattern)
+        print("Quantity:", quantity)
 
         product = Hair.query.get(_id)
         # print(product)
-        if not current_user.is_authenticated:
-            return redirect(url_for('authentication.login'))
         for _ in range(quantity):
             db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
         db.session.commit()

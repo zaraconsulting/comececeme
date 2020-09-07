@@ -165,14 +165,14 @@ def cart_checkout():
                 # Create Order
                 # db.session.add_all([Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId) for _ in Cart.query.filter_by(customerId=customer.id).all()])
                 for _ in Cart.query.filter_by(customerId=c.id).all():
-                    db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().productId))
+                    db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().product_id))
                     db.session.commit()
 
                 # Delete cart 
                 [db.session.delete(i) for i in c.cart.all()]
                 
                 db.session.commit()
-                return redirect(url_for('shop.index'))
+                return redirect(url_for('hair.get_hair_categories'))
             else:
                 print(result.errors)
                 return redirect(url_for('shop.cart_checkout'))

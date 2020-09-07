@@ -364,3 +364,7 @@ the existing ones.
 		text-align: center;
 	}
 }
+
+.flash-message-container {
+	margin-bottom: 35px;
+}

@@ -11,6 +11,19 @@
             </ul>
         </div>
     </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        <div class="container">
+            {% if messages %}
+            <div class="flash-message-container">
+                {% for c, m in messages %}
+                <p class="c-alert-message {{ c }}">
+                    <i class="ico fa fa-exclamation-circle"></i> <strong>{{ m }}</strong>
+                </p>
+            {% endfor %}
+            </div>
+        {% endif %}
+        </div>
+    {% endwith %}
     <!-- PAGE HEADER : begin -->
     <div class="container">
         <!-- PAGE CONTENT : begin -->

@@ -143,7 +143,7 @@ class Order(db.Model):
     order_date = db.Column(db.DateTime, default=datetime.utcnow)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     # coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('hair.id'))
 
     def create_order(self):
         db.session.add(self)

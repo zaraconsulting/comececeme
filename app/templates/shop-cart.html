@@ -35,19 +35,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for product in shopping_cart %}
+							{% for p in shopping_cart %}
 								<tr>
-									<td class="product-image"><a href="{{ url_for('hair.get_pattern', category=product.category.lower(), pattern=product.pattern.lower()) }}"><img src="{{ product.image }}" alt="{{ product.name }}"></a></td>
-									<td><a href="{{ url_for('hair.get_pattern', category=product.category.lower(), pattern=product.pattern.lower()) }}">{{ product.name }} {% if product.category == 'Bundles' %}Bundles{% endif %}</a></td>
-									<td>${{ '{:.2f}'.format(product.price) }}</td>
+									<td class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></td>
+									<td><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}">{% if p.category=='Bundles' %}{{ p.bundle_length }}{% else %}{{ p.length }}"{% endif %} {{ p.name }} {% if p.category=='Bundles' %} Bundles{% endif %}</a></td>
+									<td>${{ '{:.2f}'.format(p.price) }}</td>
 									<td>
-										{{ product.quantity }}
+										{{ p.quantity }}
 										<!-- <div class="quantity-input">
 											<input name='cart-quantity' id='cart-quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
 										</div> -->
 									</td>
-									<td>${{ '{:.2f}'.format(product.price * product.quantity) }}</td>
-									<td class="textalign-right"><a href="{{ url_for('shop.remove_cart_product', id=product.prod_id) }}" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
+									<td>${{ '{:.2f}'.format(p.price * p.quantity) }}</td>
+									<td class="textalign-right"><a href="{{ url_for('shop.remove_cart_product', id=p.prod_id) }}" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
 								</tr>
 							{% endfor %}
 						</tbody>

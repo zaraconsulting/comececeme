@@ -1,5 +1,5 @@
 from . import bp as authentication
-from flask import current_app, render_template, redirect, url_for, request
+from flask import current_app, render_template, redirect, url_for, request, flash
 from app.blueprints.shop.models import Customer
 # from .forms import LoginForm, RegisterForm
 from app import db
@@ -9,6 +9,8 @@ from flask_login import current_user
 
 @authentication.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_anonymous:
+        flash('You must login to continue', 'm-warning')
     if request.method == 'POST':
         customer = Customer.query.filter_by(email=request.form.get('login-email')).first()
         if customer is not None and customer.check_password_hash(request.form.get('login-password')):
