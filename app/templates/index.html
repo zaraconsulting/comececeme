@@ -4,15 +4,9 @@
 {% block content %}
 <!-- MAIN SLIDER : begin -->
 <section class="hero-container">
-	<img src="https://res.cloudinary.com/comececeme/image/upload/v1598503231/self/comececeme-home-top-finished_esdrb9.png" style="max-height:700px;" class="img-fluid" alt="">
-	<div class="hero-text">
-		<h2 class="hero-header">
-			Perfect Hair.<br>
-			Perfect Price.<br>
-			Perfect Selfie.
-		</h2>
-		<!-- <h3><a href="https://www.styleseat.com/m/v/comececeme" target='_blank'>Make a Reservation</a></h3> -->
-	</div>
+	<a href="{{ url_for('hair.get_categories') }}">
+		<img src="https://res.cloudinary.com/comececeme/image/upload/v1599572459/banners/Banner1_txpjts.jpg" class="img-fluid" alt="Banner Image">
+	</a>
 </section>
 <!-- MAIN SLIDER : end -->
 <!-- CORE : begin -->
@@ -26,6 +20,7 @@
 			<!-- GALLERY SECTION : begin -->
 			{# {% include 'partials/gallery.html' %} #}
 			<!-- GALLERY SECTION : end -->
+			
 			<!-- TESTIMONIALS SECTION : begin -->
 			<section>
 				<!-- SECTION HEADER : begin -->
@@ -65,12 +60,16 @@
 				<!-- TESTIMONIAL LIST : end -->
 			</section>
 			<!-- TESTIMONIALS SECTION : end -->
-			<!-- PICTURE SECTION : begin -->
-			<!-- <section>
-				<img src="https://res.cloudinary.com/comececeme/image/upload/v1598508849/logo/homepage-banner-bottom_tyczud.png" class="img-fluid" alt="">
-			</section> -->
-			<!-- PICTURE SECTION : end -->
 			
+			<!-- PICTURE SECTION : begin -->
+			<section style="margin-bottom:0px;">
+				<a href="{{ url_for('hair.get_categories') }}">
+					<img src="https://res.cloudinary.com/comececeme/image/upload/v1599572459/banners/Banner2_teb9bd.jpg" class="img-fluid" alt="Banner Footage">
+				</a>
+			</section>
+			<!-- PICTURE SECTION : end -->
+
+
 			<!-- BRANDS SECTION : begin -->
 				<!-- Brands partial goes here -->
 			<!-- BRANDS SECTION : end -->

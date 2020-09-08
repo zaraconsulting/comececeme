@@ -136,7 +136,7 @@ the existing ones.
 }
 
 .header-bg {
-	background-color: rgba(235, 1, 139, 0.6);
+	background-color: rgba(255, 0, 118, 0.6);
 }
 
 #core.core-bg-1 {
@@ -212,7 +212,7 @@ the existing ones.
 
 .hero-header {
     color: #ff007c;
-	-webkit-text-stroke: 0.01em rgba(255,0,124,0.5);
+	-webkit-text-stroke: 0.01em rgba(255, 0, 118,0.5);
 	padding: 0;
     line-height: 1.1em;
     font-family: "Montserrat",Arial,sans-serif;
@@ -367,4 +367,8 @@ the existing ones.
 
 .flash-message-container {
 	margin-bottom: 35px;
+}
+
+.header-bg {
+	background-image: linear-gradient(rgb(255, 255, 255), rgba(255, 0, 116))
 }

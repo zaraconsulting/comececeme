@@ -172,7 +172,7 @@ def cart_checkout():
                 [db.session.delete(i) for i in c.cart.all()]
                 
                 db.session.commit()
-                return redirect(url_for('hair.get_hair_categories'))
+                return redirect(url_for('hair.get_categories'))
             else:
                 print(result.errors)
                 return redirect(url_for('shop.cart_checkout'))
