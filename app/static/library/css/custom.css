@@ -387,4 +387,8 @@ the existing ones.
 	.c-testimonial-list .m-paginated {
 		margin-bottom: 0px !important;
 	}
+
+	.featured-product {
+		margin-bottom: 70px;
+	}
 }
