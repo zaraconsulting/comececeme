@@ -57,7 +57,7 @@ def get_pattern(category):
     """
     [GET] /hair/<category>?pattern=<pattern>
     """
-    category = session.get('category')
+    category = category.title() or session.get('category')
     pattern = request.args.get('pattern').title()
     session['pattern'] = pattern
     products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()

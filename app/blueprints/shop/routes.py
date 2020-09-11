@@ -186,7 +186,7 @@ def cart_clear():
     db.session.commit()
     return redirect(url_for('shop.index'))
 
-@login_required
+# @login_required
 # @shop.route('/product/cart/add', methods=['POST'])
 # def add_cart_product():
 #     """

@@ -3,3 +3,4 @@ choose_one.attr('disabled', true);
 
 var year = new Date().getFullYear();
 $('#copyright-date').text(year);
+

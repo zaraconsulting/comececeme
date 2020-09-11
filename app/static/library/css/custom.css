@@ -274,7 +274,7 @@ the existing ones.
 
 
 #bottom-panel {
-	margin-top: 48px;
+	margin-top: 0px;
 }
 
 .product-list .product:nth-child(3n+1) {
@@ -371,4 +371,20 @@ the existing ones.
 
 .header-bg {
 	background-image: linear-gradient(rgb(255, 255, 255), rgba(255, 0, 116))
+}
+
+@media(max-width: 768px) {
+	.various-content section {
+		margin-bottom: 0px;
+	}
+}
+
+.various-content.instagram h3 {
+	color: rgb(239, 0, 139);
+}
+
+@media(max-width: 767px) {
+	.c-testimonial-list .m-paginated {
+		margin-bottom: 0px !important;
+	}
 }

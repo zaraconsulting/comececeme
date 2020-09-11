@@ -1,11 +1,11 @@
 from . import bp as main
 from flask import request, jsonify, render_template, url_for, redirect, current_app as app
-import json, requests
+import json, requests, random
 
 from app.blueprints.reviews.models import Review
 from app.blueprints.gallery.models import Gallery
 from app.blueprints.services.models import ServiceCategory
-from app.blueprints.hair.models import HairCategory, Hair
+from app.blueprints.hair.models import HairCategory, Hair, Pattern
 from app.email import send_booking_email
 
 
@@ -14,13 +14,29 @@ def index():
     """
     [GET] /
     """
-    # [i for i in ServiceCategory.query.all() if i.description if i.tag in ['hair_care', 'hairstyles', 'hair_extensions', 'hair_color', 'eyelash_extensions']]
+    category = HairCategory.query.filter_by(name='Extensions').first()
+    pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category.id).all()]))
+    products = []
+    for pattern in pattern_list:
+        hair_products = Hair.query.filter_by(category_id=category.id).all()
+        display_products = []
+        for i in hair_products:
+            if i.pattern == pattern and i.pattern not in [a_dict for a_dict in display_products]:
+                display_products.append({'name': i.pattern, 'price': i.price})
+                break
+        a_dict = {
+            'pattern': display_products,
+            'image': Pattern.query.filter_by(name=pattern).first().image,
+            'category': category.name
+        }
+        products.append(a_dict)
     context = {
         'categories': [i for i in HairCategory.query.all()],
         'frontals': HairCategory.query.filter_by(name='Frontals').first(),
         'closures': HairCategory.query.filter_by(name='Closures').first(),
         'reviews': Review.query.all(),
-        'gallery': Gallery.query.all()
+        'gallery': Gallery.query.all(),
+        'products': products
     }
     return render_template('index.html', **context), 200
 

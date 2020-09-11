@@ -2,7 +2,7 @@
     <!-- SECTION HEADER : begin -->
     <header>
         <div class="container">
-            <h2>Shop Hair</h2>
+            <h2>Featured</h2>
         </div>
     </header>
     <!-- SECTION HEADER : end -->
@@ -12,7 +12,7 @@
             <div class="row">
                 {% for c in categories %}
                     {% if c.name != 'Frontals' and c.name != 'Closures' %}
-                        <div class="hair-product col-md-4">
+                        <div class="hair-product col-sm-4">
                             <h3 class="product-title" style="text-align: center;">
                                 <a class="img-fluid" href="{{ url_for('hair.get_category', category=c.name.lower()) }}">{{ c.name }}</a>
                             </h3>

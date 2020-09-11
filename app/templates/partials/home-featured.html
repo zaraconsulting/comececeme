@@ -1,0 +1,32 @@
+<section>
+    <!-- SECTION HEADER : begin -->
+    <header>
+        <div class="container">
+            <h2>Featured</h2>
+        </div>
+    </header>
+    <!-- SECTION HEADER : end -->
+    <!-- SERVICE LIST : begin -->
+    <div class="c-service-list m-paginated" data-items="4" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-mobile="1">
+        <div class="container">
+            <div class="row" style="text-align: center;">
+                <div class="featured-center">
+                    {% for p in products %}
+                    <div class="col-sm-2">
+                        <h5 class="product-title" style="text-align: center;">
+                            <a class="img-fluid" href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern[0].name.lower()) }}">{{ p.pattern[0].name }}<br>{{ p.category }}</a>
+                        </h5>
+                        <a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern[0].name.lower()) }}">
+                            <img class="img-fluid" src="{{ p.image }}" alt="{{ p.pattern[0].name }}">
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+            <div class="row textalign-center" style="margin: 25px 0;">
+                <p class="more" style="margin: 0 auto"><a href="{{ url_for('hair.get_categories') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- SERVICE LIST : end -->
+</section>

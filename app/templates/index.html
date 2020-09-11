@@ -15,7 +15,7 @@
 	<div id="page-content">
 		<div class="various-content">
 			<!-- SERVICES SECTION : begin -->
-			{% include './partials/home-hair.html' %}
+			{% include './partials/home-featured.html' %}
 			<!-- SERVICES SECTION : end -->
 			<!-- GALLERY SECTION : begin -->
 			{# {% include 'partials/gallery.html' %} #}
@@ -33,7 +33,7 @@
 				</header>
 				<!-- SECTION HEADER : end -->
 				<!-- TESTIMONIAL LIST : begin -->
-				<div class="c-testimonial-list m-paginated">
+				<div class="c-testimonial-list m-paginated" style="margin-bottom: 0px;">
 					<div class="container">
 						<div class="testimonial-list-inner">
 							{% for review in reviews %}
@@ -62,12 +62,23 @@
 			<!-- TESTIMONIALS SECTION : end -->
 			
 			<!-- PICTURE SECTION : begin -->
-			<section style="margin-bottom:0px;">
+			<section style="margin-bottom:0px;" style="vertical-align: bottom;">
 				<a href="{{ url_for('hair.get_categories') }}">
 					<img src="https://res.cloudinary.com/comececeme/image/upload/v1599572459/banners/Banner2_teb9bd.jpg" class="img-fluid" alt="Banner Footage">
 				</a>
 			</section>
 			<!-- PICTURE SECTION : end -->
+
+			<!-- <section style="margin: 50px 0;">
+				<div class="row">
+					<div class="col-sm-6 offset-sm-3 textalign-center">
+						<div class="various-content instagram">
+							<h3>#COMECECEME ON INSTAGRAM</h3>
+							<p><a target="_blank" href="https://instagram.com/comececeme_llc?igshid=13mvj5e6ruqdb" class="c-button submit-btn">FOLLOW US</a></p>
+						</div>
+					</div>
+				</div>
+			</section> -->
 
 
 			<!-- BRANDS SECTION : begin -->
