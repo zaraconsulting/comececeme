@@ -12,7 +12,7 @@
             <div class="row" style="text-align: center;">
                 <div class="featured-center">
                     {% for p in products %}
-                    <div class="col-sm-2">
+                    <div class="col-xs-12 col-sm-2">
                         <h5 class="product-title" style="text-align: center;">
                             <a class="img-fluid" href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern[0].name.lower()) }}">{{ p.pattern[0].name }}<br>{{ p.category }}</a>
                         </h5>
@@ -20,6 +20,16 @@
                             <img class="img-fluid" src="{{ p.image }}" alt="{{ p.pattern[0].name }}">
                         </a>
                     </div>
+                    <!-- <li class="product-container col-xs-12 col-md-2">
+                        <a class="product-link" href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern[0].name.lower()) }}">
+                            <div class="product-inner">
+                                <h3 class="product-title">
+                                    {{ p.pattern[0].name }}<br>{{ p.category }}
+                                </h3>
+                                <p class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern[0].name.lower()) }}"><img class="img-fluid" src="{{ p.image }}" alt="{{ p.pattern[0].name }}"></a></p>
+                            </div>
+                        </a>
+                    </li> -->
                 {% endfor %}
                 </div>
             </div>
