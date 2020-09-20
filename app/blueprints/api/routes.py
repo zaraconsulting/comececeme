@@ -2,6 +2,7 @@ from .import bp as app
 from flask import jsonify, request, url_for
 from app.blueprints.shop.models import Customer, Product, Category
 from app.blueprints.hair.models import Hair, HairCategory, Pattern
+from app.blueprints.faqs.models import Faqs
 from app import db
 
 # PRODUCTS API
@@ -272,4 +273,54 @@ def get_hair_pattern(pattern):
     [GET] /api/hair/pattern/<pattern>
     """
     return jsonify([i.to_dict() for i in Pattern.query.filter_by(name=pattern).first()])
+
+# FAQS
+@app.route('/faqs', methods=['GET'])
+def get_faqs():
+    """
+    [GET] /api/faqs
+    """
+    return jsonify([i.to_dict() for i in Faqs.query.all()])
+
+@app.route('/faqs/<int:id>', methods=['GET'])
+def get_faq(id):
+    """
+    [GET] /api/faqs/<id>
+    """
+    return jsonify(Faqs.query.get_or_404(id).to_dict())
+
+
+@app.route('/faqs', methods=['POST'])
+def create_faq():
+    """
+    [POST] /api/faqs
+    """
+    data = request.get_json()
+    faq = Faqs()
+    faq.from_dict(data)
+    faq.create_faq()
+    response = jsonify(faq.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('api.get_faq', id=faq.id)
+    return response
+
+@app.route('/faqs/<id>', methods=['PUT'])
+def update_faq(id):
+    """
+    [PUT] /api/faqs/<id>
+    """
+    faq = Faqs.query.get(id)
+    data = request.get_json() or {}
+    faq.from_dict(data)
+    db.session.commit()
+    return jsonify(faq.to_dict())
+
+@app.route('/faqs/<id>', methods=['DELETE'])
+def delete_faq(id):
+    """
+    [DELETE] /api/faqs/<id>
+    """
+    faq = Faqs.query.get(id)
+    faq.delete_faq()
+    return jsonify({'message': f'FAQ DELETED: {faq.name} ({faq.id})'})
 

@@ -55,13 +55,13 @@ def booking():
     """
     return redirect("https://www.styleseat.com/m/v/comececeme")
 
-@main.route('/faqs', methods=['GET'])
-def faqs():
-    """
-    [GET] /faqs
-    """
-    context = {}
-    return render_template('faqs.html', **context)
+# @main.route('/faqs', methods=['GET'])
+# def faqs():
+#     """
+#     [GET] /faqs
+#     """
+#     context = {}
+#     return render_template('faqs.html', **context)
 
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():

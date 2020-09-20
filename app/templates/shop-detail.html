@@ -91,7 +91,7 @@
 								</div>
 								<!-- PRODUCT INFO : end -->
 								<!-- PRODUCT TOOLS : begin -->
-								<form id="product-form" action="{{ url_for('hair.add_cart_product') }}" class="product-tools default-form" method="POST">
+								<form id="product-form" class="product-tools default-form">
 									<div class="c-tabs">
 										<h1 style="font-weight: bold; margin-bottom: 12px;">Choose a length</h1>
 										<div class="tab-list">
@@ -230,7 +230,7 @@
 
 {% block scripts %}
 	{{ super() }}
-	<script>
+	<!-- <script>
 		var price;
 		var id;
 		var category = '{{ category }}';
@@ -269,5 +269,59 @@
 				});
 			window.location.reload();
 		});
+	</script> -->
+
+	<script>
+		var productListItems = $('.product-list-item');
+		var price;
+		var id;
+		var category = '{{ category }}';
+		var pattern = '{{ pattern }}';
+		var product_id = '{{ product.id }}';
+		var activeUser = '{{ active_user }}';
+
+		var info;
+
+		function postData(information) {
+			console.log(information);
+			
+			event.preventDefault();
+
+			fetch("{{ url_for('hair.add_cart_product') }}", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(information),
+			})
+			.then(res => res.json())
+			.then(data => { console.log('Success'); window.location.reload() })
+			.catch(error => console.log(error))
+		}
+
+		for (let i of productListItems) {
+			let element = i;
+			element.addEventListener('mousedown',function(event) {
+				if (activeUser == 'False') {
+					return window.location.href = "{{ url_for('authentication.login') }}"
+				}
+				
+				info = {
+					id: $(element).data('product-id'),
+					category: category,
+					price: $(element).data('price'),
+					pattern: pattern,
+					quantity: $('#quantity').val()
+				};
+
+			})
+		}
+
+		$('#add-to-cart-btn').on('mousedown', async function (event) {
+			await postData(info);
+		})
+
 	</script>
+
+
 {% endblock %}

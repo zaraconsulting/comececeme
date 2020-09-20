@@ -383,6 +383,11 @@ the existing ones.
 	color: rgb(239, 0, 139);
 }
 
+#hero-contact-container {
+	display: none;
+	margin-bottom: 35px;
+}
+
 @media(max-width: 767px) {
 	.c-testimonial-list .m-paginated {
 		margin-bottom: 0px !important;
@@ -391,4 +396,9 @@ the existing ones.
 	.featured-product {
 		margin-bottom: 70px;
 	}
+
+	#hero-contact-container {
+		display: block;
+	}
+
 }

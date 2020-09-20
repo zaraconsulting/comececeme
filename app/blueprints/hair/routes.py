@@ -58,7 +58,8 @@ def get_pattern(category):
     [GET] /hair/<category>?pattern=<pattern>
     """
     category = category.title() or session.get('category')
-    pattern = request.args.get('pattern').title()
+    print(request.args)
+    pattern = request.args.get('pattern').title() or session.get('pattern').title()
     session['pattern'] = pattern
     products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
     filtered_products = sorted([i for i in products_by_category if i.pattern == pattern if i], key=lambda x: x.price)
@@ -78,6 +79,7 @@ def get_pattern(category):
         
 @app.route('/product/cart/add', methods=['POST'])
 def add_cart_product():
+
     #     """
     #     [POST] /product/cart/add
     #     """
@@ -86,6 +88,8 @@ def add_cart_product():
     
     if request.method == 'POST':
         r = request.get_json()
+
+        
         session['id'] = r.get('id')
         session['category'] = r.get('category')
         session['pattern'] = r.get('pattern')
@@ -110,4 +114,10 @@ def add_cart_product():
         for _ in range(quantity):
             db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
         db.session.commit()
-    return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
+        return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
+
+@app.route('/test', methods=['POST'])
+def test():
+    r = request.get_json()
+    print(r)
+    return redirect(request.referrer)

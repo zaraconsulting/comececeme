@@ -1,8 +1,16 @@
 from . import bp as faqs
-from flask import request, jsonify, url_for
-from .models import HairTip
+from flask import request, jsonify, url_for, render_template, redirect
+from .models import HairTip, Faqs
 from app import db
 
+
+@faqs.route('/', methods=['GET'])
+def index():
+    """
+    [GET] /faqs
+    """
+    return render_template('faqs.html', faqs=Faqs.query.order_by(Faqs.date_created).all())
+    
 
 @faqs.route('/hair-tips', methods=['GET'])
 def get_hairtips():
