@@ -142,7 +142,7 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_date = db.Column(db.DateTime, default=datetime.utcnow)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
-    # coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
+    coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('hair.id'))
 
     def create_order(self):
@@ -207,41 +207,41 @@ class ProductReview(db.Model):
     def __str__(self):
         return f"Author: {self.author} | Rating: {self.rating}"
 
-# class Coupon(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     text = db.Column(db.String, nullable=False)
-#     percentage = db.Column(db.Float)
-#     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+class Coupon(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String)
+    discount = db.Column(db.Float)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-#     def create_coupon(self):
-#         db.session.add(self)
-#         db.session.commit()
+    def create_coupon(self):
+        db.session.add(self)
+        db.session.commit()
 
-#     def delete_coupon(self):
-#         db.session.delete(self)
-#         db.session.commit()
+    def delete_coupon(self):
+        db.session.delete(self)
+        db.session.commit()
 
-#     def to_dict(self):
-#         data = {
-#             'text': self.text,
-#             'percentage': self.percentage,
-#             'date_created': self.date_created,
-#         }
-#         return data
+    def to_dict(self):
+        data = {
+            'text': self.text,
+            'discount': self.discount,
+            'date_created': self.date_created,
+        }
+        return data
 
-#     def from_dict(self, data):
-#         for field in ['text', 'percentage']:
-#             if field in data:
-#                 setattr(self, field, data[field])
+    def from_dict(self, data):
+        for field in ['text', 'discount']:
+            if field in data:
+                setattr(self, field, data[field])
 
-#     def get_text(self):
-#         return self.text
+    def get_text(self):
+        return self.text
 
-#     def get_percentage(self):
-#         return self.percentage
+    def get_discount(self):
+        return self.discount
 
-#     def __str__(self):
-#         return f"{self.text} | {self.percentage}"
+    def __str__(self):
+        return f"{self.text} | {self.discount}"
 
 
 class Category(db.Model):

@@ -64,7 +64,7 @@
 										<div class="product-status-inner">
 											<i class="ico fa fa-check"></i>
 											<h5>In Stock</h5>
-											<p>Ship in 24h</p>
+											<p>Ship in 3-5 days</p>
 										</div>
 									</div>
 									<!--div class="product-status m-unavailable">
@@ -84,7 +84,7 @@
 									<!-- PRODUCT STATUS : end -->
 									<!-- PRODUCT PRICE : begin -->
 									<div class="product-price">
-										<!-- <span class="old-price">$29.99</span> -->
+										<span class="old-price">{{ '${:,.2f}'.format(product.price + product.price * 0.1) }}</span>
 										<strong class="price">from ${{ '{:,.2f}'.format(product.price) }}</strong>
 									</div>
 									<!-- PRODUCT PRICE : end -->

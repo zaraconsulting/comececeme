@@ -65,7 +65,7 @@
                     {% for p in popular_products %}
                         <li>
                             <h4 class="product-title"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}">{{ p.pattern }} {{ p.category }}</a></h4>
-                            <p class="product-price"><!--<span class="old-price">$26.49</span>--> {{ '${:,.2f}'.format(p.price) }}</p>
+                            <p class="product-price"><span class="old-price">{{ '${:,.2f}'.format(p.price + p.price * 0.1) }}</span> {{ '${:,.2f}'.format(p.price) }}</p>
                         </li>
                     {% endfor %}
                 </ul>

@@ -21,7 +21,7 @@
 		<div id="page-content">
 			<!-- SHOP CART : begin -->
 			<div class="shop-cart">
-				<form class="default-form" action="" method="GET">
+				<form class="default-form">
 					<!-- CART TABLE : begin -->
 					<table class="cart-table">
 						<thead>
@@ -57,8 +57,13 @@
 					<div class="cart-tools">
 						<!-- CART COUPON : begin -->
 						<div class="cart-coupon">
-							<input type="text" class="m-type-2" />
-							<button class="c-button m-type-2" type="submit">Apply Coupon</button>
+							{% if coupon and coupon.discount != 0 %}
+								<input type="text" class="m-type-2" id="coupon-field" disabled />
+								<button id="clear-coupon-btn" class="c-button m-type-2" type="submit">Clear Coupon</button>
+							{% else %}
+								<input type="text" class="m-type-2" id="coupon-field" />
+								<button id="apply-coupon-btn" class="c-button m-type-2" type="submit">Apply Coupon</button>
+							{% endif %}
 						</div>
 						<!-- CART COUPON : end -->
 						<!-- CART BUTTONS : begin -->
@@ -92,10 +97,22 @@
 						<dl>
 							<dt>Cart Subtotal</dt>
 							<dd>{{ '${:.2f}'.format(total) }}</dd>
-							<dt>Shipping/Sales</dt>
-							<dd>{{ '${:.2f}'.format(total * tax) }}</dd>
+							<!-- <dt>Shipping/Sales</dt>
+							<dd>{{ '${:.2f}'.format(total * tax) }}</dd> -->
+							{% if coupon and coupon.discount != 0 %}
+								<dt style="color: red;">Discount</dt>
+								<dd style="color: red;">&ndash; {{ '{:,.0f}%'.format(coupon.discount * 100) }}</dd>
+							{% endif %}
 							<dt>Total</dt>
-							<dd><strong>{{ '${:.2f}'.format(total + (total * tax)) }}</strong></dd>
+							<dd>
+								<strong>
+									{% if coupon and coupon.discount != 0 %}
+										{{ '${:.2f}'.format(total - (total * coupon.discount)) }}
+									{% else %}
+										{{ '${:.2f}'.format(total) }}
+									{% endif %}
+								</strong>
+							</dd>
 						</dl>
 					</div>
 					<!-- CART TOTALS : end -->
@@ -108,4 +125,44 @@
 	</div>
 </div>
 <!-- CORE : end -->
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+	<script>
+
+		$('#clear-coupon-btn').on('click', async (event) => {
+			event.preventDefault();
+
+			await $.post("{{ url_for('shop.clear_coupon') }}", () => {
+				window.location.href = "{{ url_for('shop.cart') }}"
+			});
+		});
+
+		$('#apply-coupon-btn').on('click',  (event) => {
+			event.preventDefault();
+
+			if ($('#coupon-field').val() !== '') {
+				var couponInput = $('#coupon-field').val();
+				console.log(couponInput);
+	
+				 fetch("{{ url_for('shop.apply_coupon') }}", {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ text: couponInput.toUpperCase() })
+				})
+				.then(res => res.json())
+				.then(data => {
+					console.log('success');
+					$('#coupon-field').val('');
+					window.location.href = "{{ url_for('shop.cart') }}"
+				})
+				.catch(error => console.log(error));
+			} else {
+				console.log("You must enter in a coupon code.");
+			}
+		});
+	</script>
 {% endblock %}

@@ -1,12 +1,12 @@
-from .import bp as app
+from .import bp as api
 from flask import jsonify, request, url_for
-from app.blueprints.shop.models import Customer, Product, Category, Order
+from app.blueprints.shop.models import Customer, Product, Category, Order, Coupon, ProductReview
 from app.blueprints.hair.models import Hair, HairCategory, Pattern
 from app.blueprints.faqs.models import Faqs
 from app import db
 
 # PRODUCTS API
-@app.route('/products', methods=['GET'])
+@api.route('/products', methods=['GET'])
 def get_products():
     """
     [GET] /api/products
@@ -14,7 +14,7 @@ def get_products():
     return jsonify([i.to_dict() for i in Product.query.all()])
 
     
-@app.route('/product', methods=['GET'])
+@api.route('/product', methods=['GET'])
 def get_product():
     """
     [GET] /api/product?id=1
@@ -22,7 +22,7 @@ def get_product():
     _id = request.args.get('id')
     return jsonify(Product.query.get_or_404(_id).to_dict())
 
-@app.route('/product/<int:id>', methods=['PUT'])
+@api.route('/product/<int:id>', methods=['PUT'])
 def edit_product(id):
     """
     [PUT] /api/product/edit/id=1
@@ -36,7 +36,7 @@ def edit_product(id):
     return jsonify(product.to_dict())
 
 
-@app.route('/product/category', methods=['POST'])
+@api.route('/product/category', methods=['POST'])
 def create_category():
     """
     [POST] /api/product/category
@@ -51,7 +51,7 @@ def create_category():
     return response
 
 
-@app.route('/product/category/edit/<int:id>', methods=['PUT'])
+@api.route('/product/category/edit/<int:id>', methods=['PUT'])
 def update_category():
     """
     [PUT] /api/product/category/update
@@ -63,36 +63,36 @@ def update_category():
     return jsonify(category.to_dict())
 
 
-@app.route('/product/category/delete/<int:id>', methods=['DELETE'])
+@api.route('/product/category/delete/<int:id>', methods=['DELETE'])
 def delete_category():
     """
     [DELETE] /api/product/category/delete
     """
     category = Category.query.get_or_404(id)
     category.delete_category()
-    return jsonify({'message': f'PRODUCT DELETED: {category.name} | {category.price} | {category.rating}'})
+    return jsonify({'message': f'PRODUCT DELETED'})
 
 # CUSTOMER
-@app.route('/customer', methods=['GET'])
+@api.route('/customer', methods=['GET'])
 def get_customers():
     """
-    [GET] /shop/customer
+    [GET] /api/customer
     """
     return jsonify([i.to_dict() for i in Customer.query.all()])
 
 
-@app.route('/customer/<int:id>', methods=['GET'])
+@api.route('/customer/<int:id>', methods=['GET'])
 def get_customer(id):
     """
-    [GET] /shop/customer/<id>
+    [GET] /api/customer/<id>
     """
     return jsonify(Customer.query.get_or_404(id).to_dict())
 
 
-@app.route('/customer/create', methods=['POST'])
+@api.route('/customer/create', methods=['POST'])
 def create_customer():
     """
-    [POST] /shop/customer/create
+    [POST] /api/customer/create
     """
     data = request.get_json()
     customer = Customer()
@@ -100,14 +100,14 @@ def create_customer():
     customer.create_customer()
     response = jsonify(customer.to_dict())
     response.status_code = 201
-    response.headers['Location'] = url_for('app.get_customer', id=customer.id)
+    response.headers['Location'] = url_for('api.get_customer', id=customer.id)
     return response
 
 
-@app.route('/customer/edit/<int:id>', methods=['PUT'])
+@api.route('/customer/edit/<int:id>', methods=['PUT'])
 def update_customer():
     """
-    [POST] /shop/customer/update
+    [POST] /api/customer/update
     """
     customer = Customer.query.get_or_404(id)
     data = request.get_json() or {}
@@ -116,18 +116,18 @@ def update_customer():
     return jsonify(customer.to_dict())
 
 
-@app.route('/customer/delete/<int:id>', methods=['DELETE'])
+@api.route('/customer/delete/<int:id>', methods=['DELETE'])
 def delete_customer():
     """
-    [POST] /shop/customer/delete
+    [POST] /api/customer/delete
     """
     customer = Customer.query.get_or_404(id)
     customer.delete_customer()
-    return jsonify({'message': f'PRODUCT DELETED: {customer.name} | {customer.price} | {customer.rating}'})
+    return jsonify({'message': f'PRODUCT DELETED'})
 
 
 # HAIR
-@app.route('/hair/products', methods=['GET'])
+@api.route('/hair/products', methods=['GET'])
 def get_hair_products():
     """
     [GET] /api/hair/products
@@ -135,7 +135,7 @@ def get_hair_products():
     return jsonify([i.to_dict() for i in Hair.query.all()])
 
     
-@app.route('/hair/product', methods=['GET'])
+@api.route('/hair/product', methods=['GET'])
 def get_hair_product():
     """
     [GET] /api/hair/product?id=1
@@ -143,7 +143,7 @@ def get_hair_product():
     _id = request.args.get('id')
     return jsonify(Hair.query.get_or_404(_id).to_dict())
 
-@app.route('/hair/product', methods=['POST'])
+@api.route('/hair/product', methods=['POST'])
 def create_hair_product():
     """
     [POST] /api/hair/product
@@ -157,7 +157,7 @@ def create_hair_product():
     response.headers['Location'] = url_for('api.get_hair_product', id=hair.id)
     return response
 
-@app.route('/hair/product', methods=['PUT'])
+@api.route('/hair/product', methods=['PUT'])
 def edit_hair_product():
     """
     [PUT] /api/hair/product?id=1/edit
@@ -169,17 +169,17 @@ def edit_hair_product():
     db.session.commit()
     return jsonify(hair_product.to_dict())
 
-@app.route('/hair/product/<id>', methods=['DELETE'])
+@api.route('/hair/product/<id>', methods=['DELETE'])
 def delete_hair_product(id):
     """
     [DELETE] /api/hair/product/<id>
     """
     hair_product = Hair.query.get(id)
     hair_product.delete_hair_product()
-    return jsonify({'message': f'HAIR PRODUCT DELETED: {hair_product.pattern} ({hair_product.id})'})
+    return jsonify({'message': f'HAIR PRODUCT DELETED'})
 
 # HAIR CATEGORIES
-@app.route('/hair/categories', methods=['GET'])
+@api.route('/hair/categories', methods=['GET'])
 def get_hair_categories():
     """
     [GET] /api/hair/categories
@@ -187,7 +187,7 @@ def get_hair_categories():
     return jsonify([i.to_dict() for i in HairCategory.query.all()])
 
 
-@app.route('/hair/category/<name>', methods=['GET'])
+@api.route('/hair/category/<name>', methods=['GET'])
 def get_hair_category(name):
     """
     [GET] /api/hair/category/<name>
@@ -196,7 +196,7 @@ def get_hair_category(name):
     return jsonify(HairCategory.query.get_or_404(category.id).to_dict())
 
 
-@app.route('/hair/category', methods=['POST'])
+@api.route('/hair/category', methods=['POST'])
 def create_hair_category():
     """
     [POST] /api/hair/category
@@ -213,7 +213,7 @@ def create_hair_category():
     return response
 
 
-@app.route('/hair/category/edit/<name>', methods=['PUT'])
+@api.route('/hair/category/edit/<name>', methods=['PUT'])
 def update_hair_category(name):
     """
     [PUT] /api/hair/category/edit/<name>
@@ -225,7 +225,7 @@ def update_hair_category(name):
     return jsonify(hair_category.to_dict())
 
 
-@app.route('/hair/category/delete/<name>', methods=['DELETE'])
+@api.route('/hair/category/delete/<name>', methods=['DELETE'])
 def delete_hair_category(name):
     """
     [DELETE] /api/hair/category/delete/name
@@ -235,14 +235,14 @@ def delete_hair_category(name):
     return jsonify({'message': f'PRODUCT DELETED: {hair_category.name}'})
 
 # HAIR PATTERN
-@app.route('/hair/patterns', methods=['GET'])
+@api.route('/hair/patterns', methods=['GET'])
 def get_hair_patterns():
     """
     [GET] /api/hair/patterns
     """
     return jsonify([i.to_dict() for i in Pattern.query.all()])
 
-@app.route('/hair/pattern', methods=['POST'])
+@api.route('/hair/pattern', methods=['POST'])
 def create_hair_pattern():
     """
     [POST] /api/hair/PATTERN
@@ -257,17 +257,17 @@ def create_hair_pattern():
     return response
 
 
-@app.route('/hair/pattern/<id>', methods=['DELETE'])
+@api.route('/hair/pattern/<id>', methods=['DELETE'])
 def delete_hair_pattern(id):
     """
     [DELETE] /api/hair/product/<id>
     """
     hair_pattern = Pattern.query.get(id)
     hair_pattern.delete_hair_pattern()
-    return jsonify({'message': f'HAIR PRODUCT DELETED: {hair_pattern.name} ({hair_pattern.id})'})
+    return jsonify({'message': f'HAIR PRODUCT DELETED'})
 
 
-@app.route('/hair/pattern/<pattern>', methods=['GET'])
+@api.route('/hair/pattern/<pattern>', methods=['GET'])
 def get_hair_pattern(pattern):
     """
     [GET] /api/hair/pattern/<pattern>
@@ -275,14 +275,14 @@ def get_hair_pattern(pattern):
     return jsonify([i.to_dict() for i in Pattern.query.filter_by(name=pattern).first()])
 
 # FAQS
-@app.route('/faqs', methods=['GET'])
+@api.route('/faqs', methods=['GET'])
 def get_faqs():
     """
     [GET] /api/faqs
     """
     return jsonify([i.to_dict() for i in Faqs.query.all()])
 
-@app.route('/faqs/<int:id>', methods=['GET'])
+@api.route('/faqs/<int:id>', methods=['GET'])
 def get_faq(id):
     """
     [GET] /api/faqs/<id>
@@ -290,7 +290,7 @@ def get_faq(id):
     return jsonify(Faqs.query.get_or_404(id).to_dict())
 
 
-@app.route('/faqs', methods=['POST'])
+@api.route('/faqs', methods=['POST'])
 def create_faq():
     """
     [POST] /api/faqs
@@ -304,7 +304,7 @@ def create_faq():
     response.headers['Location'] = url_for('api.get_faq', id=faq.id)
     return response
 
-@app.route('/faqs/<id>', methods=['PUT'])
+@api.route('/faqs/<id>', methods=['PUT'])
 def update_faq(id):
     """
     [PUT] /api/faqs/<id>
@@ -315,24 +315,24 @@ def update_faq(id):
     db.session.commit()
     return jsonify(faq.to_dict())
 
-@app.route('/faqs/<id>', methods=['DELETE'])
+@api.route('/faqs/<id>', methods=['DELETE'])
 def delete_faq(id):
     """
     [DELETE] /api/faqs/<id>
     """
     faq = Faqs.query.get(id)
     faq.delete_faq()
-    return jsonify({'message': f'FAQ DELETED: {faq.name} ({faq.id})'})
+    return jsonify({'message': f'FAQ DELETED'})
 
 # ORDERS
-@app.route('/orders', methods=['GET'])
+@api.route('/orders', methods=['GET'])
 def get_orders():
     """
     [GET] /api/orders
     """
     return jsonify([i.to_dict() for i in Order.query.all()])
 
-@app.route('/orders/<int:id>', methods=['GET'])
+@api.route('/orders/<int:id>', methods=['GET'])
 def get_order(id):
     """
     [GET] /api/orders/<id>
@@ -340,7 +340,7 @@ def get_order(id):
     return jsonify(Order.query.get_or_404(id).to_dict())
 
 
-@app.route('/orders', methods=['POST'])
+@api.route('/orders', methods=['POST'])
 def create_order():
     """
     [POST] /api/orders
@@ -354,7 +354,7 @@ def create_order():
     response.headers['Location'] = url_for('api.get_order', id=order.id)
     return response
 
-@app.route('/orders/<id>', methods=['PUT'])
+@api.route('/orders/<id>', methods=['PUT'])
 def update_order(id):
     """
     [PUT] /api/orders/<id>
@@ -365,7 +365,7 @@ def update_order(id):
     db.session.commit()
     return jsonify(order.to_dict())
 
-@app.route('/orders/<id>', methods=['DELETE'])
+@api.route('/orders/<id>', methods=['DELETE'])
 def delete_order(id):
     """
     [DELETE] /api/orders/<id>
@@ -374,3 +374,77 @@ def delete_order(id):
     order.delete_order()
     return jsonify({'message': f'FAQ DELETED: {order.name} ({order.id})'})
 
+
+@api.route('/coupons', methods=['GET'])
+def get_coupons():
+    """
+    [GET] /api/coupons
+    """
+    return jsonify([i.to_dict() for i in Coupon.query.all()])
+
+
+@api.route('/coupons/<int:id>', methods=['GET'])
+def get_coupon(id):
+    """
+    [GET] /api/coupons/<id>
+    """
+    return jsonify(Coupon.query.get_or_404(id).to_dict())
+
+
+@api.route('/coupons', methods=['POST'])
+def create_coupon():
+    """
+    [POST] /api/coupons/create
+    """
+    data = request.get_json()
+    coupon = Coupon()
+    coupon.from_dict(data)
+    coupon.create_coupon()
+    response = jsonify(coupon.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('api.get_coupon', id=coupon.id)
+    return response
+
+
+@api.route('/coupons/<int:id>', methods=['PUT'])
+def update_coupon():
+    """
+    [POST] /api/coupons/<id>
+    """
+    coupon = Coupon.query.get_or_404(id)
+    data = request.get_json() or {}
+    coupon.from_dict(data)
+    db.session.commit()
+    return jsonify(coupon.to_dict())
+
+
+@api.route('/coupons/<int:id>', methods=['DELETE'])
+def delete_coupon():
+    """
+    [POST] /api/coupons/<id>
+    """
+    coupon = Coupon.query.get_or_404(id)
+    coupon.delete_coupon()
+    return jsonify({'message': f'COUPON DELETED'})
+
+# PRODUCT REVIEWS
+@api.route('/product/review', methods=['GET'])
+def get_product_review():
+    """
+    [GET] /product/review
+    """
+    return jsonify(ProductReview.query.get(request.args.get('id')).to_dict())
+
+@api.route('/product/review/create', methods=['POST'])
+def create_product_review():
+    """
+    [POST] /product/review/create
+    """
+    data = request.get_json()
+    product_review = ProductReview()
+    product_review.from_dict(data)
+    product_review.create_product_review()
+    response = jsonify(product_review.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('api.get_product_review', id=product_review.id)
+    return response

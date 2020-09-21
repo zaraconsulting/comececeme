@@ -9,6 +9,8 @@ from app import db
 @app.context_processor
 def inject_cart():
     # print([i.category_id for i in current_user.cart.all()])
+    if session.get('coupon'):
+        coupon = session.get('coupon')
     try:
         items = []
         for i in current_user.cart.all():
@@ -18,13 +20,13 @@ def inject_cart():
         # print(items)
         tax = .098
         total = sum([Hair.query.filter_by(id=i.product_id).first().price for i in current_user.cart.all()])
-        cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=total + (total * tax), fullCart=current_user.cart.all())
+        cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=total + (total * tax)  - (total * session.get('coupon')['discount']), fullCart=current_user.cart.all(), coupon=coupon)
         # print(cart_dict)
         return cart_dict
     except:
         tax = .098
         total = 0
-        return dict(shopping_cart=[], total=0, tax=tax, grandTotal=total + (total * tax))
+        return dict(shopping_cart=[], total=0, tax=tax, grandTotal=total + (total * tax), coupon=0)
 
 @app.context_processor
 def getServiceCategories():
