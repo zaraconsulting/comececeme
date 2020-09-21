@@ -3,7 +3,7 @@
 
 {% block content %}
 <!-- CORE : begin -->
-<div id="core" class="core-bg-2">
+<div id="core" class="core-bg-2" style="margin-bottom: 72px;">
 	<!-- PAGE HEADER : begin -->
 	<div id="page-header">
 		<div class="container">
@@ -97,6 +97,6 @@
 {% block scripts %}
 {{ super() }}
 	<script>
-		$('#sort-dropdown option[value={{ sort_order }}]').attr('selected', 'selected');
+		// $('#sort-dropdown option[value={{ sort_order }}]').attr('selected', 'selected');
 	</script>
 {% endblock %}

@@ -60,14 +60,16 @@
     <div class="sidebar-widget sidebar-products">
         <h3 class="widget-title">Popular Products</h3>
         <div class="widget-content">
-            <ul>
-                {% for i in popular_products %}
-                    <li>
-                        <h4 class="product-title"><a href="{{ url_for('shop.get_product', id=i[0].id) }}">{{ i[0].name }}</a></h4>
-                        <p class="product-price"><!--<span class="old-price">$26.49</span>--> {{ i[0].price }}</p>
-                    </li>
-                {% endfor %}
-            </ul>
+            {% if popular_products %}
+                <ul>
+                    {% for p in popular_products %}
+                        <li>
+                            <h4 class="product-title"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}">{{ p.pattern }} {{ p.category }}</a></h4>
+                            <p class="product-price"><!--<span class="old-price">$26.49</span>--> {{ '${:,.2f}'.format(p.price) }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
     </div>
     <!-- SIDEBAR PRODUCTS : end -->

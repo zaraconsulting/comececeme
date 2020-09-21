@@ -2,7 +2,7 @@ from flask import current_app as app, session, jsonify, request
 from flask_login import current_user
 from app.blueprints.shop.models import Product, Customer, Order, Category
 from app.blueprints.services.models import Service, ServiceCategory
-from app.blueprints.hair.models import Hair, HairCategory, Cart, Pattern
+from app.blueprints.hair.models import Hair, HairCategory, Cart, Pattern, HairCategory
 from sqlalchemy import func, desc
 from app import db
 
@@ -69,3 +69,30 @@ def get_current_user():
         active_user = True
     session['active_user'] = active_user
     return dict(active_user=active_user)
+
+@app.context_processor
+def get_popular_products():
+    ordered_products = []
+    for p in Order.query.all():
+        product = Hair.query.get(p.product_id)
+        # print(product.category_id)
+        pattern = Pattern.query.get(product.pattern_id)
+        # print(pattern)
+        category = HairCategory.query.get(product.category_id)
+        # print(category)
+        ordered_products.append(
+            dict(
+                pattern=product.pattern, 
+                category=category.name, 
+                image=pattern.image,
+                price=product.price)
+            )
+    # print(len(ordered_products))
+    # popular_products = sorted(ordered_products, key=lambda x:x.count())
+    # print(popular_products)
+    popular_products = []
+    for i in ordered_products:
+        if (i, ordered_products.count(i)) not in popular_products:
+            popular_products.append((i, ordered_products.count(i)))
+    # print([i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)])
+    return dict(popular_products=[i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)])

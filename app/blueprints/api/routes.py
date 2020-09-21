@@ -1,6 +1,6 @@
 from .import bp as app
 from flask import jsonify, request, url_for
-from app.blueprints.shop.models import Customer, Product, Category
+from app.blueprints.shop.models import Customer, Product, Category, Order
 from app.blueprints.hair.models import Hair, HairCategory, Pattern
 from app.blueprints.faqs.models import Faqs
 from app import db
@@ -323,4 +323,54 @@ def delete_faq(id):
     faq = Faqs.query.get(id)
     faq.delete_faq()
     return jsonify({'message': f'FAQ DELETED: {faq.name} ({faq.id})'})
+
+# ORDERS
+@app.route('/orders', methods=['GET'])
+def get_orders():
+    """
+    [GET] /api/orders
+    """
+    return jsonify([i.to_dict() for i in Order.query.all()])
+
+@app.route('/orders/<int:id>', methods=['GET'])
+def get_order(id):
+    """
+    [GET] /api/orders/<id>
+    """
+    return jsonify(Order.query.get_or_404(id).to_dict())
+
+
+@app.route('/orders', methods=['POST'])
+def create_order():
+    """
+    [POST] /api/orders
+    """
+    data = request.get_json()
+    order = Order()
+    order.from_dict(data)
+    order.create_order()
+    response = jsonify(order.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('api.get_order', id=order.id)
+    return response
+
+@app.route('/orders/<id>', methods=['PUT'])
+def update_order(id):
+    """
+    [PUT] /api/orders/<id>
+    """
+    order = Order.query.get(id)
+    data = request.get_json() or {}
+    order.from_dict(data)
+    db.session.commit()
+    return jsonify(order.to_dict())
+
+@app.route('/orders/<id>', methods=['DELETE'])
+def delete_order(id):
+    """
+    [DELETE] /api/orders/<id>
+    """
+    order = Order.query.get(id)
+    order.delete_order()
+    return jsonify({'message': f'FAQ DELETED: {order.name} ({order.id})'})
 

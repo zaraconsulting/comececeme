@@ -58,8 +58,12 @@ def get_pattern(category):
     [GET] /hair/<category>?pattern=<pattern>
     """
     category = category.title() or session.get('category')
-    print(request.args)
-    pattern = request.args.get('pattern').title() or session.get('pattern').title()
+    # print(request.args)
+    # print(session)
+    if request.args.get('pattern'):
+        pattern = request.args.get('pattern').title()
+    else:
+        pattern = session.get('pattern').title()
     session['pattern'] = pattern
     products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
     filtered_products = sorted([i for i in products_by_category if i.pattern == pattern if i], key=lambda x: x.price)
@@ -102,19 +106,22 @@ def add_cart_product():
         _id = session.get('id')
         category = session.get('category')
         pattern = session.get('pattern')
+        # print("Pattern:", pattern)
         quantity = int(session.get('quantity'))
 
-        print("Product ID:", _id)
-        print("Category:", category)
-        print("Hair Pattern:", pattern)
-        print("Quantity:", quantity)
+        # print("Product ID:", _id)
+        # print("Category:", category)
+        # print("Hair Pattern:", pattern)
+        # print("Quantity:", quantity)
 
         product = Hair.query.get(_id)
         # print(product)
         for _ in range(quantity):
             db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
         db.session.commit()
-        return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
+        print("This works")
+        return jsonify({'message': 'success'})
+        # return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
 
 @app.route('/test', methods=['POST'])
 def test():

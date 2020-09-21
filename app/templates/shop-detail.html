@@ -3,7 +3,7 @@
 
 {% block content %}
 <!-- CORE : begin -->
-<div id="core" class="core-bg-2">
+<div id="core" class="core-bg-2" style="margin-bottom: 72px;">
 	<!-- PAGE HEADER : begin -->
 	<div id="page-header">
 		<div class="container">
@@ -277,13 +277,15 @@
 		var id;
 		var category = '{{ category }}';
 		var pattern = '{{ pattern }}';
+		// console.log(category)
+		// console.log(pattern)
 		var product_id = '{{ product.id }}';
 		var activeUser = '{{ active_user }}';
 
 		var info;
 
 		function postData(information) {
-			console.log(information);
+			// console.log(information);
 			
 			event.preventDefault();
 
@@ -295,7 +297,10 @@
 				body: JSON.stringify(information),
 			})
 			.then(res => res.json())
-			.then(data => { console.log('Success'); window.location.reload() })
+			.then(data => { 
+				console.log('Success');
+				window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()) }}";
+			})
 			.catch(error => console.log(error))
 		}
 
@@ -317,7 +322,7 @@
 			})
 		}
 
-		$('#add-to-cart-btn').on('mousedown', async function (event) {
+		$('#add-to-cart-btn').on('click', async function (event) {
 			await postData(info);
 		})
 

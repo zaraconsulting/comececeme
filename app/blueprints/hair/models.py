@@ -143,7 +143,7 @@ class HairCategory(db.Model):
             'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]
         }
-        return data
+        return datat
 
 
     def from_dict(self, data):
