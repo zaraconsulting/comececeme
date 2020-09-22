@@ -78,6 +78,8 @@ def cart_checkout():
         shipping_postal_code = request.form.get('postalCodeShipping')
         note = request.form.get('note')
 
+        print(int(float(amount) * 100))
+
         # Receives nonce from  form submission
         nonce_from_client = request.form.get('payment_method_nonce')
 
@@ -109,7 +111,7 @@ def cart_checkout():
             
         try:
             result = bt_gateway.transaction.sale({
-                "amount": amount[1:],
+                "amount": int(float(amount) * 100) // 100,
                 "customer_id": customer.customer.id,
                 # "device_data": ,
                 "merchant_account_id": current_app.config.get('BT_MERCHANT_ACCOUNT_ID'),
@@ -148,9 +150,9 @@ def cart_checkout():
                 }
             })
 
-            print("Result", result)
+            # print("Result", result)
 
-            print("Success: ", result.is_success)
+            # print("Success: ", result.is_success)
 
             # TODO: Figure out why result.is_success = False
             if result.is_success:
@@ -274,7 +276,7 @@ def get_product():
 @shop.route('/coupon', methods=['POST'])
 def apply_coupon():
     coupon = Coupon.query.filter_by(text=request.get_json().get('text')).first()
-    print(session.get('coupon'))
+    # print(session.get('coupon'))
     session['coupon'] = { 'text': coupon.text, 'discount': coupon.discount / 100}
     return jsonify({'message': 'success'})
 
@@ -283,7 +285,7 @@ def clear_coupon():
     """
     [POST] /shop/coupon/delete
     """
-    session['coupon'] = { 'text': None, 'discount': 0}
-    print('Coupon session deleted.')
-    print(session.get('coupon'))
+    session['coupon'] = None
+    # print('Coupon session deleted.')
+    # print(session.get('coupon'))
     return jsonify({'message': 'success'})

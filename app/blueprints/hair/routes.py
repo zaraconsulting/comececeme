@@ -121,9 +121,3 @@ def add_cart_product():
         db.session.commit()
         return jsonify({'message': 'success'})
         # return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
-
-@app.route('/test', methods=['POST'])
-def test():
-    r = request.get_json()
-    print(r)
-    return redirect(request.referrer)

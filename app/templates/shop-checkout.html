@@ -300,7 +300,11 @@
 											</tr>
 											<tr>
 												<td><strong>Grand Total</strong></td>
-												<td><strong>{{ '${:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong></td>
+												{% if coupon and coupon.discount != 0 %}
+													<td><strong>{{ '${:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong></td>
+												{% else %}
+													<td><strong>{{ '${:.2f}'.format(total + total*tax) }}</strong></td>
+												{% endif %}
 											</tr>
 									</tbody>
 								</table>
@@ -329,6 +333,8 @@
 	{{ super() }}
 
 	<script>
+		// console.log(parseFloat("{{ grandTotal }}") * 100)
+
 		braintree.client.create({ authorization: '{{ client_token }}' }, function(clientErr, clientInstance) {
 			if (clientErr) {
 				console.error(clientErr);
@@ -378,7 +384,8 @@
 							postalCodeShipping: $('#checkout-postalcode-shipping').val(),
 							note: $('#checkout-note').val(),
 							payment_method_nonce: payload.nonce,
-							amount: "{{ '${:.2f}'.format(grandTotal) }}"
+							amount: parseFloat("{{ grandTotal }}")
+							// amount: "{{ '${:.2f}'.format(grandTotal) }}"
 						}
 
 						// console.log(formData);
