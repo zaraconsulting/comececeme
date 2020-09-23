@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
-from app import db
+from app import db, login
 from datetime import datetime
 
 
@@ -45,10 +46,12 @@ class Role(db.Model):
         return self.name
 
 
-class Account(db.Model):
+class Account(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, nullable=False, unique=True)
-    password = db.Column(db.String, nullable=False)
+    first_name = db.Column(db.String, unique=True)
+    last_name = db.Column(db.String, unique=True)
+    email = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
     is_customer = db.Column(db.Boolean, default=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
@@ -73,13 +76,15 @@ class Account(db.Model):
     def to_dict(self):
         data = {
             'email': self.email,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
             'password': self.password,
             'date_created': self.date_created
         }
         return data
 
     def from_dict(self, data):
-        for field in ['email', 'password']:
+        for field in ['first_name', 'last_name', 'email', 'password']:
             if field in data:
                 setattr(self, field, data[field])
 

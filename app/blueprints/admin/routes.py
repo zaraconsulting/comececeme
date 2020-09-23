@@ -1,19 +1,52 @@
 from .import bp as admin
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, session
 from app.blueprints.shop.models import Coupon
 from app.blueprints.account.models import Account, Role
-from .forms import AdminUserForm
+from .forms import AdminUserForm, AdminLoginForm
+from flask_login import current_user, login_user, logout_user
+
 
 @admin.route('/', methods=['GET'])
 def index():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     return render_template('admin/index.html')
+
+@admin.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin.index'))
+    form = AdminLoginForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+
+        user = Account.query.filter_by(email=email).first()
+        if user is None or not user.check_password_hash(password):
+            print("Wrong User")
+            flash('Either an incorrect email or password was given. Try again.', 'danger')
+            return redirect(url_for('admin.login'))
+        login_user(user, remember=form.remember_me.data)
+        flash('You have logged in successfully', 'success')
+        return redirect(url_for('admin.index'))
+    return render_template('admin/login.html', form=form)
+
+@admin.route('/logout')
+def logout():
+    logout_user()
+    flash('You have logged in successfully', 'info')
+    return redirect(url_for('admin.index'))
 
 @admin.route('/coupons', methods=['GET'])
 def coupons():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     return render_template('admin/coupons.html', coupons=Coupon.query.all())
 
 @admin.route('/coupons', methods=['POST'])
 def create_coupon():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     if request.method == 'POST':
         coupon = Coupon()
         data = dict(text=request.form.get('coupon_code'), discount=request.form.get('discount'))
@@ -24,6 +57,8 @@ def create_coupon():
 
 @admin.route('/coupons/delete')
 def delete_coupon():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
     coupon = Coupon.query.get(_id)
     coupon.delete_coupon()
@@ -32,6 +67,8 @@ def delete_coupon():
 
 @admin.route('/users', methods=['GET', 'POST'])
 def users():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     form = AdminUserForm()
     form.role.choices = [(i.id, i.name) for i in Role.query.all()]
     # print(form.role.choices)
@@ -39,6 +76,8 @@ def users():
         user = Account()
         data = {
             'email': form.email.data, 
+            'first_name': form.first_name.data, 
+            'last_name': form.last_name.data, 
             'password': form.email.data
         }
         user.from_dict(data)
@@ -56,6 +95,8 @@ def users():
 
 @admin.route('/user/delete')
 def delete_account():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
     user = Account.query.get(_id)
     user.delete_account()
@@ -65,29 +106,33 @@ def delete_account():
 # @admin.route('/users', methods=['POST'])
 # def create_user():
 #     if request.method == 'POST':
-        # user = Account()
-        # data = {
-        #     'email': request.form.get('email'), 
-        #     'password': request.form.get('email')
-        # }
-        # user.from_dict(data)
-        # user.role_id = Role.query.filter_by(name=request.form.get('role').title()).first().id
-        # print(Role.query.all())
-        # print(Role.query.filter_by(name=request.form.get('role')).first().id)
-        # if request.form.get('is_admin') is not None:
-        #     user.is_admin = request.form.get('is_admin')
-        # user.set_password_hash(user.password)
-        #     # 'role_id': Role.query.filter_by(name=request.form.get('role').title()).first().id,
-        # user.create_user()
-        # flash('User created successfully', 'success')
-    # return redirect(url_for('admin.users'))
+#         user = Account()
+#         data = {
+#             'email': request.form.get('email'), 
+#             'password': request.form.get('email')
+#         }
+#         user.from_dict(data)
+#         user.role_id = Role.query.filter_by(name=request.form.get('role').title()).first().id
+#         print(Role.query.all())
+#         print(Role.query.filter_by(name=request.form.get('role')).first().id)
+#         if request.form.get('is_admin') is not None:
+#             user.is_admin = request.form.get('is_admin')
+#         user.set_password_hash(user.password)
+#             # 'role_id': Role.query.filter_by(name=request.form.get('role').title()).first().id,
+#         user.create_user()
+#         flash('User created successfully', 'success')
+#     return redirect(url_for('admin.users'))
 
 @admin.route('/roles', methods=['GET'])
 def roles():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     return render_template('admin/roles.html', roles=Role.query.all())
 
 @admin.route('/roles', methods=['POST'])
 def create_role():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     if request.method == 'POST':
         role = Role()
         data = dict(name=request.form.get('name'))
@@ -98,6 +143,8 @@ def create_role():
 
 @admin.route('/roles/delete')
 def delete_role():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
     role = Role.query.get(_id)
     role.delete_role()

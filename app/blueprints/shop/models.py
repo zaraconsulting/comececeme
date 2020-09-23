@@ -70,8 +70,8 @@ class Customer(UserMixin, db.Model):
 
 
 @login.user_loader
-def load_user(id):
-    return Customer.query.get(int(id))
+def load_custommer(id):
+    return Customer.query.get(int(id)) or Account.query.get(int(id))
 
 
 # class Cart(db.Model):
