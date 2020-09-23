@@ -28,3 +28,4 @@ class Config:
     MAILCHIMP_MAIL_ID = os.environ.get('MAILCHIMP_MAIL_ID')
     MAILCHIMP_USERNAME = os.environ.get('MAILCHIMP_USERNAME')
     MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
+    # FLASK_ADMIN_SWATCH = os.getenv('FLASK_ADMIN_SWATCH')

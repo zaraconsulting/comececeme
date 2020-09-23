@@ -1,0 +1,64 @@
+{% extends 'admin/layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Coupons</li>
+    </ol>
+
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Manage Coupons
+        </div>
+        <!-- COUPONS FORM : begin -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <h5>Create a Coupon</h5>
+                <form class="form-inline" action="POST" method="{{ url_for('admin.create_coupon') }}">
+                    <div class="form-group custom-form">
+                        <input type="text" name="" id="" class="form-control" placeholder="Coupon Code">
+                        <input type="text" class="form-control" name="" id="" placeholder="Discount %">
+                        <input type="submit" class="btn btn-outline-primary" id="" value="Create Coupon">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- COUPONS FORM : end -->
+
+        <!-- COUPONS TABLE : begin -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Coupon Code</th>
+                            <th>Discount</th>
+                            <th>Date Created</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Coupon Code</th>
+                            <th>Discount</th>
+                            <th>Date Created</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            {% for c in coupons %}
+                                <td>{{ c.text }}</td>
+                                <td>{{ c.discount|int }}%</td>
+                                <td>{{ c.date_created.strftime('%m/%d/%Y') }}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- COUPONS TABLE : end -->
+    </div>
+</div>
+{% endblock %}
