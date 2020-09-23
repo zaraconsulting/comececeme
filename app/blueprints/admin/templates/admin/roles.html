@@ -4,57 +4,50 @@
 <div class="container-fluid">
     <h1 class="mt-4">Dashboard</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Coupons</li>
+        <li class="breadcrumb-item active">Roles</li>
     </ol>
 
     
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table mr-1"></i>
-            Manage Coupons
+            Manage Roles
         </div>
-        <!-- COUPONS FORM : begin -->
+        <!-- ROLES FORM : begin -->
         <div class="card-body">
             <div class="table-responsive">
-                <h5>Create a Coupon</h5>
-                <form class="form-inline" action="{{ url_for('admin.create_coupon') }}" method="POST">
+                <h5>Create a Role</h5>
+                <form class="form-inline" action="{{ url_for('admin.create_role') }}" method="POST">
                     <div class="form-group custom-form">
-                        <input type="text" name="coupon_code" id="" class="form-control" placeholder="Coupon Code">
-                        <input type="text" class="form-control" name="discount" id="" placeholder="Discount %">
-                        <input type="submit" class="btn btn-outline-primary" id="" value="Create Coupon">
+                        <input type="text" name="name" id="" class="form-control" placeholder="Create a role">
+                        <input type="submit" class="btn btn-outline-primary" id="" value="Create Role">
                     </div>
                 </form>
             </div>
         </div>
-        <!-- COUPONS FORM : end -->
+        <!-- ROLES FORM : end -->
 
-        <!-- COUPONS TABLE : begin -->
+        <!-- ROLES TABLE : begin -->
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Coupon Code</th>
-                            <th>Discount</th>
-                            <th>Date Created</th>
+                            <th>Name</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Coupon Code</th>
-                            <th>Discount</th>
-                            <th>Date Created</th>
+                            <th>Name</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        {% for c in coupons %}
+                        {% for r in roles %}
                             <tr>
-                                <td>{{ c.text }}</td>
-                                <td>{{ c.discount|int }}%</td>
                                 <td>
-                                    {{ c.date_created.strftime('%m/%d/%Y') }} 
+                                    {{ r.name }}
                                     <span class="float-right delete-icon">
-                                        <a href="{{ url_for('admin.delete_coupon', id=c.id) }}">
+                                        <a href="{{ url_for('admin.delete_role', id=r.id) }}">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
                                     </span>
@@ -65,7 +58,7 @@
                 </table>
             </div>
         </div>
-        <!-- COUPONS TABLE : end -->
+        <!-- ROLES TABLE : end -->
     </div>
 </div>
 {% endblock %}

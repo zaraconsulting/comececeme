@@ -1,3 +1,7 @@
-.custom-form input  {
+.custom-form input, .form-check  {
     margin-right: 15px;
+}
+
+.delete-icon a {
+    color: red;
 }

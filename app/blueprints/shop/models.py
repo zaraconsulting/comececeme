@@ -232,7 +232,10 @@ class Coupon(db.Model):
     def from_dict(self, data):
         for field in ['text', 'discount']:
             if field in data:
-                setattr(self, field, data[field])
+                if field == 'text':
+                    setattr(self, field, data[field].upper())
+                else:
+                    setattr(self, field, data[field])
 
     def get_text(self):
         return self.text

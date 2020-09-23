@@ -7,7 +7,7 @@ from datetime import datetime
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
-    accounts = db.relationship('Account', backref='users', lazy='dynamic')
+    accounts = db.relationship('Account', backref='role', lazy='dynamic')
 
     def __repr__(self):
         return f'<Role | {self.name}>'
@@ -18,6 +18,32 @@ class Role(db.Model):
     def getAccounts(self):
         return self.query.all()
 
+    def create_role(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_role(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def to_dict(self):
+        data = {
+            'name': self.name,
+            'accounts': self.accounts.users.all(),
+        }
+        return data
+
+    def from_dict(self, data):
+        for field in ['name']:
+            if field in data:
+                if field == 'name':
+                    setattr(self, field, data[field].title())
+                else:
+                    setattr(self, field, data[field])
+
+    def __str__(self):
+        return self.name
+
 
 class Account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,6 +52,7 @@ class Account(db.Model):
     is_customer = db.Column(db.Boolean, default=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    is_admin = db.Column(db.Boolean, default=0)
     # role_id = db.Column(db.Integer, db.ForeignKey('role.id'), default=Role.query.filter_by(name='User').first())
 
     def create_account(self):
