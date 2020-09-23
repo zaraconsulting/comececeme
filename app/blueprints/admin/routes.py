@@ -33,7 +33,7 @@ def delete_coupon():
 @admin.route('/users', methods=['GET', 'POST'])
 def users():
     form = AdminUserForm()
-    form.role.choices = form.role.choices + [(i.id, i.name) for i in Role.query.all()]
+    form.role.choices = [(i.id, i.name) for i in Role.query.all()]
     # print(form.role.choices)
     if form.validate_on_submit():
         user = Account()
