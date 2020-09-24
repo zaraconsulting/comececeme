@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, BooleanField, SubmitField, PasswordField
+from wtforms import StringField, SelectField, BooleanField, SubmitField, PasswordField, IntegerField, FloatField
 from wtforms.validators import Email, DataRequired
 import email_validator
 
@@ -24,3 +24,19 @@ class AdminLoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Rememeber password')
     submit = SubmitField('Login')
+
+class AdminCreateProductForm(FlaskForm):
+    pattern = SelectField(choices=[], coerce=int)
+    length = IntegerField()
+    price = FloatField()
+    category = SelectField(choices=[], coerce=int)
+    bundle_length = IntegerField()
+    submit = SubmitField('Create Product')
+    
+class AdminEditProductForm(FlaskForm):
+    pattern = SelectField(choices=[], coerce=int)
+    length = IntegerField()
+    price = FloatField()
+    category = SelectField(choices=[], coerce=int)
+    bundle_length = IntegerField()
+    submit = SubmitField('Update Product')

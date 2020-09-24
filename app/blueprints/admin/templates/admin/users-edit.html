@@ -54,9 +54,9 @@
     var editAdmin = $('.edit-admin')[0]
     
     if ('{{ user.is_admin }}' === 'False') {
-        editAdmin.setAttribute('checked', false)
-    } else {
-        editAdmin.setAttribute('checked', false)
+        $(editAdmin).prop('checked', false)
+    } else{
+        $(editAdmin).prop('checked', true)
     }
 </script>
 {% endblock %}

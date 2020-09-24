@@ -135,13 +135,12 @@ def get_hair_products():
     return jsonify([i.to_dict() for i in Hair.query.all()])
 
     
-@api.route('/hair/product', methods=['GET'])
-def get_hair_product():
+@api.route('/hair/product/<int:id>', methods=['GET'])
+def get_hair_product(id):
     """
-    [GET] /api/hair/product?id=1
+    [GET] /api/hair/product/<id>
     """
-    _id = request.args.get('id')
-    return jsonify(Hair.query.get_or_404(_id).to_dict())
+    return jsonify(Hair.query.get(id).to_dict())
 
 @api.route('/hair/product', methods=['POST'])
 def create_hair_product():
@@ -157,13 +156,12 @@ def create_hair_product():
     response.headers['Location'] = url_for('api.get_hair_product', id=hair.id)
     return response
 
-@api.route('/hair/product', methods=['PUT'])
-def edit_hair_product():
+@api.route('/hair/product/<int:id>', methods=['PUT'])
+def edit_hair_product(id):
     """
-    [PUT] /api/hair/product?id=1/edit
+    [PUT] /api/hair/product/<id>
     """
-    _id = request.args.get('id')
-    hair_product = Hair.query.get_or_404(_id)
+    hair_product = Hair.query.get_or_404(id)
     data = request.get_json() or {}
     hair_product.from_dict(data)
     db.session.commit()

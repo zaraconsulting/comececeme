@@ -1,0 +1,53 @@
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <!-- <th>ID</th> -->
+                    <th>Pattern</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Length</th>
+                    <th>Bundle Length</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <!-- <th>ID</th> -->
+                    <th>Pattern</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Length</th>
+                    <th>Bundle Length</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for p in products %}
+                    <tr>
+                        <td style="text-align: center;">
+                            <span class="edit-icon">
+                                <a href="{{ url_for('admin.edit_hair_product', id=p.id) }}">
+                                    <i class="far fa-edit text-info"></i>
+                                </a>
+                            </span>
+                        </td>
+                        <td>{{ p.pattern }}</td>
+                        <td>{{ p.category.name }}</td>
+                        <td>{{ '${:,.2f}'.format(p.price) }}</td>
+                        <td>{{ p.length }}</td>
+                        <td>{{ p.bundle_length }}</td>
+                        <td style="text-align: center;">
+                            <span class="delete-icon">
+                                <a href="{{ url_for('admin.delete_hair_product', id=p.id) }}">
+                                    <i class="fa fa-trash-alt text-danger"></i>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

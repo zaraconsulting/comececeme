@@ -69,10 +69,10 @@ class Hair(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['pattern', 'length', 'price', 'category_id']:
+        for field in ['pattern', 'length', 'price', 'category_id', 'bundle_length']:
             if field in data:
                 if field == 'category_id':
-                    category = HairCategory.query.filter_by(name=data[field]).first()
+                    category = HairCategory.query.filter_by(name=data[field].title()).first()
                     if category is not None:
                         setattr(self, field, category.id)
                 else:
@@ -143,7 +143,7 @@ class HairCategory(db.Model):
             'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]
         }
-        return datat
+        return data
 
 
     def from_dict(self, data):

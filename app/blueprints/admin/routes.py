@@ -2,7 +2,8 @@ from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session
 from app.blueprints.shop.models import Coupon
 from app.blueprints.account.models import Account, Role
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm
+from app.blueprints.hair.models import Hair, HairCategory, Pattern
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 
@@ -34,6 +35,8 @@ def login():
 
 @admin.route('/logout')
 def logout():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     logout_user()
     flash('You have logged in successfully', 'info')
     return redirect(url_for('admin.index'))
@@ -99,6 +102,8 @@ def users():
 
 @admin.route('/user/edit', methods=['GET', 'POST'])
 def edit_user():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
     u = Account.query.get(request.args.get('id'))
     form = AdminEditUserForm()
     form.role.choices = [(i.id, i.name) for i in Role.query.order_by(Role.name).all() if i.name != 'Admin']
@@ -177,3 +182,67 @@ def delete_role():
     role.delete_role()
     flash('Coupon deleted successfully', 'info')
     return redirect(url_for('admin.roles'))
+
+
+@admin.route('/products', methods=['GET', 'POST'])
+def products():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    form = AdminCreateProductForm()
+    form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+
+    if form.validate_on_submit():
+        product = Hair()
+        data = {
+            'pattern': Pattern.query.get(form.pattern.data).name, 
+            'length': form.length.data,
+            'price': form.price.data, 
+            'category_id': HairCategory.query.get(int(form.category.data)).name,
+        }
+        product.from_dict(data)
+        product.pattern_id = Pattern.query.get(form.pattern.data).id
+        product.category_id = HairCategory.query.get(form.category.data).id
+        # product.bundle_length = form.bundle_length.data or ''
+        product.create_hair_product()
+        flash('Hair Product created successfully', 'success')
+        return redirect(url_for('admin.products'))
+    return render_template('admin/products.html', products=Hair.query.order_by(Hair.pattern).all(), form=form)
+
+@admin.route('/product/edit', methods=['GET', 'POST'])
+def edit_hair_product():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    p = Hair.query.get(request.args.get('id'))
+    form = AdminCreateProductForm()
+    form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+
+    if form.validate_on_submit():
+        data = {
+            'pattern': Pattern.query.get(form.pattern.data).name, 
+            'length': form.length.data,
+            'price': form.price.data, 
+            'category_id': HairCategory.query.get(int(form.category.data)).name,
+        }
+        p.from_dict(data)
+        p.pattern_id = Pattern.query.get(form.pattern.data).id
+        p.category_id = HairCategory.query.get(form.category.data).id
+        db.session.commit()
+        flash('Edited product successfully', 'info')
+        return redirect(url_for('admin.products'))
+    context = {
+        'product': p,
+        'form': form
+    }
+    return render_template('admin/products-edit.html', **context)
+
+@admin.route('/product/delete')
+def delete_hair_product():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    product = Hair.query.get(_id)
+    product.delete_hair_product()
+    flash('User deleted successfully', 'info')
+    return redirect(url_for('admin.products'))
