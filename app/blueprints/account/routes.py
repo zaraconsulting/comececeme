@@ -27,7 +27,7 @@ def create_account():
     return response
 
 
-@account.route('/edit', methods=['PUT'])
+@account.route('/edit')
 def edit():
     """
     [GET] /account/edit

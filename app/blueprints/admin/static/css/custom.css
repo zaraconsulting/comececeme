@@ -2,10 +2,6 @@
     margin-right: 15px;
 }
 
-.form-control {
+.form-control, input.btn, .check-padding {
     margin-bottom: 15px;
-}
-
-.delete-icon a {
-    color: red;
 }

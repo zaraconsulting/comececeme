@@ -2,8 +2,9 @@ from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session
 from app.blueprints.shop.models import Coupon
 from app.blueprints.account.models import Account, Role
-from .forms import AdminUserForm, AdminLoginForm
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm
 from flask_login import current_user, login_user, logout_user
+from app import db
 
 
 @admin.route('/', methods=['GET'])
@@ -70,7 +71,10 @@ def users():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminUserForm()
-    form.role.choices = [(i.id, i.name) for i in Role.query.all()]
+    if current_user.is_admin and current_user.is_authenticated:
+        form.role.choices = [(i.id, i.name) for i in Role.query.order_by(Role.name).all()]
+    else:
+        form.role.choices = [(i.id, i.name) for i in Role.query.order_by(Role.name).all() if i.name != 'Admin']
     # print(form.role.choices)
     if form.validate_on_submit():
         user = Account()
@@ -91,7 +95,32 @@ def users():
         user.create_account()
         flash('User created successfully', 'success')
         return redirect(url_for('admin.users'))
-    return render_template('admin/users.html', users=Account.query.all(), form=form)
+    return render_template('admin/users.html', users=[i for i in Account.query.order_by(Account.last_name).all() if i != current_user], form=form)
+
+@admin.route('/user/edit', methods=['GET', 'POST'])
+def edit_user():
+    u = Account.query.get(request.args.get('id'))
+    form = AdminEditUserForm()
+    form.role.choices = [(i.id, i.name) for i in Role.query.order_by(Role.name).all() if i.name != 'Admin']
+    # form.role.data = u.role_id
+    form.is_admin.data = u.is_admin
+    print(u.role_id)
+
+    if form.validate_on_submit():
+        data = dict(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data)
+        print(form.role.data)
+        u.role_id = form.role.data
+        print(u.role_id)
+        u.is_admin = form.is_admin.data
+        u.from_dict(data)
+        db.session.commit()
+        flash('Edited user successfully', 'info')
+        return redirect(url_for('admin.users'))
+    context = {
+        'user': u,
+        'form': form
+    }
+    return render_template('admin/users-edit.html', **context)
 
 @admin.route('/user/delete')
 def delete_account():

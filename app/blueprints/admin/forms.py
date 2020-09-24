@@ -11,6 +11,14 @@ class AdminUserForm(FlaskForm):
     # is_admin = BooleanField('is_admin')
     submit = SubmitField('Create User')
 
+class AdminEditUserForm(FlaskForm):
+    email = StringField(validators=[Email()])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    role = SelectField(choices=[], coerce=int)
+    is_admin = BooleanField('is_admin')
+    submit = SubmitField('Update User')
+
 class AdminLoginForm(FlaskForm):
     email = StringField('Email', validators=[Email(), DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])

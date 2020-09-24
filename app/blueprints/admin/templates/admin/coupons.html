@@ -55,7 +55,7 @@
                                     {{ c.date_created.strftime('%m/%d/%Y') }} 
                                     <span class="float-right delete-icon">
                                         <a href="{{ url_for('admin.delete_coupon', id=c.id) }}">
-                                            <i class="fa fa-trash-alt"></i>
+                                            <i class="fa fa-trash-alt text-danger"></i>
                                         </a>
                                     </span>
                                 </td>

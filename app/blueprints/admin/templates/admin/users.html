@@ -17,7 +17,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <h5>Create a User</h5>
-                <form class="form-inline" method="POST">
+                <form class="form-inline create-user-form" method="POST">
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
                         {{ form.first_name(class='form-control', placeholder="First Name") }}
@@ -58,58 +58,15 @@
         <!-- USERS FORM : end -->
 
         <!-- USERS TABLE : begin -->
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Is_Customer</th>
-                            <th>Is_Admin</th>
-                            <th>Date Created</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Is_Customer</th>
-                            <th>Is_Admin</th>
-                            <th>Date Created</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        {% for u in users %}
-                            <tr>
-                                <td>{{ u.id }}</td>
-                                <td>{{ u.first_name }}</td>
-                                <td>{{ u.last_name }}</td>
-                                <td>{{ u.email }}</td>
-                                <td>{{ u.role }}</td>
-                                <td>{{ u.is_customer }}</td>
-                                <td>{{ u.is_admin }}</td>
-                                <td>
-                                    {{ u.date_created.strftime('%m/%d/%Y') }} 
-                                    <span class="float-right delete-icon">
-                                        <a href="{{ url_for('admin.delete_account', id=u.id) }}">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </a>
-                                    </span>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        {% include './admin/partials/users-table.html' %}
         <!-- USERS TABLE : end -->
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    $('.create-user-form #role').prepend('<option disabled selected>Select a role</option>');
+</script>
 {% endblock %}
