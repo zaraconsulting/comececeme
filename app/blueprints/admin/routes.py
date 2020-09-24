@@ -102,15 +102,13 @@ def edit_user():
     u = Account.query.get(request.args.get('id'))
     form = AdminEditUserForm()
     form.role.choices = [(i.id, i.name) for i in Role.query.order_by(Role.name).all() if i.name != 'Admin']
-    # form.role.data = u.role_id
-    form.is_admin.data = u.is_admin
-    print(u.role_id)
+    # print(u.role_id)
 
     if form.validate_on_submit():
         data = dict(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data)
-        print(form.role.data)
+        # print(form.role.data)
         u.role_id = form.role.data
-        print(u.role_id)
+        # print(u.role_id)
         u.is_admin = form.is_admin.data
         u.from_dict(data)
         db.session.commit()

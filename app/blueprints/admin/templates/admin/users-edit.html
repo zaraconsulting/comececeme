@@ -27,7 +27,7 @@
                         {% if current_user.is_admin %}
                             <div class="form-check">
                                 <label class="form-check-label">
-                                {{ form.is_admin(class="form-check-input form-control") }}
+                                {{ form.is_admin(class="form-check-input form-control edit-admin") }}
                                 {{ form.is_admin.label(style="margin-bottom: 15px") }}
                                 </label>
                             </div>
@@ -51,5 +51,12 @@
 <script>
     // var roleOption = $(`#role option[value=${roleId}]`);
     $('#role').val('{{ user.role_id }}')
+    var editAdmin = $('.edit-admin')[0]
+    
+    if ('{{ user.is_admin }}' === 'False') {
+        editAdmin.setAttribute('checked', false)
+    } else {
+        editAdmin.setAttribute('checked', false)
+    }
 </script>
 {% endblock %}
