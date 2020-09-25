@@ -12,7 +12,7 @@ def login():
     if current_user.is_anonymous:
         flash('You must login to continue', 'm-warning')
     if request.method == 'POST':
-        customer = Customer.query.filter_by(email=request.form.get('login-email')).first()
+        customer = Customer.query.filter_by(email=request.form.get('login-email').lower()).first()
         if customer is not None and customer.check_password_hash(request.form.get('login-password')):
             login_user(customer)
             return redirect(url_for('main.index'))
@@ -33,7 +33,7 @@ def register():
     bt_gateway = gateway(current_app)
 
     try:
-        user = Customer.query.filter_by(email=request.form.get('email')).first()
+        user = Customer.query.filter_by(email=request.form.get('email').lower()).first()
         if user is not None:
             return redirect(url_for('authentication.login'))
         # Create customer in Braintree
@@ -42,7 +42,7 @@ def register():
             'last_name': request.form.get('last_name')
         })
         data = dict(id=result.customer.id, first_name=request.form.get('first_name'), last_name=request.form.get(
-            'last_name'), email=request.form.get('email'), password=request.form.get('password'))
+            'last_name'), email=request.form.get('email').lower(), password=request.form.get('password'))
         c = Customer()
         c.from_dict(data)
         c.create_customer()
