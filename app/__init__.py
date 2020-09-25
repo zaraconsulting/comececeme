@@ -74,7 +74,4 @@ def create_app(config_class=Config):
         from .import routes
         from app.blueprints.admin import email
 
-        # test
-
-
     return app
