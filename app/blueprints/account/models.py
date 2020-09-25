@@ -8,6 +8,7 @@ import jwt
 
 from flask import current_app
 
+# Test
 
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
