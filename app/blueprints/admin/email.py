@@ -15,6 +15,6 @@ def send_password_reset_email(user):
     send_email(
         '[ComeCeCeMe] Reset Your Password',
         sender='reset_password@comececeme.com',
-        recipients=['derekhawkins.tech@gmail.com'],
+        recipients=[user.email],
         html_body=render_template('admin/email/reset_password.html', user=user, token=token)
         )
