@@ -3,9 +3,10 @@ from flask import render_template, redirect, url_for, request, flash, session
 from app.blueprints.shop.models import Coupon
 from app.blueprints.account.models import Account, Role
 from app.blueprints.hair.models import Hair, HairCategory, Pattern
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm
 from flask_login import current_user, login_user, logout_user
 from app import db
+from .email import send_password_reset_email
 
 
 @admin.route('/', methods=['GET'])
@@ -24,7 +25,7 @@ def login():
         password = form.password.data
 
         user = Account.query.filter_by(email=email).first()
-        if user is None or not user.check_password_hash(password):
+        if user is None or not user.check_password(password):
             print("Wrong User")
             flash('Either an incorrect email or password was given. Try again.', 'danger')
             return redirect(url_for('admin.login'))
@@ -93,12 +94,23 @@ def users():
         # print(Role.query.filter_by(name=form.role.data).first().id)
         if Role.query.get(form.role.data).name == 'Admin':
             user.is_admin = 1
-        user.set_password_hash(user.password)
+        # print(data)
+        user.set_password(user.password)
             # 'role_id': Role.query.filter_by(name=form.role.data.title()).first().id,
         user.create_account()
+        user.check_password('test@owner.com')
         flash('User created successfully', 'success')
         return redirect(url_for('admin.users'))
-    return render_template('admin/users.html', users=[i for i in Account.query.order_by(Account.last_name).all() if i != current_user], form=form)
+    if current_user.is_admin:
+        users = [i for i in Account.query.all() if i != current_user]
+    elif current_user.role.name == 'Owner':
+        # print("owner")
+        users = [i for i in Account.query.all() if i != current_user and not i.is_admin]
+    else:
+        users = [i for i in Account.query.all() if i != current_user and not i.is_admin]
+        # print(users)
+    # users = [i for i in Account.query.order_by(Account.last_name).all() if i != current_user]
+    return render_template('admin/users.html', users=sorted(users, key=lambda x:x.role.rank), form=form)
 
 @admin.route('/user/edit', methods=['GET', 'POST'])
 def edit_user():
@@ -159,7 +171,12 @@ def delete_account():
 def roles():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
-    return render_template('admin/roles.html', roles=Role.query.all())
+    # print(current_user.is_admin)
+    if current_user.is_admin:
+        roles = Role.query.all()
+    else:
+        roles = [i for i in Role.query.all() if not i.name == 'Admin']
+    return render_template('admin/roles.html', roles=sorted(roles, key=lambda x:x.rank))
 
 @admin.route('/roles', methods=['POST'])
 def create_role():
@@ -246,3 +263,31 @@ def delete_hair_product():
     product.delete_hair_product()
     flash('User deleted successfully', 'info')
     return redirect(url_for('admin.products'))
+
+@admin.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('admin.index'))
+    if request.method == 'POST':
+        form = request.form
+        user = Account.query.filter_by(email=form.get('email')).first()
+        if user:
+            send_password_reset_email(user)
+            flash("Check your email for instructions to reset your password", 'primary')
+            return redirect(url_for('admin.login'))
+    return render_template('admin/reset_password_request.html', title='Reset Password')
+
+@admin.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('admin.index'))
+    user = Account.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('admin.login'))
+    if request.method == 'POST':
+        form = request.form
+        user.set_password(form.get('password'))
+        db.session.commit()
+        flash('Your password has been reset', 'success')
+        return redirect(url_for('admin.login'))
+    return render_template('reset_password_confirm.html', user=current_user)

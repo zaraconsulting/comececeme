@@ -13,6 +13,7 @@ class Config:
     BT_MERCHANT_ACCOUNT_ID = os.environ.get('BT_MERCHANT_ACCOUNT_ID')
     BT_PUBLIC_KEY = os.environ.get('BT_PUBLIC_KEY')
     BT_PRIVATE_KEY = os.environ.get('BT_PRIVATE_KEY')
+    CLIENT_EMAIL = os.environ.get('CLIENT_EMAIL')
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = os.environ.get('MAIL_PORT')
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS')

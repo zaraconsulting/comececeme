@@ -5,8 +5,10 @@ backcall==0.2.0
 blinker==1.4
 braintree==3.59.0
 certifi==2019.11.28
+cffi==1.14.3
 chardet==3.0.4
 Click==7.0
+cryptography==2.9.2
 decorator==4.4.2
 dnspython==2.0.0
 email-validator==1.1.1
@@ -35,13 +37,16 @@ mccabe==0.6.1
 parso==0.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
+pkg-resources==0.0.0
 prompt-toolkit==3.0.6
 psycopg2-binary==2.8.4
 ptyprocess==0.6.0
 pycodestyle==2.6.0
+pycparser==2.20
 pydocstyle==5.0.2
 pyflakes==2.2.0
 Pygments==2.6.1
+PyJWT==1.7.1
 pylama==7.7.1
 pylint==2.5.3
 python-dateutil==2.8.1

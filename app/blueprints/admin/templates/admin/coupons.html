@@ -37,6 +37,7 @@
                             <th>Coupon Code</th>
                             <th>Discount</th>
                             <th>Date Created</th>
+                            {% if (current_user.role.rank < 4) %}<th></th>{% endif %}
                         </tr>
                     </thead>
                     <tfoot>
@@ -44,6 +45,7 @@
                             <th>Coupon Code</th>
                             <th>Discount</th>
                             <th>Date Created</th>
+                            {% if (current_user.role.rank < 4) %}<th></th>{% endif %}
                         </tr>
                     </tfoot>
                     <tbody>
@@ -51,14 +53,16 @@
                             <tr>
                                 <td>{{ c.text }}</td>
                                 <td>{{ c.discount|int }}%</td>
-                                <td>
-                                    {{ c.date_created.strftime('%m/%d/%Y') }} 
+                                <td>{{ c.date_created.strftime('%m/%d/%Y') }}</td>
+                                {% if (current_user.role.rank < 4) %}
+                                <td style="text-align: center;">
                                     <span class="float-right delete-icon">
                                         <a href="{{ url_for('admin.delete_coupon', id=c.id) }}">
                                             <i class="fa fa-trash-alt text-danger"></i>
                                         </a>
                                     </span>
                                 </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>

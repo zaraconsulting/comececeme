@@ -35,20 +35,22 @@
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                     <tbody>
                         {% for r in roles %}
                             <tr>
                                 <td>{{ r.id }}</td>
-                                <td>
-                                    {{ r.name }}
+                                <td>{{ r.name }}</td>
+                                <td style="text-align: center;">
                                     <span class="float-right delete-icon">
                                         <a href="{{ url_for('admin.delete_role', id=r.id) }}">
                                             <i class="fa fa-trash-alt text-danger"></i>

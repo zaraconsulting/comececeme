@@ -22,7 +22,7 @@ class AdminEditUserForm(FlaskForm):
 class AdminLoginForm(FlaskForm):
     email = StringField('Email', validators=[Email(), DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Rememeber password')
+    remember_me = BooleanField('Remember password')
     submit = SubmitField('Login')
 
 class AdminCreateProductForm(FlaskForm):
@@ -40,3 +40,7 @@ class AdminEditProductForm(FlaskForm):
     category = SelectField(choices=[], coerce=int)
     bundle_length = IntegerField()
     submit = SubmitField('Update Product')
+
+class AdminResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[Email(), DataRequired()])
+    submit = SubmitField('Reset Password')

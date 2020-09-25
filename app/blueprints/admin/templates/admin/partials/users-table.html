@@ -9,7 +9,6 @@
                     <th>First Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Is_Customer</th>
                     <th>Is_Admin</th>
                     <th>Date Created</th>
                     <th></th>
@@ -23,7 +22,6 @@
                     <th>First Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Is_Customer</th>
                     <th>Is_Admin</th>
                     <th>Date Created</th>
                     <th></th>
@@ -44,15 +42,16 @@
                         <td>{{ u.first_name }}</td>
                         <td>{{ u.email }}</td>
                         <td>{{ u.role }}</td>
-                        <td>{{ u.is_customer }}</td>
                         <td>{{ u.is_admin }}</td>
                         <td>{{ u.date_created.strftime('%m/%d/%Y') }}</td>
                         <td style="text-align: center;">
+                            {% if (u.role.rank > current_user.role.rank) %}
                             <span class="delete-icon">
                                 <a href="{{ url_for('admin.delete_account', id=u.id) }}">
                                     <i class="fa fa-trash-alt text-danger"></i>
                                 </a>
                             </span>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
