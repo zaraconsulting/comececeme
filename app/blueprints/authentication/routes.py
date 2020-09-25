@@ -12,6 +12,7 @@ def login():
     if current_user.is_anonymous:
         flash('You must login to continue', 'm-warning')
     if request.method == 'POST':
+        # Test
         customer = Customer.query.filter_by(email=request.form.get('login-email').lower()).first()
         if customer is not None and customer.check_password_hash(request.form.get('login-password')):
             login_user(customer)
