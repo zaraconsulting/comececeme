@@ -71,6 +71,10 @@ def create_app(config_class=Config):
         from app.blueprints.errors import errors
         app.register_blueprint(errors, url_prefix='/error')
 
+        from .braintree import gateway
+        from .import routes
+        from app.blueprints.admin import email
+
     # Email Error Logging
     if not app.debug:
         server = app.config.get('MAIL_SERVER')
@@ -109,9 +113,5 @@ def create_app(config_class=Config):
         app.logger.addHandler(file_handler)
         app.logger.setLevel(logging.INFO)
         app.logger.info('Flask_Blog startup')
-
-        from .braintree import gateway
-        from .import routes
-        from app.blueprints.admin import email
 
     return app
