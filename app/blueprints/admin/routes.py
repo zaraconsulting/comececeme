@@ -21,7 +21,7 @@ def login():
         return redirect(url_for('admin.index'))
     form = AdminLoginForm()
     if form.validate_on_submit():
-        email = form.email.data
+        email = form.email.data.lower()
         password = form.password.data
 
         user = Account.query.filter_by(email=email).first()
@@ -83,10 +83,10 @@ def users():
     if form.validate_on_submit():
         user = Account()
         data = {
-            'email': form.email.data, 
+            'email': form.email.data.lower(), 
             'first_name': form.first_name.data, 
             'last_name': form.last_name.data, 
-            'password': form.email.data
+            'password': form.email.data.lower()
         }
         user.from_dict(data)
         user.role_id = Role.query.get(form.role.data).id
@@ -98,7 +98,7 @@ def users():
         user.set_password(user.password)
             # 'role_id': Role.query.filter_by(name=form.role.data.title()).first().id,
         user.create_account()
-        user.check_password('test@owner.com')
+        print(user.check_password('test@owner.com'))
         flash('User created successfully', 'success')
         return redirect(url_for('admin.users'))
     if current_user.is_admin:
@@ -122,7 +122,7 @@ def edit_user():
     # print(u.role_id)
 
     if form.validate_on_submit():
-        data = dict(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data)
+        data = dict(first_name=form.first_name.data, last_name=form.last_name.data, email=form.email.data.lower())
         # print(form.role.data)
         u.role_id = form.role.data
         # print(u.role_id)
@@ -270,7 +270,7 @@ def reset_password_request():
         return redirect(url_for('admin.index'))
     form = AdminResetPasswordRequestForm()
     if form.validate_on_submit():
-        user = Account.query.filter_by(email=form.email.data).first()
+        user = Account.query.filter_by(email=form.email.data.lower()).first()
         if user:
             send_password_reset_email(user)
             flash("Check your email for instructions to reset your password", 'primary')
@@ -283,10 +283,12 @@ def reset_password(token):
         return redirect(url_for('admin.index'))
     
     user = Account.verify_reset_password_token(token)
+    print(user)
     if not user:
         return redirect(url_for('admin.login'))
     form = AdminResetPasswordForm()
     if form.validate_on_submit():
+        print(form.password.data)
         user.set_password(form.password.data)
         db.session.commit()
         flash('Your password has been reset', 'success')
