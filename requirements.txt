@@ -29,7 +29,7 @@ itsdangerous==1.1.0
 jedi==0.17.2
 Jinja2==2.11.1
 jupyter-client==6.1.6
-jupyter-core==4.6.3
+jupyter-core==4.6.3 
 lazy-object-proxy==1.4.3
 Mako==1.1.1
 MarkupSafe==1.1.1
@@ -37,7 +37,6 @@ mccabe==0.6.1
 parso==0.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
-pkg-resources==0.0.0
 prompt-toolkit==3.0.6
 psycopg2-binary==2.8.4
 ptyprocess==0.6.0
