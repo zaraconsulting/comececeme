@@ -8,8 +8,6 @@ import jwt
 
 from flask import current_app
 
-# Test
-
 class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, unique=True)
@@ -65,6 +63,7 @@ class Account(UserMixin, db.Model):
     # role_id = db.Column(db.Integer, db.ForeignKey('role.id'), default=Role.query.filter_by(name='User').first())
 
     def get_reset_password_token(self, expires_in=600):
+        print(current_app.config.get('SECRET_KEY'))
         return jwt.encode({'reset_password': self.id, 'exp': time() + expires_in }, current_app.config.get('SECRET_KEY'), algorithm='HS256').decode('utf-8')
 
     @staticmethod

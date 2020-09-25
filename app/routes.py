@@ -23,7 +23,7 @@ def inject_cart():
             grandTotal = total + (total * tax) - (total * session.get('coupon')['discount'])
         else: 
             grandTotal = total + (total * tax)
-        print(grandTotal)
+        # print(grandTotal)
         cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=grandTotal, fullCart=current_user.cart.all(), coupon=session.get('coupon'))
         # print(cart_dict)
         return cart_dict

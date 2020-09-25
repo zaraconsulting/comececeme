@@ -27,9 +27,9 @@
                         {% if current_user.is_admin %}
                             <div class="form-check">
                                 <label class="form-check-label">
-                                {{ form.is_admin(class="form-check-input form-control edit-admin") }}
-                                {{ form.is_admin.label(style="margin-bottom: 15px") }}
-                                </label>
+                                    {{ form.is_admin(class='form-check-input edit-admin', style="margin-bottom: 15px") }}
+                                    {{ form.is_admin.label(style="margin-bottom: 15px") }}
+                              </label>
                             </div>
                         {% endif %}
                         {{ form.submit(class="btn btn-outline-primary") }}

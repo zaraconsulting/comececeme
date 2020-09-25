@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, request, flash, session
 from app.blueprints.shop.models import Coupon
 from app.blueprints.account.models import Account, Role
 from app.blueprints.hair.models import Hair, HairCategory, Pattern
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
@@ -268,26 +268,41 @@ def delete_hair_product():
 def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
-    if request.method == 'POST':
-        form = request.form
-        user = Account.query.filter_by(email=form.get('email')).first()
+    form = AdminResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = Account.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
             flash("Check your email for instructions to reset your password", 'primary')
             return redirect(url_for('admin.login'))
-    return render_template('admin/reset_password_request.html', title='Reset Password')
+    return render_template('admin/reset_password_request.html', title='Reset Password', form=form)
 
 @admin.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('admin.index'))
+    
     user = Account.verify_reset_password_token(token)
     if not user:
         return redirect(url_for('admin.login'))
-    if request.method == 'POST':
-        form = request.form
-        user.set_password(form.get('password'))
+    form = AdminResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
         db.session.commit()
         flash('Your password has been reset', 'success')
         return redirect(url_for('admin.login'))
-    return render_template('reset_password_confirm.html', user=current_user)
+    return render_template('admin/reset_password.html', user=user, form=form)
+
+# @admin.route('/reset_password/<token>', methods=['POST'])
+# def create_password(token):
+#     user = Account.verify_reset_password_token(token)
+#     print("User:", user)
+#     print("Token:", user)
+#     if form.validate_on_submit():
+#         form = request.form
+#         print("Valid")
+#         user.set_password(form.get('password'))
+#         db.session.commit()
+#         flash('Your password has been reset', 'success')
+#         return redirect(url_for('admin.login'))
+#     return render_template('admin/reset_password_confirm.html', user=user)

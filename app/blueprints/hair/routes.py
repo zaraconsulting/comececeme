@@ -92,7 +92,6 @@ def add_cart_product():
     
     if request.method == 'POST':
         r = request.get_json()
-
         
         session['id'] = r.get('id')
         session['category'] = r.get('category')

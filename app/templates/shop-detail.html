@@ -230,46 +230,6 @@
 
 {% block scripts %}
 	{{ super() }}
-	<!-- <script>
-		var price;
-		var id;
-		var category = '{{ category }}';
-		var pattern = '{{ pattern }}';
-		var product_id = '{{ product.id }}';
-		var activeUser = '{{ active_user }}';
-		console.log(activeUser)
-
-		$('.product-list-item').each(function () {
-			var $this = $(this);
-			$this.on("click", function () {
-				price = $(this).data('price');
-				id = $(this).data('product-id');
-				// console.log(price)
-				// console.log(id)
-			});
-		});
-
-		$('#product-form').on('submit', (e) => {
-			e.preventDefault();
-			console.log(activeUser)
-
-			if (activeUser == 'False') {
-				return window.location.href = "{{ url_for('authentication.login') }}"
-			}
-
-			$.ajax({
-					url: "{{ url_for('hair.add_cart_product') }}",
-					data: JSON.stringify({ id: id, category: category, pattern: pattern, quantity: $('#quantity').val() }),
-					type: 'POST',
-					contentType: 'application/json',
-					dataType: 'json',
-					success: (data) => {
-						console.log("Success");
-					}
-				});
-			window.location.reload();
-		});
-	</script> -->
 
 	<script>
 		var productListItems = $('.product-list-item');
@@ -277,15 +237,14 @@
 		var id;
 		var category = '{{ category }}';
 		var pattern = '{{ pattern }}';
-		// console.log(category)
-		// console.log(pattern)
 		var product_id = '{{ product.id }}';
 		var activeUser = '{{ active_user }}';
+		var isCustomer = '{{ current_user.is_customer }}';
+		// console.log(isCustomer === 'False')
 
 		var info;
 
 		function postData(information) {
-			// console.log(information);
 			
 			event.preventDefault();
 
@@ -307,7 +266,7 @@
 		for (let i of productListItems) {
 			let element = i;
 			element.addEventListener('mousedown',function(event) {
-				if (activeUser == 'False') {
+				if (activeUser === 'False' || isCustomer === 'False') {
 					return window.location.href = "{{ url_for('authentication.login') }}"
 				}
 				

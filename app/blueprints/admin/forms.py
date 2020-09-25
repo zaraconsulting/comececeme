@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, BooleanField, SubmitField, PasswordField, IntegerField, FloatField
-from wtforms.validators import Email, DataRequired
+from wtforms.validators import Email, DataRequired, EqualTo
 import email_validator
 
 class AdminUserForm(FlaskForm):
@@ -44,3 +44,8 @@ class AdminEditProductForm(FlaskForm):
 class AdminResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[Email(), DataRequired()])
     submit = SubmitField('Reset Password')
+
+class AdminResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Request Password Reset')
