@@ -78,7 +78,7 @@ def create_app(config_class=Config):
         port = app.config.get('MAIL_PORT')
         password = app.config.get('MAIL_PASSWORD')
         use_tls = app.config.get('MAIL_USE_TLS')
-        admins = app.config.get('ADMIN')
+        admin = app.config.get('ADMIN')
 
         if server:
             auth = None
@@ -90,7 +90,7 @@ def create_app(config_class=Config):
             mail_handler = SMTPHandler(
                 mailhost=(server, port),
                 fromaddr=f'noreply@{server}',
-                toaddrs=admins,
+                toaddrs=admin,
                 subject='ComeCeCeMe App Failure',
                 credentials=auth,
                 secure=secure
