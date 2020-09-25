@@ -1,5 +1,6 @@
 from flask import Flask
-import click
+import click, logging, os
+from logging.handlers import SMTPHandler, RotatingFileHandler
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -69,6 +70,45 @@ def create_app(config_class=Config):
 
         from app.blueprints.errors import errors
         app.register_blueprint(errors, url_prefix='/error')
+
+    # Email Error Logging
+    if not app.debug:
+        server = app.config.get('MAIL_SERVER')
+        username = app.config.get('MAIL_USERNAME')
+        port = app.config.get('MAIL_PORT')
+        password = app.config.get('MAIL_PASSWORD')
+        use_tls = app.config.get('MAIL_USE_TLS')
+        admins = app.config.get('ADMIN')
+
+        if server:
+            auth = None
+            if username or password:
+                auth = (username, password)
+            secure = None
+            if use_tls:
+                secure = ()
+            mail_handler = SMTPHandler(
+                mailhost=(server, port),
+                fromaddr=f'noreply@{server}',
+                toaddrs=admins,
+                subject='ComeCeCeMe App Failure',
+                credentials=auth,
+                secure=secure
+            )
+            mail_handler.setLevel(logging.ERROR)
+            app.logger.addHandler(mail_handler)
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler(
+            'logs/comececeme-message_handlers.log',
+            maxBytes=10240,
+            backupCount=10
+        )
+        file_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s: %(message)s [%(pathname)s:%(lineno)d]"))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+        app.logger.setLevel(logging.INFO)
+        app.logger.info('Flask_Blog startup')
 
         from .braintree import gateway
         from .import routes

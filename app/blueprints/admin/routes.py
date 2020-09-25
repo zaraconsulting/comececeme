@@ -283,12 +283,12 @@ def reset_password(token):
         return redirect(url_for('admin.index'))
     
     user = Account.verify_reset_password_token(token)
-    print(user)
+    # print(user)
     if not user:
         return redirect(url_for('admin.login'))
     form = AdminResetPasswordForm()
     if form.validate_on_submit():
-        print(form.password.data)
+        # print(form.password.data)
         user.set_password(form.password.data)
         db.session.commit()
         flash('Your password has been reset', 'success')
