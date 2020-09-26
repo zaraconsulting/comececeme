@@ -36,7 +36,7 @@ def logout():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     logout_user()
-    flash('You have logged in successfully', 'info')
+    flash('You have logged out successfully', 'info')
     return redirect(url_for('admin.index'))
 
 @admin.route('/coupons', methods=['GET'])
@@ -95,7 +95,6 @@ def users():
         user.set_password(user.password)
             # 'role_id': Role.query.filter_by(name=form.role.data.title()).first().id,
         user.create_account()
-        print(user.check_password('test@owner.com'))
         flash('User created successfully', 'success')
         return redirect(url_for('admin.users'))
     if current_user.is_admin:

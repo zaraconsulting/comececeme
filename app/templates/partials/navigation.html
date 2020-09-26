@@ -3,6 +3,12 @@
     <nav class="header-menu">
         <button class="header-menu-toggle" type="button"><i class="fa fa-bars"></i>MENU</button>
         <ul>
+            {% if current_user.is_authenticated %}
+            <li>
+                <span>Hello, {{ current_user.first_name }}</span>
+            </li>
+            <hr style="margin-top: 0px;">
+            {% endif %}
             {% for href, id, caption in navigation_bar %}
                 {% if id == 'shop.index' %}
                     <li {% if active_page == 'shop.index' or active_page == 'shop.cart' or active_page == 'shop.checkout' %} class="m-active" {% endif %}>

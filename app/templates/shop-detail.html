@@ -238,9 +238,9 @@
 		var category = '{{ category }}';
 		var pattern = '{{ pattern }}';
 		var product_id = '{{ product.id }}';
-		var activeUser = '{{ active_user }}';
-		var isCustomer = '{{ current_user.is_customer }}';
-		// console.log(isCustomer === 'False')
+		var activeUser = '{{ active_user }}' === 'False' ? false : true;
+
+		// console.log(activeUser);
 
 		var info;
 
@@ -257,7 +257,7 @@
 			})
 			.then(res => res.json())
 			.then(data => { 
-				console.log('Success');
+				// console.log('Success');
 				window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()) }}";
 			})
 			.catch(error => console.log(error))
@@ -266,8 +266,8 @@
 		for (let i of productListItems) {
 			let element = i;
 			element.addEventListener('mousedown',function(event) {
-				if (activeUser === 'False' || isCustomer === 'False') {
-					return window.location.href = "{{ url_for('authentication.login') }}"
+				if (!activeUser || !isCustomer) {
+					return window.location.href = "{{ url_for('authentication.login', active_user=active_user) }}"
 				}
 				
 				info = {

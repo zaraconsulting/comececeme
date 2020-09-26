@@ -9,34 +9,41 @@ from flask_login import current_user
 
 @authentication.route('/login', methods=['GET', 'POST'])
 def login():
-    if current_user.is_anonymous:
-        flash('You must login to continue', 'm-warning')
+    active_user = False if request.args.get('active_user') == 'False' else True
+    is_logged_out = True if request.args.get('is_logged_out') else False
+    print(is_logged_out)
+    
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    else:
+        if current_user is None or not active_user:
+            flash('You must login to add items', 'm-warning')
     if request.method == 'POST':
         # Test
         customer = Customer.query.filter_by(email=request.form.get('login-email').lower()).first()
         if customer is not None and customer.check_password_hash(request.form.get('login-password')):
             login_user(customer)
+            if not is_logged_out:
+                flash('You have logged in successfully', 'm-success')
             return redirect(url_for('main.index'))
     return render_template('authentication-login.html')
 
 @authentication.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('authentication.login'))
+    flash('You have logged out successfully', 'm-info')
+    return redirect(url_for('authentication.login', is_logged_out=True))
 
 @authentication.route('/register', methods=['POST'])
 def register():
-    # user = Customer.query.filter_by(email=request.form.get('email'))
-    # print(request.form.get('email'))
-    # print(user)
-    # if user is not None:
-    #     return redirect(url_for('main.index'))
-    bt_gateway = gateway(current_app)
-
+    print("Before try")
     try:
         user = Customer.query.filter_by(email=request.form.get('email').lower()).first()
         if user is not None:
+            print("Found user")
+            flash('That email address has already been used. Try again.', 'm-warning')
             return redirect(url_for('authentication.login'))
+        bt_gateway = gateway(current_app)
         # Create customer in Braintree
         result = bt_gateway.customer.create({
             'first_name': request.form.get('first_name'),
@@ -47,7 +54,8 @@ def register():
         c = Customer()
         c.from_dict(data)
         c.create_customer()
-        login_user(c)
+        flash("You have registered succcessfully. Log in!", 'm-success')
         return redirect(url_for('authentication.login'))
     except:
+        flash("There was a registration error. Try again later or contact the system administrator", 'm-danger')
         return redirect(url_for('authentication.login'))
