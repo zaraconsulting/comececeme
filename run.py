@@ -2,14 +2,7 @@ from app import create_app, db, cli
 from flask import current_app
 from app.braintree import gateway
 
-from app.blueprints.reviews.models import Review
-from app.blueprints.services.models import ServiceCategory, Service
-from app.blueprints.shop.models import Product, ProductReview, Category, Order, Customer, Coupon
-from app.blueprints.booking.models import Booking
-from app.blueprints.gallery.models import Gallery
-from app.blueprints.hair.models import HairCategory, Hair, Pattern, Cart
-from app.blueprints.faqs.models import Faqs
-from app.blueprints.account.models import Account, Role
+from app.models import Review, ServiceCategory, Service, Product, ProductReview, Category, Order, Customer, Coupon, Booking, Gallery, HairCategory, Hair, Pattern, Cart, Faqs, Account, Role
 
 app = create_app()
 cli.register(app)

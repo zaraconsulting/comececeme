@@ -1,6 +1,6 @@
 from . import bp as booking
 from flask import jsonify, request, url_for, render_template, redirect
-from app.blueprints.services.models import Service, ServiceCategory
+from app.models import Service, ServiceCategory
 from app.email import send_reservation_email
 from datetime import datetime as dt
 

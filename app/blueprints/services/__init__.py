@@ -2,4 +2,4 @@ from flask import Blueprint
 
 bp = Blueprint('services', __name__)
 
-from .import routes, models
+from .import routes

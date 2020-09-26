@@ -2,10 +2,7 @@ from . import bp as main
 from flask import request, jsonify, render_template, url_for, redirect, current_app as app
 import json, requests, random
 
-from app.blueprints.reviews.models import Review
-from app.blueprints.gallery.models import Gallery
-from app.blueprints.services.models import ServiceCategory
-from app.blueprints.hair.models import HairCategory, Hair, Pattern
+from app.models import Review, Gallery, ServiceCategory, HairCategory, Hair, Pattern
 from app.email import send_booking_email
 
 

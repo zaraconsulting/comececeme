@@ -1,7 +1,7 @@
 from . import bp as account
 from flask import jsonify, request, url_for
 
-from .models import Account
+from app.models import Account
 
 
 @account.route('/', methods=['GET'])

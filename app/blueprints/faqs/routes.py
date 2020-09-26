@@ -1,6 +1,6 @@
 from . import bp as faqs
 from flask import request, jsonify, url_for, render_template, redirect
-from .models import HairTip, Faqs
+from app.models import HairTip, Faqs
 from app import db
 
 

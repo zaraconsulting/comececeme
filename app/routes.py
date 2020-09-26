@@ -1,8 +1,6 @@
 from flask import current_app as app, session, jsonify, request
 from flask_login import current_user
-from app.blueprints.shop.models import Product, Customer, Order, Category
-from app.blueprints.services.models import Service, ServiceCategory
-from app.blueprints.hair.models import Hair, HairCategory, Cart, Pattern, HairCategory
+from app.models import Product, Customer, Order, Category, Service, ServiceCategory, Hair, HairCategory, Cart, Pattern, HairCategory
 from sqlalchemy import func, desc
 from app import db
 

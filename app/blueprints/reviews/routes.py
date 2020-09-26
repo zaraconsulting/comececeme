@@ -1,7 +1,7 @@
 from flask import render_template, jsonify, request, url_for
 from .import bp as reviews
 
-from .models import Review
+from app.models import Review
 
 @reviews.route('/', methods=['GET'])
 def index():

@@ -1,8 +1,6 @@
 from .import bp as api
 from flask import jsonify, request, url_for
-from app.blueprints.shop.models import Customer, Product, Category, Order, Coupon, ProductReview
-from app.blueprints.hair.models import Hair, HairCategory, Pattern
-from app.blueprints.faqs.models import Faqs
+from app.models import Faqs, Customer, Product, Category, Order, Coupon, ProductReview, Hair, HairCategory, Pattern
 from app import db
 
 # PRODUCTS API

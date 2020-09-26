@@ -1,8 +1,6 @@
 from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session
-from app.blueprints.shop.models import Coupon
-from app.blueprints.account.models import Account, Role
-from app.blueprints.hair.models import Hair, HairCategory, Pattern
+from app.models import Hair, Coupon, HairCategory, Pattern, Account, Role
 from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm
 from flask_login import current_user, login_user, logout_user
 from app import db

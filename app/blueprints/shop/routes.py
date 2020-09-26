@@ -7,8 +7,7 @@ import pprint
 from math import ceil
 from braintree.exceptions.not_found_error import NotFoundError
 
-from .models import Product, Category, Customer, ProductReview, Order, Coupon
-from app.blueprints.hair.models import Hair, Cart
+from app.models import Product, Category, Customer, ProductReview, Order, Coupon, Hair, Cart
 
 
 @shop.route('/products/categories', methods=['GET'])

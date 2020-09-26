@@ -1,6 +1,6 @@
 from . import bp as authentication
 from flask import current_app, render_template, redirect, url_for, request, flash
-from app.blueprints.shop.models import Customer
+from app.models import Customer
 # from .forms import LoginForm, RegisterForm
 from app import db
 from flask_login import login_user, logout_user, login_required, logout_user

@@ -1,8 +1,7 @@
 from flask import render_template, redirect, url_for, request, jsonify
 from . import bp as services
 
-from app.blueprints.services.models import Service
-from app.blueprints.services.models import ServiceCategory
+from app.models import Service, ServiceCategory
 
 @services.route('/')
 def index():

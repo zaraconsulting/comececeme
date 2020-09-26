@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, jsonify, request, session, flash
 from .import bp as app
-from app.blueprints.hair.models import HairCategory, Hair, Pattern, Cart
+from app.models import HairCategory, Hair, Pattern, Cart
 from flask_login import current_user
 from app import db
 

@@ -95,7 +95,7 @@ def create_app(config_class=Config):
                 mailhost=(server, port),
                 fromaddr=f'noreply@{server}',
                 toaddrs=admin,
-                subject='ComeCeCeMe App Failure',
+                subject='ComeCeCeMe Failure',
                 credentials=auth,
                 secure=secure
             )
@@ -112,6 +112,6 @@ def create_app(config_class=Config):
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
         app.logger.setLevel(logging.INFO)
-        app.logger.info('Flask_Blog startup')
+        app.logger.info('ComeCeCeMe startup')
 
     return app
