@@ -47,22 +47,22 @@ def get_hair_categories():
     return dict(hair_categories=[i for i in HairCategory.query.all()])
 
 @app.context_processor
-def getClientToken():
+def get_client_token():
     if 'client_token' not in session:
         session['client_token'] = ''
     return dict(client_token=session['client_token'])
 
-@app.context_processor
-@app.shell_context_processor
-def getPopularProducts():
-    if Order.query.all():
-        popular_products = db.session.query(Order.product_id,
-        func.count(Order.id).label('qty')
-        ).group_by(Order.product_id
-        ).order_by(desc('qty')).limit(3)
-    else:
-        return dict()
-    return dict(popular_products=[(Product.query.get(i[0]), i[1]) for i in popular_products.all()])
+# @app.context_processor
+# @app.shell_context_processor
+# def get_popular_products():
+#     if Order.query.all():
+#         popular_products = db.session.query(Order.product_id,
+#         func.count(Order.id).label('qty')
+#         ).group_by(Order.product_id
+#         ).order_by(desc('qty')).limit(3)
+#     else:
+#         return dict()
+#     return dict(popular_products=[(Product.query.get(i[0]), i[1]) for i in popular_products.all()])
 
 @app.context_processor
 def get_current_user():
@@ -99,4 +99,4 @@ def get_popular_products():
         if (i, ordered_products.count(i)) not in popular_products:
             popular_products.append((i, ordered_products.count(i)))
     # print([i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)])
-    return dict(popular_products=[i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)])
+    return dict(popular_products=[i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)][:5])
