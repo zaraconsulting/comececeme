@@ -24,13 +24,12 @@ def login():
 
         user = Account.query.filter_by(email=email).first()
         if user is None or not user.check_password(password):
-            print("Wrong User")
-            flash('Either an incorrect email or password was given. Try again.', 'danger')
+            flash('You have entered either an incorrect email or password. Try again.', 'danger')
             return redirect(url_for('admin.login'))
         login_user(user, remember=form.remember_me.data)
         flash('You have logged in successfully', 'success')
         return redirect(url_for('admin.index'))
-    return render_template('admin/login.html', form=form)
+    return render_template('admin/authentication/login.html', form=form)
 
 @admin.route('/logout')
 def logout():
@@ -269,11 +268,14 @@ def reset_password_request():
     form = AdminResetPasswordRequestForm()
     if form.validate_on_submit():
         user = Account.query.filter_by(email=form.email.data.lower()).first()
+        if not user:
+            flash('Account holder with that email address was not found', 'warning')
+            return redirect(url_for('admin.reset_password_request'))
         if user:
             send_password_reset_email(user)
             flash("Check your email for instructions to reset your password", 'primary')
             return redirect(url_for('admin.login'))
-    return render_template('admin/reset_password_request.html', title='Reset Password', form=form)
+    return render_template('admin/authentication/reset_password_request.html', title='Reset Password', form=form)
 
 @admin.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
@@ -283,6 +285,7 @@ def reset_password(token):
     user = Account.verify_reset_password_token(token)
     # print(user)
     if not user:
+        flash('Your password reset token is probably expired. Follow steps for resetting password again.', 'warning')
         return redirect(url_for('admin.login'))
     form = AdminResetPasswordForm()
     if form.validate_on_submit():
@@ -292,17 +295,3 @@ def reset_password(token):
         flash('Your password has been reset', 'success')
         return redirect(url_for('admin.login'))
     return render_template('admin/reset_password.html', user=user, form=form)
-
-# @admin.route('/reset_password/<token>', methods=['POST'])
-# def create_password(token):
-#     user = Account.verify_reset_password_token(token)
-#     print("User:", user)
-#     print("Token:", user)
-#     if form.validate_on_submit():
-#         form = request.form
-#         print("Valid")
-#         user.set_password(form.get('password'))
-#         db.session.commit()
-#         flash('Your password has been reset', 'success')
-#         return redirect(url_for('admin.login'))
-#     return render_template('admin/reset_password_confirm.html', user=user)

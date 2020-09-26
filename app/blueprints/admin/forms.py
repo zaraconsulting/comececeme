@@ -43,9 +43,9 @@ class AdminEditProductForm(FlaskForm):
 
 class AdminResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[Email(), DataRequired()])
-    submit = SubmitField('Reset Password')
+    submit = SubmitField('Request Password Reset')
 
 class AdminResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Request Password Reset')
+    submit = SubmitField('Reset Password')
