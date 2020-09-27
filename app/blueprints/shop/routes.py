@@ -67,7 +67,7 @@ def cart_checkout():
 
     session['client_token'] = token
 
-    print(Cart.query.filter_by(customerId=current_user.id).all())
+    # print(Cart.query.filter_by(customerId=current_user.id).all())
         # return redirect(url_for('shop.cart_checkout'))
     if request.method == 'POST':
         first_name = request.form.get('firstName')
@@ -225,6 +225,7 @@ def add_product_review():
 def remove_cart_product(id):
     [db.session.delete(item) for item in Cart.query.filter_by(product_id=id).all()]
     db.session.commit()
+    flash('Product removed from cart', 'info')
     return redirect(url_for('shop.cart'))
 
 
@@ -262,8 +263,14 @@ def get_product():
 @shop.route('/coupon', methods=['POST'])
 def apply_coupon():
     coupon = Coupon.query.filter_by(text=request.get_json().get('text')).first()
-    # print(session.get('coupon'))
-    session['coupon'] = { 'text': coupon.text, 'discount': coupon.discount / 100}
+    try:
+        session['coupon'] = { 'text': coupon.text, 'discount': coupon.discount / 100}
+        flash('Coupon applied', 'success')
+    except:
+        if coupon is None:
+            flash('Coupon was not found.', 'warning')
+        else:
+            flash('There was an error applying the coupon. Please try again', 'notification')
     return jsonify({'message': 'success'})
 
 @shop.route('/coupon/delete', methods=['POST'])

@@ -117,5 +117,6 @@ def add_cart_product():
         for _ in range(quantity):
             db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
         db.session.commit()
+        flash('Product added to cart', 'success')
         return jsonify({'message': 'success'})
         # return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
