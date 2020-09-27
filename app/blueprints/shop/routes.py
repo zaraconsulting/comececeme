@@ -1,5 +1,5 @@
 from . import bp as shop
-from flask import request, jsonify, url_for, current_app, render_template, redirect, session
+from flask import request, jsonify, url_for, current_app, render_template, redirect, session, flash
 from app import db, login
 from flask_login import current_user, login_required
 from app.braintree import gateway
@@ -15,7 +15,7 @@ def categories():
     context = {
         'product_categories': [i for i in Category.query.all() if i.name != 'Products']
     }
-    return render_template('shop-categories.html', **context)
+    return render_template('shop/shop-categories.html', **context)
 
 @shop.route('/products/category', methods=['GET'])
 def get_product_category():
@@ -26,7 +26,7 @@ def get_product_category():
         'products': products,
         'category': category,
     }
-    return render_template('shop-list.html', **context)
+    return render_template('shop/shop-list.html', **context)
 
 @shop.route('/products/all', methods=['GET'])
 def get_products():
@@ -42,10 +42,22 @@ def cart():
     [GET] /shop/cart
     """
     context = {}
-    return render_template('shop-cart.html', **context)
+    return render_template('shop/shop-cart.html', **context)
 
 @shop.route('/cart/checkout', methods=['GET', 'POST'])
 def cart_checkout():
+    validation_error = request.args.get('validation_error')
+    if validation_error:
+        flash('There was an error processing your payment. Please try again.', 'warning')
+    
+    # TODO: IF THE SHOPPING CART IS EMPTY, FLASH MESSAGE SAYING THAT IT'S EMPTY
+    if not Cart.query.filter_by(customerId=current_user.id).all():
+        flash('Your shopping cart is empty.', 'warning')
+        return redirect(url_for('shop.cart'))
+    elif request.args.get('successful_payment'):
+        flash('Thank you! Your payment was successful.', 'm-success')
+        return redirect(url_for('shop.cart'))
+    
     # connect to braintree
     bt_gateway = gateway(current_app)
 
@@ -55,7 +67,8 @@ def cart_checkout():
 
     session['client_token'] = token
 
-    # print(data)
+    print(Cart.query.filter_by(customerId=current_user.id).all())
+        # return redirect(url_for('shop.cart_checkout'))
     if request.method == 'POST':
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
@@ -77,7 +90,7 @@ def cart_checkout():
         shipping_postal_code = request.form.get('postalCodeShipping')
         note = request.form.get('note')
 
-        print(int(float(amount) * 100))
+        # print(int(float(amount) * 100))
 
         # Receives nonce from  form submission
         nonce_from_client = request.form.get('payment_method_nonce')
@@ -96,7 +109,7 @@ def cart_checkout():
 
         except:
             # Create customer in Braintree if not exists
-            print("Creating customer")
+            # print("Creating customer")
             customer = bt_gateway.customer.create({
                 "first_name": first_name,
                 "last_name": last_name,
@@ -176,47 +189,21 @@ def cart_checkout():
                 session['coupon'] = None
 
                 db.session.commit()
-                return redirect(url_for('hair.get_categories'))
+                flash('Thank you! Your payment was successful.', 'm-success')
+                return redirect(url_for('hair.get_categories', successful_payment=True))
             else:
                 print(result.errors)
+                flash('Oops! There was an error with your payment. Try again.', 'm-warning')
                 return redirect(url_for('shop.cart_checkout'))
         except NotFoundError:
             print("There was a problem. Try again")
-            # return redirect(url_for('shop.cart_checkout'))
-    return render_template('shop-checkout.html')
+            return redirect(url_for('shop.cart_checkout', validation_error=True))
+    return render_template('shop/shop-checkout.html')
 
 @shop.route('/cart/clear', methods=['POST'])
 def cart_clear():
     db.session.commit()
     return redirect(url_for('shop.index'))
-
-# @login_required
-# @shop.route('/product/cart/add', methods=['POST'])
-# def add_cart_product():
-#     """
-#     [POST] /product/cart/add
-#     """
-#     # if request.args.get('item_price') is not None and request.args.get('category') is not None and request.args.get('pattern') is not None: 
-#     item_price = request.args.get('item_price')
-#     session['item_price'] = item_price
-#     category = request.args.get('category')
-#     session['category'] = category
-#     pattern = request.args.get('pattern')
-#     session['pattern'] = pattern
-#     product_id = request.args.get('id')
-#     session['product_id'] = product_id
-#     print(session.get('item_price'))
-#     print(session.get('category'))
-#     print(session.get('pattern'))
-#     print(session.get('product_id'))
-#     if not current_user.is_authenticated:
-#         return redirect(url_for('authentication.login'))
-#     product = Hair.query.get(request.args.get(product_id))
-#     print(product)
-#     # for _ in range(quantity):
-#     db.session.add(Cart(customerId=int(current_user.id), id=product.id))
-#     db.session.commit() 
-#     return redirect(url_for('hair.get_product', category=category.lower(), pattern=pattern.lower()))
 
 
 @shop.route('/product/comment/add', methods=['POST'])
@@ -269,7 +256,7 @@ def get_product():
         'product': Hair.query.get(id_),
         'average': getAverage(reviews_list)
     }
-    return render_template('shop-detail.html', **context)
+    return render_template('shop/shop-detail.html', **context)
 
 
 @shop.route('/coupon', methods=['POST'])

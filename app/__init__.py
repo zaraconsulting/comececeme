@@ -72,7 +72,7 @@ def create_app(config_class=Config):
         app.register_blueprint(errors, url_prefix='/error')
 
         from .braintree import gateway
-        from .import routes
+        from .import routes, models
         from app.blueprints.admin import email
 
     # Email Error Logging

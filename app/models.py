@@ -526,7 +526,7 @@ class Customer(UserMixin, db.Model):
     suffix = db.Column(db.String)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
-    phone = db.Column(db.BigInteger)
+    phone = db.Column(db.String)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String(124), nullable=False)
     dob = db.Column(db.String)
@@ -583,17 +583,6 @@ class Customer(UserMixin, db.Model):
 @login.user_loader
 def load_custommer(id):
     return Customer.query.get(int(id)) or Account.query.get(int(id))
-
-
-# class Cart(db.Model):
-# __table_args__ = { 'extend_existing': True }    
-# id = db.Column(db.Integer, primary_key=True)
-#     customerId = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
-#     product_id = db.Column(db.Integer, db.ForeignKey('hair.id'), nullable=False)
-#     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
-
-#     def __repr__(self):
-#         return f"<Cart: {self.customerId}, {self.hair_id}>"
 
 
 class Product(db.Model):

@@ -10,7 +10,7 @@ def get_product():
     context = {
         'product': Hair.query.get(_id)
     }
-    return render_template('shop-list.html', **context)
+    return render_template('shop/shop-list.html', **context)
 
 @app.route('/categories', methods=['GET'])
 def get_categories():
@@ -22,7 +22,7 @@ def get_categories():
         'frontals': HairCategory.query.filter_by(name='Frontals').first(),
         'closures': HairCategory.query.filter_by(name='Closures').first()
     }
-    return render_template('shop-categories.html', **context)
+    return render_template('shop/shop-categories.html', **context)
 
 @app.route('', methods=['GET'])
 def get_category():
@@ -50,7 +50,7 @@ def get_category():
         'products': products,
         'category': HairCategory.query.filter_by(name=category.title()).first()
     }
-    return render_template('shop-list.html', **context)
+    return render_template('shop/shop-list.html', **context)
 
 @app.route('<category>', methods=['GET'])
 def get_pattern(category):
@@ -79,7 +79,7 @@ def get_pattern(category):
             'category': category,
             'pattern': pattern
         }
-    return render_template('shop-detail.html', **context)
+    return render_template('shop/shop-detail.html', **context)
         
 @app.route('/product/cart/add', methods=['POST'])
 def add_cart_product():
@@ -89,7 +89,6 @@ def add_cart_product():
     #     """
     
         # return redirect(url_for('authentication.login'))
-    
     if request.method == 'POST':
         r = request.get_json()
         

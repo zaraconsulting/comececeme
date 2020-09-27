@@ -1,7 +1,6 @@
 from . import bp as authentication
 from flask import current_app, render_template, redirect, url_for, request, flash
 from app.models import Customer
-# from .forms import LoginForm, RegisterForm
 from app import db
 from flask_login import login_user, logout_user, login_required, logout_user
 from app.braintree import gateway
@@ -11,7 +10,7 @@ from flask_login import current_user
 def login():
     active_user = False if request.args.get('active_user') == 'False' else True
     is_logged_out = True if request.args.get('is_logged_out') else False
-    print(is_logged_out)
+    # print(is_logged_out)
     
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
@@ -24,8 +23,11 @@ def login():
         if customer is not None and customer.check_password_hash(request.form.get('login-password')):
             login_user(customer)
             if not is_logged_out:
-                flash('You have logged in successfully', 'm-success')
+                flash('You have logged in successfully', 'success')
             return redirect(url_for('main.index'))
+        else:
+            flash("You have used either an incorrect email or password. Try again.", "m-warning")
+            return redirect(url_for('authentication.login'))
     return render_template('authentication-login.html')
 
 @authentication.route('/logout')
@@ -36,11 +38,11 @@ def logout():
 
 @authentication.route('/register', methods=['POST'])
 def register():
-    print("Before try")
+    # print("Before try")
     try:
         user = Customer.query.filter_by(email=request.form.get('email').lower()).first()
         if user is not None:
-            print("Found user")
+            # print("Found user")
             flash('That email address has already been used. Try again.', 'm-warning')
             return redirect(url_for('authentication.login'))
         bt_gateway = gateway(current_app)

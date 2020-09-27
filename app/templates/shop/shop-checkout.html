@@ -1,0 +1,435 @@
+﻿{% extends 'shop/shop-layout.html' %}
+{% set active_page = 'shop.checkout' %}
+
+{% block shop_content %}
+<!-- PAGE HEADER : begin -->
+<div id="page-header">
+	<div class="container">
+		<h1>Checkout</h1>
+		<ul class="breadcrumbs">
+			<li><a href="{{ url_for('main.index') }}">Home</a></li>
+			<li><a href="{{ url_for('hair.get_categories') }}">Shop</a></li>
+			<li>Checkout</li>
+		</ul>
+	</div>
+</div>
+<!-- PAGE HEADER : begin -->
+<div class="container">
+	{% include './shop/partials/flash-messages.html' %}
+	<!-- PAGE CONTENT : begin -->
+	<div id="page-content">
+		<!-- SHOP CHECKOUT : begin -->
+		<div class="shop-checkout">
+			<form id="checkout-form" class="default-form m-validate" action="{{ url_for('shop.cart_checkout') }}" method="POST">
+				<input type="hidden" name="payment_method_nonce" id="payment_method_nonce">
+				<!-- FORM VALIDATION ERROR MESSAGE : begin -->
+				<p class="c-alert-message m-warning m-validation-error" style="display: none;"><i class="ico fa fa-exclamation-circle"></i>Please fill in all required (*) fields.</p>
+				<!-- FORM VALIDATION ERROR MESSAGE : end -->
+				<div class="row">
+					<div class="col-sm-6">
+						<!-- BILLING ADDRESS : begin -->
+						<div class="billing-address">
+							<h2 class="heading-2">Billing Address</h2>
+							<!-- COUNTRY FIELD : begin -->
+							<!-- <div class="form-field">
+								<label for="checkout-country">Country <span>*</span></label>
+								<select class="selectbox-input m-required" id="checkout-country">
+									<option value="country1">Country 1</option>
+									<option value="country2" selected="selected">Country 2</option>
+									<option value="country3">Country 3</option>
+									<option value="country4">Country 4</option>
+									<option value="country5">Country 5</option>
+									<option value="country6">Country 6</option>
+									<option value="country7">Country 7</option>
+									<option value="country8">Country 8</option>
+								</select>
+							</div> -->
+							<!-- COUNTRY FIELD : end -->
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- FIRST NAME FIELD : begin -->
+									<div class="form-field">
+										<label for="checkout-first-name">First Name <span>*</span></label>
+										<input type="text" class="m-required" id="checkout-first-name" name="checkout-first-name">
+									</div>
+									<!-- FIRST NAME FIELD : end -->
+								</div>
+								<div class="col-sm-6">
+									<!-- LAST NAME FIELD : begin -->
+									<div class="form-field">
+										<label for="checkout-last-name">Last Name <span>*</span></label>
+										<input type="text" id="checkout-last-name" name="checkout-last-name">
+									</div>
+									<!-- LAST NAME FIELD : end -->
+								</div>
+							</div>
+							<!-- COMPANY FIELD : begin -->
+							<div class="form-field">
+								<label for="checkout-company">Company</label>
+								<input type="text" id="checkout-company" name="checkout-company">
+							</div>
+							<!-- COMPANY FIELD : end -->
+							<!-- ADDRESS FIELD : begin -->
+							<div class="form-field">
+								<label for="checkout-address">Address <span>*</span></label>
+								<input type="text" class="required" id="checkout-address" name="checkout-address">
+							</div>
+							<!-- ADDRESS FIELD : end -->
+							<!-- CITY FIELD : begin -->
+							<div class="form-field">
+								<label for="checkout-city">City <span>*</span></label>
+								<input type="text" class="m-required" id="checkout-city" name="checkout-city">
+							</div>
+							<!-- CITY FIELD : end -->
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- STATE FIELD : begin -->
+									<div class="form-field">
+										<label for="checkout-state">State</label>
+										<input type="text" id="checkout-state" name="checkout-state">
+									</div>
+									<!-- STATE FIELD : end -->
+								</div>
+								<div class="col-sm-6">
+									<!-- POSTCODE FIELD : begin -->
+									<div class="form-field">
+										<label for="checkout-postalcode">Postal code</label>
+										<input type="text" id="checkout-postalcode" name="checkout-postalcode">
+									</div>
+									<!-- POSTCODE FIELD : end -->
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- EMAIL FIELD : begin -->
+									<div class="form-field">
+										<label for="checkout-email">Email</label>
+										<input type="text" class="m-required m-email" id="checkout-email" name="checkout-email">
+									</div>
+									<!-- EMAIL FIELD : end -->
+								</div>
+								<div class="col-sm-6">
+									<!-- PHONE FIELD : begin -->
+									<div class="form-field">
+										<label for="checkout-phone">Phone</label>
+										<input type="text" id="checkout-phone" name="checkout-phone">
+									</div>
+									<!-- PHONE FIELD : end -->
+								</div>
+							</div>
+						</div>
+						<!-- BILLING ADDRESS : end -->
+					</div>
+					<div class="col-sm-6">
+						<!-- SHIPPING ADDRESS : begin -->
+						<div class="shipping-address">
+							<h2 class="heading-2">Shipping Address</h2>
+							<div class="shipping-address-toggle">
+								<input type="checkbox" class="checkbox-input" id="enable-shipping-address" checked="checked">
+								<label for="enable-shipping-address">Shipping address is the same as billing address</label>
+							</div>
+							<!-- SHIPPING ADDRESS FIELDS : begin -->
+							<div class="shipping-address-fields" style="display: none;">
+								<!-- COUNTRY FIELD : begin -->
+								<!-- <div class="form-field">
+									<label for="checkout-country-shipping">Country <span>*</span></label>
+									<select class="selectbox-input m-required-not" id="checkout-country-shipping">
+										<option value="country1">Country 1</option>
+										<option value="country2" selected="selected">Country 2</option>
+										<option value="country3">Country 3</option>
+										<option value="country4">Country 4</option>
+										<option value="country5">Country 5</option>
+										<option value="country6">Country 6</option>
+										<option value="country7">Country 7</option>
+										<option value="country8">Country 8</option>
+									</select>
+								</div> -->
+								<!-- COUNTRY FIELD : end -->
+								<div class="row">
+									<div class="col-sm-6">
+										<!-- FIRST NAME FIELD : begin -->
+										<div class="form-field">
+											<label for="checkout-first-name-shipping">First Name <span>*</span></label>
+											<input type="text" class="m-required-not" id="checkout-first-name-shipping">
+										</div>
+										<!-- FIRST NAME FIELD : end -->
+									</div>
+									<div class="col-sm-6">
+										<!-- LAST NAME FIELD : begin -->
+										<div class="form-field">
+											<label for="checkout-last-name-shipping">Last Name <span>*</span></label>
+											<input type="text" id="checkout-last-name-shipping">
+										</div>
+										<!-- LAST NAME FIELD : end -->
+									</div>
+								</div>
+								<!-- COMPANY FIELD : begin -->
+								<div class="form-field">
+									<label for="checkout-company-shipping">Company</label>
+									<input type="text" id="checkout-company-shipping">
+								</div>
+								<!-- COMPANY FIELD : end -->
+								<!-- ADDRESS FIELD : begin -->
+								<div class="form-field">
+									<label for="checkout-address-shipping">Address <span>*</span></label>
+									<input type="text" class="m-required-not" id="checkout-address-shipping">
+								</div>
+								<!-- ADDRESS FIELD : end -->
+								<!-- CITY FIELD : begin -->
+								<div class="form-field">
+									<label for="checkout-city-shipping">City <span>*</span></label>
+									<input type="text" class="m-required-not" id="checkout-city-shipping">
+								</div>
+								<!-- CITY FIELD : end -->
+								<div class="row">
+									<div class="col-sm-6">
+										<!-- STATE FIELD : begin -->
+										<div class="form-field">
+											<label for="checkout-state-shipping">State</label>
+											<input type="text" id="checkout-state-shipping">
+										</div>
+										<!-- STATE FIELD : end -->
+									</div>
+									<div class="col-sm-6">
+										<!-- POSTCODE FIELD : begin -->
+										<div class="form-field">
+											<label for="checkout-postcode-shipping">Postal Code</label>
+											<input type="text" id="checkout-postalcode-shipping">
+										</div>
+										<!-- POSTCODE FIELD : end -->
+									</div>
+								</div>
+							</div>
+							<!-- SHIPPING ADDRESS FIELDS : end -->
+						</div>
+						<!-- SHIPPING ADDRESS : end -->
+						<!-- NOTE : begin -->
+						<div class="form-field">
+							<label for="checkout-note">Note</label>
+							<textarea id="checkout-note"></textarea>
+						</div>
+						<!-- NOTE : end -->
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<!-- PAYMENT METHODS : begin -->
+						<div class="payment-methods">
+							<h2 class="heading-2">Payment Methods</h2>
+							<ul class="c-accordion m-radio-group">
+								<li class="m-active">
+									<input type="radio" id="payment-method-1" name="payment-method" value="direct" checked="checked">
+									<label for="payment-method-1" class="accordion-title">Credit</label>
+									<div class="accordion-content">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<label for="paymentCard">Card Number <span>*</span></label>
+													<div id="paymentCard" class="form-control custom-hosted-field"></div>
+												</div>
+											</div>
+											<!-- <div class="col-sm-6">
+												<div class="form-group">
+													<label for="paymentPostalCode">Postal Code <span>*</span></label>
+													<div id="paymentPostalCode" class="form-control custom-hosted-field"></div>
+												</div>
+											</div> -->
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="paymentExpiration">Expiration <span>*</span></label>
+													<div id="paymentExpiration" class="form-control custom-hosted-field"></div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="paymentCVV">CVV <span>*</span></label>
+													<div id="paymentCVV" class="form-control custom-hosted-field"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<!-- <li>
+									<input type="radio" id="payment-method-2" name="payment-method" value="cheque">
+									<label for="payment-method-2" class="accordion-title">Cheque Payment</label>
+									<div class="accordion-content">
+										<p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+									</div>
+								</li> -->
+								<li>
+									<input type="radio" id="payment-method-3" name="payment-method" value="paypal">
+									<label for="payment-method-3" class="accordion-title">PayPal</label>
+									<div class="accordion-content">
+										<p>Support for PayPal coming soon</p>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- PAYMENT METHODS : end -->
+					</div>
+					<div class="col-md-6">
+						<!-- ORDER SUMMARY : begin -->
+						<div class="order-summary">
+							<h2 class="heading-2">Order Summary</h2>
+							<table>
+								<thead>
+									<tr>
+										<th class="title-col">Product</th>
+										<th>Total</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for product in shopping_cart %}
+										<tr>
+											<td>{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.name }} {% if product.category == 'Bundles' %}Bundles{% endif %} × {{ product.quantity }}</td>
+											<td>{{ '${:.2f}'.format(product.price * product.quantity) }}</td>
+										</tr>
+										{% endfor %}
+										{% if coupon and coupon.discount != 0 %}
+										<tr>
+											<td><strong style="color: red;">Discount</strong></td>
+											<td><strong style="color: red;">&ndash; {{ '{:,.0f}%'.format(coupon.discount * 100) }}</strong></td>
+										</tr>
+										{% endif %}
+										<tr>
+											<td><strong>Tax</strong></td>
+											<td><strong>{{ '${:.2f}'.format(total * tax) }}</strong></td>
+										</tr>
+										<tr>
+											<td><strong>Grand Total</strong></td>
+											{% if coupon and coupon.discount != 0 %}
+												<td><strong>{{ '${:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong></td>
+											{% else %}
+												<td><strong>{{ '${:.2f}'.format(total + total*tax) }}</strong></td>
+											{% endif %}
+										</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- ORDER SUMMARY : end -->
+					</div>
+				</div>
+				<!-- CHECKOUT FOOTER : begin -->
+				<div class="checkout-footer">
+					<a href="{{ url_for('shop.cart') }}" class="c-button m-type-2 back-btn">Back To Cart</a>
+					<button id="place-order-btn" class="c-button submit-btn" type="submit">Place Order</button>
+					<!-- <button id="client-token" class="c-button submit-btn" type="submit">Client Token</button> -->
+				</div>
+				<!-- CHECKOUT FOOTER : end -->
+			</form>
+		</div>
+		<!-- SHOP CHECKOUT : end -->
+	</div>
+	<!-- PAGE CONTENT : end -->
+</div>
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+
+	<script>
+		// console.log(parseFloat("{{ grandTotal }}") * 100)
+
+		braintree.client.create({ authorization: '{{ client_token }}' }, function(clientErr, clientInstance) {
+			if (clientErr) {
+				console.error(clientErr);
+				return;
+			}
+
+			var options = {
+				client: clientInstance,
+				fields: {
+					number: { selector: '#paymentCard', placeholder: '4111 1111 1111 1111' },
+					expirationDate: { selector: '#paymentExpiration', placeholder: '12/2025' },
+					cvv: { selector: '#paymentCVV', placeholder: '123' },
+				}
+			};
+
+			braintree.hostedFields.create(options, function(hostedFieldsErr, instance) {
+				if (hostedFieldsErr) {
+					console.error(hostedFieldsErr);
+					return;
+				}
+				
+				var form = document.querySelector('#checkout-form');
+				form.addEventListener('submit', function (e) {
+					e.preventDefault();
+					instance.tokenize(function (tokenizeErr, payload) {
+						if (tokenizeErr) {
+							console.error(tokenizeErr);
+							return;
+						}
+
+						var formData = {
+							firstName: $('#checkout-first-name').val(),
+							lastName: $('#checkout-last-name').val(),
+							company: $('#checkout-company').val(),
+							address: $('#checkout-address').val(),
+							city: $('#checkout-city').val(),
+							state: $('#checkout-state').val(),
+							postalCode: $('#checkout-postalcode').val(),
+							phone: $('#checkout-phone').val(),
+							email: $('#checkout-email').val(),
+							addressshipping: $('#enable-shipping-address').val(),
+							firstNameShipping: $('#checkout-first-name-shipping').val(),
+							lastNameShipping: $('#checkout-last-name-shipping').val(),
+							companyShipping: $('#checkout-company-shipping').val(),
+							cityShipping: $('#checkout-city-shipping').val(),
+							stateShipping: $('#checkout-state-shipping').val(),
+							postalCodeShipping: $('#checkout-postalcode-shipping').val(),
+							note: $('#checkout-note').val(),
+							payment_method_nonce: payload.nonce,
+							amount: parseFloat("{{ grandTotal }}")
+							// amount: "{{ '${:.2f}'.format(grandTotal) }}"
+						}
+
+						// console.log(formData);
+
+						$.ajax({
+							type: 'POST',
+							url: '/shop/cart/checkout',
+							data: formData
+						})
+						.done(function (result) {
+							// Receive payment nonce
+							// console.log(payload.nonce);
+
+							instance.teardown(function (tearDownErr) {
+								if (tearDownErr) {
+									console.error("Could not tear down Hosted Fields form!");
+								} else {
+									$('#checkout-first-name').val("");
+									$('#checkout-last-name').val("");
+									$('#checkout-company').val("");
+									$('#checkout-address').val("");
+									$('#checkout-city').val("");
+									$('#checkout-state').val("");
+									$('#checkout-postalcode').val("");
+									$('#checkout-phone').val("");
+									$('#checkout-email').val("");
+									$('#enable-shipping-address').val("");
+									$('#checkout-first-name-shipping').val("");
+									$('#checkout-last-name-shipping').val("");
+									$('#checkout-company-shipping').val("");
+									$('#checkout-city-shipping').val("");
+									$('#checkout-state-shipping').val("");
+									$('#checkout-postalcode-shipping').val("");
+									$('#checkout-note').val("");
+
+									console.info("Hosted Fields form has been torn down!");
+								}
+							})
+							location.reload();
+							if (result.success) {
+							} else {
+								
+							}
+						});
+					});
+				}, false);
+			})
+		})
+	</script>
+{% endblock %}
