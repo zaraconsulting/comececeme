@@ -58,8 +58,6 @@ def get_pattern(category):
     [GET] /hair/<category>?pattern=<pattern>
     """
     category = category.title() or session.get('category')
-    # print(request.args)
-    # print(session)
     if request.args.get('pattern'):
         pattern = request.args.get('pattern').title()
     else:
@@ -68,8 +66,6 @@ def get_pattern(category):
     products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
     filtered_products = sorted([i for i in products_by_category if i.pattern == pattern if i], key=lambda x: x.price)
     product = filtered_products[0]
-    # print(product.bundle_length)
-    # print(product)
     if request.method == 'GET':
         context = {
             'product': product,
@@ -83,12 +79,9 @@ def get_pattern(category):
         
 @app.route('/product/cart/add', methods=['POST'])
 def add_cart_product():
-
     #     """
     #     [POST] /product/cart/add
     #     """
-    
-        # return redirect(url_for('authentication.login'))
     if request.method == 'POST':
         r = request.get_json()
         
@@ -104,7 +97,6 @@ def add_cart_product():
         _id = session.get('id')
         category = session.get('category')
         pattern = session.get('pattern')
-        # print("Pattern:", pattern)
         quantity = int(session.get('quantity'))
 
         # print("Product ID:", _id)
@@ -113,10 +105,8 @@ def add_cart_product():
         # print("Quantity:", quantity)
 
         product = Hair.query.get(_id)
-        # print(product)
         for _ in range(quantity):
             db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
         db.session.commit()
         flash('Product added to cart', 'success')
         return jsonify({'message': 'success'})
-        # return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))

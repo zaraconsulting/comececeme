@@ -265,7 +265,7 @@ def apply_coupon():
     coupon = Coupon.query.filter_by(text=request.get_json().get('text')).first()
     try:
         session['coupon'] = { 'text': coupon.text, 'discount': coupon.discount / 100}
-        flash('Coupon applied', 'success')
+        flash('Coupon applied.', 'success')
     except:
         if coupon is None:
             flash('Coupon was not found.', 'warning')
@@ -281,4 +281,5 @@ def clear_coupon():
     session['coupon'] = None
     # print('Coupon session deleted.')
     # print(session.get('coupon'))
+    flash('Coupon removed.', 'info')
     return jsonify({'message': 'success'})

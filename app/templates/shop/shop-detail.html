@@ -21,6 +21,9 @@
 		<div class="col-md-8">
 			<!-- PAGE CONTENT : begin -->
 			<div id="page-content">
+
+				<p id="not-selected-message" style="display: none; margin-bottom: 25px;" class="c-alert-message m-info m-validation-error"><i class="ico fa fa-exclamation-circle"></i>You must select a length.</p>
+
 				<!-- PRODUCT DETAIL : begin -->
 				<div class="product-detail">
 					<div class="row">
@@ -106,7 +109,7 @@
 								<div class="quantity-input">
 									<input id='quantity' name='quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
 								</div>
-								<button id="add-to-cart-btn" class="c-button product-cart-btn" type="submit">Add To Cart</button>
+								<button id="add-to-cart-btn" class="c-button product-cart-btn">Add To Cart</button>
 							</form>
 							<!-- PRODUCT TOOLS : end -->
 						</div>
@@ -227,7 +230,6 @@
 
 {% block scripts %}
 	{{ super() }}
-
 	<script>
 		var productListItems = $('.product-list-item');
 		var price;
@@ -236,6 +238,7 @@
 		var pattern = '{{ pattern }}';
 		var product_id = '{{ product.id }}';
 		var activeUser = '{{ active_user }}' === 'False' ? false : true;
+		var isSelected = false;
 
 		// console.log(activeUser);
 
@@ -276,14 +279,27 @@
 					quantity: $('#quantity').val()
 				};
 
+				// set isSelected to true
+				isSelected = true;
+
 			})
 		}
 
+		console.log(isSelected)
+
 		$('#add-to-cart-btn').on('click', async function (event) {
-			await postData(info);
+			if (isSelected) {
+				// event.preventDefault();
+				console.log(`isSelected: ${isSelected}`)
+				await postData(info);
+			}
+			else {
+				event.preventDefault();
+				console.log(`isSelected: ${isSelected}`)
+				$('#not-selected-message').css('display', 'block')
+				// window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower(), is_selected=isSelected) | safe }}"
+			}
 		})
 
 	</script>
-
-
 {% endblock %}

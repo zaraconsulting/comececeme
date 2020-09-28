@@ -10,6 +10,8 @@ from .email import send_password_reset_email
 @admin.route('/', methods=['GET'])
 def index():
     if not current_user.is_authenticated:
+        return redirect(url_for('admin'))
+    else:
         return redirect(url_for('admin.login'))
     return render_template('admin/index.html')
 
