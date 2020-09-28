@@ -5,7 +5,8 @@ from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUs
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
-
+ 
+#  test
 
 @admin.route('/', methods=['GET'])
 def index():
