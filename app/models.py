@@ -538,6 +538,7 @@ class Customer(UserMixin, db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     orders = db.relationship('Order', backref="orders", lazy='dynamic')
     cart = db.relationship('Cart', backref='cart', lazy='dynamic')
+    is_customer = db.Column(db.Boolean, default=True)
 
     def create_customer(self):
         self.password = generate_password_hash(self.password)

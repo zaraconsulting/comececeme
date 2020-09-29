@@ -1,19 +1,20 @@
 from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session
-from app.models import Hair, Coupon, HairCategory, Pattern, Account, Role
+from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role
 from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
- 
-#  test
 
 @admin.route('/', methods=['GET'])
 def index():
     if not current_user.is_authenticated:
-        return redirect(url_for('admin'))
-    else:
         return redirect(url_for('admin.login'))
+    else:
+        customer = Customer.query.get(current_user.id)
+        if customer is not None:
+            logout_user()
+            return redirect(url_for('admin.login'))
     return render_template('admin/index.html')
 
 @admin.route('/login', methods=['GET', 'POST'])
