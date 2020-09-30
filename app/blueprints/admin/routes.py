@@ -1,7 +1,7 @@
 from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session
 from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
@@ -201,8 +201,8 @@ def delete_role():
     return redirect(url_for('admin.roles'))
 
 
-@admin.route('/products', methods=['GET', 'POST'])
-def products():
+@admin.route('/hair/products', methods=['GET', 'POST'])
+def hair_products():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreateProductForm()
@@ -223,15 +223,15 @@ def products():
         # product.bundle_length = form.bundle_length.data or ''
         product.create_hair_product()
         flash('Hair Product created successfully', 'success')
-        return redirect(url_for('admin.products'))
-    return render_template('admin/products.html', products=Hair.query.order_by(Hair.pattern).all(), form=form)
+        return redirect(url_for('admin.hair_products'))
+    return render_template('admin/hair/products.html', products=Hair.query.order_by(Hair.pattern).all(), form=form)
 
-@admin.route('/product/edit', methods=['GET', 'POST'])
+@admin.route('/hair/product/edit', methods=['GET', 'POST'])
 def edit_hair_product():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     p = Hair.query.get(request.args.get('id'))
-    form = AdminCreateProductForm()
+    form = AdminEditProductForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
 
@@ -247,14 +247,14 @@ def edit_hair_product():
         p.category_id = HairCategory.query.get(form.category.data).id
         db.session.commit()
         flash('Edited product successfully', 'info')
-        return redirect(url_for('admin.products'))
+        return redirect(url_for('admin.hair_products'))
     context = {
         'product': p,
         'form': form
     }
-    return render_template('admin/products-edit.html', **context)
+    return render_template('admin/hair/products-edit.html', **context)
 
-@admin.route('/product/delete')
+@admin.route('/hair/product/delete')
 def delete_hair_product():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
@@ -262,7 +262,7 @@ def delete_hair_product():
     product = Hair.query.get(_id)
     product.delete_hair_product()
     flash('User deleted successfully', 'info')
-    return redirect(url_for('admin.products'))
+    return redirect(url_for('admin.hair_products'))
 
 @admin.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
@@ -298,3 +298,56 @@ def reset_password(token):
         flash('Your password has been reset', 'success')
         return redirect(url_for('admin.login'))
     return render_template('admin/reset_password.html', user=user, form=form)
+
+
+####################################
+# PATTERNS
+####################################
+@admin.route('hair/patterns', methods=['GET', 'POST'])
+def hair_patterns():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    form = AdminCreatePatternForm()
+    if form.validate_on_submit():
+        pattern = Pattern()
+        data = {
+            'pattern': Pattern.query.get(form.name.data).name, 
+            'image': form.image.data,
+        }
+        pattern.from_dict(data)
+        pattern.create_pattern()
+        flash('Pattern created successfully', 'success')
+        return redirect(url_for('admin.hair_patterns'))
+    return render_template('admin/hair/patterns.html', patterns=Pattern.query.all(), form=form)
+
+@admin.route('/hair/pattern/edit', methods=['GET', 'POST'])
+def edit_hair_pattern():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    p = Pattern.query.get(request.args.get('id'))
+    form = AdminEditPatternForm()
+    form.name.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
+    if form.validate_on_submit():
+        data = {
+            'name': form.name.data,
+            'image': form.image.data, 
+        }
+        p.from_dict(data)
+        db.session.commit()
+        flash('Edited pattern successfully', 'info')
+        return redirect(url_for('admin.patterns'))
+    context = {
+        'pattern': p,
+        'form': form
+    }
+    return render_template('admin/hair/patterns-edit.html', **context)
+
+@admin.route('/hair/pattern/delete')
+def delete_hair_pattern():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    pattern = Pattern.query.get(_id)
+    pattern.delete_pattern()
+    flash('Pattern deleted successfully', 'info')
+    return redirect(url_for('admin.patterns'))

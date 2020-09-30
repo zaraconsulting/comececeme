@@ -1,0 +1,43 @@
+{% extends 'admin/layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Patterns</li>
+    </ol>
+
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-shopping-bag mr-1"></i>
+            Manage Patterns
+        </div>
+        <!-- PRODUCTS FORM : begin -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <h5>Create a Pattern</h5>
+                <form class="form-inline create-product-form" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group custom-form">
+                        {{ form.name(class="form-control", style="margin-right: 15px", placeholder="Hair Pattern Name") }}
+                        {{ form.image(class="form-control", style="margin-right: 15px") }}
+                        {{ form.submit(class="btn btn-outline-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- PRODUCTS FORM : end -->
+
+        <!-- PRODUCTS TABLE : begin -->
+        {% include './admin/hair/partials/patterns-table.html' %}
+        <!-- PRODUCTS TABLE : end -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+</script>
+{% endblock %}

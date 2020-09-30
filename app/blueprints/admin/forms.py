@@ -49,3 +49,13 @@ class AdminResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+class AdminCreatePatternForm(FlaskForm):
+    name = StringField()
+    image = StringField()
+    submit = SubmitField('Create Pattern')
+    
+class AdminEditPatternForm(FlaskForm):
+    name = SelectField(choices=[], coerce=int)
+    image = StringField()
+    submit = SubmitField('Update Pattern')
