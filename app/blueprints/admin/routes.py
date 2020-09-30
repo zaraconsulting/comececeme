@@ -1,10 +1,13 @@
 from .import bp as admin
-from flask import render_template, redirect, url_for, request, flash, session
+from flask import render_template, redirect, url_for, request, flash, session, current_app
 from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
+import requests
+from datetime import datetime as dt
+from cloudinary.uploader import upload
 
 @admin.route('/', methods=['GET'])
 def index():
@@ -309,13 +312,15 @@ def hair_patterns():
         return redirect(url_for('admin.login'))
     form = AdminCreatePatternForm()
     if form.validate_on_submit():
+        file = request.files.get('image')
+        result = upload(file)
         pattern = Pattern()
         data = {
-            'pattern': Pattern.query.get(form.name.data).name, 
-            'image': form.image.data,
+            'name': form.name.data.title(), 
+            'image': result['url'],
         }
         pattern.from_dict(data)
-        pattern.create_pattern()
+        pattern.create_hair_pattern()
         flash('Pattern created successfully', 'success')
         return redirect(url_for('admin.hair_patterns'))
     return render_template('admin/hair/patterns.html', patterns=Pattern.query.all(), form=form)
@@ -328,14 +333,17 @@ def edit_hair_pattern():
     form = AdminEditPatternForm()
     form.name.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     if form.validate_on_submit():
+        p = Pattern.query.get(form.name.data)
+        file = request.files.get('image')
+        result = upload(file)
         data = {
-            'name': form.name.data,
-            'image': form.image.data, 
+            'name': Pattern.query.get(form.name.data).name,
+            'image': result['url'], 
         }
         p.from_dict(data)
         db.session.commit()
         flash('Edited pattern successfully', 'info')
-        return redirect(url_for('admin.patterns'))
+        return redirect(url_for('admin.hair_patterns'))
     context = {
         'pattern': p,
         'form': form
@@ -348,6 +356,6 @@ def delete_hair_pattern():
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
     pattern = Pattern.query.get(_id)
-    pattern.delete_pattern()
+    pattern.delete_hair_pattern()
     flash('Pattern deleted successfully', 'info')
-    return redirect(url_for('admin.patterns'))
+    return redirect(url_for('admin.hair_patterns'))

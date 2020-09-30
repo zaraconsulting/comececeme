@@ -17,11 +17,14 @@
         <div class="card-body">
             <div class="table-responsive">
                 <h5>Edit a Pattern</h5>
-                <form class="form-inline edit-user-form" method="POST">
+                <form class="form-inline edit-pattern-form" enctype="multipart/form-data" action="{{ url_for('admin.edit_hair_pattern') }}" method="POST">
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
-                        {{ form.name(class="form-control", style="margin-right: 15px", value=pattern.name) }}
-                        {{ form.image(class="form-control", style="margin-right: 15px") }}
+                        {{ form.name(class="form-control", placeholder="Hair Pattern Name", value=pattern.name) }}
+                        <div class="custom-file" style="margin-bottom: 15px">
+                            <input type="file" class="custom-file-input" id='image' name="image">
+                            <label for="image" class="custom-file-label">Choose an image</label>
+                        </div>
                         {{ form.submit(class="btn btn-outline-primary") }}
                     </div>
                 </form>
@@ -40,5 +43,9 @@
 {{ super() }}
 <script>
     $('#name').val('{{ pattern.id }}')
+    $('.custom-file-input').on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+    })
 </script>
 {% endblock %}

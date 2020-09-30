@@ -32,7 +32,9 @@
                         </td>
                         {% endif %}
                         <td>{{ p.name }}</td>
-                        <td>{{ p.image }}</td>
+                        <td>
+                            <img style="height: 200px;" class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
+                        </td>
                         {% if current_user.role.rank < 3 %}
                         <td style="text-align: center;">
                             <span class="delete-icon">
