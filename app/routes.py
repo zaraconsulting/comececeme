@@ -8,13 +8,13 @@ from app import db
 def inject_cart():
     if 'coupon' not in session:
         session['coupon'] = None
+    tax = .06
     try:
         items = []
         for i in current_user.cart.all():
             data = dict(bundle_length=Hair.query.get(i.product_id).bundle_length, length=Hair.query.get(i.product_id).length, category=HairCategory.query.get(Hair.query.get(i.product_id).category_id).name, pattern=Hair.query.get(i.product_id).pattern, prod_id=Hair.query.get(i.product_id).id, name=Hair.query.get(i.product_id).pattern, image=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().image, price=Hair.query.get(i.product_id).price, quantity=len(Cart.query.filter_by(product_id=i.product_id).all()))
             if data not in items:
                 items.append(data)
-        tax = .098
         total = sum([Hair.query.filter_by(id=i.product_id).first().price for i in current_user.cart.all()])
         if session.get('coupon') is not None:
             # print("works")
@@ -24,9 +24,16 @@ def inject_cart():
         # print(grandTotal)
         cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=grandTotal, fullCart=current_user.cart.all(), coupon=session.get('coupon'))
         # print(cart_dict)
+        session['payment_shopping_cart'] = {
+            'products': cart_dict.get('shopping_cart'),
+            'subtotal': cart_dict.get('total'),
+            'tax': cart_dict.get('tax'),
+            'coupon': cart_dict.get('coupon'),
+            'grandTotal': cart_dict.get('grandTotal')
+        }
+        # print(session.get('payment_shopping_cart')['products'])
         return cart_dict
     except:
-        tax = .098
         total = 0
         return dict(shopping_cart=[], total=0, tax=tax, grandTotal=total + (total * tax), coupon=0)
 

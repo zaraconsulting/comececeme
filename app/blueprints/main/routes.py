@@ -1,9 +1,9 @@
 from . import bp as main
-from flask import request, jsonify, render_template, url_for, redirect, current_app as app
+from flask import request, jsonify, render_template, url_for, redirect, current_app as app, flash
 import json, requests, random
 
 from app.models import Review, Gallery, ServiceCategory, HairCategory, Hair, Pattern
-from app.email import send_booking_email
+from app.email import send_contact_email
 
 
 @main.route('/', methods=['GET'])
@@ -52,13 +52,6 @@ def booking():
     """
     return redirect("https://www.styleseat.com/m/v/comececeme")
 
-# @main.route('/faqs', methods=['GET'])
-# def faqs():
-#     """
-#     [GET] /faqs
-#     """
-#     context = {}
-#     return render_template('faqs.html', **context)
 
 @main.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -66,10 +59,16 @@ def contact():
     [GET] /contact
     [POST] /contact
     """
-    if request.method == 'POST':
-        data = request.form.to_dict()
-        send_booking_email(data)
-        json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    try:
+        if request.method == 'POST':
+            data = request.form.to_dict()
+            # print(data)
+            send_contact_email(data)
+            json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+            flash('Thank you for your message. We will contact you shortly!', 'success')
+            return redirect(url_for('main.contact'))
+    except:
+        flash('There was an error trying to send your message. Please try again!', 'information')
         return redirect(url_for('main.contact'))
     context = {}
     return render_template('contact.html', **context), 201

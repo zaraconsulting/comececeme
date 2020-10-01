@@ -3,9 +3,12 @@ from flask import request, jsonify, url_for, current_app, render_template, redir
 from app import db, login
 from flask_login import current_user, login_required
 from app.braintree import gateway
+import braintree
 import pprint
 from math import ceil
 from braintree.exceptions.not_found_error import NotFoundError
+from .email import send_payment_confirmation_email
+from datetime import datetime as dt
 
 from app.models import Product, Category, Customer, ProductReview, Order, Coupon, Hair, Cart
 
@@ -70,6 +73,8 @@ def cart_checkout():
     # print(Cart.query.filter_by(customerId=current_user.id).all())
         # return redirect(url_for('shop.cart_checkout'))
     if request.method == 'POST':
+        payment_confirmation_emai = request.form.get('get')
+
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
         company = request.form.get('company')
@@ -182,13 +187,30 @@ def cart_checkout():
                     db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().product_id))
                     db.session.commit()
 
-                # Delete cart 
-                [db.session.delete(i) for i in c.cart.all()]
-                
-                # Clear coupon session
-                session['coupon'] = None
+                # Send payment confirmation email
+                shopping_cart = session.get('payment_shopping_cart')
 
-                db.session.commit()
+                payment_details = {
+                    'email': customer.customer.email,
+                    # 'order_no': bt_gateway.transaction.search(braintree.TransactionSearch.customer_id == result.customer.id).order,
+                    'transactionDate': dt.strftime(dt.utcnow(), '%m/%d/%Y'),
+                    'products': shopping_cart.get('products'),
+                    'subtotal': shopping_cart.get('total'),
+                    'tax': shopping_cart.get('tax'),
+                    'coupon': shopping_cart.get('coupon'),
+                    'grandTotal': shopping_cart.get('grandTotal')
+                }
+                print(payment_details['products'])
+                send_payment_confirmation_email(payment_details)
+
+                # Delete cart items
+                # [db.session.delete(i) for i in c.cart.all()]
+                # db.session.commit()
+                
+                # Clear coupon and payment_shopping_cart session
+                # session['coupon'] = None
+                # session['payment_shopping_cart'] = None
+
                 flash('Thank you! Your payment was successful.', 'm-success')
                 return redirect(url_for('hair.get_categories', successful_payment=True))
             else:

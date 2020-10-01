@@ -18,6 +18,17 @@
 	<div class="container">
 		<!-- PAGE CONTENT : begin -->
 		<div id="page-content">
+
+			<!-- WARNING MESSAGES : begin -->
+			{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+					{% for c, m in messages %}
+					<p style="margin-bottom: 25px;" class="c-alert-message m-{{ c }}"><i class="ico fa fa-exclamation-circle"></i>{{ m }}</p>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+			<!-- WARNING MESSAGES : end -->
+
 			<div class="various-content">
 				<!-- ADDRESS SECTION : begin -->
 				<!-- <section>
