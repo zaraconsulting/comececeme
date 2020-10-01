@@ -330,8 +330,6 @@
 	{{ super() }}
 
 	<script>
-		// console.log(parseFloat("{{ grandTotal }}") * 100)
-
 		braintree.client.create({ authorization: '{{ client_token }}' }, function(clientErr, clientInstance) {
 			if (clientErr) {
 				console.error(clientErr);
@@ -381,7 +379,7 @@
 							postalCodeShipping: $('#checkout-postalcode-shipping').val(),
 							note: $('#checkout-note').val(),
 							payment_method_nonce: payload.nonce,
-							amount: parseFloat("{{ grandTotal }}")
+							amount: parseFloat("{{ grandTotal }}"),
 							// amount: "{{ '${:.2f}'.format(grandTotal) }}"
 						}
 
@@ -389,7 +387,7 @@
 
 						$.ajax({
 							type: 'POST',
-							url: '/shop/cart/checkout',
+							url: '{{ url_for("shop.cart_checkout", is_success=true) }}',
 							data: formData
 						})
 						.done(function (result) {

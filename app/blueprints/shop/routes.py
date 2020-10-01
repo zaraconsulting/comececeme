@@ -50,8 +50,11 @@ def cart():
 @shop.route('/cart/checkout', methods=['GET', 'POST'])
 def cart_checkout():
     validation_error = request.args.get('validation_error')
+    is_success = request.args.get('is_success')
     if validation_error:
         flash('There was an error processing your payment. Please try again.', 'warning')
+    if is_success:
+        flash('Thank you! Your payment was successful.', 'm-success')
     
     # TODO: IF THE SHOPPING CART IS EMPTY, FLASH MESSAGE SAYING THAT IT'S EMPTY
     if not Cart.query.filter_by(customerId=current_user.id).all():
@@ -200,19 +203,18 @@ def cart_checkout():
                     'coupon': shopping_cart.get('coupon'),
                     'grandTotal': shopping_cart.get('grandTotal')
                 }
-                print(payment_details['products'])
+                # print(payment_details['products'])
                 send_payment_confirmation_email(payment_details)
 
                 # Delete cart items
-                # [db.session.delete(i) for i in c.cart.all()]
-                # db.session.commit()
+                [db.session.delete(i) for i in c.cart.all()]
+                db.session.commit()
                 
                 # Clear coupon and payment_shopping_cart session
-                # session['coupon'] = None
-                # session['payment_shopping_cart'] = None
+                session['coupon'] = None
+                session['payment_shopping_cart'] = None
 
-                flash('Thank you! Your payment was successful.', 'm-success')
-                return redirect(url_for('hair.get_categories', successful_payment=True))
+                return redirect(url_for('hair.get_categories'))
             else:
                 print(result.errors)
                 flash('Oops! There was an error with your payment. Try again.', 'm-warning')
