@@ -11,7 +11,7 @@
 <p>
   {% for p in products %}
     <div>
-        {% if p['category']=='Bundles' %}{{ p['bundle_length'] }}{% else %}{{ p['length'] }}"{% endif %} {{ p['name'] }} {% if p['category']=='Bundles' %} Bundles{% endif %}
+        {% if p['category']=='Bundles' %}{{ p['bundle_length'] }}{% else %}{{ p['length'] }}"{% endif %} {{ p['name'] }} {% if p['category']=='Bundles' %} Bundles{% else %} Extensions{% endif %}
       <span style="float:right">${{ p['price'] }} x{{ p['quantity'] }}</span>
       <!-- <cite>
         {{ p.prod_id }}
@@ -46,6 +46,12 @@
     </span>
   </div>
 </p>
+{% if note %}
+<p>
+    <div><strong>Note from customer:</strong></div>
+    <div>{{ note }}</div>
+</p>
+{% endif %}
 
 <br>
 

@@ -283,7 +283,7 @@
 								<tbody>
 									{% for product in shopping_cart %}
 										<tr>
-											<td>{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.name }} {% if product.category == 'Bundles' %}Bundles{% endif %} × {{ product.quantity }}</td>
+											<td>{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.name }} {% if product.category == 'Bundles' %}Bundles{% else %} Extensions{% endif %} × {{ product.quantity }}</td>
 											<td>{{ '${:.2f}'.format(product.price * product.quantity) }}</td>
 										</tr>
 										{% endfor %}

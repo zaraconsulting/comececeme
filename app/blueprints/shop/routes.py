@@ -201,7 +201,8 @@ def cart_checkout():
                     'subtotal': shopping_cart.get('total'),
                     'tax': shopping_cart.get('tax'),
                     'coupon': shopping_cart.get('coupon'),
-                    'grandTotal': shopping_cart.get('grandTotal')
+                    'grandTotal': shopping_cart.get('grandTotal'),
+                    'note': note
                 }
                 # print(payment_details['products'])
                 send_payment_confirmation_email(payment_details)
