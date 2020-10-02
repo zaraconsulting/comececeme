@@ -25,9 +25,9 @@ def inject_cart():
             grandTotal = total + (total * tax)
         # print(grandTotal)
         cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=grandTotal, fullCart=current_user.cart.all(), coupon=session.get('coupon'))
-        print(cart_dict)
+        # print(cart_dict)
         session['shopping_cart'] = cart_dict.get('shopping_cart')
-        print(cart_dict)
+        # print(cart_dict)
         session['payment_shopping_cart'] = {
             'products': cart_dict.get('shopping_cart'),
             'subtotal': cart_dict.get('total'),
