@@ -33,15 +33,15 @@
   {% endif %}
   <div>
     Tax
-    <span style="float:right;"><strong>{{ '${:.2f}'.format(total * tax) }}</strong></span>
+    <span style="float:right;"><strong>${{ '{:.2f}'.format(total * tax) }}</strong></span>
   </div>
   <div>
     Total
     <span style="float:right;">
         {% if coupon and coupon.discount != 0 %}
-            <strong>{{ '${:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong>
+            <strong>${{ '{:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong>
         {% else %}
-            <strong>{{ '${:.2f}'.format(total + total*tax) }}</strong>
+            <strong>${{ '{:.2f}'.format(total + total*tax) }}</strong>
         {% endif %}
     </span>
   </div>
