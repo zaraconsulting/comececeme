@@ -12,7 +12,7 @@
   {% for p in products %}
     <div>
         {% if p['category']=='Bundles' %}{{ p['bundle_length'] }}{% else %}{{ p['length'] }}"{% endif %} {{ p['name'] }} {% if p['category']=='Bundles' %} Bundles{% else %} Extensions{% endif %}
-      <span style="float:right">${{ "{:,.2f}.format(p['price'])" }} x{{ p['quantity'] }}</span>
+      <span style="float:right">${{ "{:,.2f}.format(p['price']) }} x{{ p['quantity'] }}</span>
       <!-- <cite>
         {{ p.prod_id }}
       </cite> -->
