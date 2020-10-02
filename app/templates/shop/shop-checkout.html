@@ -284,7 +284,7 @@
 									{% for product in shopping_cart %}
 										<tr>
 											<td>{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.name }} {% if product.category == 'Bundles' %}Bundles{% else %} Extensions{% endif %} × {{ product.quantity }}</td>
-											<td>${{ '{:.2f}'.format(product.price * product.quantity) }}</td>
+											<td>{{ '${:.2f}'.format(product.price * product.quantity) }}</td>
 										</tr>
 										{% endfor %}
 										{% if coupon and coupon.discount != 0 %}
@@ -295,14 +295,14 @@
 										{% endif %}
 										<tr>
 											<td><strong>Tax</strong></td>
-											<td><strong>${{ '{:.2f}'.format(total * tax) }}</strong></td>
+											<td><strong>{{ '${:.2f}'.format(total * tax) }}</strong></td>
 										</tr>
 										<tr>
 											<td><strong>Grand Total</strong></td>
 											{% if coupon and coupon.discount != 0 %}
-												<td><strong>${{ '{:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong></td>
+												<td><strong>{{ '${:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong></td>
 											{% else %}
-												<td><strong>${{ '{:.2f}'.format(total + total*tax) }}</strong></td>
+												<td><strong>{{ '${:.2f}'.format(total + total*tax) }}</strong></td>
 											{% endif %}
 										</tr>
 								</tbody>
@@ -380,7 +380,7 @@
 							note: $('#checkout-note').val(),
 							payment_method_nonce: payload.nonce,
 							amount: parseFloat("{{ grandTotal }}"),
-							// amount: "${{ '{:.2f}'.format(grandTotal) }}"
+							// amount: "{{ '${:.2f}'.format(grandTotal) }}"
 						}
 
 						// console.log(formData);

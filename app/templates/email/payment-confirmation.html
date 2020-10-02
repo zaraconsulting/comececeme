@@ -12,7 +12,7 @@
   {% for p in products %}
     <div>
         {% if p['category']=='Bundles' %}{{ p['bundle_length'] }}{% else %}{{ p['length'] }}"{% endif %} {{ p['name'] }} {% if p['category']=='Bundles' %} Bundles{% else %} Extensions{% endif %}
-      <span style="float:right">${{ "{:,.2f}.format(p['price']) }} x{{ p['quantity'] }}</span>
+      <span style="float:right">${{ "{:,.2f}.format(p['price'])" }} x{{ p['quantity'] }}</span>
       <!-- <cite>
         {{ p.prod_id }}
       </cite> -->
@@ -33,7 +33,7 @@
   {% endif %}
   <div>
     Tax
-    <span style="float:right;"><strong>${{ '{:.2f}'.format(total * tax) }}</strong></span>
+    <span style="float:right;"><strong>{{ '${:.2f}'.format(total * tax) }}</strong></span>
   </div>
   <div>
     Total
@@ -41,7 +41,7 @@
         {% if coupon and coupon.discount != 0 %}
             <strong>${{ '{:.2f}'.format(total + total*tax - total*coupon.discount) }}</strong>
         {% else %}
-            <strong>${{ '{:.2f}'.format(total + total*tax) }}</strong>
+            <strong>{{ '${:.2f}'.format(total + total*tax) }}</strong>
         {% endif %}
     </span>
   </div>
