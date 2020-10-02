@@ -105,8 +105,17 @@ def add_cart_product():
         # print("Quantity:", quantity)
 
         product = Hair.query.get(_id)
-        for _ in range(quantity):
-            db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
+
+        shopping_cart = session['payment_shopping_cart']['products']
+        for i in shopping_cart:
+            if i['prod_id'] == product.id:
+                difference = i['quantity'] - quantity
+                if i['quantity'] > int(quantity):
+                    for _ in range(difference):
+                        db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
+                else:
+                    for _ in range(quantity):
+                        db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
         db.session.commit()
         flash('Product added to cart', 'success')
         return jsonify({'message': 'success'})
