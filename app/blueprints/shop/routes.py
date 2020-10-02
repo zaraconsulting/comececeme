@@ -44,11 +44,9 @@ def cart():
     """
     [GET] /shop/cart
     """
-    # print(current_user.cart.filter_by(product_id=100).all())
-    # print([i for i in Cart.query.filter_by(customerId=current_user.id).all()])
-    updated_successfully = request.args.get('updated_successfully')
-    if updated_successfully:
-        flash('Cart updated successfully', 'info')
+    cart_updated = request.args.get('cart_updated')
+    if cart_updated:
+        flash('Cart updated successfully.', 'info')
     context = {}
     return render_template('shop/shop-cart.html', **context)
 
@@ -288,8 +286,10 @@ def update_cart():
                                 db.session.add(Cart(customerId=current_user.id, product_id=i.product_id))
                                 break
                         break
+        print(len(shopping_cart))
         db.session.commit()
-        return redirect(url_for('shop.cart'))
+        flash('Cart updated successfully', 'info')
+        # return redirect(url_for('shop.cart'))
     return redirect(url_for('shop.cart'))
 
 

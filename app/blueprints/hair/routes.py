@@ -84,6 +84,7 @@ def add_cart_product():
     #     """
     if request.method == 'POST':
         r = request.get_json()
+        # print(r)
         
         session['id'] = r.get('id')
         session['category'] = r.get('category')
@@ -107,15 +108,30 @@ def add_cart_product():
         product = Hair.query.get(_id)
 
         shopping_cart = session['payment_shopping_cart']['products']
-        for i in shopping_cart:
-            if i['prod_id'] == product.id:
-                difference = i['quantity'] - quantity
-                if i['quantity'] > int(quantity):
-                    for _ in range(difference):
-                        db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
-                else:
+
+        if not shopping_cart:
+            for _ in range(quantity):
+                db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
+        else:
+            # Loop through the the list of cart items
+            for i in shopping_cart:
+                # if the product.name I'm trying to add is not already found
+                if product.id not in [x['prod_id'] for x in shopping_cart]:
+                    print("first condition")
+                    # add the product
+                    print(quantity)
                     for _ in range(quantity):
                         db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
+                    break
+                else:
+                    print('second condition')
+                    # find the product with the same id as the product's id I'm trying to add to the cart
+                    for i in shopping_cart:
+                        if i['prod_id'] == product.id:
+                            # increment the difference based on the quantity
+                            for _ in range(quantity):
+                                db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
+                    break
         db.session.commit()
         flash('Product added to cart', 'success')
         return jsonify({'message': 'success'})

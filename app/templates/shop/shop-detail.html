@@ -242,7 +242,7 @@
 
 		// console.log(activeUser);
 
-		var info;
+		let info;
 
 		function postData(information) {
 			
@@ -275,8 +275,7 @@
 					id: $(element).data('product-id'),
 					category: category,
 					price: $(element).data('price'),
-					pattern: pattern,
-					quantity: $('#quantity').val()
+					pattern: pattern
 				};
 
 				// set isSelected to true
@@ -285,17 +284,15 @@
 			})
 		}
 
-		console.log(isSelected)
-
 		$('#add-to-cart-btn').on('click', async function (event) {
 			if (isSelected) {
-				// event.preventDefault();
-				console.log(`isSelected: ${isSelected}`)
+				info.quantity = $('#quantity').val();
+				// console.log(`isSelected: ${isSelected}`)
 				await postData(info);
 			}
 			else {
 				event.preventDefault();
-				console.log(`isSelected: ${isSelected}`)
+				// console.log(`isSelected: ${isSelected}`)
 				$('#not-selected-message').css('display', 'block')
 				// window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower(), is_selected=isSelected) | safe }}"
 			}

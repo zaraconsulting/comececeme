@@ -139,19 +139,16 @@
 				}
 				data.push(stuff);
 			})
-			// console.log(data);
 
-			fetch("{{ url_for('shop.update_cart') }}", {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ cartItems: data })
+			$.ajax({
+				url: "{{ url_for('shop.update_cart') }}",
+				type: 'POST',
+				data: JSON.stringify({ cartItems: data }),
+				contentType: 'application/json',
 			})
-			.then(res => res.json())
-			.then(data => console.log("It works!"))
-
-			window.location.href = "{{ url_for('shop.cart', updated_successfully=True) }}";
+			.done(function (result) {
+				window.location.href = "{{ url_for('shop.cart', cart_updated=True) }}"
+			})
 		});
 	</script>
 

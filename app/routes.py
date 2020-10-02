@@ -36,6 +36,8 @@ def inject_cart():
             'grandTotal': cart_dict.get('grandTotal')
         }
         # print(session.get('payment_shopping_cart')['products'])
+        # print(cart_dict)
+        # print(cart_dict)
         return cart_dict
     except:
         total = 0
