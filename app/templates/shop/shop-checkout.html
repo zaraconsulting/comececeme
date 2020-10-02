@@ -387,7 +387,7 @@
 
 						$.ajax({
 							type: 'POST',
-							url: '{{ url_for("shop.cart_checkout", is_success=true) }}',
+							url: '{{ url_for("shop.cart_checkout", is_successful_payment=true) }}',
 							data: formData
 						})
 						.done(function (result) {

@@ -44,24 +44,26 @@ def cart():
     """
     [GET] /shop/cart
     """
+    # print(current_user.cart.filter_by(product_id=100).all())
+    # print([i for i in Cart.query.filter_by(customerId=current_user.id).all()])
+    updated_successfully = request.args.get('updated_successfully')
+    if updated_successfully:
+        flash('Cart updated successfully', 'info')
     context = {}
     return render_template('shop/shop-cart.html', **context)
 
 @shop.route('/cart/checkout', methods=['GET', 'POST'])
 def cart_checkout():
     validation_error = request.args.get('validation_error')
-    is_success = request.args.get('is_success')
+    is_successful_payment = request.args.get('is_successful_payment')
     if validation_error:
         flash('There was an error processing your payment. Please try again.', 'warning')
-    if is_success:
-        flash('Thank you! Your payment was successful.', 'm-success')
     
-    # TODO: IF THE SHOPPING CART IS EMPTY, FLASH MESSAGE SAYING THAT IT'S EMPTY
-    if not Cart.query.filter_by(customerId=current_user.id).all():
-        flash('Your shopping cart is empty.', 'warning')
+    if not Cart.query.filter_by(customerId=current_user.id).all() and is_successful_payment:
+        flash('Your payment was successful. A paymenr confirmation was sent to your email.', 'success')
         return redirect(url_for('shop.cart'))
-    elif request.args.get('successful_payment'):
-        flash('Thank you! Your payment was successful.', 'm-success')
+    elif not Cart.query.filter_by(customerId=current_user.id).all():
+        flash('Your shopping cart is empty.', 'warning')
         return redirect(url_for('shop.cart'))
     
     # connect to braintree
@@ -76,8 +78,6 @@ def cart_checkout():
     # print(Cart.query.filter_by(customerId=current_user.id).all())
         # return redirect(url_for('shop.cart_checkout'))
     if request.method == 'POST':
-        payment_confirmation_emai = request.form.get('get')
-
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
         company = request.form.get('company')
@@ -251,6 +251,45 @@ def remove_cart_product(id):
     [db.session.delete(item) for item in Cart.query.filter_by(product_id=id).all()]
     db.session.commit()
     flash('Product removed from cart', 'info')
+    return redirect(url_for('shop.cart'))
+
+
+@shop.route('/cart/update', methods=['POST'])
+def update_cart():
+    shopping_cart = session['payment_shopping_cart']['products']
+
+    def find_product(product_id):
+        for item in shopping_cart:
+            if item['prod_id'] == product_id:
+                return item
+
+    if request.method == 'POST':
+        # print(request.get_json())
+        cart_items = request.get_json().get('cartItems')
+        for obj in cart_items:
+            for i in current_user.cart.all():
+                if i.product_id == obj['prodID']:
+                    cart_product = find_product(i.product_id)
+                    # print(cart_product)
+                    # print(obj['quantity'])
+                    if obj['quantity'] < cart_product['quantity']:
+                        difference = cart_product['quantity'] - obj['quantity']
+                        # print(difference)
+                        for _ in range(difference):
+                            for product in current_user.cart.filter_by(product_id=i.product_id).all():
+                                db.session.delete(product)
+                                break
+                        break
+                    elif obj['quantity'] > cart_product['quantity']:
+                        difference = obj['quantity'] - cart_product['quantity']
+                        # print(difference)
+                        for _ in range(difference):
+                            for product in current_user.cart.filter_by(product_id=i.product_id).all():
+                                db.session.add(Cart(customerId=current_user.id, product_id=i.product_id))
+                                break
+                        break
+        db.session.commit()
+        return redirect(url_for('shop.cart'))
     return redirect(url_for('shop.cart'))
 
 

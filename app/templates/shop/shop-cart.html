@@ -20,7 +20,7 @@
 	<div id="page-content">
 		<!-- SHOP CART : begin -->
 		<div class="shop-cart">
-			<form class="default-form">
+			<form id="update-cart-form" class="default-form" action="{{ url_for('shop.update_cart') }}" method="POST">
 				<!-- CART TABLE : begin -->
 				<table class="cart-table">
 					<thead>
@@ -35,15 +35,15 @@
 					</thead>
 					<tbody>
 						{% for p in shopping_cart %}
-							<tr>
+							<tr class="shopping-cart-item">
 								<td class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></td>
 								<td><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}">{% if p.category=='Bundles' %}{{ p.bundle_length }}{% else %}{{ p.length }}"{% endif %} {{ p.name }} {% if p.category=='Bundles' %} Bundles{% else %} Extensions{% endif %}</a></td>
 								<td>${{ '{:.2f}'.format(p.price) }}</td>
 								<td>
-									{{ p.quantity }}
-									<!-- <div class="quantity-input">
-										<input name='cart-quantity' id='cart-quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
-									</div> -->
+									{# {{ p.quantity }} #}
+									<div class="quantity-input">
+										<input data-product-id="{{ p.prod_id }}" name='cart-quantity' id='cart-quantity' type="number" class="m-type-2 quantity-selector" value="{{ p.quantity }}" min="1" max="100" step="1">
+									</div>
 								</td>
 								<td>${{ '{:.2f}'.format(p.price * p.quantity) }}</td>
 								<td class="textalign-right"><a href="{{ url_for('shop.remove_cart_product', id=p.prod_id) }}" class="remove-item"><i class="fa fa-trash-o"></i></a></td>
@@ -67,7 +67,7 @@
 					<!-- CART COUPON : end -->
 					<!-- CART BUTTONS : begin -->
 					<div class="cart-buttons">
-						{# <a href="{{ url_for('shop.update_cart', id=prou) }}" id="update-cart-btn" class="c-button m-type-2" type="submit">Update Cart</a> #}
+						<button id="update-cart-btn" class="c-button m-type-2" type="submit">Update Cart</button>
 						<a href="{{ url_for('shop.cart_checkout') }}" class="c-button" type="submit">Checkout</a>
 					</div>
 					<!-- CART BUTTONS : end -->
@@ -127,6 +127,35 @@
 {% block scripts %}
 	{{ super() }}
 	<script>
+		$('#update-cart-form').on('submit', function(e) {
+			e.preventDefault();
+
+			var cartItems = $('.quantity-selector');
+			let data = [];
+			cartItems.each(function(idx, item) {
+				let stuff = {
+					'prodID': Object.values($(item).data())[0],
+					'quantity': parseInt($(item).val())
+				}
+				data.push(stuff);
+			})
+			// console.log(data);
+
+			fetch("{{ url_for('shop.update_cart') }}", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ cartItems: data })
+			})
+			.then(res => res.json())
+			.then(data => console.log("It works!"))
+
+			window.location.href = "{{ url_for('shop.cart', updated_successfully=True) }}";
+		});
+	</script>
+
+	<script>
 
 		$('#clear-coupon-btn').on('click', async (event) => {
 			event.preventDefault();
@@ -141,7 +170,7 @@
 
 			if ($('#coupon-field').val() !== '') {
 				var couponInput = $('#coupon-field').val();
-				console.log(couponInput);
+				// console.log(couponInput);
 	
 				 fetch("{{ url_for('shop.apply_coupon') }}", {
 					method: 'POST',
@@ -152,7 +181,7 @@
 				})
 				.then(res => res.json())
 				.then(data => {
-					console.log('success');
+					// console.log('success');
 					$('#coupon-field').val('');
 					window.location.href = "{{ url_for('shop.cart') }}"
 				})
