@@ -289,7 +289,7 @@
 										{% endfor %}
 										{% if coupon and coupon.discount != 0 %}
 										<tr>
-											<td><strong style="color: red;">Discount</strong></td>
+											<td><strong style="color: red;">Coupon</strong></td>
 											<td><strong style="color: red;">&ndash; {{ '{:,.0f}%'.format(coupon.discount * 100) }}</strong></td>
 										</tr>
 										{% endif %}

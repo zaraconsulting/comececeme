@@ -99,7 +99,7 @@
 						<!-- <dt>Shipping/Sales</dt>
 						<dd>{{ '${:.2f}'.format(total * tax) }}</dd> -->
 						{% if coupon and coupon.discount != 0 %}
-							<dt style="color: red;">Discount</dt>
+							<dt style="color: red;">Coupon</dt>
 							<dd style="color: red;">&ndash; {{ '{:,.0f}%'.format(coupon.discount * 100) }}</dd>
 						{% endif %}
 						<dt>Total</dt>
