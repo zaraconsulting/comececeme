@@ -12,12 +12,12 @@ def send_contact_email(form_data):
     # print(form_data)
     send_email('[ComeCeCeMe] Contact Form Inquiry', 
                 sender='noreply@comececeme@com', 
-                recipients=[current_app.config.get('MAIL_USERNAME'), current_app.config.get('ADMIN')],
+                recipients=[current_app.config.get('MAIL_USERNAME')],
                 html_body=render_template('email/contact-inquiry.html', data=form_data))
 
 def send_reservation_email(form_data):
     # print(form_data)
     send_email('[ComeCeCeMe] Appointment Reservation Inquiry', 
                 sender='noreply@comececeme.com', 
-                recipients=[current_app.config.get('MAIL_USERNAME'), current_app.config.get('ADMIN')],
+                recipients=[current_app.config.get('MAIL_USERNAME')],
                 html_body=render_template('email/reservation-inquiry.html', data=form_data))
