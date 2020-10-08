@@ -100,6 +100,7 @@ def get_popular_products():
         ordered_products.append(
             dict(
                 pattern=product.pattern, 
+                length=product.length, 
                 category=category.name, 
                 image=pattern.image,
                 price=product.price)
