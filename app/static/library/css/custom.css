@@ -388,13 +388,14 @@ the existing ones.
 	margin-bottom: 35px;
 }
 
-@media(max-width: 767px) {
+@media(max-width: 768px) {
 	.c-testimonial-list .m-paginated {
 		margin-bottom: 0px !important;
 	}
 
 	.featured-product {
 		margin-bottom: 70px;
+		float: left !important;
 	}
 
 	#hero-contact-container {

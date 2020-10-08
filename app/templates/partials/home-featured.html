@@ -12,7 +12,7 @@
             <div class="row" style="text-align: center;">
                 <div class="featured-center">
                     {% for p in products %}
-                    <div class="col-xs-6 col-sm-2 col-md-2 featured-product">
+                    <div class="col-xs-6 col-sm-2 featured-product">
                         <h5 class="product-title" style="text-align: center;">
                             <a class="img-fluid" href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern[0].name.lower()) }}">{{ p.pattern[0].name }}<br>{{ p.category }}</a>
                         </h5>
