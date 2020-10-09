@@ -1,7 +1,7 @@
 from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session, current_app
-from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm
+from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
@@ -359,3 +359,53 @@ def delete_hair_pattern():
     pattern.delete_hair_pattern()
     flash('Pattern deleted successfully', 'info')
     return redirect(url_for('admin.hair_patterns'))
+
+
+####################################
+# HAIR TIPS
+####################################
+@admin.route('hair/tips', methods=['GET', 'POST'])
+def hair_tips():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    form = AdminCreateHairTipForm()
+    if form.validate_on_submit():
+        ht = HairTip()
+        data = {
+            'description': form.description.data, 
+        }
+        ht.from_dict(data)
+        ht.create_tip()
+        flash('Hair Tip created successfully', 'success')
+        return redirect(url_for('admin.hair_tips'))
+    return render_template('admin/hair/tips.html', tips=HairTip.query.all(), form=form)
+
+@admin.route('/hair/tip/edit', methods=['GET', 'POST'])
+def edit_hair_tip():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    ht = HairTip.query.get(request.args.get('id'))
+    form = AdminEditHairTipForm()
+    if form.validate_on_submit():
+        data = {
+            'description': form.description.data,
+        }
+        ht.from_dict(data)
+        db.session.commit()
+        flash('Hair tip updated successfully', 'info')
+        return redirect(url_for('admin.hair_tips'))
+    context = {
+        'tip': ht,
+        'form': form
+    }
+    return render_template('admin/hair/tips-edit.html', **context)
+
+@admin.route('/hair/tip/delete')
+def delete_hair_tip():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    ht = HairTip.query.get(_id)
+    ht.delete_hair_tip()
+    flash('Hair tip deleted successfully', 'info')
+    return redirect(url_for('admin.hair_tips'))

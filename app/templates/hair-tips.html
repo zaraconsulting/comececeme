@@ -1,0 +1,65 @@
+{% extends './layout.html' %}
+{% set active_page = "hair.tips" %}
+
+{% block content %}
+	<!-- CORE : begin -->
+	<div id="core" style="margin-bottom: 50px;">
+
+		<!-- PAGE HEADER : begin -->
+		<div id="page-header">
+			<div class="container">
+				<h1>Hair Tips</h1>
+				<ul class="breadcrumbs">
+					<li><a href="{{ url_for('main.index') }}">Home</a></li>
+					<li>Hair Tips</li>
+				</ul>
+			</div>
+		</div>
+		<!-- PAGE HEADER : begin -->
+
+		<div class="container">
+
+			<!-- PAGE CONTENT : begin -->
+			<div id="page-content">
+				<div class="various-content">
+
+					<!-- ACCORDION SECTION : begin -->
+					<section>
+
+						<h2>Hair Tips</h2>
+
+						<div class="row">
+							<div class="col-sm-6">
+
+								<!-- ACCORDION : begin -->
+								<ul class="c-accordion">
+									{% for tip in tips %}
+										<li>
+											<h3 class="accordion-title">{{ tip.description }}</h3>
+											{# <div class="accordion-content">
+												<p>{{ tip.description }}</p>
+											</div> #}
+										</li>
+									{% endfor %}
+								</ul>
+								<!-- ACCORDION : end -->
+
+							</div>
+						</div>
+
+					</section>
+					<!-- ACCORDION SECTION : end -->
+				</div>
+			</div>
+			<!-- PAGE CONTENT : end -->
+
+		</div>
+
+	</div>
+	<!-- CORE : end -->
+{% endblock %}
+
+{% block scripts %}
+	{{ super() }}
+
+{% endblock %}

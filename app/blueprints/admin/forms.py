@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, BooleanField, SubmitField, PasswordField, IntegerField, FloatField
+from wtforms import StringField, SelectField, BooleanField, SubmitField, PasswordField, IntegerField, FloatField, TextAreaField
 from wtforms.validators import Email, DataRequired, EqualTo
 import email_validator
 
@@ -59,3 +59,11 @@ class AdminEditPatternForm(FlaskForm):
     name = SelectField(choices=[], coerce=int)
     image = StringField()
     submit = SubmitField('Update Pattern')
+
+class AdminCreateHairTipForm(FlaskForm):
+    description = TextAreaField()
+    submit = SubmitField('Create Hair Tip')
+    
+class AdminEditHairTipForm(FlaskForm):
+    description = TextAreaField()
+    submit = SubmitField('Update Hair Tip')

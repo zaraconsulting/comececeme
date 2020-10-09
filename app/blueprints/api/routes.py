@@ -1,6 +1,6 @@
 from .import bp as api
 from flask import jsonify, request, url_for
-from app.models import Faqs, Customer, Product, Category, Order, Coupon, ProductReview, Hair, HairCategory, Pattern
+from app.models import Faqs, Customer, Product, Category, Order, Coupon, ProductReview, Hair, HairCategory, Pattern, HairTip
 from app import db
 
 # PRODUCTS API
@@ -173,6 +173,60 @@ def delete_hair_product(id):
     hair_product = Hair.query.get(id)
     hair_product.delete_hair_product()
     return jsonify({'message': f'HAIR PRODUCT DELETED'})
+
+# HAIR TIPS
+@api.route('/hair-tips', methods=['GET'])
+def get_hairtips():
+    """
+    [GET] /api/hair-tips
+    """
+    return jsonify([i.to_dict() for i in HairTip.query.all()]), 200
+
+
+@api.route('/hair-tip/<int:id>', methods=['GET'])
+def get_hairtip(id):
+    """
+    [GET] /api/hair-tip/<id>
+    """
+    return jsonify(HairTip.query.get_or_404(id).to_dict())
+
+
+@api.route('/hair-tip/add', methods=['POST'])
+def create_hairtip():
+    """
+    [POST] /api/hair-tip/add
+    """
+    data = request.get_json()
+    tip = HairTip()
+    tip.from_dict(data)
+    tip.create_tip()
+    response = jsonify(tip.to_dict())
+    response.status_code = 201
+    response.headers['Location'] = url_for('faqs.get_hairtip', id=tip.id)
+    return response
+
+
+@api.route('/hair-tip/<int:id>', methods=['PUT'])
+def update_hairtip(id):
+    """
+    [PUT] /api/hair-tip/<id>
+    """
+    tip = HairTip.query.get_or_404(id)
+    data = request.get_json() or {}
+    tip.from_dict(data)
+    db.session.commit()
+    return jsonify(tip.to_dict())
+
+
+@api.route('/hair-tip/<int:id>', methods=['DELETE'])
+def delete_hairtip(id):
+    """
+    [DELETE] /api/hair-tip/<id>
+    """
+    tip = HairTip.query.get_or_404(id)
+    tip.delete_tip()
+    return jsonify({'message': f'HAIR TIP DELETED: {tip.title}'}), 201
+# HAIR TIPS
 
 # HAIR CATEGORIES
 @api.route('/hair/categories', methods=['GET'])

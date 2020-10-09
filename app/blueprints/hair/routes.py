@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, jsonify, request, session, flash
 from .import bp as app
-from app.models import HairCategory, Hair, Pattern, Cart
+from app.models import HairCategory, Hair, Pattern, Cart, HairTip
 from flask_login import current_user
 from app import db
 
@@ -11,6 +11,16 @@ def get_product():
         'product': Hair.query.get(_id)
     }
     return render_template('shop/shop-list.html', **context)
+
+@app.route('/tips', methods=['GET'])
+def tips():
+    """
+    [GET] /hair/tips
+    """
+    context = {
+        'tips': HairTip.query.all()
+    }
+    return render_template('hair-tips.html', **context)
 
 @app.route('/categories', methods=['GET'])
 def get_categories():
@@ -61,7 +71,7 @@ def get_pattern(category):
     if request.args.get('pattern'):
         pattern = request.args.get('pattern').title()
     else:
-        pattern = session.get('pattern').title()
+        pattern = session.get('pattern').title() or None
     session['pattern'] = pattern
     products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
     filtered_products = sorted([i for i in products_by_category if i.pattern == pattern if i], key=lambda x: x.price)
