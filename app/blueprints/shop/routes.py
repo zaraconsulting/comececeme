@@ -223,6 +223,62 @@ def cart_checkout():
             return redirect(url_for('shop.cart_checkout', validation_error=True))
     return render_template('shop/shop-checkout.html')
 
+
+@shop.route('/cart/paypal/success', methods=['GET', 'POST'])
+def checkout_paypal_success():
+    
+    if request.method == 'POST':
+        r = request.get_json()
+        print(r)
+        c = Customer.query.get(current_user.id)
+        
+        try:
+            # Create Order
+            # db.session.add_all([Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId) for _ in Cart.query.filter_by(customerId=customer.id).all()])
+            for _ in Cart.query.filter_by(customerId=c.id).all():
+                db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().product_id))
+                db.session.commit()
+
+            # Send payment confirmation email
+            shopping_cart = session.get('payment_shopping_cart')
+
+            payment_details = {
+                'order_no': r.get('id'),
+                'given_name': r.get('payer')['name']['given_name'],
+                'surname': r.get('payer')['name']['surname'],
+                'email': r.get('payer')['email_address'],
+                'transactionDate': dt.strftime(dt.utcnow(), '%m/%d/%Y'),
+                'products': shopping_cart.get('products'),
+                'subtotal': shopping_cart.get('total'),
+                # 'tax': shopping_cart.get('tax'),
+                'coupon': shopping_cart.get('coupon'),
+                'grandTotal': shopping_cart.get('grandTotal'),
+            }
+            send_payment_confirmation_email(payment_details)
+            
+            # Clear coupon and payment_shopping_cart session
+            session['coupon'] = None
+            session['payment_shopping_cart'] = None
+
+            # Delete cart items
+            [db.session.delete(i) for i in c.cart.all()]
+            db.session.commit()
+
+            flash('The transaction was successful!', 'success')
+            return redirect(url_for('shop.cart_checkout'))
+        except:
+            flash('There was a problem with the payment. Please try again', 'warning')
+            return redirect(url_for('shop.cart_checkout'))
+    return redirect(url_for('shop.cart'))
+
+
+@shop.route('/coupons/clear', methods=['GET'])
+def clear_coupons():
+    session['coupon'] = None
+    session['payment_shopping_cart'] = None
+    flash('Your payment was successful. Thanks for shopping with us!', 'success')
+    return redirect(url_for('shop.cart'))
+
 @shop.route('/cart/clear', methods=['POST'])
 def cart_clear():
     db.session.commit()

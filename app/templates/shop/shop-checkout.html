@@ -9,6 +9,7 @@
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
 			<li><a href="{{ url_for('hair.get_categories') }}">Shop</a></li>
+			<li><a href="{{ url_for('shop.cart') }}">Cart</a></li>
 			<li>Checkout</li>
 		</ul>
 	</div>
@@ -204,10 +205,10 @@
 						</div>
 						<!-- SHIPPING ADDRESS : end -->
 						<!-- NOTE : begin -->
-						<div class="form-field">
+						<!-- <div class="form-field">
 							<label for="checkout-note">Note</label>
 							<textarea id="checkout-note"></textarea>
-						</div>
+						</div> -->
 						<!-- NOTE : end -->
 					</div>
 				</div>
@@ -221,19 +222,14 @@
 									<input type="radio" id="payment-method-1" name="payment-method" value="direct" checked="checked">
 									<label for="payment-method-1" class="accordion-title">Credit</label>
 									<div class="accordion-content">
-										<div class="row">
+										<p>Credit card payments coming soon</p>
+										<!-- <div class="row">
 											<div class="col-sm-12">
 												<div class="form-group">
 													<label for="paymentCard">Card Number <span>*</span></label>
 													<div id="paymentCard" class="form-control custom-hosted-field"></div>
 												</div>
 											</div>
-											<!-- <div class="col-sm-6">
-												<div class="form-group">
-													<label for="paymentPostalCode">Postal Code <span>*</span></label>
-													<div id="paymentPostalCode" class="form-control custom-hosted-field"></div>
-												</div>
-											</div> -->
 										</div>
 										<div class="row">
 											<div class="col-md-6">
@@ -248,7 +244,7 @@
 													<div id="paymentCVV" class="form-control custom-hosted-field"></div>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</li>
 								<!-- <li>
@@ -262,7 +258,8 @@
 									<input type="radio" id="payment-method-3" name="payment-method" value="paypal">
 									<label for="payment-method-3" class="accordion-title">PayPal</label>
 									<div class="accordion-content">
-										<p>Support for PayPal coming soon</p>
+										<div id="paypal-button-container" type="submit"></div>
+										{# <p>Support for PayPal coming soon</p> #}
 									</div>
 								</li>
 							</ul>
@@ -293,10 +290,12 @@
 											<td><strong style="color: red;">&ndash; {{ '{:,.0f}%'.format(coupon.discount * 100) }}</strong></td>
 										</tr>
 										{% endif %}
-										<tr>
-											<td><strong>Tax</strong></td>
-											<td><strong>{{ '${:.2f}'.format(total * tax) }}</strong></td>
-										</tr>
+										{% if tax and tax != 0.00 %}
+											<tr>
+												<td><strong>Tax</strong></td>
+												<td><strong>{{ '${:.2f}'.format(total * tax) }}</strong></td>
+											</tr>
+										{% endif %}
 										<tr>
 											<td><strong>Grand Total</strong></td>
 											{% if coupon and coupon.discount != 0 %}
@@ -328,6 +327,77 @@
 
 {% block scripts %}
 	{{ super() }}
+
+	<script src="https://www.paypal.com/sdk/js?client-id={{ sb_client_id }}&disable-funding=credit,card"></script>
+	<script>
+		let shoppingCart = JSON.parse('{{ shopping_cart|tojson }}');
+		let tax = JSON.parse('{{ tax|tojson }}')
+		let discount = parseFloat('{{ total }}' * JSON.parse('{{ coupon|tojson }}').discount) || '0.00';
+		let items = [];
+
+		for (const i of shoppingCart) {
+			items.push(
+				{
+					name: `${i.length}in. ${i.name} ${i.category}`,
+					unit_amount: {
+						currency_code: 'USD',
+						value: i.price.toString()
+					},
+					quantity: i.quantity.toString()
+				}
+			)
+		}
+
+		// console.log(items);
+
+		paypal.Buttons({
+			style: {
+				color: 'blue'
+			},
+			createOrder: function(data, actions) {
+			return actions.order.create({
+				intent: 'CAPTURE',
+				purchase_units: [
+					{
+						amount: {
+							value: '{{ grandTotal }}',
+							currency_code: 'USD',
+							breakdown: {
+								item_total: {
+									currency_code: 'USD',
+									value: '{{ total }}'
+								},
+								discount: {
+									currency_code: 'USD',
+									value: discount
+								}
+							}
+						},
+						items: items
+					}
+				]
+			});
+			},
+			onApprove: function(data, actions) {
+				return actions.order.capture().then(function(details) {
+					$.ajax({
+						type: 'POST',
+						url: '{{ url_for("shop.checkout_paypal_success") }}',
+						data: JSON.stringify(details),
+						contentType: 'application/json',
+						dataType: 'json',
+						success: function(data) {
+							console.log(data);
+						}
+					})
+					setTimeout(function () {
+						window.location.reload();
+					}, 10000)
+				});
+			}
+		}).render('#paypal-button-container'); // Display payment options on your web page
+
+    </script>
 
 	<script>
 		braintree.client.create({ authorization: '{{ client_token }}' }, function(clientErr, clientInstance) {
@@ -370,14 +440,14 @@
 							postalCode: $('#checkout-postalcode').val(),
 							phone: $('#checkout-phone').val(),
 							email: $('#checkout-email').val(),
-							addressshipping: $('#enable-shipping-address').val(),
+							addressshipping: $('#checkout-address-shipping').val(),
 							firstNameShipping: $('#checkout-first-name-shipping').val(),
 							lastNameShipping: $('#checkout-last-name-shipping').val(),
 							companyShipping: $('#checkout-company-shipping').val(),
 							cityShipping: $('#checkout-city-shipping').val(),
 							stateShipping: $('#checkout-state-shipping').val(),
 							postalCodeShipping: $('#checkout-postalcode-shipping').val(),
-							note: $('#checkout-note').val(),
+							// note: $('#checkout-note').val(),
 							payment_method_nonce: payload.nonce,
 							amount: parseFloat("{{ grandTotal }}"),
 							// amount: "{{ '${:.2f}'.format(grandTotal) }}"
@@ -414,7 +484,7 @@
 									$('#checkout-city-shipping').val("");
 									$('#checkout-state-shipping').val("");
 									$('#checkout-postalcode-shipping').val("");
-									$('#checkout-note').val("");
+									// $('#checkout-note').val("");
 
 									console.info("Hosted Fields form has been torn down!");
 								}

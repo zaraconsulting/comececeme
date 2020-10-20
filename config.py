@@ -30,4 +30,6 @@ class Config:
     MAILCHIMP_USERNAME = os.environ.get('MAILCHIMP_USERNAME')
     MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
     ADMIN = os.environ.get('ADMIN')
-    # FLASK_ADMIN_SWATCH = os.getenv('FLASK_ADMIN_SWATCH')
+    SB_CLIENT_ID = os.environ.get('SB_CLIENT_ID')
+    SB_SECRET = os.environ.get('SB_SECRET')
+    SB_ACCESS_TOKEN = os.environ.get('SB_ACCESS_TOKEN')

@@ -11,5 +11,6 @@ def send_email(subject, sender, recipients, html_body):
 def send_payment_confirmation_email(data):
     send_email('[ComeCeCeMe] Payment Confirmation', 
                 sender='noreply@comececeme@com', 
-                recipients=[current_app.config.get('MAIL_USERNAME'), current_app.config.get('ADMIN')],
+                # recipients=[current_app.config.get('MAIL_USERNAME'), current_app.config.get('ADMIN')],
+                recipients=[current_app.config.get('ADMIN')],
                 html_body=render_template('email/payment-confirmation.html', **data))

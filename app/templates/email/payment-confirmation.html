@@ -4,7 +4,7 @@
 <p>We're processing your order. Thanks for shopping with us.</p>
 <!-- <p>Shipping & Handling: $x.XX</p>
 <p>Sales Tax: $X.XX</p> -->
-<!-- <div><strong>Order #: {{ order_no }}</strong></div> -->
+<div><strong>Order #: {{ order_no }}</strong></div>
 <div><strong>Order date: {{ transactionDate }}</strong></div>
 <!-- <p>Service: {{ description }}</p> -->
 <hr>
@@ -25,16 +25,18 @@
     Subtotal
     <span style="float:right;"><strong>${{ "{:,.2f}".format(total) }}</strong></span>
   </div>
-  {% if coupon %}
+  {% if coupon and coupon != 0 %}
     <div>
       Coupon
       <span style="float:right; color:red;"><strong>&ndash; {{ '{:,.0f}%'.format(coupon.discount * 100) }}</strong></span>
     </div>
   {% endif %}
-  <div>
-    Tax
-    <span style="float:right;"><strong>{{ '${:.2f}'.format(total * tax) }}</strong></span>
-  </div>
+  {% if tax %}
+    <div>
+      Tax
+      <span style="float:right;"><strong>{{ '${:.2f}'.format(total * tax) }}</strong></span>
+    </div>
+  {% endif %}
   <div>
     Total
     <span style="float:right;">

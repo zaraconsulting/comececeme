@@ -3,6 +3,7 @@ from flask_login import current_user
 from app.models import Product, Customer, Order, Category, Service, ServiceCategory, Hair, HairCategory, Cart, Pattern, HairCategory
 from sqlalchemy import func, desc
 from app import db
+import os
 
 @app.context_processor
 def inject_cart():
@@ -10,7 +11,8 @@ def inject_cart():
         session['coupon'] = None
     # if 'shopping_cart' not in session:
     #     session['shopping_cart'] = None
-    tax = .06
+    tax = .00
+    # tax = .06
     try:
         items = []
         for i in current_user.cart.all():
@@ -24,7 +26,7 @@ def inject_cart():
         else: 
             grandTotal = total + (total * tax)
         # print(grandTotal)
-        cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=grandTotal, fullCart=current_user.cart.all(), coupon=session.get('coupon'))
+        cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=grandTotal, fullCart=current_user.cart.all(), coupon=session.get('coupon') or 0)
         # print(cart_dict)
         session['shopping_cart'] = cart_dict.get('shopping_cart')
         # print(cart_dict)
@@ -63,7 +65,7 @@ def get_hair_categories():
 def get_client_token():
     if 'client_token' not in session:
         session['client_token'] = ''
-    return dict(client_token=session['client_token'])
+    return dict(client_token=session['client_token'], sb_client_id=app.config.get('SB_CLIENT_ID'))
 
 # @app.context_processor
 # @app.shell_context_processor

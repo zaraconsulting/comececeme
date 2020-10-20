@@ -127,14 +127,11 @@ def add_cart_product():
             for i in shopping_cart:
                 # if the product.name I'm trying to add is not already found
                 if product.id not in [x['prod_id'] for x in shopping_cart]:
-                    print("first condition")
                     # add the product
-                    print(quantity)
                     for _ in range(quantity):
                         db.session.add(Cart(customerId=int(current_user.id), product_id=product.id))
                     break
                 else:
-                    print('second condition')
                     # find the product with the same id as the product's id I'm trying to add to the cart
                     for i in shopping_cart:
                         if i['prod_id'] == product.id:

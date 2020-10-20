@@ -258,7 +258,7 @@
 			.then(res => res.json())
 			.then(data => { 
 				// console.log('Success');
-				console.log(data);
+				// console.log(data);
 				window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()) }}";
 			})
 			.catch(error => console.log(error))
