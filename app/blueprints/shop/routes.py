@@ -229,7 +229,7 @@ def checkout_paypal_success():
     
     if request.method == 'POST':
         r = request.get_json()
-        print(r)
+        # print(r)
         c = Customer.query.get(current_user.id)
         
         try:
@@ -342,7 +342,7 @@ def update_cart():
                                 db.session.add(Cart(customerId=current_user.id, product_id=i.product_id))
                                 break
                         break
-        print(len(shopping_cart))
+        # print(len(shopping_cart))
         db.session.commit()
         flash('Cart updated successfully', 'info')
         # return redirect(url_for('shop.cart'))
