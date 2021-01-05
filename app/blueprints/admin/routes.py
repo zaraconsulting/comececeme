@@ -1,6 +1,6 @@
 from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session, current_app
-from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip
+from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip, Order
 from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm
 from flask_login import current_user, login_user, logout_user
 from app import db
@@ -409,3 +409,37 @@ def delete_hair_tip():
     ht.delete_hair_tip()
     flash('Hair tip deleted successfully', 'info')
     return redirect(url_for('admin.hair_tips'))
+
+
+@admin.route('/orders', methods=['GET'])
+def orders():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    return render_template('admin/orders.html', orders=[i.to_dict() for i in Order.query.all()])
+
+
+@admin.route('/orders', methods=['POST'])
+def create_order():
+    pass
+    # if not current_user.is_authenticated:
+    #     return redirect(url_for('admin.login'))
+    # if request.method == 'POST':
+    #     order = Coupon()
+    #     data = dict(customer_id=request.form.get('order_code'),
+    #                 cart_id=request.form.get('discount'),
+    #                 product_id=)
+    #     order.from_dict(data)
+    #     order.create_order()
+    #     flash('Coupon created successfully', 'success')
+    # return redirect(url_for('admin.orders'))
+
+
+@admin.route('/orders/delete')
+def delete_order():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    order = Coupon.query.get(_id)
+    order.delete_order()
+    flash('Coupon deleted successfully', 'info')
+    return redirect(url_for('admin.orders'))

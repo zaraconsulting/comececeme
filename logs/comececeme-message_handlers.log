@@ -1,0 +1,85 @@
+2021-01-04 19:19:59,401 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:115]
+2021-01-05 05:59:03,760 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:118]
+2021-01-05 06:02:15,840 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:118]
+2021-01-05 06:02:21,315 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:118]
+2021-01-05 06:02:28,058 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:118]
+2021-01-05 06:03:49,577 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:118]
+2021-01-05 06:04:16,392 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:118]
+2021-01-05 06:04:36,499 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:119]
+2021-01-05 06:05:11,132 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 06:09:11,002 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 06:09:43,778 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 06:09:58,026 ERROR: Exception on / [GET] [/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/comececeme/app/blueprints/main/routes.py", line 15, in index
+    pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category.id).all()]))
+AttributeError: 'NoneType' object has no attribute 'id'
+2021-01-05 06:17:24,673 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 06:20:18,281 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 06:22:33,261 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 06:23:17,523 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 06:39:41,231 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 07:39:28,940 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 07:48:18,146 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 07:59:06,728 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 08:00:37,554 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 08:16:59,418 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 08:18:46,158 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 08:20:01,883 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 08:22:52,042 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 08:25:06,426 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]
+2021-01-05 08:25:09,234 ERROR: Exception on /admin/orders [GET] [/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/comececeme/app/blueprints/admin/routes.py", line 418, in orders
+    return render_template('admin/orders.html', orders=[i.to_dict() for i in Order.query.all()])
+  File "/home/derek/Development/zara_consulting/comececeme/app/blueprints/admin/routes.py", line 418, in <listcomp>
+    return render_template('admin/orders.html', orders=[i.to_dict() for i in Order.query.all()])
+  File "/home/derek/Development/zara_consulting/comececeme/app/models.py", line 669, in to_dict
+    'order_date': datetime.datetime.strftime(self.order_date, '%Y-%m-%d'),
+AttributeError: type object 'datetime.datetime' has no attribute 'datetime'
+2021-01-05 08:25:20,958 ERROR: Exception on /admin/orders [GET] [/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/comececeme/venv/lib/python3.7/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/comececeme/app/blueprints/admin/routes.py", line 418, in orders
+    return render_template('admin/orders.html', orders=[i.to_dict() for i in Order.query.all()])
+  File "/home/derek/Development/zara_consulting/comececeme/app/blueprints/admin/routes.py", line 418, in <listcomp>
+    return render_template('admin/orders.html', orders=[i.to_dict() for i in Order.query.all()])
+  File "/home/derek/Development/zara_consulting/comececeme/app/models.py", line 669, in to_dict
+    'order_date': datetime.datetime.strftime(self.order_date, '%Y-%m-%d'),
+AttributeError: type object 'datetime.datetime' has no attribute 'datetime'
+2021-01-05 08:26:03,095 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/comececeme/app/__init__.py:117]

@@ -49,6 +49,7 @@
 				<div class="c-testimonial-list m-paginated">
 					<div class="container">
 						<div class="testimonial-list-inner">
+							{% if reviews %}
 							{% for review in reviews %}
 								<div class="testimonial-list-item">
 									<!-- TESTIMONIAL : begin -->
@@ -67,6 +68,9 @@
 									<!-- TESTIMONIAL : end -->
 								</div>
 							{% endfor %}
+							{% else %}
+							<p>No reviews to display</p>
+							{% endif %}
 						</div>
 					</div>
 				</div>

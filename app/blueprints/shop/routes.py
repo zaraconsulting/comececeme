@@ -57,7 +57,8 @@ def cart_checkout():
     if validation_error:
         flash('There was an error processing your payment. Please try again.', 'warning')
     
-    if not Cart.query.filter_by(customerId=current_user.id).all() and is_successful_payment:
+    user = current_user
+    if not Cart.query.filter_by(customerId=user.id).all() and is_successful_payment:
         flash('Your payment was successful. A paymenr confirmation was sent to your email.', 'success')
         return redirect(url_for('shop.cart'))
     elif not Cart.query.filter_by(customerId=current_user.id).all():

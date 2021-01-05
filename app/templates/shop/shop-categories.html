@@ -22,6 +22,7 @@
 				<!-- PRODUCT LIST : begin -->
 				<ul class="product-list">
 					<!-- PRODUCT : begin -->
+					{% if categories %}
 					{% for category in categories %}
 						{% if category.name != 'Frontals' and category.name != 'Closures' %}
 							<li class="product-container col-xs-12 col-md-6">
@@ -48,6 +49,11 @@
 							</div>
 						</div>
 					</li>
+					{% else %}
+					<div class="text-center">
+						<p>No products to display</p>
+					</div>
+					{% endif %}
 					<!-- PRODUCT : end -->
 				</ul>
 				<!-- PRODUCT LIST : end -->

@@ -33,6 +33,7 @@
 
 								<!-- ACCORDION : begin -->
 								<ul class="c-accordion">
+									{% if faqs %}
 									{% for faq in faqs %}
 										<li>
 											<h3 class="accordion-title">{{ faq.question }}</h3>
@@ -41,6 +42,9 @@
 											</div>
 										</li>
 									{% endfor %}
+									{% else %}
+									<p>No FAQs to display</p>
+									{% endif %}
 								</ul>
 								<!-- ACCORDION : end -->
 

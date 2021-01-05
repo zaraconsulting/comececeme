@@ -3,11 +3,10 @@ from dotenv import load_dotenv
 
 load_dotenv(os.path.join(os.path.dirname(__name__), '.env'))
 
-class Config:
+class BaseConfig:
     FLASK_APP = os.environ.get('FLASK_APP')
     FLASK_ENV = os.environ.get('FLASK_ENV')
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
     BT_MERCHANT_ID = os.environ.get('BT_MERCHANT_ID')
     BT_MERCHANT_ACCOUNT_ID = os.environ.get('BT_MERCHANT_ACCOUNT_ID')
@@ -33,3 +32,16 @@ class Config:
     SB_CLIENT_ID = os.environ.get('SB_CLIENT_ID')
     SB_SECRET = os.environ.get('SB_SECRET')
     SB_ACCESS_TOKEN = os.environ.get('SB_ACCESS_TOKEN')
+
+
+class DevelopmentConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEVELOPMENT_DATABASE')
+
+
+class ProductionConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('PRODUCTION_DATABASE')
+
+
+class TestConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE')
+

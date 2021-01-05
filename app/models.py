@@ -658,11 +658,15 @@ class Order(db.Model):
         db.session.commit()
 
     def to_dict(self):
+        c = Customer.query.get(self.customer_id)
         data = {
             'order_id': self.id,
-            'customer_id': self.customer_id,
+            'c_last_name': c.last_name,
+            'c_first_name': c.first_name,
+            'c_email': c.email,
+            'coupon': Coupon.query.get(self.coupon_id),
             'product_id': self.product_id,
-            'order_date': self.order_date,
+            'order_date': datetime.strftime(self.order_date, '%Y-%m-%d'),
         }
         return data
 

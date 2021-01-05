@@ -29,7 +29,7 @@ def register(app):
                 # css_file.close()
                 # os.makedirs(basepath + '/static/js')
                 # os.makedirs(f'{basepath}/templates/{name}')
-        except error:
+        except Exception as error:
             print(f"Something went wrong with creating the blueprint called {name}")
             print(error)
         return print("Blueprint created successfully")

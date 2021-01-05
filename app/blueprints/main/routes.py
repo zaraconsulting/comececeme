@@ -12,7 +12,7 @@ def index():
     [GET] /
     """
     category = HairCategory.query.filter_by(name='Extensions').first()
-    pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category.id).all()]))
+    pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category.id).all()])) if Hair.query.all() else []
     products = []
     for pattern in pattern_list:
         hair_products = Hair.query.filter_by(category_id=category.id).all()

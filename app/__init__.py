@@ -1,7 +1,7 @@
 from flask import Flask
 import click, logging, os
 from logging.handlers import SMTPHandler, RotatingFileHandler
-from config import Config
+from config import DevelopmentConfig, ProductionConfig, TestConfig
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
@@ -12,22 +12,24 @@ migrate = Migrate(compare_type=True)
 mail = Mail()
 login = LoginManager()
 
-def create_app(config_class=Config):
+def set_environment(app):
+    if os.getenv('FLASK_ENV') == 'development':
+        return DevelopmentConfig
+    elif os.getenv('FLASK_ENV') == 'testing':
+        return TestConfig
+    else:
+        return ProductionConfig
+
+def create_app():
     app = Flask(__name__)
 
-    ENV = app.config.get('FLASK_ENV')
-    if ENV == 'development':
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DEVELOPMENT_SQLALCHEMY_DATABASE_URI')
-    elif ENV == 'production':
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('PRODUCTION_SQLALCHEMY_DATABASE_URI')
-
-    app.config.from_object(config_class)
+    app.config.from_object(set_environment(app))
 
     db.init_app(app)
     migrate.init_app(app, db)
     mail.init_app(app)
     login.init_app(app)
-    
+
     login.login_message_category = 'warning'
     login.login_view = 'main.index'
 

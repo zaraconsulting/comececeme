@@ -11,6 +11,7 @@
         <div class="container">
             <div class="row" style="text-align: center;">
                 <div class="featured-center">
+                    {% if products %}
                     {% for p in products %}
                     <div class="col-xs-6 col-sm-2 featured-product">
                         <h5 class="product-title" style="text-align: center;">
@@ -20,7 +21,12 @@
                             <img class="img-fluid" src="{{ p.image }}" alt="{{ p.pattern[0].name }}">
                         </a>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-12">
+                        <p>No products to display</p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="row textalign-center" style="margin: 25px 0;">

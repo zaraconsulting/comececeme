@@ -33,6 +33,7 @@
 
 								<!-- ACCORDION : begin -->
 								<ul class="c-accordion">
+									{% if tips %}
 									{% for tip in tips %}
 										<li>
 											<h3 class="accordion-title">{{ tip.description }}</h3>
@@ -41,6 +42,9 @@
 											</div> #}
 										</li>
 									{% endfor %}
+									{% else %}
+									<p>No Hair Tips to display</p>
+									{% endif %}
 								</ul>
 								<!-- ACCORDION : end -->
 
