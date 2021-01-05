@@ -30,8 +30,8 @@ def create_app():
     mail.init_app(app)
     login.init_app(app)
 
-    login.login_message_category = 'warning'
-    login.login_view = 'main.index'
+    login.login_view = 'authentication.login'
+    login.login_message_category = 'm-warning'
 
     with app.app_context():
         from app.blueprints.main import bp as main

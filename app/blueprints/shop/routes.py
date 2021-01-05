@@ -40,6 +40,7 @@ def get_products():
 
 
 @shop.route('/cart', methods=['GET'])
+@login_required
 def cart():
     """
     [GET] /shop/cart
@@ -51,13 +52,12 @@ def cart():
     return render_template('shop/shop-cart.html', **context)
 
 @shop.route('/cart/checkout', methods=['GET', 'POST'])
+@login_required
 def cart_checkout():
     validation_error = request.args.get('validation_error')
     is_successful_payment = request.args.get('is_successful_payment')
     if validation_error:
         flash('There was an error processing your payment. Please try again.', 'warning')
-    
-    user = current_user
     if not Cart.query.filter_by(customerId=user.id).all() and is_successful_payment:
         flash('Your payment was successful. A paymenr confirmation was sent to your email.', 'success')
         return redirect(url_for('shop.cart'))
