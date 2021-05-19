@@ -238,7 +238,7 @@ def checkout_paypal_success():
             # db.session.add_all([Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId) for _ in Cart.query.filter_by(customerId=customer.id).all()])
             for _ in Cart.query.filter_by(customerId=c.id).all():
                 db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().product_id))
-                db.session.commit()
+            db.session.commit()
 
             # Send payment confirmation email
             shopping_cart = session.get('payment_shopping_cart')
