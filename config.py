@@ -32,6 +32,8 @@ class BaseConfig:
     SB_CLIENT_ID = os.environ.get('SB_CLIENT_ID')
     SB_SECRET = os.environ.get('SB_SECRET')
     SB_ACCESS_TOKEN = os.environ.get('SB_ACCESS_TOKEN')
+    DEVELOPER_NAME = os.environ.get('DEVELOPER_NAME')
+    DEVELOPER_URL = os.environ.get('DEVELOPER_URL')
 
 
 class DevelopmentConfig(BaseConfig):

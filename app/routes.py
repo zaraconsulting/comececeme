@@ -90,6 +90,14 @@ def get_current_user():
     return dict(active_user=active_user)
 
 @app.context_processor
+def get_env_vars():
+    context = {
+        'DEVELOPER_NAME': app.config.get('DEVELOPER_NAME'),
+        'DEVELOPER_URL': app.config.get('DEVELOPER_URL')
+    }
+    return context
+
+@app.context_processor
 def get_popular_products():
     ordered_products = []
     for p in Order.query.all():
