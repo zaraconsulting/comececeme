@@ -346,6 +346,7 @@ class HairCategory(db.Model):
     __table_args__ = { 'extend_existing': True }
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    display_name = db.Column(db.String)
     image = db.Column(db.String)
     description = db.Column(db.String)
     products = db.relationship('Hair', backref='category', lazy='dynamic')
