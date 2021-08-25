@@ -363,7 +363,7 @@ class HairCategory(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['name', 'description', 'image']:
+        for field in ['name', 'display_name', 'description', 'image']:
             if field in data:
                 setattr(self, field, data[field])
 
