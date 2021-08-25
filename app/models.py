@@ -214,6 +214,7 @@ class Pattern(db.Model):
     __table_args__ = { 'extend_existing': True }
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    display_name = db.Column(db.String)
     image = db.Column(db.String)
     products = db.relationship('Hair', backref='patterns', lazy='dynamic')
 
@@ -221,6 +222,7 @@ class Pattern(db.Model):
         data = {
             'id': self.id,
             'name': self.name,
+            'display_name': self.display_name,
             'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]
         }
@@ -228,7 +230,7 @@ class Pattern(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['name', 'image']:
+        for field in ['name', 'image', 'display_name']:
             if field in data:
                 setattr(self, field, data[field])
 

@@ -59,3 +59,5 @@ Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 76, in get_pattern
     products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
 AttributeError: 'NoneType' object has no attribute 'id'
+2021-08-25 17:43:59,054 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-25 17:44:13,020 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
