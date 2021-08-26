@@ -52,6 +52,7 @@ class AdminResetPasswordForm(FlaskForm):
 
 class AdminCreatePatternForm(FlaskForm):
     name = StringField()
+    display_name = StringField()
     image = StringField()
     submit = SubmitField('Create Pattern')
     

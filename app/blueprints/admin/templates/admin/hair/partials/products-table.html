@@ -38,7 +38,7 @@
                         </td>
                         {% endif %}
                         <td>{{ p.pattern }}</td>
-                        <td>{{ p.category.name }}</td>
+                        <td>{% if p.category.display_name %}{{ p.category.display_name }}{% else %}{{ p.category.name }}{% endif %}</td>
                         <td>{{ '${:,.2f}'.format(p.price) }}</td>
                         <td>{{ p.length }}{% if p.length %}"{% endif %}</td>
                         <td>{{ p.bundle_length }}</td>

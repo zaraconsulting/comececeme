@@ -29,7 +29,7 @@
 								<a class="product-link" href="{{ url_for('hair.get_category', category=category.name.lower()) }}">
 									<div class="product-inner">
 										<h3 class="product-title">
-											{{ category.name }}
+											{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}
 										</h3>
 										<p class="product-image"><a href="{{ url_for('hair.get_category', category=category.name.lower()) }}"><img class="img-fluid" src="{{ category.image }}" alt="{{ category.name }}"></a></p>
 									</div>

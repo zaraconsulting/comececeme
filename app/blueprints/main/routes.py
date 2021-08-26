@@ -24,7 +24,10 @@ def index():
         a_dict = {
             'pattern': display_products,
             'image': Pattern.query.filter_by(name=pattern).first().image,
-            'category': category.name
+            'category': {
+                'name': category.name,
+                'display_name': category.display_name
+            }
         }
         products.append(a_dict)
     context = {

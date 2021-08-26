@@ -9,7 +9,7 @@
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
 			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
-			<li>{{ category.name }}</li>
+			<li>{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}</li>
 		</ul>
 	</div>
 </div>

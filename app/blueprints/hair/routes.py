@@ -82,7 +82,10 @@ def get_pattern(category):
             'filtered_products': filtered_products,
             'image': Pattern.query.filter_by(name=pattern).first().image,
             'description': HairCategory.query.filter_by(name=category).first().description,
-            'category': category,
+            'category': {
+                'name': category,
+                'display_name': HairCategory.query.filter_by(name=category).first().display_name
+            },
             'pattern': pattern
         }
     return render_template('shop/shop-detail.html', **context)

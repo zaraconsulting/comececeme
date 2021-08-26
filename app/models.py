@@ -221,7 +221,7 @@ class Pattern(db.Model):
     def to_dict(self):
         data = {
             'id': self.id,
-            'name': self.name,
+            'name': self.display_name if self.display_name is not None else self.name,
             'display_name': self.display_name,
             'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]
@@ -277,6 +277,7 @@ class Hair(db.Model):
             'bundle_length': self.bundle_length,
             'price': self.price,
             'category_id': HairCategory.query.get(self.category_id).name,
+            'category': HairCategory.query.get(self.category_id).to_dict()
         }
         return data
 
@@ -356,7 +357,7 @@ class HairCategory(db.Model):
     def to_dict(self):
         data = {
             'id': self.id,
-            'name': self.name,
+            'name': self.display_name if self.display_name is not None else self.name,
             'description': self.description,
             'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]

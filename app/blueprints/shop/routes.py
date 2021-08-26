@@ -58,8 +58,8 @@ def cart_checkout():
     is_successful_payment = request.args.get('is_successful_payment')
     if validation_error:
         flash('There was an error processing your payment. Please try again.', 'warning')
-    if not Cart.query.filter_by(customerId=current_user.id).all() and is_successful_payment:
-        flash('Your payment was successful. A paymenr confirmation was sent to your email.', 'success')
+    if not Cart.query.filter_by(customerId=current_user.id).all() and is_successful_payment: # if payment was successful and cart was cleared
+        flash('Your payment was successful. A payment confirmation was sent to your email.', 'success')
         return redirect(url_for('shop.cart'))
     elif not Cart.query.filter_by(customerId=current_user.id).all():
         flash('Your shopping cart is empty.', 'warning')
@@ -266,7 +266,7 @@ def checkout_paypal_success():
             db.session.commit()
 
             flash('The transaction was successful!', 'success')
-            return redirect(url_for('shop.cart_checkout'))
+            return redirect(url_for('shop.cart_checkout', is_successful_payment=True))
         except:
             flash('There was a problem with the payment. Please try again', 'warning')
             return redirect(url_for('shop.cart_checkout'))

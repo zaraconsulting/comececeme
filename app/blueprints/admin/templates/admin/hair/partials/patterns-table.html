@@ -6,6 +6,7 @@
                     <!-- <th>ID</th> -->
                     <th></th>
                     <th>Name</th>
+                    <th>Display Name</th>
                     <th>Image</th>
                     <th></th>
                 </tr>
@@ -15,6 +16,7 @@
                     <!-- <th>ID</th> -->
                     <th></th>
                     <th>Name</th>
+                    <th>Display Name</th>
                     <th>Image</th>
                     <th></th>
                 </tr>
@@ -32,6 +34,7 @@
                         </td>
                         {% endif %}
                         <td>{{ p.name }}</td>
+                        <td>{{ p.display_name }}</td>
                         <td>
                             <img style="height: 200px;" class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
                         </td>

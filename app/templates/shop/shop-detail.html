@@ -9,7 +9,7 @@
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
 			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
-			<li><a href="{{ url_for('hair.get_category', category=category.lower()) }}">{{ category }}</a></li>
+			<li><a href="{{ url_for('hair.get_category', category=category.name.lower()) }}">{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}</a></li>
 			<li>{{ pattern }}</li>
 		</ul>
 	</div>
@@ -234,7 +234,7 @@
 		var productListItems = $('.product-list-item');
 		var price;
 		var id;
-		var category = '{{ category }}';
+		var category = '{{ category.name }}';
 		var pattern = '{{ pattern }}';
 		var product_id = '{{ product.id }}';
 		var activeUser = '{{ active_user }}' === 'False' ? false : true;
@@ -259,7 +259,7 @@
 			.then(data => { 
 				// console.log('Success');
 				// console.log(data);
-				window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()) }}";
+				window.location.href = "{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=pattern.lower()) }}";
 			})
 			.catch(error => console.log(error))
 		}
@@ -294,7 +294,7 @@
 				event.preventDefault();
 				// console.log(`isSelected: ${isSelected}`)
 				$('#not-selected-message').css('display', 'block')
-				// window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower(), is_selected=isSelected) | safe }}"
+				// window.location.href = "{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=pattern.lower(), is_selected=isSelected) | safe }}"
 			}
 		})
 

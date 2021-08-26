@@ -210,7 +210,7 @@ def hair_products():
         return redirect(url_for('admin.login'))
     form = AdminCreateProductForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
-    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    form.category.choices = [(i.id, i.display_name if i.display_name else i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
 
     if form.validate_on_submit():
         product = Hair()
