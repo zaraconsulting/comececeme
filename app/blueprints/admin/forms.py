@@ -58,6 +58,7 @@ class AdminCreatePatternForm(FlaskForm):
     
 class AdminEditPatternForm(FlaskForm):
     name = SelectField(choices=[], coerce=int)
+    display_name = StringField()
     image = StringField()
     submit = SubmitField('Update Pattern')
 

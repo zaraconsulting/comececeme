@@ -20,7 +20,7 @@
                 <form class="form-inline edit-pattern-form" enctype="multipart/form-data" action="{{ url_for('admin.edit_hair_pattern') }}" method="POST">
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
-                        {{ form.name(class="form-control", placeholder="Hair Pattern Name", value=pattern.name) }}
+                        {{ form.name(class="form-control", placeholder="Hair Pattern Name", value=pattern.name, style="margin-right: 10px;") }}
                         {{ form.display_name(class="form-control", placeholder="Display Name", value=pattern.display_name) }}
                         <div class="custom-file" style="margin-bottom: 15px">
                             <input type="file" class="custom-file-input" id='image' name="image">

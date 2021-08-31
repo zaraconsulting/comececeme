@@ -334,11 +334,13 @@ def edit_hair_pattern():
     form.name.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     if form.validate_on_submit():
         p = Pattern.query.get(form.name.data)
-        file = request.files.get('image')
-        result = upload(file)
+        if request.files.get('image'):
+            file = request.files.get('image')
+            result = upload(file)
         data = {
             'name': Pattern.query.get(form.name.data).name,
-            'image': result['url'], 
+            'display_name': form.display_name.data,
+            'image': result['url'] if request.files.get('image') else p.image, 
         }
         p.from_dict(data)
         db.session.commit()

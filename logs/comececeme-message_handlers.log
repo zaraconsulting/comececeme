@@ -1,7 +1,4 @@
-2021-08-25 19:05:41,428 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:06:07,912 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:06:59,309 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:07:39,683 ERROR: Exception on /hair/product/cart/add [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-08-31 17:34:05,458 ERROR: Exception on /admin/hair/pattern/edit [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,14 +12,27 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 123, in add_cart_product
-    shopping_cart = session['payment_shopping_cart']['products']
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
-    __getitem__ = lambda x, i: x._get_current_object()[i]
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
-    return super(SecureCookieSession, self).__getitem__(key)
-KeyError: 'payment_shopping_cart'
-2021-08-25 19:11:05,458 ERROR: Exception on /hair/single bundles [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 352, in edit_hair_pattern
+    return render_template('admin/hair/patterns-edit.html', **context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
+    ctx.app,
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/hair/patterns-edit.html", line 1, in top-level template code
+    {% extends 'admin/layout.html' %}
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/layout.html", line 36, in top-level template code
+    {% block body %}{% endblock %}
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/hair/patterns-edit.html", line 24, in block "body"
+    {{ form.display_name(class="form-control", placeholder="Display Name", value=pattern.display_name) }}
+jinja2.exceptions.UndefinedError: 'app.blueprints.admin.forms.AdminEditPatternForm object' has no attribute 'display_name'
+2021-08-31 17:35:27,581 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:35:35,790 ERROR: Exception on /admin/hair/pattern/edit [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -36,11 +46,32 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 76, in get_pattern
-    products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
-AttributeError: 'NoneType' object has no attribute 'id'
-2021-08-25 19:11:24,439 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:11:27,014 ERROR: Exception on /hair/single bundles [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 352, in edit_hair_pattern
+    return render_template('admin/hair/patterns-edit.html', **context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
+    ctx.app,
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/hair/patterns-edit.html", line 1, in top-level template code
+    {% extends 'admin/layout.html' %}
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/layout.html", line 36, in top-level template code
+    {% block body %}{% endblock %}
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/hair/patterns-edit.html", line 24, in block "body"
+    <!-- {{ form.display_name(class="form-control", placeholder="Display Name", value=pattern.display_name) }} -->
+jinja2.exceptions.UndefinedError: 'app.blueprints.admin.forms.AdminEditPatternForm object' has no attribute 'display_name'
+2021-08-31 17:35:50,011 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:36:23,060 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:37:28,831 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:38:05,990 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:38:21,856 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:39:09,029 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:39:23,681 ERROR: Exception on /admin/hair/pattern/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -54,12 +85,14 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 76, in get_pattern
-    products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
-AttributeError: 'NoneType' object has no attribute 'id'
-2021-08-25 19:16:34,145 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:17:04,914 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:26:55,078 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:32:41,486 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:34:17,464 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:34:28,936 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 338, in edit_hair_pattern
+    result = upload(file)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/cloudinary/uploader.py", line 46, in upload
+    return call_cacheable_api("upload", params, file=file, **options)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/cloudinary/uploader.py", line 341, in call_cacheable_api
+    result = call_api(action, params, http_headers, return_error, unsigned, file, timeout, **options)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/cloudinary/uploader.py", line 421, in call_api
+    raise Error(result["error"]["message"])
+cloudinary.exceptions.Error: Missing required parameter - file
+2021-08-31 17:41:27,769 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-08-31 17:43:41,156 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
