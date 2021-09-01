@@ -13,10 +13,12 @@ def inject_cart():
     #     session['shopping_cart'] = None
     tax = .00
     # tax = .06
+    
     try:
         items = []
         for i in current_user.cart.all():
-            data = dict(bundle_length=Hair.query.get(i.product_id).bundle_length, length=Hair.query.get(i.product_id).length, category=HairCategory.query.get(Hair.query.get(i.product_id).category_id).name, pattern=Hair.query.get(i.product_id).pattern, prod_id=Hair.query.get(i.product_id).id, name=Hair.query.get(i.product_id).pattern, image=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().image, price=Hair.query.get(i.product_id).price, quantity=len(Cart.query.filter_by(product_id=i.product_id).all()))
+            data = dict(bundle_length=Hair.query.get(i.product_id).bundle_length, length=Hair.query.get(i.product_id).length, category=HairCategory.query.get(Hair.query.get(i.product_id).category_id).name, pattern=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().display_name, prod_id=Hair.query.get(i.product_id).id, name=Hair.query.get(i.product_id).pattern, image=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().image, price=Hair.query.get(i.product_id).price, quantity=len(Cart.query.filter_by(product_id=i.product_id).all()))
+            # print(data['pattern'])
             if data not in items:
                 items.append(data)
         total = sum([Hair.query.filter_by(id=i.product_id).first().price for i in current_user.cart.all()])
@@ -37,6 +39,7 @@ def inject_cart():
             'coupon': cart_dict.get('coupon'),
             'grandTotal': cart_dict.get('grandTotal')
         }
+        # print(session.get('payment_shopping_cart'))
         # print(session.get('payment_shopping_cart')['products'])
         # print(cart_dict)
         # print(cart_dict)

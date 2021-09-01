@@ -1,5 +1,4 @@
-2021-08-25 18:59:57,493 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:00:07,256 ERROR: Exception on /hair/extensions [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-09-01 10:01:55,419 ERROR: Exception on /hair/extensions [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -13,61 +12,1881 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 88, in get_pattern
-    return render_template('shop/shop-detail.html', **context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
-    ctx.app,
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
-    rv = template.render(context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 2, in top-level template code
-    {% set active_page = 'shop.get_product' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-layout.html", line 2, in top-level template code
-    {% set active_page = 'shop.checkout' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/layout.html", line 49, in top-level template code
-    {% block scripts %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 262, in block "scripts"
-    window.location.href = "{{ url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()) }}";
-jinja2.exceptions.UndefinedError: 'app.models.HairCategory object' has no attribute 'lower'
-2021-08-25 19:03:19,437 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-08-25 19:03:23,146 ERROR: Exception on /hair/extensions [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 91, in get_pattern
-    return render_template('shop/shop-detail.html', **context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
-    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
-    return self._load_template(name, self.make_globals(globals))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
-    template = self.loader.load(self, name, globals)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 127, in load
-    code = environment.compile(source, name, filename)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 638, in compile
-    self.handle_exception(source=source_hint)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 12, in template
-    <li><a href="{{ url_for('hair.get_category', category=category.name.lower()) }}">{% if category.display_name %}{{ category.display_name }}{% else %}{{ category }}{%%}</a></li>
-jinja2.exceptions.TemplateSyntaxError: tag name expected
-2021-08-25 19:04:05,512 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 87, in get_pattern
+    'display_name': HairCategory.query.filter_by(name=category).first().to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in <listcomp>
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 280, in to_dict
+    'category': HairCategory.query.get(self.category_id).to_dict()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 363, in to_dict
+    'products': [i.to_dict() for i in self.products.all()]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3346, in all
+    return list(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/dynamic.py", line 313, in __iter__
+    return iter(self._clone(sess))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1121, in _execute_clauseelement
+    else None,
+  File "<string>", line 1, in <lambda>
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 481, in compile
+    return self._compiler(dialect, bind=bind, **kw)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 487, in _compiler
+    return dialect.statement_compiler(dialect, self, **kw)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 593, in __init__
+    Compiled.__init__(self, dialect, statement, **kwargs)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 322, in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 353, in process
+    return obj._compiler_dispatch(self, **kwargs)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/visitors.py", line 96, in _compiler_dispatch
+    return meth(self, **kw)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 2165, in visit_select
+    text, select, inner_columns, froms, byfrom, kwargs
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 2264, in _compose_select_body
+    t = select._whereclause._compiler_dispatch(self, **kwargs)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/visitors.py", line 96, in _compiler_dispatch
+    return meth(self, **kw)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 1327, in visit_binary
+    return self._generate_generic_binary(binary, opstring, **kw)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 1374, in _generate_generic_binary
+    + binary.right._compiler_dispatch(
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/visitors.py", line 96, in _compiler_dispatch
+    return meth(self, **kw)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 1520, in visit_bindparam
+    name = self._truncate_bindparam(bindparam)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 1579, in _truncate_bindparam
+    bind_name = self._truncated_identifier("bindparam", bind_name)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 1590, in _truncated_identifier
+    anonname = name.apply_map(self.anon_map)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 4553, in apply_map
+    return self % map_
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/sql/compiler.py", line 443, in __missing__
+    value = derived + "_" + str(anonymous_counter)
+RecursionError: maximum recursion depth exceeded while calling a Python object

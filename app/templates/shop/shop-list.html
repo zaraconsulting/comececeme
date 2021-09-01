@@ -49,7 +49,7 @@
 						{% for product in products %}
 							<li class="product-container col-sm-12 col-md-6">
 								<div class="product-inner">
-									<h3 class="product-title"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].name }}</a></h3>
+									<h3 class="product-title"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].display_name }}</a></h3>
 									<p class="product-image"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}"><img class="img-fluid" src="{{ product.image }}" alt="{{ product.pattern }}"></a></p>
 									<div class="product-info">
 										<div class="product-price">from ${{ '{:,.2f}'.format(product.pattern[0].price) }}</div>

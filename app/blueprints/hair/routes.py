@@ -48,7 +48,7 @@ def get_category():
         display_products = []
         for i in hair_products:
             if i.pattern == pattern and i.pattern not in [a_dict for a_dict in display_products]:
-                display_products.append({'name': i.pattern, 'price': i.price})
+                display_products.append({'name': i.pattern, 'display_name': Pattern.query.filter_by(name=i.pattern).first().display_name, 'price': i.price})
                 break
         a_dict = {
             'pattern': display_products,
@@ -86,8 +86,9 @@ def get_pattern(category):
                 'name': category,
                 'display_name': HairCategory.query.filter_by(name=category).first().display_name
             },
-            'pattern': pattern
+            'pattern': Pattern.query.filter_by(name=pattern).first()
         }
+        # print(context['pattern'].display_name)
     return render_template('shop/shop-detail.html', **context)
         
 @app.route('/product/cart/add', methods=['POST'])
@@ -97,20 +98,20 @@ def add_cart_product():
     #     """
     if request.method == 'POST':
         r = request.get_json()
-        # print(r)
         
         session['id'] = r.get('id')
         session['category'] = r.get('category')
         session['pattern'] = r.get('pattern')
         session['quantity'] = r.get('quantity')
         
+        category = session.get('category')
+        pattern = session.get('pattern')
+
         if not session['active_user']:
             flash("You must login to continue", "m-warning")
             return redirect(url_for('hair.get_pattern', category=category.lower(), pattern=pattern.lower()))
 
         _id = session.get('id')
-        category = session.get('category')
-        pattern = session.get('pattern')
         quantity = int(session.get('quantity'))
 
         # print("Product ID:", _id)

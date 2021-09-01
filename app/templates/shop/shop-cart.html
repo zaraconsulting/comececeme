@@ -36,8 +36,8 @@
 					<tbody>
 						{% for p in shopping_cart %}
 							<tr class="shopping-cart-item">
-								<td class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></td>
-								<td><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}">{% if p.category=='Bundles' %}{{ p.bundle_length }}{% else %}{{ p.length }}"{% endif %} {{ p.name }} {% if p.category=='Bundles' %} Bundles{% else %} Extensions{% endif %}</a></td>
+								<td class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.name.lower()) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></td>
+								<td><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.name.lower()) }}">{% if p.category=='Bundles' %}{{ p.bundle_length }}{% else %}{{ p.length }}"{% endif %} {{ p.pattern }} {% if p.category=='Bundles' %} Bundles{% else %} Extensions{% endif %}</a></td>
 								<td>${{ '{:.2f}'.format(p.price) }}</td>
 								<td>
 									{# {{ p.quantity }} #}

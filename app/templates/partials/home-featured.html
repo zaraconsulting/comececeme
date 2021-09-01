@@ -15,10 +15,10 @@
                     {% for p in products %}
                     <div class="col-xs-6 col-sm-2 featured-product">
                         <h5 class="product-title" style="text-align: center;">
-                            <a class="img-fluid" href="{{ url_for('hair.get_pattern', category=p.category.name.lower(), pattern=p.pattern[0].name.lower()) }}">{{ p.pattern[0].name }}<br>{% if p.category.display_name %}{{ p.category.display_name }}{% else %}{{ p.category.name }}{% endif %}</a>
+                            <a class="img-fluid" href="{{ url_for('hair.get_pattern', category=p.category.name.lower(), pattern=p.pattern[0].name.lower()) }}">{{ p.pattern[0].display_name }}<br>{% if p.category.display_name %}{{ p.category.display_name }}{% else %}{{ p.category.name }}{% endif %}</a>
                         </h5>
                         <a href="{{ url_for('hair.get_pattern', category=p.category.name.lower(), pattern=p.pattern[0].name.lower()) }}">
-                            <img class="img-fluid" src="{{ p.image }}" alt="{{ p.pattern[0].name }}">
+                            <img class="img-fluid" src="{{ p.image }}" alt="{{ p.pattern[0].display_name }}">
                         </a>
                     </div>
                     {% endfor %}

@@ -19,7 +19,7 @@ def index():
         display_products = []
         for i in hair_products:
             if i.pattern == pattern and i.pattern not in [a_dict for a_dict in display_products]:
-                display_products.append({'name': i.pattern, 'price': i.price})
+                display_products.append({'name': i.pattern, 'display_name': Pattern.query.filter_by(name=i.pattern).first().display_name, 'price': i.price})
                 break
         a_dict = {
             'pattern': display_products,

@@ -221,7 +221,7 @@ class Pattern(db.Model):
     def to_dict(self):
         data = {
             'id': self.id,
-            'name': self.display_name if self.display_name is not None else self.name,
+            'name': self.display_name if self.display_name != self.name else self.name,
             'display_name': self.display_name,
             'image': self.image,
             'products': self.products

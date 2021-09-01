@@ -215,7 +215,7 @@ def hair_products():
     if form.validate_on_submit():
         product = Hair()
         data = {
-            'pattern': Pattern.query.get(form.pattern.data).name, 
+            'pattern': Pattern.query.get(form.pattern.data).display_name, 
             'length': form.length.data,
             'price': form.price.data, 
             'category_id': HairCategory.query.get(int(form.category.data)).name,
@@ -240,7 +240,7 @@ def edit_hair_product():
 
     if form.validate_on_submit():
         data = {
-            'pattern': Pattern.query.get(form.pattern.data).name, 
+            'pattern': Pattern.query.get(form.pattern.data).display_name, 
             'length': form.length.data,
             'price': form.price.data, 
             'category_id': HairCategory.query.get(int(form.category.data)).name,
