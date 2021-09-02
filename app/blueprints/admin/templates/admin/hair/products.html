@@ -23,8 +23,8 @@
                         {{ form.pattern(class="form-control", style="margin-right: 15px") }}
                         {{ form.category(class="form-control", style="margin-right: 15px") }}
                         {{ form.price(class='form-control', placeholder="Price") }}
-                        {{ form.length(class='form-control', placeholder="Hair Length") }}
-                        {#{{ form.bundle_length(class='form-control', placeholder="Bundle Length: optional") }}#}
+                        {{ form.length(class='form-control', placeholder="Hair Length", style="display: none") }}
+                        {{ form.bundle_length(class='form-control', placeholder="Bundle Length", style="display: none") }}
                         <!-- <div class="form-check">
                             <label class="form-check-label">
                             {# {{ form.is_admin(class="form-check-input") }} #}
@@ -48,7 +48,20 @@
 {% block scripts %}
 {{ super() }}
 <script>
+    
     $('.create-product-form #pattern').prepend('<option disabled selected>Select a pattern</option>');
     $('.create-product-form #category').prepend('<option disabled selected>Select a category</option>');
+    $('.custom-form select#category').on('change', () => {
+        if($('select#category option:selected').text() == 'Bundles')
+        {
+            $('.custom-form #bundle_length').css(`display`, 'block');
+            $('.custom-form #length').hide();
+        }
+        else
+        {
+            $('.custom-form #length').css(`display`, 'block');
+            $('.custom-form #bundle_length').hide();
+        }
+    });
 </script>
 {% endblock %}

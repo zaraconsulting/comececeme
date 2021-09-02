@@ -1,4 +1,29 @@
-2021-09-01 09:28:56,640 ERROR: Exception on /hair/product/cart/add [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-09-01 18:57:49,391 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:00:08,818 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:11:41,537 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:42:58,067 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:44:37,766 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:48:22,213 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:50:07,957 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:51:33,753 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:54:28,218 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:57:00,929 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:58:02,381 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 19:59:26,370 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:03:57,962 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:04:35,367 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:06:02,344 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:09:08,650 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:11:32,764 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:13:13,361 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:13:34,961 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:14:31,375 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:15:25,980 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:16:27,013 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:16:51,251 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:17:36,708 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:18:20,925 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:18:23,323 ERROR: Exception on /admin/hair/products [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,15 +37,29 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 124, in add_cart_product
-    shopping_cart = session['payment_shopping_cart']['products']
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
-    __getitem__ = lambda x, i: x._get_current_object()[i]
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
-    return super(SecureCookieSession, self).__getitem__(key)
-KeyError: 'payment_shopping_cart'
-2021-09-01 09:38:31,659 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 09:38:58,789 ERROR: Exception on /hair/product/cart/add [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 232, in hair_products
+    return render_template('admin/hair/products.html', products=Hair.query.order_by(Hair.pattern).all(), form=form)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/hair/products.html", line 26, in template
+    {{ form.length(class='form-control', placeholder="Hair Length" style="display: none;") }}
+jinja2.exceptions.TemplateSyntaxError: expected token ',', got 'style'
+2021-09-01 20:18:45,688 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 20:18:48,610 ERROR: Exception on /admin/hair/products [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -34,24 +73,24 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 123, in add_cart_product
-    shopping_cart = session['payment_shopping_cart']['products']
-TypeError: 'NoneType' object is not subscriptable
-2021-09-01 09:39:10,367 ERROR: Exception on /hair/product/cart/add [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 123, in add_cart_product
-    shopping_cart = session['payment_shopping_cart']['products']
-TypeError: 'NoneType' object is not subscriptable
-2021-09-01 09:42:46,748 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 232, in hair_products
+    return render_template('admin/hair/products.html', products=Hair.query.order_by(Hair.pattern).all(), form=form)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/hair/products.html", line 26, in template
+    {{ form.length(class='form-control', placeholder="Hair Length" style="display: none") }}
+jinja2.exceptions.TemplateSyntaxError: expected token ',', got 'style'

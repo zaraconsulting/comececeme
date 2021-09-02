@@ -30,7 +30,7 @@ class AdminCreateProductForm(FlaskForm):
     length = IntegerField()
     price = FloatField()
     category = SelectField(choices=[], coerce=int)
-    bundle_length = IntegerField()
+    bundle_length = StringField()
     submit = SubmitField('Create Product')
     
 class AdminEditProductForm(FlaskForm):
@@ -38,7 +38,7 @@ class AdminEditProductForm(FlaskForm):
     length = IntegerField()
     price = FloatField()
     category = SelectField(choices=[], coerce=int)
-    bundle_length = IntegerField()
+    bundle_length = StringField()
     submit = SubmitField('Update Product')
 
 class AdminResetPasswordRequestForm(FlaskForm):

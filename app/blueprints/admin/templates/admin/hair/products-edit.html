@@ -22,8 +22,10 @@
                     <div class="form-group custom-form">
                         {{ form.pattern(class="form-control", style="margin-right: 15px") }}
                         {{ form.category(class="form-control", style="margin-right: 15px") }}
+                        {# {{ form.category(class="form-control", style="margin-right: 15px", disabled='disabled') }} #}
                         {{ form.price(class='form-control', placeholder="Price", value=product.price) }}
                         {{ form.length(class='form-control', placeholder="Hair Length", value=product.length) }}
+                        {{ form.bundle_length(class='form-control', placeholder="Bundle Length", value=product.bundle_length) }}
                         {{ form.submit(class="btn btn-outline-primary") }}
                     </div>
                 </form>
@@ -44,5 +46,17 @@
     // var roleOption = $(`#role option[value=${roleId}]`);
     $('#pattern').val('{{ product.pattern_id }}')
     $('#category').val('{{ product.category_id }}')
+
+    if ($('select#category option:selected').text() == 'Bundles')
+    {
+        // $('select#category option:selected').attr('selected', true);
+        $('.custom-form #bundle_length').css(`display`, 'block');
+        $('.custom-form #length').hide();
+    }
+    else
+    {
+        $('.custom-form #length').css(`display`, 'block');
+        $('.custom-form #bundle_length').hide();
+    }
 </script>
 {% endblock %}

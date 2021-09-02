@@ -1,4 +1,44 @@
-2021-09-01 08:47:05,565 ERROR: Exception on /hair/extensions [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-09-01 18:55:56,356 ERROR: Exception on / [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2338, in _wrap_pool_connect
+    return fn()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/psycopg2/__init__.py", line 126, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "ruby.db.elephantsql.com" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,91 +52,68 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 91, in get_pattern
-    return render_template('shop/shop-detail.html', **context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
-    ctx.app,
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
-    rv = template.render(context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 2, in top-level template code
-    {% set active_page = 'shop.get_product' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-layout.html", line 2, in top-level template code
-    {% set active_page = 'shop.checkout' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/layout.html", line 49, in top-level template code
-    {% block scripts %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 297, in block "scripts"
-    // window.location.href = "{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=pattern.lower(), is_selected=isSelected) | safe }}"
-jinja2.exceptions.UndefinedError: 'app.models.Pattern object' has no attribute 'lower'
-2021-09-01 08:47:58,969 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 08:48:17,890 ERROR: Exception on /hair/product/cart/add [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 123, in add_cart_product
-    shopping_cart = session['payment_shopping_cart']['products']
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
-    __getitem__ = lambda x, i: x._get_current_object()[i]
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
-    return super(SecureCookieSession, self).__getitem__(key)
-KeyError: 'payment_shopping_cart'
-2021-09-01 08:59:48,430 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 09:00:03,487 ERROR: Exception on /hair/product/cart/add [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 124, in add_cart_product
-    shopping_cart = session['payment_shopping_cart']['products']
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
-    __getitem__ = lambda x, i: x._get_current_object()[i]
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
-    return super(SecureCookieSession, self).__getitem__(key)
-KeyError: 'payment_shopping_cart'
-2021-09-01 09:00:53,954 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 09:01:10,435 ERROR: Exception on /hair/product/cart/add [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 124, in add_cart_product
-    shopping_cart = session['payment_shopping_cart']['products']
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
-    __getitem__ = lambda x, i: x._get_current_object()[i]
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
-    return super(SecureCookieSession, self).__getitem__(key)
-KeyError: 'payment_shopping_cart'
-2021-09-01 09:03:17,550 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/main/routes.py", line 14, in index
+    category = HairCategory.query.filter_by(name='Extensions').first()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3402, in first
+    ret = list(self[0:1])
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3176, in __getitem__
+    return list(res)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3530, in _execute_and_instances
+    querycontext, self._connection_from_session, close_with_result=True
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3545, in _get_bind_args
+    mapper=self._bind_mapper(), clause=querycontext.statement, **kw
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/query.py", line 3523, in _connection_from_session
+    conn = self.session.connection(**kw)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1141, in connection
+    execution_options=execution_options,
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1147, in _connection_for_bind
+    engine, execution_options
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 433, in _connection_for_bind
+    conn = bind._contextual_connect()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2304, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2342, in _wrap_pool_connect
+    e, dialect, self
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1584, in _handle_dbapi_exception_noconnection
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2338, in _wrap_pool_connect
+    return fn()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 140, in _do_get
+    self._dec_overflow()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 137, in _do_get
+    return self._create_connection()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 309, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 493, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/psycopg2/__init__.py", line 126, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "ruby.db.elephantsql.com" to address: Name or service not known
+
+(Background on this error at: http://sqlalche.me/e/13/e3q8)

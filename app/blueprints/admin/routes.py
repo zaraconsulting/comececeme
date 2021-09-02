@@ -210,20 +210,28 @@ def hair_products():
         return redirect(url_for('admin.login'))
     form = AdminCreateProductForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
-    form.category.choices = [(i.id, i.display_name if i.display_name else i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    # form.category.choices = [(i.id, i.display_name if i.display_name else i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
 
-    if form.validate_on_submit():
+    if request.method == 'POST':
         product = Hair()
         data = {
             'pattern': Pattern.query.get(form.pattern.data).display_name, 
-            'length': form.length.data,
             'price': form.price.data, 
             'category_id': HairCategory.query.get(int(form.category.data)).name,
         }
+        if form.length.data:
+            data.update({ 'length': form.length.data })
+        elif form.bundle_length.data:
+            data.update({ 'bundle_length': form.bundle_length.data })
+
+        # print(data)
+
         product.from_dict(data)
         product.pattern_id = Pattern.query.get(form.pattern.data).id
         product.category_id = HairCategory.query.get(form.category.data).id
         # product.bundle_length = form.bundle_length.data or ''
+        # print(product)
         product.create_hair_product()
         flash('Hair Product created successfully', 'success')
         return redirect(url_for('admin.hair_products'))
@@ -238,13 +246,19 @@ def edit_hair_product():
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
 
-    if form.validate_on_submit():
+    
+    if request.method == 'POST':
+        print(request.form)
         data = {
             'pattern': Pattern.query.get(form.pattern.data).display_name, 
-            'length': form.length.data,
             'price': form.price.data, 
-            'category_id': HairCategory.query.get(int(form.category.data)).name,
+            'category_id': HairCategory.query.get(int(request.form.get('category'))).name,
         }
+        if form.length.data:
+            data.update({ 'length': form.length.data })
+        elif form.bundle_length.data:
+            data.update({ 'bundle_length': form.bundle_length.data })
+
         p.from_dict(data)
         p.pattern_id = Pattern.query.get(form.pattern.data).id
         p.category_id = HairCategory.query.get(form.category.data).id
@@ -264,7 +278,7 @@ def delete_hair_product():
     _id = int(request.args.get('id'))
     product = Hair.query.get(_id)
     product.delete_hair_product()
-    flash('User deleted successfully', 'info')
+    flash('Product deleted successfully', 'info')
     return redirect(url_for('admin.hair_products'))
 
 @admin.route('/reset_password_request', methods=['GET', 'POST'])

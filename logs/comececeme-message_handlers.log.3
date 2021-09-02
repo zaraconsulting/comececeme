@@ -1,8 +1,4 @@
-2021-09-01 10:02:06,706 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 10:02:41,091 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 10:03:10,394 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 10:06:42,268 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 10:06:45,757 ERROR: Exception on /hair/extensions [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-09-01 21:09:34,479 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -16,32 +12,11 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 92, in get_pattern
-    return render_template('shop/shop-detail.html', **context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
-    ctx.app,
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
-    rv = template.render(context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 2, in top-level template code
-    {% set active_page = 'shop.get_product' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-layout.html", line 2, in top-level template code
-    {% set active_page = 'shop.checkout' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/layout.html", line 40, in top-level template code
-    {% block content %}{% endblock %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-layout.html", line 7, in block "content"
-    {% block shop_content %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 224, in block "shop_content"
-    {% include './partials/shop-sidebar.html' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/partials/shop-sidebar.html", line 12, in top-level template code
-    <p class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></p>
-jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'lower'
-2021-09-01 10:06:47,780 ERROR: Request finalizing failed with an error while handling an error [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1976]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
+    'category_id': HairCategory.query.get(int(form.category.data)).name,
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-09-01 21:10:13,863 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 21:10:16,017 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -55,59 +30,62 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 92, in get_pattern
-    return render_template('shop/shop-detail.html', **context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
-    ctx.app,
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
-    rv = template.render(context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
-    self.environment.handle_exception()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
+    'category_id': HairCategory.query.get(int(form.category.data)).name,
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-09-01 21:11:10,972 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 21:11:42,762 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 21:12:07,077 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 21:12:29,983 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
+    'category_id': HairCategory.query.get(int(form.category.data)).name,
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-09-01 21:22:55,969 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-09-01 21:22:58,967 ERROR: Exception on /admin/hair/product/edit [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 272, in edit_hair_product
+    return render_template('admin/hair/products-edit.html', **context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
     reraise(*rewrite_traceback_stack(source=source))
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
     raise value.with_traceback(tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 2, in top-level template code
-    {% set active_page = 'shop.get_product' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-layout.html", line 2, in top-level template code
-    {% set active_page = 'shop.checkout' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/layout.html", line 40, in top-level template code
-    {% block content %}{% endblock %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-layout.html", line 7, in block "content"
-    {% block shop_content %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/shop/shop-detail.html", line 224, in block "shop_content"
-    {% include './partials/shop-sidebar.html' %}
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/templates/partials/shop-sidebar.html", line 12, in top-level template code
-    <p class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}"><img src="{{ p.image }}" alt="{{ p.name }}"></a></p>
-jinja2.exceptions.UndefinedError: 'dict object' has no attribute 'lower'
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1970, in finalize_request
-    response = self.process_response(response)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2269, in process_response
-    self.session_interface.save_session(self, ctx.session, response)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/sessions.py", line 378, in save_session
-    val = self.get_signing_serializer(app).dumps(dict(session))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 166, in dumps
-    payload = want_bytes(self.dump_payload(obj))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/itsdangerous/url_safe.py", line 42, in dump_payload
-    json = super(URLSafeSerializerMixin, self).dump_payload(obj)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 133, in dump_payload
-    return want_bytes(self.serializer.dumps(obj, **self.serializer_kwargs))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/json/tag.py", line 305, in dumps
-    return dumps(self.tag(value), separators=(",", ":"))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 211, in dumps
-    rv = _json.dumps(obj, **kwargs)
-  File "/usr/local/lib/python3.6/json/__init__.py", line 238, in dumps
-    **kw).encode(obj)
-  File "/usr/local/lib/python3.6/json/encoder.py", line 199, in encode
-    chunks = self.iterencode(o, _one_shot=True)
-  File "/usr/local/lib/python3.6/json/encoder.py", line 257, in iterencode
-    return _iterencode(o, 0)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 100, in default
-    return _json.JSONEncoder.default(self, o)
-  File "/usr/local/lib/python3.6/json/encoder.py", line 180, in default
-    o.__class__.__name__)
-TypeError: Object of type 'AppenderBaseQuery' is not JSON serializable
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/templates/admin/hair/products-edit.html", line 24, in template
+    {{ form.category(class="form-control", style="margin-right: 15px" }}
+jinja2.exceptions.TemplateSyntaxError: unexpected '}', expected ')'
