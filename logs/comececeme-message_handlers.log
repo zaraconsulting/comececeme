@@ -34,3 +34,4 @@ Traceback (most recent call last):
     pattern = session.get('pattern').title() or None
 AttributeError: 'NoneType' object has no attribute 'title'
 2021-10-17 09:18:11,959 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 17:13:10,035 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
