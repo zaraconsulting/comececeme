@@ -265,6 +265,7 @@ class Hair(db.Model):
     length = db.Column(db.Integer)
     bundle_length = db.Column(db.String)
     price = db.Column(db.Float)
+    is_viewable = db.Column(db.Boolean, default=True)
     pattern_id = db.Column(db.Integer, db.ForeignKey('pattern.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('hair_category.id'))
     reviews = db.relationship('HairReview', backref='hair_reviews', lazy='dynamic')
@@ -272,6 +273,7 @@ class Hair(db.Model):
     def to_dict(self):
         data = {
             'id': self.id,
+            'is_viewable': self.is_viewable,
             'pattern': self.pattern,
             'length': self.length,
             'bundle_length': self.bundle_length,
@@ -283,7 +285,7 @@ class Hair(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['pattern', 'length', 'price', 'category_id', 'bundle_length']:
+        for field in ['pattern', 'length', 'price', 'category_id', 'bundle_length', 'is_viewable']:
             if field in data:
                 if field == 'category_id':
                     category = HairCategory.query.filter_by(name=data[field].title()).first()

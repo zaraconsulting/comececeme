@@ -27,8 +27,9 @@ def get_categories():
     """
     [GET] /hair/categories
     """
+    print('hi')
     context = {
-        'categories': [i for i in HairCategory.query.all()],
+        'categories': [i for i in HairCategory.query.all() if len(i.products.all()) > 0],
         'frontals': HairCategory.query.filter_by(name='Frontals').first(),
         'closures': HairCategory.query.filter_by(name='Closures').first()
     }
@@ -41,7 +42,7 @@ def get_category():
     """
     category = request.args.get('category').title()
     category_id = HairCategory.query.filter_by(name=category).first().id
-    pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category_id).all()]))
+    pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category_id).all() if i.is_viewable]))
     products = []
     for pattern in pattern_list:
         hair_products = Hair.query.filter_by(category_id=category_id).all()

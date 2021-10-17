@@ -245,11 +245,12 @@ def edit_hair_product():
     form = AdminEditProductForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
-
+    form.is_viewable.choices = [(0, False), (1, True)]
     
     if request.method == 'POST':
-        print(request.form)
+        # print(request.form)
         data = {
+            'is_viewable': form.is_viewable.data,
             'pattern': Pattern.query.get(form.pattern.data).display_name, 
             'price': form.price.data, 
             'category_id': HairCategory.query.get(int(request.form.get('category'))).name,
@@ -258,6 +259,8 @@ def edit_hair_product():
             data.update({ 'length': form.length.data })
         elif form.bundle_length.data:
             data.update({ 'bundle_length': form.bundle_length.data })
+        elif form.is_viewable.data:
+            data.update({ 'is_viewable': form.is_viewable.data })
 
         p.from_dict(data)
         p.pattern_id = Pattern.query.get(form.pattern.data).id
@@ -330,7 +333,8 @@ def hair_patterns():
         result = upload(file)
         pattern = Pattern()
         data = {
-            'name': form.name.data.title(), 
+            'name': form.name.data.title(),
+            'display_name': form.display_name.data.title() if form.display_name.data.title() else form.name.data.title(),
             'image': result['url'],
         }
         pattern.from_dict(data)

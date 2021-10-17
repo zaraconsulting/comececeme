@@ -1,94 +1,80 @@
-2021-09-01 20:52:41,245 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 20:52:43,674 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-10-16 15:40:22,703 ERROR: Exception on /admin/hair/patterns [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py:1891]
 Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
-    'category_id': HairCategory.query.get(int(form.category.data)).name,
-TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-2021-09-01 20:58:12,165 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 20:59:26,272 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 20:59:54,710 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1952, in full_dispatch_request
     rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1821, in handle_user_exception
     reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/_compat.py", line 39, in reraise
     raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
     rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
-    'category_id': HairCategory.query.get(int(form.category.data)).name,
-TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-2021-09-01 21:00:23,149 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 21:00:31,222 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
-    'category_id': HairCategory.query.get(int(form.category.data)).name,
-TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-2021-09-01 21:01:26,522 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 21:02:41,563 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 21:04:06,818 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 21:04:21,753 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
-    'category_id': HairCategory.query.get(int(form.category.data)).name,
-TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-2021-09-01 21:09:10,995 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-09-01 21:09:14,265 ERROR: Exception on /admin/hair/product/edit [POST] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 255, in edit_hair_product
-    'category_id': HairCategory.query.get(int(form.category.data)).name,
-TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-2021-09-01 21:09:30,055 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 325, in hair_patterns
+    if not current_user.is_authenticated:
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/werkzeug/local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/werkzeug/local.py", line 306, in _get_current_object
+    return self.__local()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask_login/utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask_login/utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask_login/login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 590, in load_custommer
+    return Customer.query.get(int(id)) or Account.query.get(int(id))
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 1018, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
+    return db_load_fn(self, primary_key_identity)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/loading.py", line 286, in load_on_pk_identity
+    return q.one()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3463, in one
+    ret = self.one_or_none()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3432, in one_or_none
+    ret = list(self)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+[SQL: SELECT customer.id AS customer_id, customer.suffix AS customer_suffix, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.phone AS customer_phone, customer.email AS customer_email, customer.password AS customer_password, customer.dob AS customer_dob, customer.address_1 AS customer_address_1, customer.address_2 AS customer_address_2, customer.city AS customer_city, customer.state AS customer_state, customer._zip AS customer__zip, customer.date_created AS customer_date_created, customer.is_customer AS customer_is_customer 
+FROM customer 
+WHERE customer.id = %(param_1)s]
+[parameters: {'param_1': 37}]
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+2021-10-16 15:40:31,723 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]

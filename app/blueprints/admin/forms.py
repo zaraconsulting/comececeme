@@ -34,6 +34,7 @@ class AdminCreateProductForm(FlaskForm):
     submit = SubmitField('Create Product')
     
 class AdminEditProductForm(FlaskForm):
+    is_viewable = SelectField(choices=[], coerce=int)
     pattern = SelectField(choices=[], coerce=int)
     length = IntegerField()
     price = FloatField()

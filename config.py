@@ -37,13 +37,16 @@ class BaseConfig:
 
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEVELOPMENT_DATABASE')
+    if os.environ.get('DEVELOPMENT_DATABASE').startswith('postgres'):
+        SQLALCHEMY_DATABASE_URI = os.environ.get('DEVELOPMENT_DATABASE').replace('postgres', 'postgresql')
 
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('PRODUCTION_DATABASE')
+    if os.environ.get('PRODUCTION_DATABASE').startswith('postgres'):
+        SQLALCHEMY_DATABASE_URI = os.environ.get('PRODUCTION_DATABASE').replace('postgres', 'postgresql')
 
 
 class TestConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE')
+    if os.environ.get('TEST_DATABASE').startswith('postgres'):
+        SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE').replace('postgres', 'postgresql')
     

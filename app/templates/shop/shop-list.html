@@ -46,18 +46,22 @@
 				<ul class="product-list">
 					<!-- PRODUCT : begin -->
 					<div class="row">
-						{% for product in products %}
-							<li class="product-container col-sm-12 col-md-6">
-								<div class="product-inner">
-									<h3 class="product-title"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].display_name }}</a></h3>
-									<p class="product-image"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}"><img class="img-fluid" src="{{ product.image }}" alt="{{ product.pattern }}"></a></p>
-									<div class="product-info">
-										<div class="product-price">from ${{ '{:,.2f}'.format(product.pattern[0].price) }}</div>
-										<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+						{% if products %}
+							{% for product in products %}
+								<li class="product-container col-sm-12 col-md-6">
+									<div class="product-inner">
+										<h3 class="product-title"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].display_name }}</a></h3>
+										<p class="product-image"><a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}"><img class="img-fluid" src="{{ product.image }}" alt="{{ product.pattern }}"></a></p>
+										<div class="product-info">
+											<div class="product-price">from ${{ '{:,.2f}'.format(product.pattern[0].price) }}</div>
+											<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+										</div>
 									</div>
-								</div>
-							</li>
-						{% endfor %}
+								</li>
+							{% endfor %}
+						{% else %}
+							<h3 style="text-align: center; font-size: 18px; font-weight: bold;">No products to display</h3>
+						{% endif %}
 					</div>
 					<!-- PRODUCT : end -->
 				</ul>

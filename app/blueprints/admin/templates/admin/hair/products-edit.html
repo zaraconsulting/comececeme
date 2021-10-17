@@ -20,6 +20,7 @@
                 <form class="form-inline edit-user-form" method="POST">
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
+                        {{ form.is_viewable(class="form-control", style="margin-right: 15px" ) }}
                         {{ form.pattern(class="form-control", style="margin-right: 15px") }}
                         {{ form.category(class="form-control", style="margin-right: 15px") }}
                         {# {{ form.category(class="form-control", style="margin-right: 15px", disabled='disabled') }} #}
@@ -44,8 +45,14 @@
 {{ super() }}
 <script>
     // var roleOption = $(`#role option[value=${roleId}]`);
-    $('#pattern').val('{{ product.pattern_id }}')
-    $('#category').val('{{ product.category_id }}')
+    $('#pattern').prepend( '<option disabled>Select a Hair Pattern</option>' );
+    $('#pattern').val('{{ product.pattern_id }}');
+
+    $('#category').prepend( '<option disabled>Select a Hair Category</option>' );
+    $('#category').val('{{ product.category_id }}');
+
+    $('#is_viewable').prepend('<option disabled>Is Viewable</option>');
+    $('#is_viewable').val( '{{ product.is_viewable }}' === 'True' ? '1' : '0' );
 
     if ($('select#category option:selected').text() == 'Bundles')
     {
