@@ -27,9 +27,8 @@ def get_categories():
     """
     [GET] /hair/categories
     """
-    print('hi')
     context = {
-        'categories': [i for i in HairCategory.query.all() if len(i.products.all()) > 0],
+        'categories': [i for i in HairCategory.query.all() if len(i.products.all()) > 0 if i.display_name != 'Wigs'],
         'frontals': HairCategory.query.filter_by(name='Frontals').first(),
         'closures': HairCategory.query.filter_by(name='Closures').first()
     }
