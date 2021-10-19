@@ -63,6 +63,39 @@ class AdminEditPatternForm(FlaskForm):
     image = StringField()
     submit = SubmitField('Update Pattern')
 
+class AdminCreateWigForm(FlaskForm):
+    name = StringField()
+    pattern = SelectField(choices=[], coerce=int)
+    category = SelectField(choices=[], coerce=int)
+    image = StringField()
+    length = IntegerField()
+    price = FloatField()
+    submit = SubmitField('Create Wig')
+    
+class AdminEditWigForm(FlaskForm):
+    is_viewable = SelectField(choices=[], coerce=int)
+    name = StringField()
+    pattern = SelectField(choices=[], coerce=int)
+    category = SelectField(choices=[], coerce=int)
+    image = StringField()
+    length = IntegerField()
+    price = FloatField()
+    submit = SubmitField('Update Wig')
+
+class AdminCreateCategoryForm(FlaskForm):
+    name = StringField()
+    display_name = StringField()
+    description = TextAreaField()
+    # image = StringField()
+    submit = SubmitField('Create Category')
+    
+class AdminEditCategoryForm(FlaskForm):
+    name = StringField()
+    display_name = StringField()
+    description = TextAreaField()
+    # image = StringField()
+    submit = SubmitField('Update Category')
+
 class AdminCreateHairTipForm(FlaskForm):
     description = TextAreaField()
     submit = SubmitField('Create Hair Tip')

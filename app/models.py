@@ -261,9 +261,11 @@ class Cart(db.Model):
 class Hair(db.Model):
     __table_args__ = { 'extend_existing': True }
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
     pattern = db.Column(db.String)
     length = db.Column(db.Integer)
     bundle_length = db.Column(db.String)
+    image = db.Column(db.String)
     price = db.Column(db.Float)
     is_viewable = db.Column(db.Boolean, default=True)
     pattern_id = db.Column(db.Integer, db.ForeignKey('pattern.id'))
@@ -274,6 +276,8 @@ class Hair(db.Model):
         data = {
             'id': self.id,
             'is_viewable': self.is_viewable,
+            'name': self.name,
+            'image': self.image,
             'pattern': self.pattern,
             'length': self.length,
             'bundle_length': self.bundle_length,
@@ -285,12 +289,15 @@ class Hair(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['pattern', 'length', 'price', 'category_id', 'bundle_length', 'is_viewable']:
+        for field in ['pattern', 'name', 'image', 'length', 'price', 'category_id', 'bundle_length', 'is_viewable']:
             if field in data:
                 if field == 'category_id':
-                    category = HairCategory.query.filter_by(name=data[field].title()).first()
-                    if category is not None:
-                        setattr(self, field, category.id)
+                    if HairCategory.query.get(data[field]).name == 'Wigs':
+                        setattr(self, field, HairCategory.query.get(data[field]).id)
+                    else:
+                        category = HairCategory.query.filter_by(name=data[field].title()).first()
+                        if category is not None:
+                            setattr(self, field, category.id)
                 else:
                     setattr(self, field, data[field])
 
@@ -352,7 +359,7 @@ class HairCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     display_name = db.Column(db.String)
-    image = db.Column(db.String)
+    # image = db.Column(db.String)
     description = db.Column(db.String)
     products = db.relationship('Hair', backref='category', lazy='dynamic')
 
@@ -361,14 +368,15 @@ class HairCategory(db.Model):
             'id': self.id,
             'name': self.display_name if self.display_name is not None else self.name,
             'description': self.description,
-            'image': self.image,
+            # 'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]
         }
         return data
 
 
     def from_dict(self, data):
-        for field in ['name', 'display_name', 'description', 'image']:
+        for field in ['name', 'display_name', 'description']:
+        # for field in ['name', 'display_name', 'description', 'image']:
             if field in data:
                 setattr(self, field, data[field])
 

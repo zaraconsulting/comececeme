@@ -63,5 +63,19 @@
             $('.custom-form #bundle_length').hide();
         }
     });
+    $('.custom-form select#category').on('change', () =>
+        {
+            if ($('select#category option:selected').text() == 'Wigs')
+            {
+                // $('.custom-form #bundle_length').css(`display`, 'block');
+                // $('.custom-form #length').hide();
+                // alert('It works');
+            }
+            else
+            {
+                // $('.custom-form #length').css(`display`, 'block');
+                // $('.custom-form #bundle_length').hide();
+            }
+        });
 </script>
 {% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'admin/layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Wigs</li>
+    </ol>
+
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-user mr-1"></i>
+            Edit Wig
+        </div>
+        <!-- EDIT USER FORM : begin -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <h5>Edit a Wig</h5>
+                <form class="form-inline edit-product-form" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group custom-form">
+                        <input type="hidden" name="hair_id" value="{{ product.id }}">
+                        {{ form.is_viewable(class="form-control", style="margin-right: 15px;" ) }}
+                        {{ form.name(class='form-control', placeholder="Hair Wig Name", value=product.name) }}
+                        {{ form.pattern(class="form-control", style="margin-right: 15px") }}
+                        {{ form.category(class="form-control", style="margin-right: 15px") }}
+                        {{ form.price(class='form-control', placeholder="Price", value=product.price) }}
+                        {{ form.length(class='form-control', placeholder="Hair Length", value=product.length) }}
+                        <div class="custom-file" style="margin-bottom: 15px">
+                            <input type="file" class="custom-file-input" id='image' name="image">
+                            <label for="image" class="custom-file-label">Choose an image</label>
+                        </div>
+                        {{ form.submit(class="btn btn-outline-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- EDIT USER FORM : end -->
+
+        <!-- USERS TABLE : begin -->
+        {# {% include './admin/partials/hair/wigs-table.html' %} #}
+        <!-- USERS TABLE : end -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // var roleOption = $(`#role option[value=${roleId}]`);
+    $('#edit-product-form pattern').prepend( '<option disabled>Select a Hair Pattern</option>' );
+    $('#edit-product-form pattern').val('{{ product.pattern_id }}');
+
+    $('.edit-product-form #category').prepend( '<option disabled>Select a Hair Category</option>' );
+    $('.edit-product-form #category').val('{{ product.category_id }}');
+    $('.edit-product-form #category').attr( 'disabled', true );
+
+    $('form').on('submit', function() 
+    {
+        $('.edit-product-form #category').attr('disabled', false);    
+    });
+
+    $('#is_viewable').prepend('<option disabled>Is Viewable</option>');
+    $('#is_viewable').val( '{{ product.is_viewable }}' === 'True' ? '1' : '0' );
+
+</script>
+{% endblock %}

@@ -1,7 +1,7 @@
 from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash, session, current_app
 from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip, Order
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm
+from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm, AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
@@ -203,6 +203,58 @@ def delete_role():
     flash('Coupon deleted successfully', 'info')
     return redirect(url_for('admin.roles'))
 
+@admin.route('/hair/categories', methods=['GET', 'POST'])
+def hair_categories():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    form = AdminCreateCategoryForm()
+    if form.validate_on_submit():
+        # file = request.files.get('image')
+        # result = upload(file)
+        category = HairCategory()
+        data = {
+            'name': form.name.data.title(),
+            'display_name': form.display_name.data.title() if form.display_name.data.title() else form.name.data.title(),
+            'description': form.description.data,
+            # 'image': result['url'],
+        }
+        category.from_dict(data)
+        category.create_hair_category()
+        flash('Hair Category created successfully', 'success')
+        return redirect(url_for('admin.hair_categories'))
+    return render_template('admin/hair/categories.html', categories=HairCategory.query.order_by(HairCategory.name).all(), form=form)
+
+@admin.route('/hair/category/edit', methods=['GET', 'POST'])
+def edit_hair_category():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    c = HairCategory.query.get(request.args.get('id'))
+    form = AdminEditCategoryForm()
+    if form.validate_on_submit():
+        c = HairCategory.query.filter_by(name=form.name.data).first()
+        data = {
+            'name': c.name,
+            'display_name': form.display_name.data,
+        }
+        c.from_dict(data)
+        db.session.commit()
+        flash('Edited category successfully', 'info')
+        return redirect(url_for('admin.hair_categories'))
+    context = {
+        'category': c,
+        'form': form
+    }
+    return render_template('admin/hair/categories-edit.html', **context)
+
+@admin.route('/hair/category/delete')
+def delete_hair_category():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    category = HairCategory.query.get(_id)
+    category.delete_hair_category()
+    flash('Hair Category deleted successfully', 'danger')
+    return redirect(url_for('admin.hair_categories'))
 
 @admin.route('/hair/products', methods=['GET', 'POST'])
 def hair_products():
@@ -219,6 +271,7 @@ def hair_products():
             'pattern': Pattern.query.get(form.pattern.data).display_name, 
             'price': form.price.data, 
             'category_id': HairCategory.query.get(int(form.category.data)).name,
+            # 'image': result['url'],
         }
         if form.length.data:
             data.update({ 'length': form.length.data })
@@ -235,7 +288,7 @@ def hair_products():
         product.create_hair_product()
         flash('Hair Product created successfully', 'success')
         return redirect(url_for('admin.hair_products'))
-    return render_template('admin/hair/products.html', products=Hair.query.order_by(Hair.pattern).all(), form=form)
+    return render_template('admin/hair/products.html', products=[i for i in Hair.query.order_by(Hair.pattern).all() if i.category.name != 'Wigs'], form=form)
 
 @admin.route('/hair/product/edit', methods=['GET', 'POST'])
 def edit_hair_product():
@@ -380,6 +433,82 @@ def delete_hair_pattern():
     flash('Pattern deleted successfully', 'info')
     return redirect(url_for('admin.hair_patterns'))
 
+####################################
+# HAIR WIGS
+####################################
+@admin.route('hair/wigs', methods=['GET', 'POST'])
+def hair_wigs():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    form = AdminCreateWigForm()
+    form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    if form.validate_on_submit():
+        file = request.files.get('image')
+        result = upload(file)
+        wig = Hair()
+        data = {
+            'name': form.name.data.title(),
+            'pattern': Pattern.query.get(form.pattern.data).display_name,
+            'price': form.price.data,
+            'length': form.length.data,
+            'category_id': HairCategory.query.filter_by(name='Wigs').first().id,
+            'is_viewable': False,
+            'image': result['url'],
+        }
+        wig.pattern_id = Pattern.query.get(form.pattern.data).id
+        wig.from_dict(data)
+        wig.create_hair_product()
+        flash('Wig created successfully', 'success')
+        return redirect(url_for('admin.hair_wigs'))
+    return render_template('admin/hair/wigs.html', wigs=HairCategory.query.filter_by(name='Wigs').first().products.all(), category=HairCategory.query.filter_by(name='Wigs').first(), form=form)
+
+@admin.route('/hair/wig/edit', methods=['GET', 'POST'])
+def edit_hair_wig():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    p = Hair.query.get(request.args.get('id'))
+    form = AdminEditWigForm()
+    form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    form.is_viewable.choices = [(0, False), (1, True)]
+    if form.validate_on_submit():
+        p = Hair.query.get(request.form.get('hair_id'))
+        data = {
+            'name': form.name.data.title(),
+            'pattern': Pattern.query.get(form.pattern.data).display_name,
+            'price': form.price.data,
+            'length': form.length.data,
+            'category_id': HairCategory.query.filter_by(name='Wigs').first().id,
+            'is_viewable': False,
+        }
+        if request.files.get('image'):
+            file = request.files.get('image')
+            result = upload(file)
+            data.update({'image': result['url']})
+        p.from_dict(data)
+        db.session.commit()
+        flash('Edited wig successfully', 'info')
+        return redirect(url_for('admin.hair_wigs'))
+    context = {
+        'product': p,
+        'form': form
+    }
+    # print(p.pattern_id)
+    return render_template('admin/hair/wigs-edit.html', **context)
+
+@admin.route('/hair/wig/delete')
+def delete_hair_wig():
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    hair = Hair.query.get(_id)
+    hair.delete_hair_product()
+    flash('Hair deleted successfully', 'danger')
+    return redirect(url_for('admin.hair_wigs'))
+####################################
+# HAIR WIGS
+####################################
 
 ####################################
 # HAIR TIPS
