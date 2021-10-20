@@ -5,7 +5,7 @@
 <!-- PAGE HEADER : begin -->
 <div id="page-header">
 	<div class="container">
-		<h1>{{ product.name }}</h1>
+		<h1>{{ product.name if product.name else 'Product Description' }}</h1>
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
 			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
@@ -30,7 +30,11 @@
 						<div class="col-sm-6">
 							<!-- PRODUCT IMAGES : begin -->
 							<div class="product-images">
-								<p class="main-image"><a href="{{ image }}" class="lightbox" data-lightbox-group="product"><img src="{{ image }}" alt="{{ pattern }}"></a></p>
+								<p class="main-image">
+									<a href="{{ image }}" class="lightbox" data-lightbox-group="product">
+										<img src="{{ image }}" alt="{{ pattern }}" />
+									</a>
+								</p>
 								<!-- <ul>
 									<li><a href="{{ url_for('static', filename='images/product_01_big_02.jpg') }}" class="lightbox" data-lightbox-group="product"><img src="{{ url_for('static', filename='images/product_01_thumb_02.jpg') }}" alt=""></a></li>
 									<li><a href="{{ url_for('static', filename='images/product_01_big_03.jpg') }}" class="lightbox" data-lightbox-group="product"><img src="{{ url_for('static', filename='images/product_01_thumb_03.jpg') }}" alt=""></a></li>

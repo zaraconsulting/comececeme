@@ -1,0 +1,44 @@
+<section>
+    <!-- SECTION HEADER : begin -->
+    <header>
+        <div class="container">
+            <h2>View Our Wigs</h2>
+        </div>
+    </header>
+    <!-- SECTION HEADER : end -->
+    <!-- SERVICE LIST : begin -->
+    <div class="c-service-list m-paginated" data-items="4" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-mobile="1">
+        <div class="container">
+            <div class="row" style="text-align: center;">
+                <div class="featured-center">
+                    {% if wigs %}
+                    {% for p in wigs[:5] %}
+                    <div class="col-xs-6 col-sm-2 featured-product">
+                        <h5 class="product-title" style="text-align: center;">
+                            <a class="img-fluid" href="#">
+                                {% if p.name %}{{ p.name }}{% endif %}
+                            </a>
+                            <a class="#" class="lightbox" data-lightbox-group="product">
+                                {{ p.pattern[0].display_name }}
+                                <br />
+                            </a>
+                        </h5>
+                        <a href="{{ p.image }}" class="lightbox" data-lightbox-group="product">
+                            <img class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
+                        </a>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-12">
+                        <p>No wigs to display</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row textalign-center" style="margin: 25px 0;">
+                <p class="more" style="margin: 0 auto"><a href="{{ url_for('hair.get_wigs') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- SERVICE LIST : end -->
+</section>

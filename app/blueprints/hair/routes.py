@@ -146,3 +146,16 @@ def add_cart_product():
         db.session.commit()
         flash('Product added to cart', 'success')
         return jsonify({'message': 'success'})
+
+@app.route('/category/wigs', methods=['GET', 'POST'])
+def get_wigs():
+    """
+    [GET] /hair/category/wigs
+    """
+    # products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
+    products =  [i.to_dict() for i in HairCategory.query.filter_by(name='Wigs').first().products.all()]
+    context = {
+        'products': products
+    }
+    print(products)
+    return render_template('shop/shop-wigs.html', **context)

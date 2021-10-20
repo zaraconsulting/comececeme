@@ -283,7 +283,7 @@ class Hair(db.Model):
             'bundle_length': self.bundle_length,
             'price': self.price,
             'category_id': HairCategory.query.get(self.category_id).name,
-            'category': HairCategory.query.get(self.category_id).to_dict()
+            'category': HairCategory.query.get(self.category_id)
         }
         return data
 
@@ -293,8 +293,9 @@ class Hair(db.Model):
             if field in data:
                 if field == 'category_id':
                     # If making a new wig first attribute
-                    if HairCategory.query.filter_by(name=data[field].title()).first().name == 'Wigs':
-                        setattr(self, field, HairCategory.query.filter_by(name=data[field].title()).first().id)
+                    # print(data[field])
+                    if HairCategory.query.get(data[field]).name == 'Wigs':
+                        setattr(self, field, HairCategory.query.get(data[field]).id)
                     else:
                         category = HairCategory.query.filter_by(name=data[field].title()).first()
                         if category is not None:
@@ -369,7 +370,7 @@ class HairCategory(db.Model):
             'id': self.id,
             'name': self.display_name if self.display_name is not None else self.name,
             'description': self.description,
-            # 'image': self.image,
+            'image': self.image,
             'products': [i.to_dict() for i in self.products.all()]
         }
         return data

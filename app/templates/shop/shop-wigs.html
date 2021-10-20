@@ -1,0 +1,106 @@
+{% extends 'shop/shop-layout.html' %}
+{% set active_page = 'shop.index' %}
+
+{% block shop_content %}
+<!-- PAGE HEADER : begin -->
+<div id="page-header">
+	<div class="container">
+		<h1>Shop</h1>
+		<ul class="breadcrumbs">
+			<li><a href="{{ url_for('main.index') }}">Home</a></li>
+			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
+			<li>Wigs</li>
+		</ul>
+	</div>
+</div>
+<!-- PAGE HEADER : begin -->
+<div class="container">
+	{% include './shop/partials/flash-messages.html' %}
+	<div class="row">
+		<div class="col-md-8">
+			<!-- PAGE CONTENT : begin -->
+			<div id="page-content">
+				<!-- PRODUCT LIST TOOLS : begin -->
+				<div class="product-list-tools">
+					<div class="row">
+						<!-- <div class="col-sm-6"> -->
+							<!-- PRODUCT LIST TITLE : begin -->
+							<!-- <h2 class="product-list-title">Showing {{ products|length }} Items</h2> -->
+							<!-- PRODUCT LIST TITLE : end -->
+						<!-- </div> -->
+						<div class="col-sm-6">
+							<!-- PRODUCT LIST SORTING : begin -->
+							<!-- <form id="sort-dropdown" action="/shop/products" class="default-form product-list-sorting" method="get">
+								<select name="order" id="sort-select" class="selectbox-input m-small m-type-2">
+									<option value="default">Default Sorting</option>
+									<option value="lowest">Lowest Price</option>
+									<option value="highest">Highest Price</option>
+								</select>
+							</form> -->
+							<!-- PRODUCT LIST SORTING : end -->
+						</div>
+					</div>
+				</div>
+				<!-- PRODUCT LIST TOOLS : end -->
+				<!-- PRODUCT LIST : begin -->
+				<ul class="product-list">
+					<!-- PRODUCT : begin -->
+					<div class="row">
+						{% if products %}
+							{% for product in products %}
+								<li class="product-container col-sm-12 col-md-6">
+									<div class="product-inner">
+										<h3 class="product-title"><a href="">{{ product.name }}</a></h3>
+										<p class="product-image">
+                                            <a href="{{ product.image }}" class="lightbox" data-lightbox-group="product">
+                                                <img class="img-fluid" src="{{ product.image }}" alt="{{ product.image }}" />
+                                            </a>
+                                        </p>
+										<div style="text-align: center;"  class="product-info">
+											<div class="product-price">${{ '{:,.2f}'.format(product.price) }}</div>
+										</div>
+									</div>
+								</li>
+							{% endfor %}
+						{% else %}
+							<h3 style="text-align: center; font-size: 18px; font-weight: bold;">No products to display</h3>
+						{% endif %}
+					</div>
+					<!-- PRODUCT : end -->
+				</ul>
+				<!-- PRODUCT LIST : end -->
+				<!-- PAGINATION : begin -->
+				<ul class="c-pagination">
+						{% if prev_url %}
+							<li class="prev"><a href="{{ url_for('shop.index', page=current_page-1, order=sort_order) }}"><i class="fa fa-angle-left"></i></a></li>
+						{% endif %}
+						{% for page in page_products %}
+							{% if page == current_page %}
+								<li class="m-active"><a href="{{ url_for('shop.index', page=page, order=sort_order) }}">{{ page }}</a></li>
+							{% else %}
+								<li><a href="{{ url_for('shop.index', page=page, order=sort_order) }}">{{ page }}</a></li>
+							{% endif %}
+						{% endfor %}
+						{% if next_url %}
+							<li class="next"><a href="{{ url_for('shop.index', page=current_page+1, order=sort_order) }}"><i class="fa fa-angle-right"></i></a></li>
+						{% endif %}
+					</ul>
+				<!-- PAGINATION : end -->
+			</div>
+			<!-- PAGE CONTENT : end -->
+		</div>
+		<div class="col-md-4">
+			<!-- SIDEBAR : begin -->
+			{% include './partials/shop-sidebar.html' %}
+			<!-- SIDEBAR : end -->
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+	<script>
+		// $('#sort-dropdown option[value={{ sort_order }}]').attr('selected', 'selected');
+	</script>
+{% endblock %}

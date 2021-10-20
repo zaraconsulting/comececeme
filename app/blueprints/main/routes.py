@@ -30,15 +30,17 @@ def index():
             }
         }
         products.append(a_dict)
-    print(products)
+    # print(products)
     context = {
         'categories': [i for i in HairCategory.query.all()],
         'frontals': HairCategory.query.filter_by(name='Frontals').first(),
         'closures': HairCategory.query.filter_by(name='Closures').first(),
         'reviews': Review.query.all(),
         'gallery': Gallery.query.all(),
-        'products': products
+        'products': products,
+        'wigs': HairCategory.query.filter_by(name='Wigs').first().products.all()
     }
+    # print([i.to_dict() for i in HairCategory.query.filter_by(name='Wigs').first().products.all()])
     return render_template('index.html', **context), 200
 
 @main.route('/about', methods=['GET'])

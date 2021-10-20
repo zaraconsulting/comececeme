@@ -484,7 +484,7 @@ def edit_hair_wig():
             'price': form.price.data,
             'length': form.length.data,
             'category_id': HairCategory.query.filter_by(name='Wigs').first().id,
-            'is_viewable': False,
+            'is_viewable': form.is_viewable.data,
         }
         if request.files.get('image'):
             file = request.files.get('image')
