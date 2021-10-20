@@ -18,10 +18,6 @@
                             <a class="img-fluid" href="#">
                                 {% if p.name %}{{ p.name }}{% endif %}
                             </a>
-                            <a class="#" class="lightbox" data-lightbox-group="product">
-                                {{ p.pattern[0].display_name }}
-                                <br />
-                            </a>
                         </h5>
                         <a href="{{ p.image }}" class="lightbox" data-lightbox-group="product">
                             <img class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
@@ -35,9 +31,11 @@
                     {% endif %}
                 </div>
             </div>
+            {% if wigs %}
             <div class="row textalign-center" style="margin: 25px 0;">
                 <p class="more" style="margin: 0 auto"><a href="{{ url_for('hair.get_wigs') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a></p>
             </div>
+            {% endif %}
         </div>
     </div>
     <!-- SERVICE LIST : end -->
