@@ -30,6 +30,7 @@ def index():
             }
         }
         products.append(a_dict)
+    print(products)
     context = {
         'categories': [i for i in HairCategory.query.all()],
         'frontals': HairCategory.query.filter_by(name='Frontals').first(),

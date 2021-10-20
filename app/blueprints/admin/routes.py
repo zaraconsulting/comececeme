@@ -209,14 +209,14 @@ def hair_categories():
         return redirect(url_for('admin.login'))
     form = AdminCreateCategoryForm()
     if form.validate_on_submit():
-        # file = request.files.get('image')
-        # result = upload(file)
+        file = request.files.get('image')
+        result = upload(file)
         category = HairCategory()
         data = {
             'name': form.name.data.title(),
             'display_name': form.display_name.data.title() if form.display_name.data.title() else form.name.data.title(),
             'description': form.description.data,
-            # 'image': result['url'],
+            'image': result['url'],
         }
         category.from_dict(data)
         category.create_hair_category()
@@ -232,9 +232,13 @@ def edit_hair_category():
     form = AdminEditCategoryForm()
     if form.validate_on_submit():
         c = HairCategory.query.filter_by(name=form.name.data).first()
+        if request.files.get('image'):
+            file = request.files.get('image')
+            result = upload(file)
         data = {
             'name': c.name,
             'display_name': form.display_name.data,
+            'image': result['url'] if request.files.get('image') else c.image,
         }
         c.from_dict(data)
         db.session.commit()

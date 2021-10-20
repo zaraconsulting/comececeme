@@ -292,8 +292,9 @@ class Hair(db.Model):
         for field in ['pattern', 'name', 'image', 'length', 'price', 'category_id', 'bundle_length', 'is_viewable']:
             if field in data:
                 if field == 'category_id':
-                    if HairCategory.query.get(data[field]).name == 'Wigs':
-                        setattr(self, field, HairCategory.query.get(data[field]).id)
+                    # If making a new wig first attribute
+                    if HairCategory.query.filter_by(name=data[field].title()).first().name == 'Wigs':
+                        setattr(self, field, HairCategory.query.filter_by(name=data[field].title()).first().id)
                     else:
                         category = HairCategory.query.filter_by(name=data[field].title()).first()
                         if category is not None:
@@ -359,7 +360,7 @@ class HairCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     display_name = db.Column(db.String)
-    # image = db.Column(db.String)
+    image = db.Column(db.String)
     description = db.Column(db.String)
     products = db.relationship('Hair', backref='category', lazy='dynamic')
 
@@ -375,8 +376,7 @@ class HairCategory(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['name', 'display_name', 'description']:
-        # for field in ['name', 'display_name', 'description', 'image']:
+        for field in ['name', 'display_name', 'description', 'image']:
             if field in data:
                 setattr(self, field, data[field])
 

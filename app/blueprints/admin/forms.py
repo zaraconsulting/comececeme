@@ -86,14 +86,14 @@ class AdminCreateCategoryForm(FlaskForm):
     name = StringField()
     display_name = StringField()
     description = TextAreaField()
-    # image = StringField()
+    image = StringField()
     submit = SubmitField('Create Category')
     
 class AdminEditCategoryForm(FlaskForm):
     name = StringField()
     display_name = StringField()
     description = TextAreaField()
-    # image = StringField()
+    image = StringField()
     submit = SubmitField('Update Category')
 
 class AdminCreateHairTipForm(FlaskForm):
