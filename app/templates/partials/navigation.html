@@ -17,6 +17,8 @@
                             {% for hc in hair_categories %}
                                 {% if hc.display_name != 'Wigs' %}
                                     <li><a href="{{ url_for('hair.get_category', category=hc.name.lower()) }}">{% if hc.display_name %}{{ hc.display_name }}{% else %}{{ hc.name }}{% endif %}</a></li>
+                                    {% else %}
+                                    <li><a href="{{ url_for('hair.get_wigs') }}">{% if hc.display_name %}{{ hc.display_name }}{% else %}{{ hc.name }}{% endif %}</a></li>
                                 {% endif %}
                             {% endfor %}
                             <li><a href="{{ url_for('shop.cart') }}">Cart</a></li>

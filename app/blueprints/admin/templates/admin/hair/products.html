@@ -52,7 +52,7 @@
     $('.create-product-form #pattern').prepend('<option disabled selected>Select a pattern</option>');
     $('.create-product-form #category').prepend('<option disabled selected>Select a category</option>');
     $('.custom-form select#category').on('change', () => {
-        if($('select#category option:selected').text() == 'Bundles')
+        if($('select#category option:selected').text() == 'Bundle Deals')
         {
             $('.custom-form #bundle_length').css(`display`, 'block');
             $('.custom-form #length').hide();

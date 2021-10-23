@@ -210,15 +210,17 @@ def hair_categories():
         return redirect(url_for('admin.login'))
     form = AdminCreateCategoryForm()
     if form.validate_on_submit():
-        file = request.files.get('image')
-        result = upload(file)
         category = HairCategory()
         data = {
             'name': form.name.data.title(),
             'display_name': form.display_name.data.title() if form.display_name.data.title() else form.name.data.title(),
             'description': form.description.data,
-            'image': result['url'],
+            'image': None
         }
+        if request.files.get('image'):
+            file = request.files.get('image')
+            result = upload(file)
+            data.update({'image': result.get('url')})
         category.from_dict(data)
         category.create_hair_category()
         flash('Hair Category created successfully', 'success')
@@ -288,7 +290,7 @@ def hair_products():
         product.from_dict(data)
         product.pattern_id = Pattern.query.get(form.pattern.data).id
         product.category_id = HairCategory.query.get(form.category.data).id
-        # product.bundle_length = form.bundle_length.data or ''
+        product.bundle_length = form.bundle_length.data or ''
         # print(product)
         product.create_hair_product()
         flash('Hair Product created successfully', 'success')

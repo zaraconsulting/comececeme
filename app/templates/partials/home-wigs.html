@@ -15,13 +15,16 @@
                     {% for p in wigs[:5] %}
                     <div class="col-xs-6 col-sm-2 featured-product">
                         <h5 class="product-title" style="text-align: center;">
-                            <a class="img-fluid" href="#">
-                                {% if p.name %}{{ p.name }}{% endif %}
-                            </a>
+                            {% if p.length %}{{ p.length }}"{% endif %} {% if p.name %}{{ p.name }}{% endif %}
+                            <!-- <a href="{{ p.image }}" class="lightbox" data-lightbox-group="product">
+                            </a> -->
                         </h5>
                         <a href="{{ p.image }}" class="lightbox" data-lightbox-group="product">
                             <img class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
                         </a>
+                        <h5 class="product-title" style="text-align: center;">
+                            {% if p.price %}{{ "${:.2f}".format(p.price) }}{% endif %}
+                        </h5>
                     </div>
                     {% endfor %}
                     {% else %}
@@ -33,8 +36,11 @@
             </div>
             {% if wigs %}
             <div class="row textalign-center" style="margin: 25px 0;">
-                <p class="more" style="margin: 0 auto"><a href="{{ url_for('hair.get_wigs') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a></p>
+                <p class="more" style="margin: 0 auto">
+                    <a href="{{ url_for('hair.get_wigs') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a>
+                </p>
             </div>
+            
             {% endif %}
         </div>
     </div>

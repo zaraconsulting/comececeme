@@ -5,7 +5,7 @@
 <!-- PAGE HEADER : begin -->
 <div id="page-header">
 	<div class="container">
-		<h1>Shop</h1>
+		<h1>Wigs</h1>
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
 			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
@@ -17,7 +17,7 @@
 <div class="container">
 	{% include './shop/partials/flash-messages.html' %}
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-12">
 			<!-- PAGE CONTENT : begin -->
 			<div id="page-content">
 				<!-- PRODUCT LIST TOOLS : begin -->
@@ -48,9 +48,9 @@
 					<div class="row">
 						{% if products %}
 							{% for product in products %}
-								<li class="product-container col-sm-12 col-md-6">
+								<li class="product-container col-sm-12 col-md-3">
 									<div class="product-inner">
-										<h3 class="product-title"><a href="">{{ product.name }}</a></h3>
+										<h3 class="product-title"><a href="">{% if product.length %}{{ product.length }}"{% endif %} {{ product.name }}</a></h3>
 										<p class="product-image">
                                             <a href="{{ product.image }}" class="lightbox" data-lightbox-group="product">
                                                 <img class="img-fluid" src="{{ product.image }}" alt="{{ product.image }}" />
@@ -88,11 +88,6 @@
 				<!-- PAGINATION : end -->
 			</div>
 			<!-- PAGE CONTENT : end -->
-		</div>
-		<div class="col-md-4">
-			<!-- SIDEBAR : begin -->
-			{% include './partials/shop-sidebar.html' %}
-			<!-- SIDEBAR : end -->
 		</div>
 	</div>
 </div>
