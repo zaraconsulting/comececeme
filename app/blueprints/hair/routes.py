@@ -153,9 +153,9 @@ def get_wigs():
     [GET] /hair/category/wigs
     """
     # products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
-    products =  [i.to_dict() for i in HairCategory.query.filter_by(name='Wigs').first().products.all()]
+    products =  [i.to_dict() for i in HairCategory.query.filter_by(name='Wigs').first().products.all() if i.is_viewable]
     context = {
         'products': products
     }
-    print(products)
+    # print(products)
     return render_template('shop/shop-wigs.html', **context)
