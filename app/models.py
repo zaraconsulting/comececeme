@@ -297,7 +297,8 @@ class Hair(db.Model):
                     if HairCategory.query.get(data[field]).name == 'Wigs':
                         setattr(self, field, HairCategory.query.get(data[field]).id)
                     else:
-                        category = HairCategory.query.filter_by(name=data[field].title()).first()
+                        # print(data[field])
+                        category = HairCategory.query.get(data[field])
                         if category is not None:
                             setattr(self, field, category.id)
                 else:

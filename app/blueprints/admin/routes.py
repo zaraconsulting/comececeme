@@ -1,12 +1,13 @@
 from .import bp as admin
-from flask import render_template, redirect, url_for, request, flash, session, current_app
+from flask import render_template, redirect, url_for, request, flash
 from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip, Order
-from .forms import AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm, AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm
+from .forms import \
+    AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, \
+    AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm, \
+    AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
-import requests
-from datetime import datetime as dt
 from cloudinary.uploader import upload
 
 @admin.route('/', methods=['GET'])
@@ -266,7 +267,7 @@ def hair_products():
         return redirect(url_for('admin.login'))
     form = AdminCreateProductForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
-    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all() if i.name != 'Wigs']
     # form.category.choices = [(i.id, i.display_name if i.display_name else i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
 
     if request.method == 'POST':
@@ -274,7 +275,7 @@ def hair_products():
         data = {
             'pattern': Pattern.query.get(form.pattern.data).display_name, 
             'price': form.price.data, 
-            'category_id': HairCategory.query.get(int(form.category.data)).name,
+            'category_id': HairCategory.query.get(int(form.category.data)).id,
             # 'image': result['url'],
         }
         if form.length.data:
