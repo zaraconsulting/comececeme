@@ -392,18 +392,20 @@ def hair_patterns():
         return redirect(url_for('admin.login'))
     form = AdminCreatePatternForm()
     if form.validate_on_submit():
+        # create temp folder if it doesn't exist
+        os.makedirs(f"{basedir}/app/temp")
         # save file to temp folder
         file = request.files.get('image')
-        file.save(f"{basedir}/temp/{file.filename}")
+        file.save(f"{basedir}/app/temp/{file.filename}")
 
         # compress via TinyPNG
-        with open(f"{basedir}/temp/{file.filename}", 'rb') as source:
+        with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
             source_data = source.read()
             result_data = tinify.from_buffer(source_data).to_buffer()
             result = upload(result_data)
             
             # remove image from temp folder
-            os.remove(f"{basedir}/temp/{file.filename}")
+            os.remove(f"{basedir}/app/temp/{file.filename}")
         pattern = Pattern()
         data = {
             'name': form.name.data.title(),
@@ -426,18 +428,20 @@ def edit_hair_pattern():
     if form.validate_on_submit():
         p = Pattern.query.get(form.name.data)
         if request.files.get('image'):
+            # create temp folder if it doesn't exist
+            os.makedirs(f"{basedir}/app/temp")
             # save file to temp folder
             file = request.files.get('image')
-            file.save(f"{basedir}/temp/{file.filename}")
+            file.save(f"{basedir}/app/temp/{file.filename}")
 
             # compress via TinyPNG
-            with open(f"{basedir}/temp/{file.filename}", 'rb') as source:
+            with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
                 source_data = source.read()
                 result_data = tinify.from_buffer(source_data).to_buffer()
                 result = upload(result_data)
 
                 # remove image from temp folder
-                os.remove(f"{basedir}/temp/{file.filename}")
+                os.remove(f"{basedir}/app/temp/{file.filename}")
         data = {
             'name': Pattern.query.get(form.name.data).name,
             'display_name': form.display_name.data,
@@ -474,20 +478,23 @@ def hair_wigs():
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
     form.is_viewable.choices = [(1, True), (0, False)]
+    
 
     if form.validate_on_submit():
+        # create temp folder if it doesn't exist
+        os.makedirs(f"{basedir}/app/temp")
         # save file to temp folder
         file = request.files.get('image')
-        file.save(f"{basedir}/temp/{file.filename}")
+        file.save(f"{basedir}/app/temp/{file.filename}")
 
         # compress via TinyPNG
-        with open(f"{basedir}/temp/{file.filename}", 'rb') as source:
+        with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
             source_data = source.read()
             result_data = tinify.from_buffer(source_data).to_buffer()
             result = upload(result_data)
 
             # remove image from temp folder
-            os.remove(f"{basedir}/temp/{file.filename}")
+            os.remove(f"{basedir}/app/temp/{file.filename}")
         wig = Hair()
         data = {
             'name': form.name.data.title(),
@@ -525,18 +532,20 @@ def edit_hair_wig():
             'is_viewable': form.is_viewable.data,
         }
         if request.files.get('image'):
+            # create temp folder if it doesn't exist
+            os.makedirs(f"{basedir}/app/temp")
             # save file to temp folder
             file = request.files.get('image')
-            file.save(f"{basedir}/temp/{file.filename}")
+            file.save(f"{basedir}/app/temp/{file.filename}")
 
             # compress via TinyPNG
-            with open(f"{basedir}/temp/{file.filename}", 'rb') as source:
+            with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
                 source_data = source.read()
                 result_data = tinify.from_buffer(source_data).to_buffer()
                 result = upload(result_data)
 
                 # remove image from temp folder
-                os.remove(f"{basedir}/temp/{file.filename}")
+                os.remove(f"{basedir}/app/temp/{file.filename}")
             data.update({'image': result['url']})
         p.from_dict(data)
         db.session.commit()
