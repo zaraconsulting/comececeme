@@ -11,6 +11,7 @@ from .email import send_password_reset_email
 from cloudinary.uploader import upload
 from app.tinypng import tinify
 from config import basedir
+import os
 
 @admin.route('/', methods=['GET'])
 def index():
@@ -393,13 +394,16 @@ def hair_patterns():
     if form.validate_on_submit():
         # save file to temp folder
         file = request.files.get('image')
-        file.save(f"{basedir}/{file.filename}")
+        file.save(f"{basedir}/app/temp/{file.filename}")
 
         # compress via TinyPNG
-        with open(f"{basedir}/{file.filename}", 'rb') as source:
+        with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
             source_data = source.read()
             result_data = tinify.from_buffer(source_data).to_buffer()
             result = upload(result_data)
+            
+            # remove image from temp folder
+            os.remove(f"{basedir}/app/temp/{file.filename}")
         pattern = Pattern()
         data = {
             'name': form.name.data.title(),
@@ -424,13 +428,16 @@ def edit_hair_pattern():
         if request.files.get('image'):
             # save file to temp folder
             file = request.files.get('image')
-            file.save(f"{basedir}/{file.filename}")
+            file.save(f"{basedir}/app/temp/{file.filename}")
 
             # compress via TinyPNG
-            with open(f"{basedir}/{file.filename}", 'rb') as source:
+            with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
                 source_data = source.read()
                 result_data = tinify.from_buffer(source_data).to_buffer()
                 result = upload(result_data)
+
+                # remove image from temp folder
+                os.remove(f"{basedir}/app/temp/{file.filename}")
         data = {
             'name': Pattern.query.get(form.name.data).name,
             'display_name': form.display_name.data,
@@ -471,13 +478,16 @@ def hair_wigs():
     if form.validate_on_submit():
         # save file to temp folder
         file = request.files.get('image')
-        file.save(f"{basedir}/{file.filename}")
+        file.save(f"{basedir}/app/temp/{file.filename}")
 
         # compress via TinyPNG
-        with open(f"{basedir}/{file.filename}", 'rb') as source:
+        with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
             source_data = source.read()
             result_data = tinify.from_buffer(source_data).to_buffer()
             result = upload(result_data)
+
+            # remove image from temp folder
+            os.remove(f"{basedir}/app/temp/{file.filename}")
         wig = Hair()
         data = {
             'name': form.name.data.title(),
@@ -517,13 +527,16 @@ def edit_hair_wig():
         if request.files.get('image'):
             # save file to temp folder
             file = request.files.get('image')
-            file.save(f"{basedir}/{file.filename}")
+            file.save(f"{basedir}/app/temp/{file.filename}")
 
             # compress via TinyPNG
-            with open(f"{basedir}/{file.filename}", 'rb') as source:
+            with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
                 source_data = source.read()
                 result_data = tinify.from_buffer(source_data).to_buffer()
                 result = upload(result_data)
+
+                # remove image from temp folder
+                os.remove(f"{basedir}/app/temp/{file.filename}")
             data.update({'image': result['url']})
         p.from_dict(data)
         db.session.commit()
