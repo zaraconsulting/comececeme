@@ -413,3 +413,8 @@ the existing ones.
 	opacity: 0.5;
 	text-decoration: none;
 }
+
+.wig-image {
+	object-fit: cover;
+	height: 220px;
+}

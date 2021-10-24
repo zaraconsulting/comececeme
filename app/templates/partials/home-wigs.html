@@ -20,7 +20,7 @@
                             </a> -->
                         </h5>
                         <a href="{{ p.image }}" class="lightbox" data-lightbox-group="product">
-                            <img class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
+                            <img class="img-fluid wig-image" src="{{ p.image }}" alt="{{ p.name }}">
                         </a>
                         <h5 class="product-title" style="text-align: center;">
                             {% if p.price %}{{ "${:.2f}".format(p.price) }}{% endif %}
