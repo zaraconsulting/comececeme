@@ -393,7 +393,8 @@ def hair_patterns():
     form = AdminCreatePatternForm()
     if form.validate_on_submit():
         # create temp folder if it doesn't exist
-        os.makedirs(f"{basedir}/app/temp")
+        if not os.path.exists(f"{basedir}/app/temp"):
+            os.makedirs(f"{basedir}/app/temp")
         # save file to temp folder
         file = request.files.get('image')
         file.save(f"{basedir}/app/temp/{file.filename}")
@@ -429,7 +430,8 @@ def edit_hair_pattern():
         p = Pattern.query.get(form.name.data)
         if request.files.get('image'):
             # create temp folder if it doesn't exist
-            os.makedirs(f"{basedir}/app/temp")
+            if not os.path.exists(f"{basedir}/app/temp"):
+                os.makedirs(f"{basedir}/app/temp")
             # save file to temp folder
             file = request.files.get('image')
             file.save(f"{basedir}/app/temp/{file.filename}")
@@ -482,7 +484,8 @@ def hair_wigs():
 
     if form.validate_on_submit():
         # create temp folder if it doesn't exist
-        os.makedirs(f"{basedir}/app/temp")
+        if not os.path.exists(f"{basedir}/app/temp"):
+            os.makedirs(f"{basedir}/app/temp")
         # save file to temp folder
         file = request.files.get('image')
         file.save(f"{basedir}/app/temp/{file.filename}")
@@ -533,7 +536,8 @@ def edit_hair_wig():
         }
         if request.files.get('image'):
             # create temp folder if it doesn't exist
-            os.makedirs(f"{basedir}/app/temp")
+            if not os.path.exists(f"{basedir}/app/temp"):
+                os.makedirs(f"{basedir}/app/temp")
             # save file to temp folder
             file = request.files.get('image')
             file.save(f"{basedir}/app/temp/{file.filename}")
