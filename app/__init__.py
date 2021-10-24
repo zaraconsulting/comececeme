@@ -75,6 +75,7 @@ def create_app():
 
         from .braintree import gateway
         from .import routes, models
+        from .import tinypng
         from app.blueprints.admin import email
 
     # Email Error Logging

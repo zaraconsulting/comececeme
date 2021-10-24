@@ -9,6 +9,8 @@ from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
 from cloudinary.uploader import upload
+from app.tinypng import tinify
+from config import basedir
 
 @admin.route('/', methods=['GET'])
 def index():
@@ -270,15 +272,15 @@ def hair_products():
     form = AdminCreateProductForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all() if i.name != 'Wigs']
-    # form.category.choices = [(i.id, i.display_name if i.display_name else i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    form.is_viewable.choices = [(1, True), (0, False)]
 
     if request.method == 'POST':
         product = Hair()
         data = {
             'pattern': Pattern.query.get(form.pattern.data).display_name, 
-            'price': form.price.data, 
+            'price': form.price.data,
             'category_id': HairCategory.query.get(int(form.category.data)).id,
-            # 'image': result['url'],
+            'is_viewable': form.is_viewable.data
         }
         if form.length.data:
             data.update({ 'length': form.length.data })
@@ -305,7 +307,7 @@ def edit_hair_product():
     form = AdminEditProductForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
-    form.is_viewable.choices = [(0, False), (1, True)]
+    form.is_viewable.choices = [(1, True), (0, False)]
     
     if request.method == 'POST':
         # print(request.form)
@@ -389,8 +391,15 @@ def hair_patterns():
         return redirect(url_for('admin.login'))
     form = AdminCreatePatternForm()
     if form.validate_on_submit():
+        # save file to temp folder
         file = request.files.get('image')
-        result = upload(file)
+        file.save(f"{basedir}/{file.filename}")
+
+        # compress via TinyPNG
+        with open(f"{basedir}/{file.filename}", 'rb') as source:
+            source_data = source.read()
+            result_data = tinify.from_buffer(source_data).to_buffer()
+            result = upload(result_data)
         pattern = Pattern()
         data = {
             'name': form.name.data.title(),
@@ -413,8 +422,15 @@ def edit_hair_pattern():
     if form.validate_on_submit():
         p = Pattern.query.get(form.name.data)
         if request.files.get('image'):
+            # save file to temp folder
             file = request.files.get('image')
-            result = upload(file)
+            file.save(f"{basedir}/{file.filename}")
+
+            # compress via TinyPNG
+            with open(f"{basedir}/{file.filename}", 'rb') as source:
+                source_data = source.read()
+                result_data = tinify.from_buffer(source_data).to_buffer()
+                result = upload(result_data)
         data = {
             'name': Pattern.query.get(form.name.data).name,
             'display_name': form.display_name.data,
@@ -450,9 +466,18 @@ def hair_wigs():
     form = AdminCreateWigForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    form.is_viewable.choices = [(1, True), (0, False)]
+
     if form.validate_on_submit():
+        # save file to temp folder
         file = request.files.get('image')
-        result = upload(file)
+        file.save(f"{basedir}/{file.filename}")
+
+        # compress via TinyPNG
+        with open(f"{basedir}/{file.filename}", 'rb') as source:
+            source_data = source.read()
+            result_data = tinify.from_buffer(source_data).to_buffer()
+            result = upload(result_data)
         wig = Hair()
         data = {
             'name': form.name.data.title(),
@@ -460,7 +485,7 @@ def hair_wigs():
             'price': form.price.data,
             'length': form.length.data,
             'category_id': HairCategory.query.filter_by(name='Wigs').first().id,
-            'is_viewable': False,
+            'is_viewable': form.is_viewable.data,
             'image': result['url'],
         }
         wig.pattern_id = Pattern.query.get(form.pattern.data).id
@@ -478,7 +503,7 @@ def edit_hair_wig():
     form = AdminEditWigForm()
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
-    form.is_viewable.choices = [(0, False), (1, True)]
+    form.is_viewable.choices = [(1, True), (0, False)]
     if form.validate_on_submit():
         p = Hair.query.get(request.form.get('hair_id'))
         data = {
@@ -490,8 +515,15 @@ def edit_hair_wig():
             'is_viewable': form.is_viewable.data,
         }
         if request.files.get('image'):
+            # save file to temp folder
             file = request.files.get('image')
-            result = upload(file)
+            file.save(f"{basedir}/{file.filename}")
+
+            # compress via TinyPNG
+            with open(f"{basedir}/{file.filename}", 'rb') as source:
+                source_data = source.read()
+                result_data = tinify.from_buffer(source_data).to_buffer()
+                result = upload(result_data)
             data.update({'image': result['url']})
         p.from_dict(data)
         db.session.commit()

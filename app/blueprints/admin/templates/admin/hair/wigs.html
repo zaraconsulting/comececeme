@@ -20,6 +20,7 @@
                 <form class="form-inline create-product-form" enctype="multipart/form-data" action="{{ url_for('admin.hair_wigs') }}" method="POST">
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
+                        {{ form.is_viewable(class="form-control", style="margin-right: 15px;" ) }}
                         {{ form.name(class="form-control", placeholder="Hair Wig Name") }}
                         {{ form.pattern(class="form-control", style="margin-right: 15px") }}
                         {{ form.category(class="form-control", style="margin-right: 15px") }}
@@ -62,5 +63,7 @@
     {
         $('.create-product-form #category').attr('disabled', false);    
     });
+    
+    $('#is_viewable').prepend('<option disabled>Is Viewable</option>');
 </script>
 {% endblock %}

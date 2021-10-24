@@ -1,7 +1,8 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv(os.path.join(os.path.dirname(__name__), '.env'))
+basedir = os.path.abspath(os.path.dirname(__name__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 class BaseConfig:
     FLASK_APP = os.environ.get('FLASK_APP')
@@ -34,6 +35,7 @@ class BaseConfig:
     SB_ACCESS_TOKEN = os.environ.get('SB_ACCESS_TOKEN')
     DEVELOPER_NAME = os.environ.get('DEVELOPER_NAME')
     DEVELOPER_URL = os.environ.get('DEVELOPER_URL')
+    TINYPNG_API = os.environ.get('TINYPNG_API')
 
 
 class DevelopmentConfig(BaseConfig):

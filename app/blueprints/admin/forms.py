@@ -26,6 +26,7 @@ class AdminLoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class AdminCreateProductForm(FlaskForm):
+    is_viewable = SelectField(choices=[], coerce=int)
     pattern = SelectField(choices=[], coerce=int)
     length = IntegerField()
     price = FloatField()
@@ -64,6 +65,7 @@ class AdminEditPatternForm(FlaskForm):
     submit = SubmitField('Update Pattern')
 
 class AdminCreateWigForm(FlaskForm):
+    is_viewable = SelectField(choices=[], coerce=int)
     name = StringField()
     pattern = SelectField(choices=[], coerce=int)
     category = SelectField(choices=[], coerce=int)
