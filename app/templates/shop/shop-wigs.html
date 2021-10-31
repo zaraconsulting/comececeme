@@ -50,7 +50,9 @@
 							{% for product in products %}
 								<li class="product-container col-sm-12 col-md-3">
 									<div class="product-inner">
-										<h3 class="product-title"><a href="">{% if product.length %}{{ product.length }}"{% endif %} {{ product.name }}</a></h3>
+										<h3 class="product-title">
+											<a class="img-fluid" href="{{ url_for( 'hair.get_wig', name=product.name.lower(), pattern=product.pattern.name.lower() ) }}">{{ product.length }}" {{ product.name }}</a>
+										</h3>
 										<p class="product-image">
                                             <a href="{{ product.image }}" class="lightbox" data-lightbox-group="product">
                                                 <img class="img-fluid" src="{{ product.image }}" alt="{{ product.image }}" />
@@ -58,6 +60,7 @@
                                         </p>
 										<div style="text-align: center;"  class="product-info">
 											<div class="product-price">${{ '{:,.2f}'.format(product.price) }}</div>
+											<a href="{{ url_for( 'hair.get_wig', name=product.name.lower(), pattern=product.pattern.name.lower() ) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
 										</div>
 									</div>
 								</li>

@@ -5,12 +5,16 @@
 <!-- PAGE HEADER : begin -->
 <div id="page-header">
 	<div class="container">
-		<h1>{{ product.name if product.name else 'Product Description' }}</h1>
+		<h1>{% if category.name == 'Wigs' %}{{ product.length }}"{% endif %} {{ product.name if product.name else pattern.display_name }}</h1>
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
 			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
-			<li><a href="{{ url_for('hair.get_category', category=category.name.lower()) }}">{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}</a></li>
-			<li>{{ pattern.display_name }}</li>
+			<li>
+				<a {%if category.name != 'Wigs'%}href="{{ url_for('hair.get_category', category=category.name.lower()) }}"{% else %}href="{{ url_for('hair.get_wigs') }}"{% endif %}>
+					{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}
+				</a>
+			</li>
+			{# <li>{{ pattern.display_name }}</li> #}
 		</ul>
 	</div>
 </div>
@@ -31,8 +35,8 @@
 							<!-- PRODUCT IMAGES : begin -->
 							<div class="product-images">
 								<p class="main-image">
-									<a href="{{ image }}" class="lightbox" data-lightbox-group="product">
-										<img src="{{ image }}" alt="{{ pattern }}" />
+									<a href="{% if category.name != 'Wigs' %}{{ image }}{% else %}{{ product.image }}{% endif %}" class="lightbox" data-lightbox-group="product">
+										<img src="{% if category.name != 'Wigs' %}{{ image }}{% else %}{{ product.image }}{% endif %}" alt="{{ pattern }}" />
 									</a>
 								</p>
 								<!-- <ul>
@@ -91,7 +95,7 @@
 								<!-- PRODUCT PRICE : begin -->
 								<div class="product-price">
 									<span class="old-price">{{ '${:,.2f}'.format(product.price + product.price * 0.1) }}</span>
-									<strong class="price">from ${{ '{:,.2f}'.format(product.price) }}</strong>
+									<strong class="price">{% if category.name != 'Wigs' %}from{% endif %} ${{ '{:,.2f}'.format(product.price) }}</strong>
 								</div>
 								<!-- PRODUCT PRICE : end -->
 							</div>
@@ -99,16 +103,25 @@
 							<!-- PRODUCT TOOLS : begin -->
 							<form id="product-form" class="product-tools default-form">
 								<div class="c-tabs">
-									<h1 style="font-weight: bold; margin-bottom: 12px;">Choose a length</h1>
-									<div class="tab-list">
-										{% for p in filtered_products %}
-											{% if p.category_id == 8 %}
-												<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}" style="width: 100%;">{{ '{} - ${:,.2f}'.format(p.bundle_length, p.price) }}</li>
-											{% else %}
-												<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}" style="width: 100%;">{{ '{}" - ${:,.2f}'.format(p.length, p.price) }}</li>
-											{% endif %}
-										{% endfor %}
-									</div>
+									{% if filtered_products %}
+										<h1 style="font-weight: bold; margin-bottom: 12px;">Choose a length</h1>
+										<div class="tab-list">
+											{% for p in filtered_products %}
+												{% if p.category_id == 8 %}
+													<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}" style="width: 100%;">{{ '{} - ${:,.2f}'.format(p.bundle_length, p.price) }}</li>
+												{% else %}
+													<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}" style="width: 100%;">{{ '{}" - ${:,.2f}'.format(p.length, p.price) }}</li>
+												{% endif %}
+											{% endfor %}
+										</div>
+									{% endif %}
+
+									{% if category.name == 'Wigs' %}
+										<h1 style="font-weight: bold; margin-bottom: 12px;">Length</h1>
+										<div class="tab-list">
+											<li class="product-list-item" data-product-id="{{ product.id }}" data-price="{{ '{:,.2f}'.format(product.price) }}" style="width: 100%;">{{ '{}" - ${:,.2f}'.format(product.length, product.price) }}</li>
+										</div>
+									{% endif %}
 								</div>
 								<div class="quantity-input">
 									<input id='quantity' name='quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
@@ -128,7 +141,9 @@
 							<li>
 								<!-- PRODUCT DESCRIPTION : begin -->
 								<div class="product-description various-content">
-									<p>{{ description }}</p>
+									<p>
+										{{ description }}
+									</p>
 								</div>
 								<!-- PRODUCT DESCRIPTION : end -->
 							</li>

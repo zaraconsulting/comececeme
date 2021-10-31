@@ -22,6 +22,7 @@
                     <div class="form-group custom-form">
                         <input type="hidden" name="hair_id" value="{{ product.id }}">
                         {{ form.is_viewable(class="form-control", style="margin-right: 15px;" ) }}
+                        {{ form.is_wig(class="form-control", style="margin-right: 15px;" ) }}
                         {{ form.name(class='form-control', placeholder="Hair Wig Name", value=product.name) }}
                         {{ form.pattern(class="form-control", style="margin-right: 15px") }}
                         {{ form.category(class="form-control", style="margin-right: 15px") }}
@@ -56,13 +57,20 @@
     $('.edit-product-form #category').val('{{ product.category_id }}');
     $('.edit-product-form #category').attr( 'disabled', true );
 
+    $('.edit-product-form #is_wig').val('1');
+    $('.edit-product-form #is_wig').attr('disabled', true);
+    
     $('form').on('submit', function() 
     {
         $('.edit-product-form #category').attr('disabled', false);    
+        $('.edit-product-form #is_wig').attr('disabled', false);
     });
 
     $('#is_viewable').prepend('<option disabled>Is Viewable</option>');
     $('#is_viewable').val( '{{ product.is_viewable }}' === 'True' ? '1' : '0' );
+
+    $('#is_wig').prepend('<option disabled>Is Wig</option>');
+    // $('#is_wig').val( '{{ product.is_wig }}' === 'True' ? '1' : '0' );
 
 </script>
 {% endblock %}

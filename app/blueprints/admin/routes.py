@@ -220,9 +220,22 @@ def hair_categories():
             'description': form.description.data,
             'image': None
         }
-        if request.files.get('image'):
-            file = request.files.get('image')
-            result = upload(file)
+        # print(data)
+        # create temp folder if it doesn't exist
+        if not os.path.exists(f"{basedir}/app/temp"):
+            os.makedirs(f"{basedir}/app/temp")
+        # save file to temp folder
+        file = request.files.get('image')
+        file.save(f"{basedir}/app/temp/{file.filename}")
+
+        # compress via TinyPNG
+        with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
+            source_data = source.read()
+            result_data = tinify.from_buffer(source_data).to_buffer()
+            result = upload(result_data)
+            
+            # remove image from temp folder
+            os.remove(f"{basedir}/app/temp/{file.filename}")
             data.update({'image': result.get('url')})
         category.from_dict(data)
         category.create_hair_category()
@@ -238,11 +251,24 @@ def edit_hair_category():
     form = AdminEditCategoryForm()
     if form.validate_on_submit():
         c = HairCategory.query.filter_by(name=form.name.data).first()
-        if request.files.get('image'):
-            file = request.files.get('image')
-            result = upload(file)
+        # create temp folder if it doesn't exist
+        if not os.path.exists(f"{basedir}/app/temp"):
+            os.makedirs(f"{basedir}/app/temp")
+        # save file to temp folder
+        file = request.files.get('image')
+        file.save(f"{basedir}/app/temp/{file.filename}")
+
+        # compress via TinyPNG
+        with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
+            source_data = source.read()
+            result_data = tinify.from_buffer(source_data).to_buffer()
+            result = upload(result_data)
+            
+            # remove image from temp folder
+            os.remove(f"{basedir}/app/temp/{file.filename}")
         data = {
             'name': c.name,
+            'description': form.description.data,
             'display_name': form.display_name.data,
             'image': result['url'] if request.files.get('image') else c.image,
         }
@@ -480,6 +506,7 @@ def hair_wigs():
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
     form.is_viewable.choices = [(1, True), (0, False)]
+    form.is_wig.choices = [(1, True), (0, False)]
     
 
     if form.validate_on_submit():
@@ -506,6 +533,7 @@ def hair_wigs():
             'length': form.length.data,
             'category_id': HairCategory.query.filter_by(name='Wigs').first().id,
             'is_viewable': form.is_viewable.data,
+            'is_wig': form.is_wig.data,
             'image': result['url'],
         }
         wig.pattern_id = Pattern.query.get(form.pattern.data).id
@@ -524,6 +552,7 @@ def edit_hair_wig():
     form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
     form.is_viewable.choices = [(1, True), (0, False)]
+    form.is_wig.choices = [(1, True), (0, False)]
     if form.validate_on_submit():
         p = Hair.query.get(request.form.get('hair_id'))
         data = {
@@ -533,6 +562,7 @@ def edit_hair_wig():
             'length': form.length.data,
             'category_id': HairCategory.query.filter_by(name='Wigs').first().id,
             'is_viewable': form.is_viewable.data,
+            'is_wig': form.is_wig.data,
         }
         if request.files.get('image'):
             # create temp folder if it doesn't exist

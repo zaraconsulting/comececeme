@@ -394,7 +394,7 @@ the existing ones.
 	}
 
 	.featured-product {
-		margin-bottom: 70px;
+		margin-bottom: 30px;
 		float: left !important;
 	}
 
@@ -417,4 +417,11 @@ the existing ones.
 .wig-image {
 	object-fit: cover;
 	height: 220px;
+}
+
+@media (max-width: 767px)
+{
+	.c-testimonial-list.m-paginated {
+		margin-bottom: 0px;
+	}
 }

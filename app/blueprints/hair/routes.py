@@ -159,3 +159,39 @@ def get_wigs():
     }
     # print(products)
     return render_template('shop/shop-wigs.html', **context)
+
+@app.route('/wigs', methods=['GET'])
+def get_wig():
+    """
+    [GET] /hair/wigs?pattern=<pattern>?name=<name>
+    """
+    if request.args.get('pattern'):
+        pattern = request.args.get('pattern').title()
+    else:
+        pattern = session.get('pattern').title() or None
+
+    if request.args.get('name'):
+        name = request.args.get('name').title()
+    else:
+        name = session.get('name').title() or None
+    session['name'] = name
+    # products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name='Wigs').first().id).all()
+    # filtered_products = sorted([i for i in products_by_category if i.pattern == pattern if i], key=lambda x: x.price)
+    product = Hair.query.filter_by(name=name, pattern_id=Pattern.query.filter_by(name=pattern).first().id).first()
+    # print(product.to_dict())
+    # filter_by(name=name).filter_by(pattern_id=Pattern.query.filter_by(name=name).first().id).first()
+    # print(product)
+    if request.method == 'GET':
+        context = {
+            'product': product,
+            # 'filtered_products': filtered_products,
+            # 'image': product.image,
+            'description': HairCategory.query.filter_by(name='Wigs').first().description,
+            'category': {
+                'name': 'Wigs',
+                'display_name': HairCategory.query.filter_by(name='Wigs').first().display_name
+            },
+            'pattern': Pattern.query.filter_by(name=pattern).first()
+        }
+        # print(context['pattern'].display_name)
+    return render_template('shop/shop-detail.html', **context)

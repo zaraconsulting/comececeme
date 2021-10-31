@@ -38,9 +38,9 @@ def index():
         'reviews': Review.query.all(),
         'gallery': Gallery.query.all(),
         'products': products,
-        'wigs': [i for i in HairCategory.query.filter_by(name='Wigs').first().products.all() if i.is_viewable]
+        'wigs': [i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()]
     }
-    # print([i.to_dict() for i in HairCategory.query.filter_by(name='Wigs').first().products.all()])
+    print([i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()])
     return render_template('index.html', **context), 200
 
 @main.route('/about', methods=['GET'])

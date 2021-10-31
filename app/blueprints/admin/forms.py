@@ -66,6 +66,7 @@ class AdminEditPatternForm(FlaskForm):
 
 class AdminCreateWigForm(FlaskForm):
     is_viewable = SelectField(choices=[], coerce=int)
+    is_wig = SelectField(choices=[], coerce=int)
     name = StringField()
     pattern = SelectField(choices=[], coerce=int)
     category = SelectField(choices=[], coerce=int)
@@ -76,6 +77,7 @@ class AdminCreateWigForm(FlaskForm):
     
 class AdminEditWigForm(FlaskForm):
     is_viewable = SelectField(choices=[], coerce=int)
+    is_wig = SelectField(choices=[], coerce=int)
     name = StringField()
     pattern = SelectField(choices=[], coerce=int)
     category = SelectField(choices=[], coerce=int)

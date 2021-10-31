@@ -268,6 +268,7 @@ class Hair(db.Model):
     image = db.Column(db.String)
     price = db.Column(db.Float)
     is_viewable = db.Column(db.Boolean, default=True)
+    is_wig = db.Column(db.Boolean, default=True)
     pattern_id = db.Column(db.Integer, db.ForeignKey('pattern.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('hair_category.id'))
     reviews = db.relationship('HairReview', backref='hair_reviews', lazy='dynamic')
@@ -276,20 +277,21 @@ class Hair(db.Model):
         data = {
             'id': self.id,
             'is_viewable': self.is_viewable,
+            'is_wig': self.is_wig,
             'name': self.name,
             'image': self.image,
-            'pattern': self.pattern,
             'length': self.length,
             'bundle_length': self.bundle_length,
             'price': self.price,
             'category_id': HairCategory.query.get(self.category_id).name,
+            'pattern': Pattern.query.get(self.pattern_id),
             'category': HairCategory.query.get(self.category_id)
         }
         return data
 
 
     def from_dict(self, data):
-        for field in ['pattern', 'name', 'image', 'length', 'price', 'category_id', 'bundle_length', 'is_viewable']:
+        for field in ['pattern', 'name', 'image', 'length', 'price', 'category_id', 'bundle_length', 'is_viewable', 'is_wig']:
             if field in data:
                 if field == 'category_id':
                     # If making a new wig first attribute

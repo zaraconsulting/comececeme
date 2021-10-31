@@ -21,6 +21,7 @@
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
                         {{ form.is_viewable(class="form-control", style="margin-right: 15px;" ) }}
+                        {{ form.is_wig(class="form-control", style="margin-right: 15px;" ) }}
                         {{ form.name(class="form-control", placeholder="Hair Wig Name") }}
                         {{ form.pattern(class="form-control", style="margin-right: 15px") }}
                         {{ form.category(class="form-control", style="margin-right: 15px") }}
@@ -58,12 +59,17 @@
     // $('.create-product-form #category').prepend('<option disabled selected>Select a category</option>');
     $('.create-product-form #category').val('{{ category.id }}');
     $('.create-product-form #category').attr( 'disabled', true );
-
+    
+    $('.create-product-form #is_wig').val('1');
+    $('.create-product-form #is_wig').attr( 'disabled', true );
+    
     $('form').on('submit', function() 
     {
-        $('.create-product-form #category').attr('disabled', false);    
+        $('.create-product-form #category').attr('disabled', false );    
+        $('.create-product-form #is_wig').attr( 'disabled', false );
     });
     
     $('#is_viewable').prepend('<option disabled>Is Viewable</option>');
+    $('#is_wig').prepend('<option disabled>Is Wig</option>');
 </script>
 {% endblock %}
