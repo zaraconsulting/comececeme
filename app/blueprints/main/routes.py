@@ -40,7 +40,7 @@ def index():
         'products': products,
         'wigs': [i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()]
     }
-    print([i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()])
+    # print([i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()])
     return render_template('index.html', **context), 200
 
 @main.route('/about', methods=['GET'])

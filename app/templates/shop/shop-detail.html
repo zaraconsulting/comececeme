@@ -258,14 +258,23 @@
 		var product_id = '{{ product.id }}';
 		var activeUser = '{{ active_user }}' === 'False' ? false : true;
 		var isSelected = false;
-
+		var product_name = null;
+		
+		if ( '{{ product.name }}' !== 'None' ) 
+		{
+			product_name = '{{ product.name }}';
+		}
+		
 		// console.log(activeUser);
 
 		let info;
 
+		// Function that sends a request to the server at add_cart_product
+		// with the product information
 		function postData(information) {
 			
 			event.preventDefault();
+			// console.log(information)
 
 			fetch("{{ url_for('hair.add_cart_product') }}", {
 				method: 'POST',
@@ -276,13 +285,15 @@
 			})
 			.then(res => res.json())
 			.then(data => { 
-				// console.log('Success');
-				// console.log(data);
+				console.log('Success');
+				console.log(data);
 				window.location.href = "{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=pattern.name.lower()) }}";
+				// window.location.href = location.reload();
 			})
 			.catch(error => console.log(error))
 		}
 
+		// Create the product
 		for (let i of productListItems) {
 			let element = i;
 			element.addEventListener('mousedown',function(event) {
@@ -294,8 +305,14 @@
 					id: $(element).data('product-id'),
 					category: category,
 					price: $(element).data('price'),
-					pattern: pattern
+					pattern: pattern,
 				};
+				if( product_name )
+				{
+					info['product_name'] = product_name;
+				}
+
+				console.log(info);
 
 				// set isSelected to true
 				isSelected = true;
@@ -303,10 +320,12 @@
 			})
 		}
 
+		// Create an event for the add to cart button click
 		$('#add-to-cart-btn').on('click', async function (event) {
 			if (isSelected) {
 				info.quantity = $('#quantity').val();
 				// console.log(`isSelected: ${isSelected}`)
+				// console.log(info);
 				await postData(info);
 			}
 			else {

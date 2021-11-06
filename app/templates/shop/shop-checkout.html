@@ -222,7 +222,7 @@
 									<input type="radio" id="payment-method-1" name="payment-method" value="direct" checked="checked">
 									<label for="payment-method-1" class="accordion-title">Credit</label>
 									<div class="accordion-content">
-										<!-- <p>Credit card payments coming soon</p> -->
+										<p>Credit card payments coming soon</p>
 										<!-- <div class="row">
 											<div class="col-sm-12">
 												<div class="form-group">
@@ -247,13 +247,6 @@
 										</div> -->
 									</div>
 								</li>
-								<!-- <li>
-									<input type="radio" id="payment-method-2" name="payment-method" value="cheque">
-									<label for="payment-method-2" class="accordion-title">Cheque Payment</label>
-									<div class="accordion-content">
-										<p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-									</div>
-								</li> -->
 								<li>
 									<input type="radio" id="payment-method-3" name="payment-method" value="paypal">
 									<label for="payment-method-3" class="accordion-title">PayPal</label>
@@ -280,7 +273,13 @@
 								<tbody>
 									{% for product in shopping_cart %}
 										<tr>
-											<td>{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.pattern }} {% if product.category == 'Bundles' %}Bundles{% else %} Extensions{% endif %} × {{ product.quantity }}</td>
+											<td>
+												{% if product.category=='Wigs' %}
+													{{ product.length }}" {{ product.name }} {{ product.pattern }} × {{ product.quantity }}
+												{% else %}
+													{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.pattern }} {% if product.category == 'Bundles' %}Bundles{% else %} Extensions{% endif %} × {{ product.quantity }}
+												{% endif %}
+											</td>
 											<td>{{ '${:.2f}'.format(product.price * product.quantity) }}</td>
 										</tr>
 										{% endfor %}

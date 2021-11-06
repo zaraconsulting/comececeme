@@ -17,8 +17,21 @@ def inject_cart():
     try:
         items = []
         for i in current_user.cart.all():
-            data = dict(bundle_length=Hair.query.get(i.product_id).bundle_length, length=Hair.query.get(i.product_id).length, category=HairCategory.query.get(Hair.query.get(i.product_id).category_id).name, pattern=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().display_name, prod_id=Hair.query.get(i.product_id).id, name=Hair.query.get(i.product_id).pattern, image=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().image, price=Hair.query.get(i.product_id).price, quantity=len(Cart.query.filter_by(product_id=i.product_id).all()))
-            # print(data['pattern'])
+            data = dict(
+                    bundle_length=Hair.query.get(i.product_id).bundle_length, 
+                    length=Hair.query.get(i.product_id).length, 
+                    category=HairCategory.query.get(Hair.query.get(i.product_id).category_id).name, 
+                    pattern=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().display_name, 
+                    prod_id=Hair.query.get(i.product_id).id, 
+                    price=Hair.query.get(i.product_id).price, 
+                    quantity=len(Cart.query.filter_by(product_id=i.product_id).all())
+                )
+            if Hair.query.get(i.product_id).image:
+                data['name'] = Hair.query.get(i.product_id).name
+                data['image'] = Hair.query.get(i.product_id).image
+            else:
+                data['name'] = Hair.query.get(i.product_id).pattern
+                data['image']=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().image
             if data not in items:
                 items.append(data)
         total = sum([Hair.query.filter_by(id=i.product_id).first().price for i in current_user.cart.all()])
@@ -28,7 +41,14 @@ def inject_cart():
         else: 
             grandTotal = total + (total * tax)
         # print(grandTotal)
-        cart_dict = dict(shopping_cart=items, total=total, tax=tax, grandTotal=grandTotal, fullCart=current_user.cart.all(), coupon=session.get('coupon') or 0)
+        cart_dict = dict(
+                shopping_cart=items, 
+                total=total, 
+                tax=tax, 
+                grandTotal=grandTotal, 
+                fullCart=current_user.cart.all(), 
+                coupon=session.get('coupon') or 0
+            )
         # print(cart_dict)
         session['shopping_cart'] = cart_dict.get('shopping_cart')
         # print(cart_dict)
@@ -45,6 +65,14 @@ def inject_cart():
         # print(cart_dict)
         return cart_dict
     except:
+        session['payment_shopping_cart'] = {
+            'products': {},
+            'subtotal': 0.00,
+            'tax': 0.00,
+            'coupon': 0.00,
+            'grandTotal': 0.00
+        }
+
         total = 0
         return dict(shopping_cart=[], total=0, tax=tax, grandTotal=total + (total * tax), coupon=0)
 

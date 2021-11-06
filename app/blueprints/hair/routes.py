@@ -67,7 +67,10 @@ def get_pattern(category):
     """
     [GET] /hair/<category>?pattern=<pattern>
     """
+    # TODO: FIND OUT WHY I'M NOT GETTING A CATEGORY
     category = category.title() or session.get('category')
+    print(category)
+
     if request.args.get('pattern'):
         pattern = request.args.get('pattern').title()
     else:
@@ -75,6 +78,7 @@ def get_pattern(category):
     session['pattern'] = pattern
     products_by_category = Hair.query.filter_by(category_id=HairCategory.query.filter_by(name=category).first().id).all()
     filtered_products = sorted([i for i in products_by_category if i.pattern == pattern if i], key=lambda x: x.price)
+    # print(filtered_products)
     product = filtered_products[0]
     if request.method == 'GET':
         context = {
@@ -98,11 +102,15 @@ def add_cart_product():
     #     """
     if request.method == 'POST':
         r = request.get_json()
+
+        # print(r)
         
         session['id'] = r.get('id')
         session['category'] = r.get('category')
         session['pattern'] = r.get('pattern')
         session['quantity'] = r.get('quantity')
+        if r.get('product_name'):
+            session['product_name'] = r.get('product_name')
         
         category = session.get('category')
         pattern = session.get('pattern')
@@ -120,6 +128,8 @@ def add_cart_product():
         # print("Quantity:", quantity)
 
         product = Hair.query.get(_id)
+
+        # print(session['payment_shopping_cart'])
 
         shopping_cart = session['payment_shopping_cart']['products']
 
@@ -145,6 +155,7 @@ def add_cart_product():
                     break
         db.session.commit()
         flash('Product added to cart', 'success')
+        # return redirect(request.referrer)
         return jsonify({'message': 'success'})
 
 @app.route('/category/wigs', methods=['GET', 'POST'])

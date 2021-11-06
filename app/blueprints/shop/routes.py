@@ -195,7 +195,7 @@ def cart_checkout():
                 payment_details = {
                     'email': customer.customer.email,
                     # 'order_no': bt_gateway.transaction.search(braintree.TransactionSearch.customer_id == result.customer.id).order,
-                    'transactionDate': dt.strftime(dt.utcnow(), '%m/%d/%Y'),
+                    'transactionDate': dt.strftime(dt.checkout(), '%m/%d/%Y'),
                     'products': shopping_cart.get('products'),
                     'subtotal': shopping_cart.get('total'),
                     'tax': shopping_cart.get('tax'),

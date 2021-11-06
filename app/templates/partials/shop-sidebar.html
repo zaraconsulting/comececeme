@@ -7,13 +7,49 @@
                 <!-- CART PRODUCT LIST : begin -->
                 <ul class="cart-product-list"> 
                     {% for p in shopping_cart %} 
+                    {% if p.is_wig %}
                     <li>
                         <div class="cart-product">
-                            <p class="product-image"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.name.lower()) }}"><img src="{{ p.image }}" alt="{{ p.pattern }}"></a></p>
-                            <h4 class="product-title"><a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.name.lower()) }}">{% if p.category=='Bundles' %}{{ p.bundle_length }}{% else %}{{ p.length }}"{% endif %} {{ p.pattern }} {% if p.category=='Bundles' %} Bundles{% endif %}</a></h4>
+                            <p class="product-image">
+                                <a href="{{ url_for('hair.get_wig', name=p.category.name.lower(), pattern=p.name.lower()) }}">
+                                    <img style="max-height: 60px;" src="{{ p.image }}" alt="{{ p.name }}">
+                                </a>
+                            </p>
+                            <h4 class="product-title">
+                                <a href="{{ url_for('hair.get_wig', name=p.category.name.lower(), pattern=p.name.lower()) }}">{{ p.name }}</a>
+                            </h4>
                             <p class="product-price">{{ p.quantity }} x ${{ '{:,.2f}'.format(p.price) }}</p>
                         </div>
-                    </li> 
+                    </li>
+                    {% else %}
+                    <li>
+                        <div class="cart-product">
+                            <p class="product-image">
+                                {% if p.category=='Wigs' %}
+                                    <a href="{{ url_for('hair.get_wig', name=p.name.lower(), pattern=p.pattern.lower()) }}">
+                                        <img style="max-height: 60px;" src="{{ p.image }}" alt="{{ p.pattern }}">
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}">
+                                        <img style="max-height: 60px;" src="{{ p.image }}" alt="{{ p.pattern }}">
+                                    </a>
+                                {% endif %}
+                            </p>
+                            <h4 class="product-title">
+                                {% if p.category=='Wigs' %}
+                                    <a href="{{ url_for('hair.get_wig', name=p.name.lower(), pattern=p.pattern.lower()) }}">
+                                        {{ p.length }}" {{ p.name }} {{ p.pattern }}
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.pattern.lower()) }}">
+                                        {% if p.category=='Bundles' %}{{ p.bundle_length }}{% else %}{{ p.length }}"{% endif %} {% if p.category=='Wigs' %}{{ p.name }}{% endif %} {{ p.pattern }} {% if p.category=='Bundles' %} Bundles{% endif %}
+                                    </a>
+                                {% endif %}
+                            </h4>
+                            <p class="product-price">{{ p.quantity }} x ${{ '{:,.2f}'.format(p.price) }}</p>
+                        </div>
+                    </li>
+                    {% endif %} 
                     {% endfor %} 
                 </ul>
                 <!-- CART PRODUCT LIST : end -->

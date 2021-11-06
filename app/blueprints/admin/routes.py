@@ -15,6 +15,11 @@ import os
 
 @admin.route('/', methods=['GET'])
 def index():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     else:
@@ -44,6 +49,11 @@ def login():
 
 @admin.route('/logout')
 def logout():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     logout_user()
@@ -52,12 +62,22 @@ def logout():
 
 @admin.route('/coupons', methods=['GET'])
 def coupons():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     return render_template('admin/coupons.html', coupons=Coupon.query.all())
 
 @admin.route('/coupons', methods=['POST'])
 def create_coupon():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     if request.method == 'POST':
@@ -70,6 +90,11 @@ def create_coupon():
 
 @admin.route('/coupons/delete')
 def delete_coupon():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -80,6 +105,11 @@ def delete_coupon():
 
 @admin.route('/users', methods=['GET', 'POST'])
 def users():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminUserForm()
@@ -121,6 +151,11 @@ def users():
 
 @admin.route('/user/edit', methods=['GET', 'POST'])
 def edit_user():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     u = Account.query.get(request.args.get('id'))
@@ -146,6 +181,11 @@ def edit_user():
 
 @admin.route('/user/delete')
 def delete_account():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -176,6 +216,11 @@ def delete_account():
 
 @admin.route('/roles', methods=['GET'])
 def roles():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     # print(current_user.is_admin)
@@ -187,6 +232,11 @@ def roles():
 
 @admin.route('/roles', methods=['POST'])
 def create_role():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     if request.method == 'POST':
@@ -199,6 +249,11 @@ def create_role():
 
 @admin.route('/roles/delete')
 def delete_role():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -209,6 +264,11 @@ def delete_role():
 
 @admin.route('/hair/categories', methods=['GET', 'POST'])
 def hair_categories():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreateCategoryForm()
@@ -245,6 +305,11 @@ def hair_categories():
 
 @admin.route('/hair/category/edit', methods=['GET', 'POST'])
 def edit_hair_category():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     c = HairCategory.query.get(request.args.get('id'))
@@ -284,6 +349,11 @@ def edit_hair_category():
 
 @admin.route('/hair/category/delete')
 def delete_hair_category():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -294,6 +364,11 @@ def delete_hair_category():
 
 @admin.route('/hair/products', methods=['GET', 'POST'])
 def hair_products():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreateProductForm()
@@ -328,6 +403,11 @@ def hair_products():
 
 @admin.route('/hair/product/edit', methods=['GET', 'POST'])
 def edit_hair_product():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     p = Hair.query.get(request.args.get('id'))
@@ -342,7 +422,7 @@ def edit_hair_product():
             'is_viewable': form.is_viewable.data,
             'pattern': Pattern.query.get(form.pattern.data).display_name, 
             'price': form.price.data, 
-            'category_id': HairCategory.query.get(int(request.form.get('category'))).name,
+            'category_id': HairCategory.query.get(int(request.form.get('category'))).id,
         }
         if form.length.data:
             data.update({ 'length': form.length.data })
@@ -365,6 +445,11 @@ def edit_hair_product():
 
 @admin.route('/hair/product/delete')
 def delete_hair_product():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -414,6 +499,11 @@ def reset_password(token):
 ####################################
 @admin.route('hair/patterns', methods=['GET', 'POST'])
 def hair_patterns():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreatePatternForm()
@@ -447,6 +537,11 @@ def hair_patterns():
 
 @admin.route('/hair/pattern/edit', methods=['GET', 'POST'])
 def edit_hair_pattern():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     p = Pattern.query.get(request.args.get('id'))
@@ -487,6 +582,11 @@ def edit_hair_pattern():
 
 @admin.route('/hair/pattern/delete')
 def delete_hair_pattern():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -500,6 +600,11 @@ def delete_hair_pattern():
 ####################################
 @admin.route('hair/wigs', methods=['GET', 'POST'])
 def hair_wigs():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreateWigForm()
@@ -545,6 +650,11 @@ def hair_wigs():
 
 @admin.route('/hair/wig/edit', methods=['GET', 'POST'])
 def edit_hair_wig():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     p = Hair.query.get(request.args.get('id'))
@@ -553,6 +663,7 @@ def edit_hair_wig():
     form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
     form.is_viewable.choices = [(1, True), (0, False)]
     form.is_wig.choices = [(1, True), (0, False)]
+    
     if form.validate_on_submit():
         p = Hair.query.get(request.form.get('hair_id'))
         data = {
@@ -594,6 +705,11 @@ def edit_hair_wig():
 
 @admin.route('/hair/wig/delete')
 def delete_hair_wig():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -610,6 +726,11 @@ def delete_hair_wig():
 ####################################
 @admin.route('hair/tips', methods=['GET', 'POST'])
 def hair_tips():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreateHairTipForm()
@@ -626,6 +747,11 @@ def hair_tips():
 
 @admin.route('/hair/tip/edit', methods=['GET', 'POST'])
 def edit_hair_tip():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     ht = HairTip.query.get(request.args.get('id'))
@@ -646,6 +772,11 @@ def edit_hair_tip():
 
 @admin.route('/hair/tip/delete')
 def delete_hair_tip():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
@@ -657,6 +788,11 @@ def delete_hair_tip():
 
 @admin.route('/orders', methods=['GET'])
 def orders():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     return render_template('admin/orders.html', orders=[i.to_dict() for i in Order.query.all()])
@@ -680,6 +816,11 @@ def create_order():
 
 @admin.route('/orders/delete')
 def delete_order():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
