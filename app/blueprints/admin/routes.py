@@ -4,7 +4,7 @@ from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, R
 from .forms import \
     AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, \
     AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm, \
-    AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm
+    AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm, AdminCreateBeautyProductForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
@@ -493,6 +493,107 @@ def reset_password(token):
         return redirect(url_for('admin.login'))
     return render_template('admin/reset_password.html', user=user, form=form)
 
+
+####################################
+# PRODUCT - BEAUTY
+####################################
+@admin.route('/beauty/products', methods=['GET', 'POST'])
+def beauty_products():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    form = AdminCreateBeautyProductForm()
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all() if i.name != 'Wigs']
+    form.is_viewable.choices = [(1, True), (0, False)]
+
+    if request.method == 'POST':
+        product = Hair()
+        data = {
+            'pattern': Pattern.query.get(form.pattern.data).display_name, 
+            'price': form.price.data,
+            'category_id': HairCategory.query.get(int(form.category.data)).id,
+            'is_viewable': form.is_viewable.data
+        }
+        if form.length.data:
+            data.update({ 'length': form.length.data })
+        elif form.bundle_length.data:
+            data.update({ 'bundle_length': form.bundle_length.data })
+
+        # print(data)
+
+        product.from_dict(data)
+        product.pattern_id = Pattern.query.get(form.pattern.data).id
+        product.category_id = HairCategory.query.get(form.category.data).id
+        product.bundle_length = form.bundle_length.data or ''
+        # print(product)
+        product.create_beautyproduct()
+        flash('Hair Product created successfully', 'success')
+        return redirect(url_for('admin.hair_products'))
+    return render_template('admin/hair/products.html', products=[i for i in Hair.query.order_by(Hair.pattern).all() if i.category.name != 'Wigs'], form=form)
+
+@admin.route('/beauty/product/edit', methods=['GET', 'POST'])
+def edit_beauty_create_product():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    p = Hair.query.get(request.args.get('id'))
+    form = AdminEditProductForm()
+    form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
+    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    form.is_viewable.choices = [(1, True), (0, False)]
+    
+    if request.method == 'POST':
+        # print(request.form)
+        data = {
+            'is_viewable': form.is_viewable.data,
+            'pattern': Pattern.query.get(form.pattern.data).display_name, 
+            'price': form.price.data, 
+            'category_id': HairCategory.query.get(int(request.form.get('category'))).id,
+        }
+        if form.length.data:
+            data.update({ 'length': form.length.data })
+        elif form.bundle_length.data:
+            data.update({ 'bundle_length': form.bundle_length.data })
+        elif form.is_viewable.data:
+            data.update({ 'is_viewable': form.is_viewable.data })
+
+        p.from_dict(data)
+        p.pattern_id = Pattern.query.get(form.pattern.data).id
+        p.category_id = HairCategory.query.get(form.category.data).id
+        db.session.commit()
+        flash('Edited product successfully', 'info')
+        return redirect(url_for('admin.hair_products'))
+    context = {
+        'product': p,
+        'form': form
+    }
+    return render_template('admin/hair/products-edit.html', **context)
+
+@admin.route('/beauty/product/delete')
+def delete_beauty_product():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    product = Hair.query.get(_id)
+    product.delete_hair_product()
+    flash('Product deleted successfully', 'info')
+    return redirect(url_for('admin.hair_products'))
+####################################
+# PRODUCT - BEAUTY
+####################################
 
 ####################################
 # PATTERNS

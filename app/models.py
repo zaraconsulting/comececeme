@@ -612,7 +612,7 @@ class Product(db.Model):
     description = db.Column(db.Text, nullable=False, default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
     price = db.Column(db.Float, nullable=False)
     length = db.Column(db.Integer)
-    rating = db.Column(db.Integer, nullable=True)
+    rating = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
     in_stock = db.Column(db.Boolean, default=True)
     discount = db.Column(db.Boolean, default=False)
