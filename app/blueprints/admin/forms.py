@@ -25,41 +25,50 @@ class AdminLoginForm(FlaskForm):
     remember_me = BooleanField('Remember password')
     submit = SubmitField('Login')
 
+class AdminEditCategoryForm(FlaskForm):
+    name = StringField()
+    display_name = StringField()
+    description = TextAreaField()
+    image = StringField()
+    submit = SubmitField('Update Category')
+
+class AdminCreateBeautyCategoryForm(FlaskForm):
+    name = StringField()
+    submit = SubmitField('Create Category')
+    
+class AdminEditBeautyCategoryForm(FlaskForm):
+    name = StringField()
+    submit = SubmitField('Update Category')
+
 class AdminCreateBeautyProductForm(FlaskForm):
     is_viewable = SelectField(choices=[], coerce=int)
     name = StringField()
     image = StringField()
     description = StringField()
     price = FloatField()
-    length = StringField()
-    rating = StringField()
-    quantity = StringField()
+    size = FloatField()
+    # rating = StringField()
+    # quantity = StringField()
     in_stock = StringField()
-    discount = StringField()
-    discount_price = StringField()
+    # discount = StringField()
+    # discount_price = StringField()
     category = SelectField(choices=[], coerce=int)
     submit = SubmitField('Create Beauty Product')
     
 class AdminEditBeautyProductForm(FlaskForm):
+    is_viewable = SelectField(choices=[], coerce=int)
     name = StringField()
     image = StringField()
     description = StringField()
-    price = StringField()
-    length = StringField()
-    rating = StringField()
-    quantity = StringField()
-    in_stock = StringField()
-    discount = StringField()
-    discount_price = StringField()
-    category_id = StringField()
-    created_on = StringField()
-    is_viewable = SelectField(choices=[], coerce=int)
-    pattern = SelectField(choices=[], coerce=int)
-    length = IntegerField()
     price = FloatField()
+    size = FloatField()
+    # rating = StringField()
+    # quantity = StringField()
+    in_stock = StringField()
+    # discount = StringField()
+    # discount_price = StringField()
     category = SelectField(choices=[], coerce=int)
-    bundle_length = StringField()
-    submit = SubmitField('Update Product')
+    submit = SubmitField('Edit Beauty Product')
 
 class AdminCreateProductForm(FlaskForm):
     is_viewable = SelectField(choices=[], coerce=int)
@@ -129,13 +138,6 @@ class AdminCreateCategoryForm(FlaskForm):
     image = StringField()
     submit = SubmitField('Create Category')
     
-class AdminEditCategoryForm(FlaskForm):
-    name = StringField()
-    display_name = StringField()
-    description = TextAreaField()
-    image = StringField()
-    submit = SubmitField('Update Category')
-
 class AdminCreateHairTipForm(FlaskForm):
     description = TextAreaField()
     submit = SubmitField('Create Hair Tip')

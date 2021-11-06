@@ -611,13 +611,13 @@ class Product(db.Model):
     image = db.Column(db.String, default='http://via.placeholder.com/500x500', nullable=False)
     description = db.Column(db.Text, nullable=False, default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
     price = db.Column(db.Float, nullable=False)
-    length = db.Column(db.Integer)
+    size = db.Column(db.Float)
     rating = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
     in_stock = db.Column(db.Boolean, default=True)
-    discount = db.Column(db.Boolean, default=False)
-    discount_price = db.Column(db.Float)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    # discount = db.Column(db.Boolean, default=False)
+    # discount_price = db.Column(db.Float)
+    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     reviews = db.relationship('ProductReview', backref='product_reviews', lazy='dynamic')
 
@@ -638,10 +638,10 @@ class Product(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['name', 'price', 'description', 'category_id', 'quantity', 'in_stock']:
+        for field in ['name', 'price', 'description', 'product_category_id', 'quantity', 'in_stock']:
             if field in data:
-                if field == 'category_id':
-                    category = Category.query.filter_by(name=data[field]).first()
+                if field == 'product_category_id':
+                    category = ProductCategory.query.filter_by(name=data[field]).first()
                     if category is not None:
                         setattr(self, field, category.id)
                 else:
@@ -657,6 +657,38 @@ class Product(db.Model):
 
     def __str__(self) -> str:
         return f'Name: {self.name}\nPrice: {self.price}\nRating: {self.rating}'
+
+class ProductCategory(db.Model):
+    __table_args__ = { 'extend_existing': True }
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+
+    def create_product_category(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_product_category(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'name': self.name,
+        }
+        return data
+
+    def from_dict(self, data):
+        for field in ['name']:
+            if field in data:
+                setattr(self, field, data[field])
+
+    def get_name(self):
+        return {self.name}
+
+    def __str__(self):
+        return f"{self.name}"
+    
 
 
 class Order(db.Model):

@@ -1,10 +1,10 @@
 from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash
-from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip, Order
+from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip, Order, ProductCategory, Product
 from .forms import \
-    AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, \
+    AdminEditBeautyCategoryForm, AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, \
     AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm, \
-    AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm, AdminCreateBeautyProductForm
+    AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm, AdminCreateBeautyProductForm, AdminCreateBeautyCategoryForm
 from flask_login import current_user, login_user, logout_user
 from app import db
 from .email import send_password_reset_email
@@ -497,6 +497,68 @@ def reset_password(token):
 ####################################
 # PRODUCT - BEAUTY
 ####################################
+@admin.route('/beauty/categories', methods=['GET', 'POST'])
+def beauty_categories():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    form = AdminCreateBeautyCategoryForm()
+    if form.validate_on_submit():
+        category = ProductCategory()
+        data = {
+            'name': form.name.data.title(),
+        }
+        category.from_dict(data)
+        category.create_product_category()
+        flash('Beauty Category created successfully', 'success')
+        return redirect(url_for('admin.beauty_categories'))
+    return render_template('admin/beauty/categories.html', categories=ProductCategory.query.order_by(ProductCategory.name).all(), form=form)
+
+@admin.route('/beauty/category/edit', methods=['GET', 'POST'])
+def edit_beauty_category():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    c = ProductCategory.query.get(request.args.get('id'))
+    form = AdminEditBeautyCategoryForm()
+    if request.method == 'POST':
+        c = ProductCategory.query.get(request.form.get('category_id'))
+        data = {
+            'name': form.name.data,
+        }
+        c.from_dict(data)
+        db.session.commit()
+        flash('Edited Product Category successfully', 'info')
+        return redirect(url_for('admin.beauty_categories'))
+    context = {
+        'category': c,
+        'form': form
+    }
+    return render_template('admin/beauty/categories-edit.html', **context)
+
+@admin.route('/beauty/category/delete')
+def delete_beauty_category():
+    if current_user.is_anonymous:
+        pass
+    elif current_user.is_customer:
+        flash('You are not authorized to access this page', 'warning')
+        return redirect(url_for('main.index'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('admin.login'))
+    _id = int(request.args.get('id'))
+    category = ProductCategory.query.get(_id)
+    category.delete_product_category()
+    flash('Product Category deleted successfully', 'danger')
+    return redirect(url_for('admin.beauty_categories'))
+
 @admin.route('/beauty/products', methods=['GET', 'POST'])
 def beauty_products():
     if current_user.is_anonymous:
@@ -507,33 +569,34 @@ def beauty_products():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreateBeautyProductForm()
-    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all() if i.name != 'Wigs']
+    # form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all() if i.name != 'Wigs']
     form.is_viewable.choices = [(1, True), (0, False)]
 
-    if request.method == 'POST':
-        product = Hair()
-        data = {
-            'pattern': Pattern.query.get(form.pattern.data).display_name, 
-            'price': form.price.data,
-            'category_id': HairCategory.query.get(int(form.category.data)).id,
-            'is_viewable': form.is_viewable.data
-        }
-        if form.length.data:
-            data.update({ 'length': form.length.data })
-        elif form.bundle_length.data:
-            data.update({ 'bundle_length': form.bundle_length.data })
+    # if request.method == 'POST':
+    #     product = Hair()
+    #     data = {
+    #         'pattern': Pattern.query.get(form.pattern.data).display_name, 
+    #         'price': form.price.data,
+    #         'category_id': HairCategory.query.get(int(form.category.data)).id,
+    #         'is_viewable': form.is_viewable.data
+    #     }
+    #     if form.length.data:
+    #         data.update({ 'length': form.length.data })
+    #     elif form.bundle_length.data:
+    #         data.update({ 'bundle_length': form.bundle_length.data })
 
-        # print(data)
+    #     # print(data)
 
-        product.from_dict(data)
-        product.pattern_id = Pattern.query.get(form.pattern.data).id
-        product.category_id = HairCategory.query.get(form.category.data).id
-        product.bundle_length = form.bundle_length.data or ''
-        # print(product)
-        product.create_beautyproduct()
-        flash('Hair Product created successfully', 'success')
-        return redirect(url_for('admin.hair_products'))
-    return render_template('admin/hair/products.html', products=[i for i in Hair.query.order_by(Hair.pattern).all() if i.category.name != 'Wigs'], form=form)
+    #     product.from_dict(data)
+    #     product.pattern_id = Pattern.query.get(form.pattern.data).id
+    #     product.category_id = HairCategory.query.get(form.category.data).id
+    #     product.bundle_length = form.bundle_length.data or ''
+    #     # print(product)
+    #     product.create_beautyproduct()
+        # flash('Hair Product created successfully', 'success')
+        # return redirect(url_for('admin.hair_products'))
+    return render_template('admin/beauty/products.html', products=[], form=form)
+    # return render_template('admin/hair/products.html', products=[i for i in Hair.query.order_by(Hair.pattern).all() if i.category.name != 'Wigs'], form=form)
 
 @admin.route('/beauty/product/edit', methods=['GET', 'POST'])
 def edit_beauty_create_product():
@@ -587,10 +650,10 @@ def delete_beauty_product():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
-    product = Hair.query.get(_id)
+    product = Product.query.get(_id)
     product.delete_hair_product()
-    flash('Product deleted successfully', 'info')
-    return redirect(url_for('admin.hair_products'))
+    flash('Beauty Product deleted successfully', 'info')
+    return redirect(url_for('admin.beauty_products'))
 ####################################
 # PRODUCT - BEAUTY
 ####################################

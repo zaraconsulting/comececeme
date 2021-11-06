@@ -1,0 +1,71 @@
+{% extends 'admin/layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Products</li>
+    </ol>
+
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-user mr-1"></i>
+            Edit Product
+        </div>
+        <!-- EDIT USER FORM : begin -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <h5>Edit a Product</h5>
+                <form class="form-inline edit-user-form" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group custom-form">
+                        {{ form.is_viewable(class="form-control", style="margin-right: 15px" ) }}
+                        {{ form.pattern(class="form-control", style="margin-right: 15px") }}
+                        {{ form.category(class="form-control", style="margin-right: 15px") }}
+                        {# {{ form.category(class="form-control", style="margin-right: 15px", disabled='disabled') }} #}
+                        {{ form.price(class='form-control', placeholder="Price", value=product.price) }}
+                        {{ form.length(class='form-control', placeholder="Hair Length", value=product.length) }}
+                        {{ form.bundle_length(class='form-control', placeholder="Bundle Length", value=product.bundle_length) }}
+                        {{ form.submit(class="btn btn-outline-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- EDIT USER FORM : end -->
+
+        <!-- USERS TABLE : begin -->
+        {# {% include './admin/partials/hair/products-table.html' %} #}
+        <!-- USERS TABLE : end -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // var roleOption = $(`#role option[value=${roleId}]`);
+    $('#pattern').prepend( '<option disabled>Select a Hair Pattern</option>' );
+    $('#pattern').val('{{ product.pattern_id }}');
+
+    console.log($('#pattern').val());
+
+    $('#category').prepend( '<option disabled>Select a Hair Category</option>' );
+    $('#category').val('{{ product.category_id }}');
+
+    $('#is_viewable').prepend('<option disabled>Is Viewable</option>');
+    $('#is_viewable').val( '{{ product.is_viewable }}' === 'True' ? '1' : '0' );
+
+    if ($('select#category option:selected').text() == 'Bundles')
+    {
+        // $('select#category option:selected').attr('selected', true);
+        $('.custom-form #bundle_length').css(`display`, 'block');
+        $('.custom-form #length').hide();
+    }
+    else
+    {
+        $('.custom-form #length').css(`display`, 'block');
+        $('.custom-form #bundle_length').hide();
+    }
+</script>
+{% endblock %}

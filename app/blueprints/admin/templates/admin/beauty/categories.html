@@ -1,0 +1,47 @@
+{% extends 'admin/layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Product Categories</li>
+    </ol>
+
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-shopping-bag mr-1"></i>
+            Manage Product Categories
+        </div>
+        <!-- CATEGORY FORM : begin -->
+        <div class="card-body">
+            <div class="table-responsive">
+                <h5>Create a Product Category</h5>
+                <form class="form-inline create-pattern-form" enctype="multipart/form-data" action="{{ url_for('admin.beauty_categories') }}" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group custom-form">
+                        {{ form.name(class="form-control", placeholder="Beauty Product Category Name") }}
+                        {{ form.submit(class="btn btn-outline-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- CATEGORY FORM : end -->
+
+        <!-- CATEGORY TABLE : begin -->
+        {% include './admin/beauty/partials/categories-table.html' %}
+        <!-- CATEGORY TABLE : end -->
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    $('.custom-file-input').on("change", function ()
+    {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+    })
+</script>
+{% endblock %}
