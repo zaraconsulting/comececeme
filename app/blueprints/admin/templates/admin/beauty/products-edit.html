@@ -17,16 +17,23 @@
         <div class="card-body">
             <div class="table-responsive">
                 <h5>Edit a Product</h5>
-                <form class="form-inline edit-user-form" method="POST">
+                <form class="form-inline edit-beauty-product-form" method="POST" enctype="multipart/form-data" action="{{ url_for('admin.edit_beauty_product') }}">
                     {{ form.hidden_tag() }}
+                    <input type="hidden" name="product_id", value='{{ product.id }}'>
                     <div class="form-group custom-form">
-                        {{ form.is_viewable(class="form-control", style="margin-right: 15px" ) }}
-                        {{ form.pattern(class="form-control", style="margin-right: 15px") }}
-                        {{ form.category(class="form-control", style="margin-right: 15px") }}
-                        {# {{ form.category(class="form-control", style="margin-right: 15px", disabled='disabled') }} #}
-                        {{ form.price(class='form-control', placeholder="Price", value=product.price) }}
-                        {{ form.length(class='form-control', placeholder="Hair Length", value=product.length) }}
-                        {{ form.bundle_length(class='form-control', placeholder="Bundle Length", value=product.bundle_length) }}
+                        {{ form.is_viewable(class="form-control", style="margin-right: 15px;" ) }}
+                        {{ form.category(class="form-control", style="margin-right: 15px;") }}
+                        {{ form.in_stock(class="form-control", style="margin-right: 15px;") }}
+                        {{ form.name(placeholder="Product name", class="form-control", style="margin-right: 15px;") }}
+                        {{ form.price(placeholder="Product price", class='form-control') }}
+                        {{ form.size(placeholder="Product size (oz.)", class='form-control') }}
+                    </div>
+                    <div class="form-group custom-form">
+                        {{ form.description(placeholder="Product description", class="form-control", style="margin-right: 15px;", cols="50", rows="5") }}
+                        <div class="custom-file" style="margin-bottom: 15px">
+                            <input type="file" class="custom-file-input" id='image' name="image">
+                            <label for="image" class="custom-file-label">Choose an image</label>
+                        </div>
                         {{ form.submit(class="btn btn-outline-primary") }}
                     </div>
                 </form>
@@ -44,28 +51,28 @@
 {% block scripts %}
 {{ super() }}
 <script>
-    // var roleOption = $(`#role option[value=${roleId}]`);
-    $('#pattern').prepend( '<option disabled>Select a Hair Pattern</option>' );
-    $('#pattern').val('{{ product.pattern_id }}');
-
-    console.log($('#pattern').val());
-
-    $('#category').prepend( '<option disabled>Select a Hair Category</option>' );
-    $('#category').val('{{ product.category_id }}');
-
-    $('#is_viewable').prepend('<option disabled>Is Viewable</option>');
-    $('#is_viewable').val( '{{ product.is_viewable }}' === 'True' ? '1' : '0' );
-
-    if ($('select#category option:selected').text() == 'Bundles')
+    $('.custom-file-input').on("change", function ()
     {
-        // $('select#category option:selected').attr('selected', true);
-        $('.custom-form #bundle_length').css(`display`, 'block');
-        $('.custom-form #length').hide();
-    }
-    else
-    {
-        $('.custom-form #length').css(`display`, 'block');
-        $('.custom-form #bundle_length').hide();
-    }
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+    })
+</script>
+<script>
+    $('.edit-beauty-product-form #is_viewable').prepend('<option disabled selected>Is Viewable</option>');
+    $('.edit-beauty-product-form #is_viewable').val('{{ product.is_viewable }}' == true ? '0' : '1');
+
+    $('.edit-beauty-product-form #category').prepend('<option disabled selected>Select a category</option>');
+    $('.edit-beauty-product-form #category').val('{{ product.category.id }}');
+
+
+    $('.edit-beauty-product-form #in_stock').prepend('<option selected>In Stock</option>');
+    $('.edit-beauty-product-form #in_stock').val('{{ product.in_stock }}' == true ? '0' : '1');
+
+    $('.edit-beauty-product-form #name').val('{{ product.name }}');
+    $('.edit-beauty-product-form #price').val('{{ product.price }}');
+    $('.edit-beauty-product-form #size').val('{{ product.size }}');
+
+    $('.edit-beauty-product-form #description').val('{{ product.description }}');
+
 </script>
 {% endblock %}

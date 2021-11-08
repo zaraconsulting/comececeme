@@ -7,12 +7,12 @@
                     <th>ID</th>
                     <th>Is Viewable</th>
                     <th>Name</th>
-                    <th>Image</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Size</th>
                     <th>Description</th>
                     <th>In Stock</th>
+                    <th>Image</th>
                     {% if current_user.role.rank < 4 %}<th></th>{% endif %}
                 </tr>
             </thead>
@@ -22,12 +22,12 @@
                     <th>ID</th>
                     <th>Is Viewable</th>
                     <th>Name</th>
-                    <th>Image</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Size</th>
                     <th>Description</th>
                     <th>In Stock</th>
+                    <th>Image</th>
                     {% if current_user.role.rank < 4 %}<th></th>{% endif %}
                 </tr>
             </tfoot>
@@ -38,22 +38,27 @@
                         {% if current_user.role.rank < 4 %}
                           <td style="text-align: center;">
                             <span class="edit-icon">
-                                <a href="{{ url_for('admin.edit_hair_product', id=p.id) }}">
+                                <a href="{{ url_for('admin.edit_beauty_product', id=p.id) }}">
                                     <i class="far fa-edit text-info"></i>
                                 </a>
                             </span>
                             </td>
                             {% endif %}
+                            <td>{{ p.id }}</td>
                             <td>{{ p.is_viewable }}</td>
-                            <td>{{ p.pattern }}</td>
-                            <td>{% if p.category.display_name %}{{ p.category.display_name }}{% else %}{{ p.category.name }}{% endif %}</td>
+                            <td>{{ p.name }}</td>
+                            <td>{{ p.category.name }}</td>
                             <td>{{ '${:,.2f}'.format(p.price) }}</td>
-                            <td>{{ p.length }}{% if p.length %}"{% endif %}</td>
-                            <td>{{ p.bundle_length }}</td>
+                            <td>{{ p.size }}</td>
+                            <td>{{ p.description }}</td>
+                            <td>{{ p.in_stock }}</td>
+                            <td>
+                                <img style="height: 50px;" class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
+                            </td>
                             {% if current_user.role.rank < 4 %}
                               <td style="text-align: center;">
                                 <span class="delete-icon">
-                                    <a href="{{ url_for('admin.delete_hair_product', id=p.id) }}">
+                                    <a href="{{ url_for('admin.delete_beauty_product', id=p.id) }}">
                                         <i class="fa fa-trash-alt text-danger"></i>
                                     </a>
                                 </span>

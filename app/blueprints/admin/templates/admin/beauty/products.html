@@ -17,26 +17,22 @@
         <div class="card-body">
             <div class="table-responsive">
                 <h5>Create a Beauty Product</h5>
-                <form class="form-inline create-product-form" method="POST">
+                <form class="form-inline create-beauty-product-form"  enctype="multipart/form-data" action="{{ url_for('admin.beauty_products') }}" method="POST">
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
+                        {{ form.is_viewable(class="form-control", style="margin-right: 15px;" ) }}
                         {{ form.category(class="form-control", style="margin-right: 15px;") }}
-                        {{ form.name(class="form-control", style="margin-right: 15px;") }}
-                        {{ form.image(class="form-control", style="margin-right: 15px;") }}
-                        {{ form.description(class="form-control", style="margin-right: 15px;") }}
-                        {{ form.price(class='form-control', placeholder="Price") }}
-                        {{ form.size(class='form-control', placeholder="Size", style="display: none") }}
-                        {# {{ form.rating(class="form-control", style="margin-right: 15px;") }} #}
-                        {# {{ form.quantity(class="form-control", style="margin-right: 15px;") }} #}
                         {{ form.in_stock(class="form-control", style="margin-right: 15px;") }}
-                        {# {{ form.discount(class="form-control", style="margin-right: 15px;") }} #}
-                        {# {{ form.discount_price(class="form-control", style="margin-right: 15px;") }} #}
-                        {# <div class="form-check">
-                            <label class="form-check-label">
-                            {{ form.is_admin(class="form-check-input") }}
-                            {{ form.is_admin.label }}
-                            </label>
-                        </div> #}
+                        {{ form.name(placeholder="Product name", class="form-control", style="margin-right: 15px;") }}
+                        {{ form.price(placeholder="Product price", class='form-control') }}
+                        {{ form.size(placeholder="Product size (oz.)", class='form-control') }}
+                    </div>
+                    <div class="form-group custom-form">
+                        {{ form.description(placeholder="Product description", class="form-control", style="margin-right: 15px;", cols="50", rows="5") }}
+                        <div class="custom-file" style="margin-bottom: 15px">
+                            <input type="file" class="custom-file-input" id='image' name="image">
+                            <label for="image" class="custom-file-label">Choose an image</label>
+                        </div>
                         {{ form.submit(class="btn btn-outline-primary") }}
                     </div>
                 </form>
@@ -54,9 +50,19 @@
 {% block scripts %}
 {{ super() }}
 <script>
+    $('.custom-file-input').on("change", function ()
+    {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+    })
+</script>
+<script>
+    $('.create-beauty-product-form #category').prepend('<option disabled selected>Select a category</option>');
     
-    // $('.create-product-form #pattern').prepend('<option disabled selected>Select a pattern</option>');
-    // $('.create-product-form #category').prepend('<option disabled selected>Select a category</option>');
+    $('#is_viewable').prepend('<option selected>Is Viewable</option>');
+    
+    $('.create-beauty-product-form #in_stock').prepend('<option selected>In Stock</option>');
+    // $('.create-beauty-product-form #category').prepend('<option disabled selected>Select a category</option>');
     // $('.custom-form select#category').on('change', () => {
     //     if($('select#category option:selected').text() == 'Bundle Deals')
     //     {

@@ -2,7 +2,7 @@ from .import bp as admin
 from flask import render_template, redirect, url_for, request, flash
 from app.models import Hair, Customer, Coupon, HairCategory, Pattern, Account, Role, HairTip, Order, ProductCategory, Product
 from .forms import \
-    AdminEditBeautyCategoryForm, AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, \
+    AdminEditBeautyCategoryForm, AdminEditBeautyProductForm, AdminUserForm, AdminLoginForm, AdminEditUserForm, AdminEditUserForm, AdminCreateProductForm, AdminResetPasswordRequestForm, \
     AdminResetPasswordForm, AdminCreatePatternForm, AdminEditPatternForm, AdminEditProductForm, AdminCreateHairTipForm, AdminEditHairTipForm, \
     AdminCreateCategoryForm, AdminEditCategoryForm, AdminCreateWigForm, AdminEditWigForm, AdminCreateBeautyProductForm, AdminCreateBeautyCategoryForm
 from flask_login import current_user, login_user, logout_user
@@ -569,37 +569,51 @@ def beauty_products():
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
     form = AdminCreateBeautyProductForm()
-    # form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all() if i.name != 'Wigs']
+    form.category.choices = [(i.id, i.name) for i in ProductCategory.query.order_by(ProductCategory.name).all()]
     form.is_viewable.choices = [(1, True), (0, False)]
+    form.in_stock.choices = [(1, True), (0, False)]
 
-    # if request.method == 'POST':
-    #     product = Hair()
-    #     data = {
-    #         'pattern': Pattern.query.get(form.pattern.data).display_name, 
-    #         'price': form.price.data,
-    #         'category_id': HairCategory.query.get(int(form.category.data)).id,
-    #         'is_viewable': form.is_viewable.data
-    #     }
-    #     if form.length.data:
-    #         data.update({ 'length': form.length.data })
-    #     elif form.bundle_length.data:
-    #         data.update({ 'bundle_length': form.bundle_length.data })
+    if request.method == 'POST':
+        if not os.path.exists(f"{basedir}/app/temp"):
+            os.makedirs(f"{basedir}/app/temp")
+        # save file to temp folder
+        file = request.files.get('image')
+        file.save(f"{basedir}/app/temp/{file.filename}")
 
-    #     # print(data)
+        # compress via TinyPNG
+        with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
+            source_data = source.read()
+            result_data = tinify.from_buffer(source_data).to_buffer()
+            result = upload(result_data)
 
-    #     product.from_dict(data)
-    #     product.pattern_id = Pattern.query.get(form.pattern.data).id
-    #     product.category_id = HairCategory.query.get(form.category.data).id
-    #     product.bundle_length = form.bundle_length.data or ''
-    #     # print(product)
-    #     product.create_beautyproduct()
-        # flash('Hair Product created successfully', 'success')
-        # return redirect(url_for('admin.hair_products'))
-    return render_template('admin/beauty/products.html', products=[], form=form)
-    # return render_template('admin/hair/products.html', products=[i for i in Hair.query.order_by(Hair.pattern).all() if i.category.name != 'Wigs'], form=form)
+            # remove image from temp folder
+            os.remove(f"{basedir}/app/temp/{file.filename}")
+        product = Product()
+        data = {
+            'is_viewable': form.is_viewable.data,
+            'category_id': ProductCategory.query.get(int(form.category.data)).id,
+            'in_stock': form.in_stock.data,
+            'name': form.name.data,
+            'price': form.price.data,
+            'description': form.description.data,
+            'size': form.size.data,
+            'image': result['url'],
+        }
+
+        # print(data)
+
+        product.from_dict(data)
+        product.create_product()
+        flash('Beauty Product created successfully', 'success')
+        return redirect(url_for('admin.beauty_products'))
+    context = {
+        'products': [i.to_dict() for i in Product.query.all()],
+        'form': form
+    }
+    return render_template('admin/beauty/products.html', **context)
 
 @admin.route('/beauty/product/edit', methods=['GET', 'POST'])
-def edit_beauty_create_product():
+def edit_beauty_product():
     if current_user.is_anonymous:
         pass
     elif current_user.is_customer:
@@ -607,38 +621,57 @@ def edit_beauty_create_product():
         return redirect(url_for('main.index'))
     if not current_user.is_authenticated:
         return redirect(url_for('admin.login'))
-    p = Hair.query.get(request.args.get('id'))
-    form = AdminEditProductForm()
-    form.pattern.choices = [(i.id, i.name) for i in Pattern.query.order_by(Pattern.name).all()]
-    form.category.choices = [(i.id, i.name) for i in HairCategory.query.order_by(HairCategory.name).all()]
+    p = Product.query.get(request.args.get('id'))
+    form = AdminEditBeautyProductForm()
+    form.category.choices = [(i.id, i.name) for i in ProductCategory.query.order_by(ProductCategory.name).all()]
     form.is_viewable.choices = [(1, True), (0, False)]
-    
+    form.in_stock.choices = [(1, True), (0, False)]
+
     if request.method == 'POST':
-        # print(request.form)
+        p = Product.query.get(request.form.get('product_id'))
+        if request.files.get('image'):
+            # create temp folder if it doesn't exist
+            if not os.path.exists(f"{basedir}/app/temp"):
+                os.makedirs(f"{basedir}/app/temp")
+            # save file to temp folder
+            file = request.files.get('image')
+            file.save(f"{basedir}/app/temp/{file.filename}")
+
+            # compress via TinyPNG
+            with open(f"{basedir}/app/temp/{file.filename}", 'rb') as source:
+                source_data = source.read()
+                result_data = tinify.from_buffer(source_data).to_buffer()
+                result = upload(result_data)
+
+                # remove image from temp folder
+                os.remove(f"{basedir}/app/temp/{file.filename}")
         data = {
             'is_viewable': form.is_viewable.data,
-            'pattern': Pattern.query.get(form.pattern.data).display_name, 
+            'category_id': ProductCategory.query.get(int(form.category.data)).id,
+            'in_stock': form.in_stock.data,
+            'name': form.name.data,
+            'price': form.price.data,
+            'description': form.description.data,
+            'size': form.size.data,
             'price': form.price.data, 
-            'category_id': HairCategory.query.get(int(request.form.get('category'))).id,
         }
-        if form.length.data:
-            data.update({ 'length': form.length.data })
-        elif form.bundle_length.data:
-            data.update({ 'bundle_length': form.bundle_length.data })
-        elif form.is_viewable.data:
+        if request.files.get('image'):
+            data['image'] = result['url']
+        else:
+            data['image'] = p.image
+        if form.is_viewable.data:
             data.update({ 'is_viewable': form.is_viewable.data })
 
         p.from_dict(data)
-        p.pattern_id = Pattern.query.get(form.pattern.data).id
-        p.category_id = HairCategory.query.get(form.category.data).id
         db.session.commit()
         flash('Edited product successfully', 'info')
-        return redirect(url_for('admin.hair_products'))
+        return redirect(url_for('admin.beauty_products'))
     context = {
-        'product': p,
+        'product': p.to_dict(),
         'form': form
     }
-    return render_template('admin/hair/products-edit.html', **context)
+    print(p.to_dict())
+    return render_template('admin/beauty/products-edit.html', **context)
 
 @admin.route('/beauty/product/delete')
 def delete_beauty_product():
@@ -651,7 +684,7 @@ def delete_beauty_product():
         return redirect(url_for('admin.login'))
     _id = int(request.args.get('id'))
     product = Product.query.get(_id)
-    product.delete_hair_product()
+    product.delete_product()
     flash('Beauty Product deleted successfully', 'info')
     return redirect(url_for('admin.beauty_products'))
 ####################################

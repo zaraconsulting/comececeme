@@ -17,7 +17,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <h5>Edit a Wig</h5>
-                <form class="form-inline edit-product-form" method="POST">
+                <form class="form-inline edit-product-form" method="POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
                     <div class="form-group custom-form">
                         <input type="hidden" name="hair_id" value="{{ product.id }}">
@@ -49,11 +49,16 @@
 {% block scripts %}
 {{ super() }}
 <script>
+    $('.custom-file-input').on("change", function ()
+    {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+    })
+</script>
+<script>
     // var roleOption = $(`#role option[value=${roleId}]`);
     $('.edit-product-form #pattern').prepend( '<option disabled>Select a Hair Pattern</option>' );
     $('.edit-product-form #pattern').val('{{ product.pattern_id }}');
-
-    console.log('{{ product.pattern_id }}');
 
     $('.edit-product-form #category').prepend( '<option disabled>Select a Hair Category</option>' );
     $('.edit-product-form #category').val('{{ product.category_id }}');
@@ -73,7 +78,6 @@
     $('#is_viewable').val( '{{ product.is_viewable }}' === 'True' ? '1' : '0' );
 
     $('#is_wig').prepend('<option disabled>Is Wig</option>');
-    // $('#is_wig').val( '{{ product.is_wig }}' === 'True' ? '1' : '0' );
 
 </script>
 {% endblock %}

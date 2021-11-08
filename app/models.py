@@ -615,22 +615,24 @@ class Product(db.Model):
     rating = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
     in_stock = db.Column(db.Boolean, default=True)
-    # discount = db.Column(db.Boolean, default=False)
-    # discount_price = db.Column(db.Float)
     category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
+    is_viewable = db.Column(db.Boolean, default=True)
+    in_stock = db.Column(db.Boolean, default=True)
     reviews = db.relationship('ProductReview', backref='product_reviews', lazy='dynamic')
 
     def to_dict(self):
         data = {
             'id': self.id,
-            'category': Category.query.get(self.category_id).name,
+            'category': ProductCategory.query.get(self.category_id),
             'name': self.name,
             'image': self.image,
             'description': self.description,
             'price': self.price,
             'quantity': self.quantity,
+            'size': self.size,
             'in_stock': self.in_stock,
+            'is_viewable': self.is_viewable,
             'created_on': self.created_on,
             'reviews': [i.to_dict() for i in self.reviews.all()]
         }
@@ -638,21 +640,16 @@ class Product(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['name', 'price', 'description', 'product_category_id', 'quantity', 'in_stock']:
+        for field in ['name', 'is_viewable', 'in_stock', 'image', 'size', 'price', 'description', 'category_id', 'quantity']:
             if field in data:
-                if field == 'product_category_id':
-                    category = ProductCategory.query.filter_by(name=data[field]).first()
-                    if category is not None:
-                        setattr(self, field, category.id)
-                else:
-                    setattr(self, field, data[field])
+                setattr(self, field, data[field])
 
     def create_product(self):
         db.session.add(self)
         db.session.commit()
 
     def delete_product(self):
-        db.session.add(self)
+        db.session.delete(self)
         db.session.commit()
 
     def __str__(self) -> str:
