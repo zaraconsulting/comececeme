@@ -236,8 +236,11 @@ def checkout_paypal_success():
         try:
             # Create Order
             # db.session.add_all([Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=customer.id).first().productId) for _ in Cart.query.filter_by(customerId=customer.id).all()])
-            for _ in Cart.query.filter_by(customerId=c.id).all():
-                db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().product_id))
+            for i in Cart.query.filter_by(customerId=c.id).all():
+                if i.product_id is not None:
+                    db.session.add(Order(customer_id=current_user.id, product_id=Cart.query.filter_by(customerId=c.id).first().product_id))
+                elif i.beauty_product_id is not None:
+                    db.session.add(Order(customer_id=current_user.id, beauty_product_id=Cart.query.filter_by(customerId=c.id).first().product_id))
             db.session.commit()
 
             # Send payment confirmation email
@@ -303,7 +306,14 @@ def add_product_review():
 
 @shop.route('/product/cart/remove/<int:id>')
 def remove_cart_product(id):
-    [db.session.delete(item) for item in Cart.query.filter_by(product_id=id).all()]
+    for i in Cart.query.filter_by(product_id=id).all():
+        if i is not None:
+            db.session.delete(i)
+
+    for i in Cart.query.filter_by(beauty_product_id=id).all():
+        if i is not None:
+            db.session.delete(i)
+    # [db.session.delete(item) for item in Cart.query.filter_by(product_id=id).all()]
     db.session.commit()
     flash('Product removed from cart', 'info')
     return redirect(url_for('shop.cart'))
@@ -323,26 +333,48 @@ def update_cart():
         cart_items = request.get_json().get('cartItems')
         for obj in cart_items:
             for i in current_user.cart.all():
-                if i.product_id == obj['prodID']:
-                    cart_product = find_product(i.product_id)
-                    # print(cart_product)
-                    # print(obj['quantity'])
-                    if obj['quantity'] < cart_product['quantity']:
-                        difference = cart_product['quantity'] - obj['quantity']
-                        # print(difference)
-                        for _ in range(difference):
-                            for product in current_user.cart.filter_by(product_id=i.product_id).all():
-                                db.session.delete(product)
-                                break
-                        break
-                    elif obj['quantity'] > cart_product['quantity']:
-                        difference = obj['quantity'] - cart_product['quantity']
-                        # print(difference)
-                        for _ in range(difference):
-                            for product in current_user.cart.filter_by(product_id=i.product_id).all():
-                                db.session.add(Cart(customerId=current_user.id, product_id=i.product_id))
-                                break
-                        break
+                if i.product_id:
+                    if i.product_id == obj['prodID']:
+                        cart_product = find_product(i.product_id)
+                        # print(cart_product)
+                        # print(obj['quantity'])
+                        if obj['quantity'] < cart_product['quantity']:
+                            difference = cart_product['quantity'] - obj['quantity']
+                            # print(difference)
+                            for _ in range(difference):
+                                for product in current_user.cart.filter_by(product_id=i.product_id).all():
+                                    db.session.delete(product)
+                                    break
+                            break
+                        elif obj['quantity'] > cart_product['quantity']:
+                            difference = obj['quantity'] - cart_product['quantity']
+                            # print(difference)
+                            for _ in range(difference):
+                                for product in current_user.cart.filter_by(product_id=i.product_id).all():
+                                    db.session.add(Cart(customerId=current_user.id, product_id=i.product_id))
+                                    break
+                            break
+                elif i.beauty_product_id:
+                    if i.beauty_product_id == obj['prodID']:
+                        cart_product = find_product(i.beauty_product_id)
+                        # print(cart_product)
+                        # print(obj['quantity'])
+                        if obj['quantity'] < cart_product['quantity']:
+                            difference = cart_product['quantity'] - obj['quantity']
+                            # print(difference)
+                            for _ in range(difference):
+                                for product in current_user.cart.filter_by(beauty_product_id=i.beauty_product_id).all():
+                                    db.session.delete(product)
+                                    break
+                            break
+                        elif obj['quantity'] > cart_product['quantity']:
+                            difference = obj['quantity'] - cart_product['quantity']
+                            # print(difference)
+                            for _ in range(difference):
+                                for product in current_user.cart.filter_by(beauty_product_id=i.beauty_product_id).all():
+                                    db.session.add(Cart(customerId=current_user.id, beauty_product_id=i.beauty_product_id))
+                                    break
+                            break
         # print(len(shopping_cart))
         db.session.commit()
         flash('Cart updated successfully', 'info')

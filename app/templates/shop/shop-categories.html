@@ -41,7 +41,9 @@
 						<div class="product-link">
 							<div class="product-inner">
 								<h3 class="product-title">
-									<a class="product-ref" href="{{ url_for('hair.get_category', category='frontals') }}">{{ frontals.name }}</a> &plus; <a class="product-ref" href="{{ url_for('hair.get_category', category='closures') }}">{{ closures.name }}</a>
+									<a class="product-ref" href="{{ url_for('hair.get_category', category='frontals') }}">
+										{{ frontals.name }}</a> &plus; <a class="product-ref" href="{{ url_for('hair.get_category', category='closures') }}">{{ closures.name }}
+									</a>
 								</h3>
 								<p class="product-image">
 									<img src="{{ frontals.image }}" alt="{{ frontals.name }} and {{ closures.name }}" />

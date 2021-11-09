@@ -2,7 +2,7 @@
     <!-- SECTION HEADER : begin -->
     <header>
         <div class="container">
-            <h2>Featured</h2>
+            <h2>Bundles, Extensions, Closures, Frontals</h2>
         </div>
     </header>
     <!-- SECTION HEADER : end -->
@@ -29,9 +29,11 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="row textalign-center" style="margin: 0 0 70px 0;">
-                <p class="more" style="margin: 0 auto"><a href="{{ url_for('hair.get_categories') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a></p>
-            </div>
+            {% if products %}
+                <div class="row textalign-center" style="margin: 25px 0 70px 0;">
+                    <p class="more" style="margin: 0 auto"><a href="{{ url_for('hair.get_categories') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a></p>
+                </div>
+            {% endif %}
         </div>
     </div>
     <!-- SERVICE LIST : end -->

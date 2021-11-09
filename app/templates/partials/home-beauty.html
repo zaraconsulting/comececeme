@@ -1,0 +1,41 @@
+<section>
+    <!-- SECTION HEADER : begin -->
+    <header>
+        <div class="container">
+            <h2>Beauty Products</h2>
+        </div>
+    </header>
+    <!-- SECTION HEADER : end -->
+    <!-- SERVICE LIST : begin -->
+    <div class="c-service-list m-paginated" data-items="4" data-items-desktop="4" data-items-desktop-small="3" data-items-tablet="2" data-items-mobile="1">
+        <div class="container">
+            <div class="row" style="text-align: center;">
+                <div class="featured-center">
+                    {% if beauty_products %}
+                    {% for p in beauty_products %}
+                    <div class="col-xs-6 col-sm-2 featured-product">
+                        <h5 class="product-title" style="text-align: center;">
+                            <a class="img-fluid" href="{{ url_for( 'products.get_product', category=p.category.name.lower(), name=p.name.lower()) }}">{{ p.name }}</a>
+                            {# <a class="img-fluid" href="{{ url_for('hair.get_pattern', category=p.category.name.lower(), pattern=p.pattern[0].name.lower()) }}">{{ p.pattern[0].display_name }}<br>{% if p.category.display_name %}{{ p.category.display_name }}{% else %}{{ p.category.name }}{% endif %}</a> #}
+                        </h5>
+                        <a href="{{ url_for( 'products.get_product', category=p.category.name.lower(), name=p.name.lower()) }}">
+                            <img class="img-fluid" src="{{ p.image }}" alt="{{ p.name }}">
+                        </a>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-12">
+                        <p>No beauty products to display</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% if beauty_products %}
+                <div class="row textalign-center" style="margin: 25px 0 50px 0;">
+                    <p class="more" style="margin: 0 auto"><a href="{{ url_for('products.get_products') }}" class="c-button m-type-2" style="padding: 10px 100px 9px 100px;">Show More</a></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- SERVICE LIST : end -->
+</section>

@@ -8,8 +8,15 @@
 		<h1>Shop</h1>
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
-			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
-			<li>{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}</li>
+			{% if category or pattern %}
+				<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
+			{% else %}
+				<li>Products</li>
+			{% endif %}
+
+			{% if category %}
+				<li>{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}</li>
+			{% endif %}
 		</ul>
 	</div>
 </div>
@@ -51,7 +58,11 @@
 								<li class="product-container col-sm-12 col-md-6">
 									<div class="product-inner">
 										<h3 class="product-title">
-											<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].display_name }}</a>
+											{% if category %}
+												<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}">{{ product.pattern[0].display_name }}</a>
+											{% else %}
+												<a href="{{ url_for( 'products.get_product', category=product.category.name.lower(), name=product.name.lower()) }}">{{ product.name }}</a>
+											{% endif %}
 										</h3>
 										<p class="product-image">
 											<a class="lightbox" data-lightbox-group="product" href="{{ product.image }}">
@@ -59,8 +70,13 @@
 											</a>
 										</p>
 										<div class="product-info">
-											<div class="product-price">from ${{ '{:,.2f}'.format(product.pattern[0].price) }}</div>
-											<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+											{% if category %}
+												<div class="product-price">from ${{ '{:,.2f}'.format(product.pattern[0].price) }}</div>
+												<a href="{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=product.pattern[0].name.lower()) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+											{% else %}
+												<div class="product-price">from ${{ '{:,.2f}'.format(product.price) }}</div>
+												<a href="{{ url_for( 'products.get_product', category=product.category.name.lower(), name=product.name.lower()) }}" class="product-btn c-button m-type-2 m-small">Buy</a>
+											{% endif %}
 										</div>
 									</div>
 								</li>

@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     {% if current_user.role.rank < 4 %}<th></th>{% endif %}
-                    <!-- <th>ID</th> -->
+                    <th>ID</th>
                     <th>Is Viewable</th>
                     <th>Pattern</th>
                     <th>Category</th>
@@ -17,7 +17,7 @@
             <tfoot>
                 <tr>
                     {% if current_user.role.rank < 4 %}<th></th>{% endif %}
-                    <!-- <th>ID</th> -->
+                    <th>ID</th>
                     <th>Is Viewable</th>
                     <th>Pattern</th>
                     <th>Category</th>
@@ -39,6 +39,7 @@
                             </span>
                         </td>
                         {% endif %}
+                        <td>{{ p.id }}</td>
                         <td>{{ p.is_viewable }}</td>
                         <td>{{ p.pattern }}</td>
                         <td>{% if p.category.display_name %}{{ p.category.display_name }}{% else %}{{ p.category.name }}{% endif %}</td>

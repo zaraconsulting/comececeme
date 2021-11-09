@@ -5,15 +5,26 @@
 <!-- PAGE HEADER : begin -->
 <div id="page-header">
 	<div class="container">
-		<h1>{% if category.name == 'Wigs' %}{{ product.length }}"{% endif %} {{ product.name if product.name else pattern.display_name }}</h1>
+		{% if category or pattern %}
+			<h1>{% if category.name == 'Wigs' %}{{ product.length }}"{% endif %} {% if product.name %} {{ product.name }} {% else %} {{ pattern.display_name }}{% endif %}</h1>
+		{% else %}
+		{% endif %}
 		<ul class="breadcrumbs">
 			<li><a href="{{ url_for('main.index') }}">Home</a></li>
-			<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
-			<li>
-				<a {%if category.name != 'Wigs'%}href="{{ url_for('hair.get_category', category=category.name.lower()) }}"{% else %}href="{{ url_for('hair.get_wigs') }}"{% endif %}>
-					{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}
-				</a>
-			</li>
+			{% if category or pattern %}
+				<li><a href="{{ url_for('hair.get_categories') }}">Hair</a></li>
+			{% else %}
+				<li>Products</li>
+			{% endif %}
+			
+			{% if category or pattern %}
+				<li>
+					<a {% if category.name != 'Wigs'%}href="{{ url_for('hair.get_category', category=category.name.lower()) }}"{% else %}href="{{ url_for('hair.get_wigs') }}"{% endif %}>
+						{% if category.display_name %}{{ category.display_name }}{% else %}{{ category.name }}{% endif %}
+					</a>
+				</li>
+			{% endif %}
+
 			{# <li>{{ pattern.display_name }}</li> #}
 		</ul>
 	</div>
@@ -35,9 +46,15 @@
 							<!-- PRODUCT IMAGES : begin -->
 							<div class="product-images">
 								<p class="main-image">
-									<a href="{% if category.name != 'Wigs' %}{{ image }}{% else %}{{ product.image }}{% endif %}" class="lightbox" data-lightbox-group="product">
-										<img src="{% if category.name != 'Wigs' %}{{ image }}{% else %}{{ product.image }}{% endif %}" alt="{{ pattern }}" />
-									</a>
+									{% if pattern %}
+										<a href="{% if category.name != 'Wigs' %}{{ image }}{% else %}{{ product.image }}{% endif %}" class="lightbox" data-lightbox-group="product">
+											<img src="{% if category.name != 'Wigs' %}{{ image }}{% else %}{{ product.image }}{% endif %}" alt="{{ pattern }}" />
+										</a>
+									{% else %}
+										<a href="{{ product.image }}" class="lightbox" data-lightbox-group="product">
+											<img src="{{ product.image }}" alt="{{ product.name }}" />
+										</a>
+									{% endif %}
 								</p>
 								<!-- <ul>
 									<li><a href="{{ url_for('static', filename='images/product_01_big_02.jpg') }}" class="lightbox" data-lightbox-group="product"><img src="{{ url_for('static', filename='images/product_01_thumb_02.jpg') }}" alt=""></a></li>
@@ -63,9 +80,9 @@
 							</div>
 							<!-- PRODUCT RATING : end -->
 							<!-- PRODUCT SHORT DESCRIPTION : begin -->
-							<div class="product-short-description various-content">
+							{# <div class="product-short-description various-content">
 								<p>{{ product.description }}</p>
-							</div>
+							</div> #}
 							<!-- PRODUCT SHORT DESCRIPTION : end -->
 							<!-- PRODUCT INFO : begin -->
 							<div class="product-info">
@@ -102,7 +119,8 @@
 							<!-- PRODUCT INFO : end -->
 							<!-- PRODUCT TOOLS : begin -->
 							<form id="product-form" class="product-tools default-form">
-								<div class="c-tabs">
+								{% if pattern %}
+									<div class="c-tabs">
 									{% if filtered_products %}
 										<h1 style="font-weight: bold; margin-bottom: 12px;">Choose a length</h1>
 										<div class="tab-list">
@@ -123,10 +141,15 @@
 										</div>
 									{% endif %}
 								</div>
+								{% endif %}
 								<div class="quantity-input">
 									<input id='quantity' name='quantity' type="number" class="m-type-2" value="1" min="1" max="100" step="1">
 								</div>
-								<button id="add-to-cart-btn" class="c-button product-cart-btn">Add To Cart</button>
+								{% if pattern %}
+									<button id="add-to-cart-btn" class="c-button product-cart-btn">Add To Cart</button>
+								{% else %}
+									<button id="add-beauty-product-to-cart-btn" class="c-button product-cart-btn">Add To Cart</button>
+								{% endif %}
 							</form>
 							<!-- PRODUCT TOOLS : end -->
 						</div>
@@ -142,7 +165,7 @@
 								<!-- PRODUCT DESCRIPTION : begin -->
 								<div class="product-description various-content">
 									<p>
-										{{ description }}
+										{{ description or product.description }}
 									</p>
 								</div>
 								<!-- PRODUCT DESCRIPTION : end -->
@@ -271,8 +294,32 @@
 
 		// Function that sends a request to the server at add_cart_product
 		// with the product information
-		function postData(information) {
+		function postBeautyProductData(information) {
 			
+			event.preventDefault();
+			console.log(information)
+
+			fetch("{{ url_for('products.add_cart_product') }}", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(information),
+			})
+			.then(res => res.json())
+			.then(data => { 
+				console.log('Success');
+				console.log(data);
+				let cat = category.toLowerCase();
+				let pn = product_name.toLowerCase();
+				window.location.reload();
+			})
+			.catch(error => console.log(error))
+		}
+
+		// Function that sends a request to the server at add_cart_product
+		// with the product information
+		function postData(information) {
 			event.preventDefault();
 			// console.log(information)
 
@@ -287,53 +334,89 @@
 			.then(data => { 
 				console.log('Success');
 				console.log(data);
-				window.location.href = "{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=pattern.name.lower()) }}";
+				{% if pattern %}
+					window.location.href = "{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=pattern.name.lower()) }}";
+				{% else %}
+					window.location.href = "{{ url_for('products.get_product', category=category.name.lower(), pattern=product.name.lower()) }}";
+					// window.location.reload();
+				{% endif %}
 				// window.location.href = location.reload();
 			})
 			.catch(error => console.log(error))
 		}
 
 		// Create the product
-		for (let i of productListItems) {
-			let element = i;
-			element.addEventListener('mousedown',function(event) {
-				if (!activeUser) {
-					return window.location.href = "{{ url_for('authentication.login', active_user=active_user) }}"
-				}
-				
-				info = {
-					id: $(element).data('product-id'),
-					category: category,
-					price: $(element).data('price'),
-					pattern: pattern,
-				};
-				if( product_name )
-				{
-					info['product_name'] = product_name;
-				}
+		if( '{{ pattern }}' !== 'None' )
+		{
+			for (let i of productListItems) {
+				let element = i;
+				element.addEventListener('mousedown',function(event) {
+					if (!activeUser) {
+						return window.location.href = "{{ url_for('authentication.login', active_user=active_user) }}"
+					}
+					
+					info = {
+						id: $(element).data('product-id'),
+						category: category,
+						price: $(element).data('price'),
+					};
+					console.log(info)
+					if( pattern )
+					{
+						info['pattern'] = pattern;
+					}
+					if( product_name )
+					{
+						info['product_name'] = product_name;
+					}
 
-				console.log(info);
+					// set isSelected to true
+					isSelected = true;
 
-				// set isSelected to true
-				isSelected = true;
-
-			})
+				})
+			}
 		}
+
+		// console.log('{{ pattern }}')
 
 		// Create an event for the add to cart button click
 		$('#add-to-cart-btn').on('click', async function (event) {
+			console.log(info)
 			if (isSelected) {
 				info.quantity = $('#quantity').val();
 				// console.log(`isSelected: ${isSelected}`)
 				// console.log(info);
-				await postData(info);
+				if( '{{ pattern }}' !== 'None' )
+				{
+					// alert('postData')
+					// console.log(info)
+					await postData(info);
+				}
 			}
 			else {
-				event.preventDefault();
-				// console.log(`isSelected: ${isSelected}`)
-				$('#not-selected-message').css('display', 'block')
-				// window.location.href = "{{ url_for('hair.get_pattern', category=category.name.lower(), pattern=pattern.name.lower(), is_selected=isSelected) | safe }}"
+				if( '{{ pattern }}' === 'None' )
+				{
+					// console.log(info)
+					await postBeautyProductData(info);
+				}
+				else
+				{
+					event.preventDefault();
+					$('#not-selected-message').css('display', 'block')
+				}
 			}
+		})
+		
+		// Create an event for the add to cart button click
+		$('#add-beauty-product-to-cart-btn').on('click', async function (event) {
+			info = {
+				id: '{{ product.id }}',
+				category: '{{ category }}',
+				price: '{{ product.price }}',
+				name: '{{ product.name }}',
+				quantity: $('#quantity').val(),
+			};
+			await postBeautyProductData(info);
 		})
 
 	</script>

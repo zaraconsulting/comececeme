@@ -1,6 +1,6 @@
 from flask import current_app as app, session, jsonify, request
 from flask_login import current_user
-from app.models import Product, Customer, Order, Category, Service, ServiceCategory, Hair, HairCategory, Cart, Pattern, HairCategory
+from app.models import Product, Customer, Order, Category, ProductCategory, Service, ServiceCategory, Hair, HairCategory, Cart, Pattern, HairCategory
 from sqlalchemy import func, desc
 from app import db
 import os
@@ -16,25 +16,46 @@ def inject_cart():
     
     try:
         items = []
+        # print(current_user.cart.all())
         for i in current_user.cart.all():
-            data = dict(
-                    bundle_length=Hair.query.get(i.product_id).bundle_length, 
-                    length=Hair.query.get(i.product_id).length, 
-                    category=HairCategory.query.get(Hair.query.get(i.product_id).category_id).name, 
-                    pattern=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().display_name, 
-                    prod_id=Hair.query.get(i.product_id).id, 
-                    price=Hair.query.get(i.product_id).price, 
-                    quantity=len(Cart.query.filter_by(product_id=i.product_id).all())
-                )
-            if Hair.query.get(i.product_id).image:
-                data['name'] = Hair.query.get(i.product_id).name
-                data['image'] = Hair.query.get(i.product_id).image
-            else:
-                data['name'] = Hair.query.get(i.product_id).pattern
-                data['image']=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().image
-            if data not in items:
-                items.append(data)
-        total = sum([Hair.query.filter_by(id=i.product_id).first().price for i in current_user.cart.all()])
+            if i.product_id is not None:
+                data = dict(
+                        bundle_length=Hair.query.get(i.product_id).bundle_length, 
+                        length=Hair.query.get(i.product_id).length or Hair.query.get(i.product_id).bundle_length,
+                        category=HairCategory.query.get(Hair.query.get(i.product_id).category_id).name, 
+                        pattern=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().display_name, 
+                        prod_id=Hair.query.get(i.product_id).id, 
+                        price=Hair.query.get(i.product_id).price, 
+                        quantity=len(Cart.query.filter_by(product_id=i.product_id).all())
+                    )
+                if Hair.query.get(i.product_id).image:
+                    data['name'] = Hair.query.get(i.product_id).name
+                    data['image'] = Hair.query.get(i.product_id).image
+                else:
+                    data['name'] = Hair.query.get(i.product_id).pattern
+                    data['image']=Pattern.query.filter_by(name=Hair.query.get(i.product_id).pattern).first().image
+                if data not in items:
+                    items.append(data)
+            elif i.beauty_product_id is not None:
+                data = dict(
+                        bundle_length=None, 
+                        size=Product.query.get(i.beauty_product_id).size,
+                        length=None,
+                        category=ProductCategory.query.get(Product.query.get(i.beauty_product_id).category_id).name, 
+                        pattern=None, 
+                        prod_id=Product.query.get(i.beauty_product_id).id, 
+                        price=Product.query.get(i.beauty_product_id).price, 
+                        quantity=len(Cart.query.filter_by(beauty_product_id=i.beauty_product_id).all())
+                    )
+                # print(data)
+                if Product.query.get(i.beauty_product_id).image:
+                    data['name'] = Product.query.get(i.beauty_product_id).name
+                    data['image'] = Product.query.get(i.beauty_product_id).image
+                if data not in items:
+                    items.append(data)
+            print(data)
+        total = sum([Hair.query.filter_by(id=i.product_id).first().price for i in current_user.cart.all() if i.product_id is not None])
+        total += sum([Product.query.filter_by(id=i.beauty_product_id).first().price for i in current_user.cart.all() if i.beauty_product_id is not None])
         if session.get('coupon') is not None:
             # print("works")
             grandTotal = total + (total * tax) - (total * session.get('coupon')['discount'])
@@ -46,7 +67,7 @@ def inject_cart():
                 total=total, 
                 tax=tax, 
                 grandTotal=grandTotal, 
-                fullCart=current_user.cart.all(), 
+                fullCart=[i for i in current_user.cart.all()], 
                 coupon=session.get('coupon') or 0
             )
         # print(cart_dict)
@@ -128,30 +149,30 @@ def get_env_vars():
     }
     return context
 
-@app.context_processor
-def get_popular_products():
-    ordered_products = []
-    for p in Order.query.all():
-        product = Hair.query.get(p.product_id)
-        # print(product.category_id)
-        pattern = Pattern.query.get(product.pattern_id)
-        # print(pattern)
-        category = HairCategory.query.get(product.category_id)
-        # print(category)
-        ordered_products.append(
-            dict(
-                pattern=product.pattern, 
-                length=product.length, 
-                category=category.name, 
-                image=pattern.image,
-                price=product.price)
-            )
-    # print(len(ordered_products))
-    # popular_products = sorted(ordered_products, key=lambda x:x.count())
-    # print(popular_products)
-    popular_products = []
-    for i in ordered_products:
-        if (i, ordered_products.count(i)) not in popular_products:
-            popular_products.append((i, ordered_products.count(i)))
-    # print([i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)])
-    return dict(popular_products=[i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)][:5])
+# @app.context_processor
+# def get_popular_products():
+#     ordered_products = []
+#     for p in Order.query.all():
+#         product = Hair.query.get(p.product_id)
+#         # print(product.category_id)
+#         pattern = Pattern.query.get(product.pattern_id)
+#         # print(pattern)
+#         category = HairCategory.query.get(product.category_id)
+#         # print(category)
+#         ordered_products.append(
+#             dict(
+#                 pattern=product.pattern, 
+#                 length=product.length, 
+#                 category=category.name, 
+#                 image=pattern.image,
+#                 price=product.price)
+#             )
+#     # print(len(ordered_products))
+#     # popular_products = sorted(ordered_products, key=lambda x:x.count())
+#     # print(popular_products)
+#     popular_products = []
+#     for i in ordered_products:
+#         if (i, ordered_products.count(i)) not in popular_products:
+#             popular_products.append((i, ordered_products.count(i)))
+#     # print([i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)])
+#     return dict(popular_products=[i[0] for i in sorted(popular_products, key=lambda x:x[1], reverse=True)][:5])

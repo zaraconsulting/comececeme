@@ -2,7 +2,7 @@ from . import bp as main
 from flask import request, jsonify, render_template, url_for, redirect, current_app as app, flash
 import json, requests, random
 
-from app.models import Review, Gallery, ServiceCategory, HairCategory, Hair, Pattern
+from app.models import Product, Review, Gallery, ServiceCategory, HairCategory, Hair, Pattern
 from app.email import send_contact_email
 
 
@@ -38,6 +38,7 @@ def index():
         'reviews': Review.query.all(),
         'gallery': Gallery.query.all(),
         'products': products,
+        'beauty_products': [i.to_dict() for i in Product.query.all()],
         'wigs': [i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()]
     }
     # print([i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()])

@@ -97,13 +97,13 @@ def get_pattern(category):
         
 @app.route('/product/cart/add', methods=['POST'])
 def add_cart_product():
-    #     """
-    #     [POST] /product/cart/add
-    #     """
+    """
+    [POST] /hair/product/cart/add
+    """
     if request.method == 'POST':
         r = request.get_json()
 
-        # print(r)
+        print(r)
         
         session['id'] = r.get('id')
         session['category'] = r.get('category')
@@ -129,7 +129,7 @@ def add_cart_product():
 
         product = Hair.query.get(_id)
 
-        # print(session['payment_shopping_cart'])
+        print(session['payment_shopping_cart'])
 
         shopping_cart = session['payment_shopping_cart']['products']
 
@@ -155,7 +155,6 @@ def add_cart_product():
                     break
         db.session.commit()
         flash('Product added to cart', 'success')
-        # return redirect(request.referrer)
         return jsonify({'message': 'success'})
 
 @app.route('/category/wigs', methods=['GET', 'POST'])

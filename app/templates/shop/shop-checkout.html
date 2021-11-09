@@ -276,8 +276,10 @@
 											<td>
 												{% if product.category=='Wigs' %}
 													{{ product.length }}" {{ product.name }} {{ product.pattern }} × {{ product.quantity }}
-												{% else %}
+												{% elif product.category != 'Wigs' and product.pattern %}
 													{% if product.category=='Bundles' %}{{ product.bundle_length }}{% else %}{{ product.length }}"{% endif %} {{ product.pattern }} {% if product.category == 'Bundles' %}Bundles{% else %} Extensions{% endif %} × {{ product.quantity }}
+												{% else %}
+													{{ product.name }} × {{ product.quantity }}
 												{% endif %}
 											</td>
 											<td>{{ '${:.2f}'.format(product.price * product.quantity) }}</td>

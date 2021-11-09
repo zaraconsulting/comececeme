@@ -2,7 +2,7 @@ from flask import current_app
 from app import db, login
 from datetime import datetime
 from time import time
-import jwt
+import jwt, uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -252,11 +252,12 @@ class Cart(db.Model):
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     customerId = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('hair.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('hair.id'), nullable=True)
+    beauty_product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
 
     def __repr__(self):
-        return f"<Cart: {self.customerId}, {self.product_id}>"
+        return f"<Cart: {self.customerId}, {self.product_id or self.beauty_product_id}>"
 
 class Hair(db.Model):
     __table_args__ = { 'extend_existing': True }
@@ -607,6 +608,9 @@ def load_custommer(id):
 class Product(db.Model):
     __table_args__ = { 'extend_existing': True }
     id = db.Column(db.Integer, primary_key=True)
+    def __init__(self):
+        self.id = int(str(uuid.uuid4().int)[:9])
+
     name = db.Column(db.String(50), nullable=False, unique=True)
     image = db.Column(db.String, default='http://via.placeholder.com/500x500', nullable=False)
     description = db.Column(db.Text, nullable=False, default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
@@ -694,7 +698,8 @@ class Order(db.Model):
     order_date = db.Column(db.DateTime, default=datetime.utcnow)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     coupon_id = db.Column(db.Integer, db.ForeignKey('coupon.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('hair.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('hair.id'), nullable=True)
+    beauty_product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=True)
 
     def create_order(self):
         db.session.add(self)

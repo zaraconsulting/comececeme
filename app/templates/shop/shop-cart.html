@@ -46,9 +46,13 @@
 										<a href="{{ url_for('hair.get_wig', name=p.name.lower(), pattern=p.pattern.lower()) }}">
 											{{ p.length }}" {{ p.name }} {{ p.pattern }}
 										</a>
-									{% else %}
+									{% elif p.category != 'Wigs' and p.pattern %}
 										<a href="{{ url_for('hair.get_pattern', category=p.category.lower(), pattern=p.name.lower()) }}">
 											{% if p.category=='Bundles' %}{{ p.bundle_length }}{% else %}{{ p.length }}"{% endif %} {{ p.pattern }} {% if p.category=='Bundles' %} Bundles{% else %} Extensions{% endif %}
+										</a>
+									{% else %}
+										<a href="{{ url_for('products.get_product', category=p.category.lower(), name=p.name.lower()) }}">
+											{{ p.name }}
 										</a>
 									{% endif %}
 								</td>

@@ -70,6 +70,9 @@ def create_app():
         from app.blueprints.hair import bp as hair
         app.register_blueprint(hair)
 
+        from app.blueprints.products import bp as products
+        app.register_blueprint(products)
+
         from app.blueprints.errors import errors
         app.register_blueprint(errors, url_prefix='/error')
 
