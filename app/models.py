@@ -619,7 +619,7 @@ class Product(db.Model):
     rating = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
     in_stock = db.Column(db.Boolean, default=True)
-    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'), nullable=True)
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     is_viewable = db.Column(db.Boolean, default=True)
     in_stock = db.Column(db.Boolean, default=True)
