@@ -30,7 +30,6 @@ class BaseConfig:
     MAILCHIMP_USERNAME = os.environ.get('MAILCHIMP_USERNAME')
     MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
     ADMIN = os.environ.get('ADMIN')
-    SB_CLIENT_ID = os.environ.get('SB_CLIENT_ID')
     SB_SECRET = os.environ.get('SB_SECRET')
     SB_ACCESS_TOKEN = os.environ.get('SB_ACCESS_TOKEN')
     DEVELOPER_NAME = os.environ.get('DEVELOPER_NAME')
@@ -41,11 +40,13 @@ class BaseConfig:
 class DevelopmentConfig(BaseConfig):
     if os.environ.get('DEVELOPMENT_DATABASE').startswith('postgres'):
         SQLALCHEMY_DATABASE_URI = os.environ.get('DEVELOPMENT_DATABASE').replace('postgres', 'postgresql')
+    SB_CLIENT_ID = os.environ.get('SB_CLIENT_ID_DEV')
 
 
 class ProductionConfig(BaseConfig):
     if os.environ.get('PRODUCTION_DATABASE').startswith('postgres'):
         SQLALCHEMY_DATABASE_URI = os.environ.get('PRODUCTION_DATABASE').replace('postgres', 'postgresql')
+    SB_CLIENT_ID = os.environ.get('SB_CLIENT_ID')
 
 
 class TestConfig(BaseConfig):

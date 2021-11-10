@@ -53,7 +53,7 @@ def inject_cart():
                     data['image'] = Product.query.get(i.beauty_product_id).image
                 if data not in items:
                     items.append(data)
-            print(data)
+            # print(data)
         total = sum([Hair.query.filter_by(id=i.product_id).first().price for i in current_user.cart.all() if i.product_id is not None])
         total += sum([Product.query.filter_by(id=i.beauty_product_id).first().price for i in current_user.cart.all() if i.beauty_product_id is not None])
         if session.get('coupon') is not None:

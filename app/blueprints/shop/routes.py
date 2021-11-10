@@ -7,7 +7,7 @@ import braintree
 import pprint
 from math import ceil
 from braintree.exceptions.not_found_error import NotFoundError
-from .email import send_payment_confirmation_email
+from .email import send_payment_confirmation_email, send_test_payment_confirmation_email
 from datetime import datetime as dt
 
 from app.models import Product, Category, Customer, ProductReview, Order, Coupon, Hair, Cart
@@ -55,7 +55,7 @@ def cart():
 @login_required
 def cart_checkout():
     validation_error = request.args.get('validation_error')
-    is_successful_payment = request.args.get('is_successful_payment')
+    is_successful_payment = session.get('is_successful_payment')
     if validation_error:
         flash('There was an error processing your payment. Please try again.', 'warning')
     if not Cart.query.filter_by(customerId=current_user.id).all() and is_successful_payment: # if payment was successful and cart was cleared
@@ -258,8 +258,11 @@ def checkout_paypal_success():
                 'coupon': shopping_cart.get('coupon'),
                 'grandTotal': shopping_cart.get('grandTotal'),
             }
-            send_payment_confirmation_email(payment_details)
-            
+            if current_app.config.get('FLASK_ENV') == 'production':
+                send_payment_confirmation_email(payment_details)
+            elif current_app.config.get('FLASK_ENV') == 'development':
+                send_test_payment_confirmation_email(payment_details)
+                
             # Clear coupon and payment_shopping_cart session
             session['coupon'] = None
             session['payment_shopping_cart'] = None
@@ -269,7 +272,8 @@ def checkout_paypal_success():
             db.session.commit()
 
             flash('The transaction was successful!', 'success')
-            return redirect(url_for('shop.cart_checkout', is_successful_payment=True))
+            session['is_successful_payment'] = True
+            return redirect(url_for('shop.cart_checkout', is_successful_payment=session.get('is_successful_payment')))
         except:
             flash('There was a problem with the payment. Please try again', 'warning')
             return redirect(url_for('shop.cart_checkout'))

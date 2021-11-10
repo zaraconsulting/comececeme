@@ -19,8 +19,9 @@
                                     <li><a href="{{ url_for('hair.get_category', category=hc.name.lower()) }}">{% if hc.display_name %}{{ hc.display_name }}{% else %}{{ hc.name }}{% endif %}</a></li>
                                     {% else %}
                                     <li><a href="{{ url_for('hair.get_wigs') }}">{% if hc.display_name %}{{ hc.display_name }}{% else %}{{ hc.name }}{% endif %}</a></li>
-                                {% endif %}
-                            {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            <li><a href="{{ url_for('products.get_products') }}">Products</a></li>
                             <li><a href="{{ url_for('shop.cart') }}">Cart</a></li>
                             <li><a href="{{ url_for('shop.cart_checkout') }}">Checkout</a></li>
                         </ul>
