@@ -7,65 +7,64 @@ the existing ones.
 
 /* your CSS here */
 
-	.testimonial-inner .fa.fa-star {
-		color: #EF008B;
-	}
+.testimonial-inner .fa.fa-star {
+	color: #EF008B;
+}
 
-	#authentication-form form {
-		display: inline-block;
-	}
+#authentication-form form {
+	display: inline-block;
+}
 
-	#paymentCard, #paymentCVV, #paymentExpiration, #paymentPostalCode {
-		border: 1px solid #e1e1e1;
-		border-radius: 5px;
-		-webkit-transition: border-color 160ms;
-		transition: border-color 160ms;
-	}
+#paymentCard, #paymentCVV, #paymentExpiration, #paymentPostalCode {
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	-webkit-transition: border-color 160ms;
+	transition: border-color 160ms;
+}
 
-	.custom-hosted-field {
-		height: 30px;
-		padding-left: 10px;
-	}
+.custom-hosted-field {
+	height: 30px;
+	padding-left: 10px;
+}
 
-	.accordian-title-without {
-		color: #3f3f3f;
-		position: relative;
-		margin: 0;
-		padding: 18px 15px 18px 40px;
-		font-size: 1em;
-		font-weight: bold;
-		text-transform: uppercase;
-	}
+.accordian-title-without {
+	color: #3f3f3f;
+	position: relative;
+	margin: 0;
+	padding: 18px 15px 18px 40px;
+	font-size: 1em;
+	font-weight: bold;
+	text-transform: uppercase;
+}
 
-	#reservation-btn a {
-		-webkit-appearance: button;
-		background: none;
-		cursor: pointer;
-		outline: 0;
-		-webkit-appearance: button;
-		
-		/* -webkit-writing-mode: horizontal-tb !important; */
-		text-rendering: auto;
-		color: -internal-light-dark-color(buttontext, rgb(170, 170, 170));
-		letter-spacing: normal;
-		word-spacing: normal;
-		text-transform: none;
-		text-indent: 0px;
-		text-shadow: none;
-		display: inline-block;
-		text-align: center;
-		align-items: flex-start;
-		cursor: default;
-		background-color: -internal-light-dark-color(rgb(239, 239, 239), rgb(74, 74, 74));
-		box-sizing: border-box;
-		margin: 0em;
-		font: 400 13.3333px Arial;
-		padding: 1px 6px;
-		border-width: 2px;
-		border-style: outset;
-		border-color: -internal-light-dark-color(rgb(118, 118, 118), rgb(195, 195, 195));
-		border-image: initial;
-	}
+#reservation-btn a {
+	-webkit-appearance: button;
+	background: none;
+	cursor: pointer;
+	outline: 0;
+	-webkit-appearance: button;
+	/* -webkit-writing-mode: horizontal-tb !important; */
+	text-rendering: auto;
+	color: -internal-light-dark-color(buttontext, rgb(170, 170, 170));
+	letter-spacing: normal;
+	word-spacing: normal;
+	text-transform: none;
+	text-indent: 0px;
+	text-shadow: none;
+	display: inline-block;
+	text-align: center;
+	align-items: flex-start;
+	cursor: default;
+	background-color: -internal-light-dark-color(rgb(239, 239, 239), rgb(74, 74, 74));
+	box-sizing: border-box;
+	margin: 0em;
+	font: 400 13.3333px Arial;
+	padding: 1px 6px;
+	border-width: 2px;
+	border-style: outset;
+	border-color: -internal-light-dark-color(rgb(118, 118, 118), rgb(195, 195, 195));
+	border-image: initial;
+}
 
 /* -----------------------------------------------------------------------------
 
@@ -73,49 +72,41 @@ the existing ones.
 
 ----------------------------------------------------------------------------- */
 
-    /* -------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
         LARGE DEVICES
 		devices with width between 992px and 1199px
     ------------------------------------------------------------------------- */
 
-    @media ( max-width: 1199px ) {
+@media ( max-width: 1199px) {
+	/* your CSS here */
+}
 
-		/* your CSS here */
-
-	}
-
-    /* -------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
         MEDIUM DEVICES
 		devices with width between 768px and 991px
     ------------------------------------------------------------------------- */
 
-    @media ( max-width: 991px ) {
+@media ( max-width: 991px) {
+	/* your CSS here */
+}
 
-		/* your CSS here */
-
-	}
-
-	/* -------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
         SMALL DEVICES
 		devices with width between 481px and 767px
     ------------------------------------------------------------------------- */
 
-    @media ( max-width: 767px ) {
+@media ( max-width: 767px) {
+	/* your CSS here */
+}
 
-		/* your CSS here */
-
-	}
-
-	/* -------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
         EXTRA SMALL DEVICES
 		devices with width up to 480px
     ------------------------------------------------------------------------- */
 
-	@media ( max-width: 480px ) {
-
-		/* your CSS here */
-
-	}
+@media ( max-width: 480px) {
+	/* your CSS here */
+}
 
 .selectbox-input option {
 	padding: 5px 15px;
@@ -162,28 +153,28 @@ the existing ones.
 
 .hero-text {
 	position: absolute;
-    top: 30%;
+	top: 30%;
 	left: 34%;
 	width: 60%;
 }
 
 .hero-text h1 {
 	padding: 0;
-    line-height: 1.1em;
-    font-family: "Montserrat",Arial,sans-serif;
-    font-size: 1.8em;
-    font-weight: bold;
+	line-height: 1.1em;
+	font-family: "Montserrat", Arial, sans-serif;
+	font-size: 1.8em;
+	font-weight: bold;
 	text-transform: uppercase;
 	color: #EF008B;
 	text-align: center;
 }
 
 .hero-text h3 {
-    margin-top: 12px;
-    line-height: 1.2em;
-    font-family: "Open Sans",Arial,sans-serif;
-    font-size: 1.5em;
-    font-weight: 300;
+	margin-top: 12px;
+	line-height: 1.2em;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 1.5em;
+	font-weight: 300;
 	text-transform: none;
 	text-align: center
 }
@@ -194,10 +185,10 @@ the existing ones.
 
 .hero-text h3 {
 	line-height: 1.2em;
-    font-family: "Open Sans",Arial,sans-serif;
-    font-size: 1.5em;
-    font-weight: 300;
-    text-transform: none;
+	font-family: "Open Sans", Arial, sans-serif;
+	font-size: 1.5em;
+	font-weight: 300;
+	text-transform: none;
 }
 
 .product-list .product-title {
@@ -211,13 +202,13 @@ the existing ones.
 }
 
 .hero-header {
-    color: #ff007c;
-	-webkit-text-stroke: 0.01em rgba(255, 0, 118,0.5);
+	color: #ff007c;
+	-webkit-text-stroke: 0.01em rgba(255, 0, 118, 0.5);
 	padding: 0;
-    line-height: 1.1em;
-    font-family: "Montserrat",Arial,sans-serif;
-    font-size: 3.75em;
-    font-weight: bold;
+	line-height: 1.1em;
+	font-family: "Montserrat", Arial, sans-serif;
+	font-size: 3.75em;
+	font-weight: bold;
 	text-transform: uppercase;
 	text-align: left;
 	top: 40px;
@@ -270,9 +261,6 @@ the existing ones.
 	}
 }
 
-
-
-
 #bottom-panel {
 	margin-top: 0px;
 }
@@ -313,27 +301,25 @@ the existing ones.
 }
 
 @media (max-width: 767px) {
-	.product-container{
+	.product-container {
 		margin-bottom: 30px;
 	}
 }
 
 @media (max-width: 986px) {
-	.product-container{
+	.product-container {
 		/* width: 50%; */
 		margin-bottom: 30px;
 		margin-right: 0px;
 	}
-	
 }
 
 @media(min-width: 992px) {
-	.product-container{
+	.product-container {
 		/* width: 50%; */
 		margin-bottom: 30px;
 		margin-right: 0px;
 	}
-	
 	.product-container img {
 		height: 230px;
 	}
@@ -359,7 +345,6 @@ the existing ones.
 	.hair-product img {
 		height: 340px;
 	}
-
 	.hair-product {
 		text-align: center;
 	}
@@ -392,20 +377,16 @@ the existing ones.
 	.c-testimonial-list .m-paginated {
 		margin-bottom: 0px !important;
 	}
-
 	.featured-product {
 		margin-bottom: 30px;
 		float: left !important;
 	}
-
 	/* .featured-product:nth-last-child {
 		float: right !important;
 	} */
-
 	#hero-contact-container {
 		display: block;
 	}
-
 }
 
 .accountNameDisabled {
@@ -419,9 +400,12 @@ the existing ones.
 	height: 220px;
 }
 
-@media (max-width: 767px)
-{
+@media (max-width: 767px) {
 	.c-testimonial-list.m-paginated {
 		margin-bottom: 0px;
 	}
+}
+
+.various-content section {
+	margin-bottom: 42px;
 }
