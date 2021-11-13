@@ -6,6 +6,35 @@ from app import db
 import os
 
 @app.context_processor
+def get_all_products():
+    category = HairCategory.query.filter_by(name='Extensions').first()
+    pattern_list = list(set([i.pattern for i in Hair.query.filter_by(category_id=category.id).all()])) if Hair.query.all() else []
+    products = []
+    for pattern in pattern_list:
+        hair_products = Hair.query.filter_by(category_id=category.id).all()
+        display_products = []
+        for i in hair_products:
+            if i.pattern == pattern and i.pattern not in [a_dict for a_dict in display_products]:
+                display_products.append({'name': i.pattern, 'display_name': Pattern.query.filter_by(name=i.pattern).first().display_name, 'price': i.price})
+                break
+        a_dict = {
+            'pattern': display_products,
+            'image': Pattern.query.filter_by(name=pattern).first().image,
+            'category': {
+                'name': category.name,
+                'display_name': category.display_name
+            }
+        }
+        products.append(a_dict)
+
+    data = {
+        'context_products': products,
+        'context_beauty_products': [i.to_dict() for i in Product.query.all()],
+        'context_wigs': [i.to_dict() for i in Hair.query.filter_by(is_wig=True).all() if i.is_viewable]
+    }
+    return data
+
+@app.context_processor
 def inject_cart():
     if 'coupon' not in session:
         session['coupon'] = None

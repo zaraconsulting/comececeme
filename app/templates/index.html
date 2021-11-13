@@ -28,15 +28,21 @@
 
 		<div class="various-content">
 			<!-- WIG SECTION : begin -->
-			{% include './partials/home-wigs.html' %}
+			{% if wigs %}
+				{% include './partials/home-wigs.html' %}
+			{% endif %}
 			<!-- WIG SECTION : end -->
 			
-			<!-- FEATURED SECTION : begin -->
-			{% include './partials/home-featured.html' %}
-			<!-- FEATURED SECTION : end -->
+			<!-- FEATURED HAIR PRODUCTS SECTION : begin -->
+			{% if products %}
+				{% include './partials/home-featured.html' %}
+			{% endif %}
+			<!-- FEATURED HAIR PRODUCTS SECTION : end -->
 
 			<!-- BEAUTY SECTION : begin -->
-			{% include './partials/home-beauty.html' %}
+			{% if beauty_products %}
+				{% include './partials/home-beauty.html' %}
+			{% endif %}
 			<!-- BEAUTY SECTION : end -->
 
 			<!-- GALLERY SECTION : begin -->

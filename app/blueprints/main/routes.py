@@ -39,7 +39,7 @@ def index():
         'gallery': Gallery.query.all(),
         'products': products,
         'beauty_products': [i.to_dict() for i in Product.query.all()],
-        'wigs': [i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()]
+        'wigs': [i.to_dict() for i in Hair.query.filter_by(is_wig=True).all() if i.is_viewable]
     }
     # print([i.to_dict() for i in Hair.query.filter_by(is_wig=True).all()])
     return render_template('index.html', **context), 200

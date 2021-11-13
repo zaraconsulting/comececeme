@@ -613,7 +613,7 @@ class Product(db.Model):
 
     name = db.Column(db.String(50), nullable=False, unique=True)
     image = db.Column(db.String, default='http://via.placeholder.com/500x500', nullable=False)
-    description = db.Column(db.Text, nullable=False, default="Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus.")
+    description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
     size = db.Column(db.Float)
     rating = db.Column(db.Integer)
