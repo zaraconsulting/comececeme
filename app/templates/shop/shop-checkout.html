@@ -219,7 +219,7 @@
 							<h2 class="heading-2">Payment Methods</h2>
 							<ul class="c-accordion m-radio-group">
 								<li class="m-active">
-									<input type="radio" id="payment-method-1" name="payment-method" value="direct" checked="checked">
+									<input type="radio" id="payment-method-1" name="payment-method" value="direct">
 									<label for="payment-method-1" class="accordion-title">Credit</label>
 									<div class="accordion-content">
 										<p>Credit card payments coming soon</p>
@@ -248,7 +248,7 @@
 									</div>
 								</li>
 								<li>
-									<input type="radio" id="payment-method-3" name="payment-method" value="paypal">
+									<input type="radio" id="payment-method-3" name="payment-method" value="paypal"  checked="checked">
 									<label for="payment-method-3" class="accordion-title">PayPal</label>
 									<div class="accordion-content">
 										<div id="paypal-button-container" type="submit"></div>
@@ -314,7 +314,7 @@
 				<!-- CHECKOUT FOOTER : begin -->
 				<div class="checkout-footer">
 					<a href="{{ url_for('shop.cart') }}" class="c-button m-type-2 back-btn">Back To Cart</a>
-					<button id="place-order-btn" class="c-button submit-btn" type="submit">Place Order</button>
+					<!-- <button id="place-order-btn" class="c-button submit-btn" type="submit">Place Order</button> -->
 					<!-- <button id="client-token" class="c-button submit-btn" type="submit">Client Token</button> -->
 				</div>
 				<!-- CHECKOUT FOOTER : end -->
