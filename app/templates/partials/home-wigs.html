@@ -15,7 +15,7 @@
                     {% for p in wigs[:6] %}
                     <div class="col-xs-6 col-sm-2 featured-product">
                         <h5 class="product-title" style="text-align: center;">
-                            <a class="img-fluid" href="{{ url_for( 'hair.get_wig', name=p.name.lower(), pattern=p.pattern.name.lower() ) }}">{{ p.length }}" {{ p.name }}</a>
+                            <a class="img-fluid" href="{{ url_for( 'hair.get_wig', name=p.name.lower(), pattern=p.pattern.name.lower() ) }}">{{ p.length }}" {{ p.name|truncate(14, True) }}</a>
                         </h5>
                         <a href="{{ url_for( 'hair.get_wig', name=p.name.lower(), pattern=p.pattern.name.lower() ) }}">
                             <img class="img-fluid wig-image" src="{{ p.image }}" alt="{{ p.name }}">

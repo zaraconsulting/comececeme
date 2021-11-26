@@ -19,3 +19,4 @@ AttributeError: 'NoneType' object has no attribute 'id'
 2021-11-26 13:55:28,932 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:110]
 2021-11-26 13:56:05,309 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:110]
 2021-11-26 13:57:03,220 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:110]
+2021-11-26 13:59:47,972 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:110]
