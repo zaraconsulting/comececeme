@@ -125,7 +125,7 @@
 										<h1 style="font-weight: bold; margin-bottom: 12px;">Choose a length</h1>
 										<div class="tab-list">
 											{% for p in filtered_products %}
-												{% if p.category_id == 8 %}
+												{% if p.bundle_length %}
 													<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}" style="width: 100%;">{{ '{} - ${:,.2f}'.format(p.bundle_length, p.price) }}</li>
 												{% else %}
 													<li class="product-list-item" data-product-id="{{ p.id }}" data-price="{{ '{:,.2f}'.format(p.price) }}" style="width: 100%;">{{ '{}" - ${:,.2f}'.format(p.length, p.price) }}</li>

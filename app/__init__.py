@@ -97,23 +97,12 @@ def create_app():
             secure = None
             if use_tls:
                 secure = ()
-            mail_handler = SMTPHandler(
-                mailhost=(server, port),
-                fromaddr=f'noreply@{server}',
-                toaddrs=admin,
-                subject='ComeCeCeMe Failure',
-                credentials=auth,
-                secure=secure
-            )
+            mail_handler = SMTPHandler(mailhost=(server, port), fromaddr=f'noreply@{server}', toaddrs=admin, subject='ComeCeCeMe Failure', credentials=auth, secure=secure )
             mail_handler.setLevel(logging.ERROR)
             app.logger.addHandler(mail_handler)
         if not os.path.exists('logs'):
             os.mkdir('logs')
-        file_handler = RotatingFileHandler(
-            'logs/comececeme-message_handlers.log',
-            maxBytes=10240,
-            backupCount=10
-        )
+        file_handler = RotatingFileHandler('logs/comececeme-message_handlers.log', maxBytes=10240, backupCount=10)
         file_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s: %(message)s [%(pathname)s:%(lineno)d]"))
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)

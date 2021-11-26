@@ -69,7 +69,7 @@ def get_pattern(category):
     """
     # TODO: FIND OUT WHY I'M NOT GETTING A CATEGORY
     category = category.title() or session.get('category')
-    print(category)
+    # print(category)
 
     if request.args.get('pattern'):
         pattern = request.args.get('pattern').title()
@@ -93,6 +93,7 @@ def get_pattern(category):
             'pattern': Pattern.query.filter_by(name=pattern).first()
         }
         # print(context['pattern'].display_name)
+        print([i.to_dict() for i in filtered_products])
     return render_template('shop/shop-detail.html', **context)
         
 @app.route('/product/cart/add', methods=['POST'])

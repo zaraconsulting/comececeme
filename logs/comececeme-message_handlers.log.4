@@ -1,16 +1,25 @@
-2021-10-16 18:42:16,504 ERROR: Exception on /admin/hair/patterns [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py:1891]
-Traceback (most recent call last):
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
-    self.dialect.do_execute(
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
-    cursor.execute(statement, parameters)
-psycopg2.OperationalError: server closed the connection unexpectedly
-	This probably means the server terminated abnormally
-	before or while processing the request.
-
-
-The above exception was the direct cause of the following exception:
-
+2021-10-17 05:04:19,229 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:05:52,530 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:12:19,838 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:14:11,351 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:17:13,800 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:17:51,969 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:18:55,408 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:20:57,359 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:21:41,473 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:22:21,703 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:23:35,873 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:24:18,740 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:26:03,950 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:32:01,178 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:32:54,128 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:38:39,059 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:39:12,493 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:40:16,740 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:42:51,775 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:43:27,155 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:45:38,328 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:46:21,426 ERROR: Exception on /hair/None [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py:1891]
 Traceback (most recent call last):
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -24,81 +33,64 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/admin/routes.py", line 325, in hair_patterns
-    if not current_user.is_authenticated:
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/werkzeug/local.py", line 347, in __getattr__
-    return getattr(self._get_current_object(), name)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/werkzeug/local.py", line 306, in _get_current_object
-    return self.__local()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask_login/utils.py", line 26, in <lambda>
-    current_user = LocalProxy(lambda: _get_user())
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask_login/utils.py", line 346, in _get_user
-    current_app.login_manager._load_user()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask_login/login_manager.py", line 318, in _load_user
-    user = self._user_callback(user_id)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/app/models.py", line 590, in load_custommer
-    return Customer.query.get(int(id)) or Account.query.get(int(id))
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 1018, in get
-    return self._get_impl(ident, loading.load_on_pk_identity)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 1135, in _get_impl
-    return db_load_fn(self, primary_key_identity)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/loading.py", line 286, in load_on_pk_identity
-    return q.one()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3463, in one
-    ret = self.one_or_none()
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3432, in one_or_none
-    ret = list(self)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3508, in __iter__
-    return self._execute_and_instances(context)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 3533, in _execute_and_instances
-    result = conn.execute(querycontext.statement, self._params)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
-    return meth(self, multiparams, params)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
-    return connection._execute_clauseelement(self, multiparams, params)
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1124, in _execute_clauseelement
-    ret = self._execute_context(
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1316, in _execute_context
-    self._handle_dbapi_exception(
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1510, in _handle_dbapi_exception
-    util.raise_(
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
-    raise exception
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1276, in _execute_context
-    self.dialect.do_execute(
-  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
-    cursor.execute(statement, parameters)
-sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) server closed the connection unexpectedly
-	This probably means the server terminated abnormally
-	before or while processing the request.
-
-[SQL: SELECT customer.id AS customer_id, customer.suffix AS customer_suffix, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, customer.phone AS customer_phone, customer.email AS customer_email, customer.password AS customer_password, customer.dob AS customer_dob, customer.address_1 AS customer_address_1, customer.address_2 AS customer_address_2, customer.city AS customer_city, customer.state AS customer_state, customer._zip AS customer__zip, customer.date_created AS customer_date_created, customer.is_customer AS customer_is_customer 
-FROM customer 
-WHERE customer.id = %(param_1)s]
-[parameters: {'param_1': 37}]
-(Background on this error at: http://sqlalche.me/e/13/e3q8)
-2021-10-16 18:42:25,245 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:43:25,851 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:45:53,903 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:47:14,034 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:48:14,176 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:48:32,180 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:49:47,945 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:51:12,446 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:55:59,853 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 18:56:41,579 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 19:09:05,860 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-16 19:10:16,390 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:20:41,386 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:22:58,989 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:26:13,730 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:32:14,635 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:39:15,767 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:46:26,368 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:48:40,230 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:49:18,276 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:54:58,483 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:55:39,060 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 04:58:08,348 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 05:00:02,069 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
-2021-10-17 05:02:47,032 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 75, in get_pattern
+    pattern = session.get('pattern').title() or None
+AttributeError: 'NoneType' object has no attribute 'title'
+2021-10-17 05:46:52,813 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:48:37,328 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:49:10,677 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:50:38,689 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:51:20,951 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:51:34,383 ERROR: Exception on /hair/None [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 74, in get_pattern
+    pattern = session.get('pattern').title() or None
+AttributeError: 'NoneType' object has no attribute 'title'
+2021-10-17 05:55:13,802 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:55:29,083 ERROR: Exception on /hair/None [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 74, in get_pattern
+    pattern = session.get('pattern').title() or None
+AttributeError: 'NoneType' object has no attribute 'title'
+2021-10-17 05:59:09,016 INFO: ComeCeCeMe startup [/home/derek/Development/zara_consulting/apps/comececeme/app/__init__.py:117]
+2021-10-17 05:59:21,845 ERROR: Exception on /hair/None [GET] [/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py:1891]
+Traceback (most recent call last):
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/derek/Development/zara_consulting/apps/comececeme/venv/lib/python3.9/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/derek/Development/zara_consulting/apps/comececeme/app/blueprints/hair/routes.py", line 74, in get_pattern
+    pattern = session.get('pattern').title() or None
+AttributeError: 'NoneType' object has no attribute 'title'
