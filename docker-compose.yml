@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  web:
+    image: zaraconsulting/comececeme:latest
+
+    container_name: comececeme
+
+    build: 
+      context: ./
+
+      dockerfile: Dockerfile
+
+    env_file:
+      - .env
+
+    ports:
+      - "5002:5002"
+
+    run:
+      web: exec gunicorn -b 5002 app:create_app()
