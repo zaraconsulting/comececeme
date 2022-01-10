@@ -109,6 +109,6 @@ def create_app():
         app.logger.setLevel(logging.INFO)
         app.logger.info('ComeCeCeMe startup')
 
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT')))
+    # app.run(port=int(os.environ.get('PORT', 5000)))
 
     return app

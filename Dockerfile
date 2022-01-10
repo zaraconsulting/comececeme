@@ -15,4 +15,4 @@ ENV FLASK_APP run.py
 ENV FLASK_RUN_HOST 0.0.0.0
 EXPOSE 5000
 
-# CMD [ "flask", "run", "-h", "0.0.0.0", "-p", "5000" ]
+CMD exec gunicorn --bind 0.0.0.0:$PORT run:app
