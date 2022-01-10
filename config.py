@@ -35,6 +35,7 @@ class BaseConfig:
     DEVELOPER_NAME = os.environ.get('DEVELOPER_NAME')
     DEVELOPER_URL = os.environ.get('DEVELOPER_URL')
     TINYPNG_API = os.environ.get('TINYPNG_API')
+    PORT = os.environ.get('PORT')
 
 
 class DevelopmentConfig(BaseConfig):
