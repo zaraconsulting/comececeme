@@ -3,4 +3,4 @@ build:
     web: Dockerfile
     worker: /Dockerfile
   run:
-      web: exec gunicorn -b https://comececeme-docker.herokuapp.com/ app:create_app()
+      web: exec gunicorn app:create_app()
