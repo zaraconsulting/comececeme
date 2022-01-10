@@ -13,6 +13,6 @@ COPY migrations .
 
 ENV FLASK_APP run.py
 ENV FLASK_RUN_HOST 0.0.0.0
-EXPOSE 5002
+# EXPOSE 5002
 
-CMD [ "flask", "run", "-h", "0.0.0.0", "-p", "5002" ]
+CMD [ "flask", "run" ]

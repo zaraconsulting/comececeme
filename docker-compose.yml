@@ -14,7 +14,7 @@ services:
       - .env
 
     ports:
-      - "5002:5002"
+      - "5001:5000"
 
     run:
-      web: exec gunicorn -b 5002 app:create_app()
+      web: exec gunicorn app:create_app()
